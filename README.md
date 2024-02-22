@@ -29,8 +29,6 @@ What has changed in this version of the Community Edition:
 
 ⭐ Other minor fixes and cleanup.
 
-**Recent Updates:**
-
 
 **Previous Updates:**
 
