@@ -1,0 +1,56 @@
+@import url('massive.css');
+
+:root {--main-color: #0E80CB;}
+.toper {background: #339AF0;}
+#header {background: var(--main-color);}
+
+body#index,
+body#resetpassword {
+	background-image: url("https://picsum.photos/1600/900/?blur") !important;
+	background-color: var(--main-color);
+}
+
+.wrapper table tr#tr-index a {margin-left: 20px;}
+.wrapper table tr#tr-index a::before {content: url('data:image/svg+xml,%3Csvg xmlns="http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg" width="16" height="16" viewBox="0 0 24 24"%3E%3Cpath fill="%230e80cb" fill-opacity="0" d="M6 8L12 3L18 8V20H6V8Z"%3E%3Canimate fill="freeze" attributeName="fill-opacity" begin="0.9s" dur="0.5s" values="0%3B1"%2F%3E%3C%2Fpath%3E%3Cg fill="none" stroke="%230e80cb" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"%3E%3Cpath stroke-dasharray="21" stroke-dashoffset="21" d="M5 21H19"%3E%3Canimate fill="freeze" attributeName="stroke-dashoffset" dur="0.2s" values="21%3B0"%2F%3E%3C%2Fpath%3E%3Cpath stroke-dasharray="15" stroke-dashoffset="15" d="M5 21V8M19 21V8"%3E%3Canimate fill="freeze" attributeName="stroke-dashoffset" begin="0.2s" dur="0.2s" values="15%3B0"%2F%3E%3C%2Fpath%3E%3Cpath stroke-dasharray="26" stroke-dashoffset="26" d="M2 10L12 2L22 10"%3E%3Canimate fill="freeze" attributeName="stroke-dashoffset" begin="0.5s" dur="0.4s" values="26%3B0"%2F%3E%3C%2Fpath%3E%3C%2Fg%3E%3C%2Fsvg%3E'); position: absolute; top: 12px; border-radius: 0px; cursor: pointer; transition: all 250ms ease; display: flex; left:0;}
+.wrapper table tr#tr-index.l-0 td.secondarylink a::before {content: normal;}
+.wrapper .nav li a:link, .wrapper .nav li a:visited, .wrapper #pill li a:link, .wrapper #pill li a:visited {color: #EEEEEE; font-weight: 600 !important;}
+
+.leftnav #power {fill: #CC0000 !important; width:22px!important;} /* logout icon*/
+.gg-add { color: #FF9900 !important;} /* custom menu icon */
+
+.massive-folder-linker {background: Orange!important; border-radius:5px;}
+.massive-folder-linker svg{width:80px !important;}
+.Documents .massive-folder-linker {background:LightGrey!important;}
+.Documents .massive-folder-linker svg{transform: rotate(15deg); width:80px !important;}
+.Compressed .massive-folder-linker {background:Khaki!important;}
+.Compressed .massive-folder-linker svg{transform: rotate(15deg); width:80px !important;}
+.Video .massive-folder-linker {background:Lavender!important;}
+.Video .massive-folder-linker svg{transform: rotate(15deg); width:80px !important;}
+.Audio .massive-folder-linker {background:Lavender!important;}
+.Audio .massive-folder-linker svg{transform: rotate(15deg); width:80px !important;}
+.Misc .massive-folder-linker {background:Plum!important;}
+.Misc .massive-folder-linker svg{transform: rotate(15deg); width:80px !important;}
+
+.imgthumb a img, :link img, :visited img {border-radius: 5px;}
+.masive-uploader {background: #339AF0;}
+.masive-uploader input[type="submit"] {background: #00162a;}
+.masive-uploader p {color: #00162a;}
+.masive-uploader h3 {color: #ffffff; font-weight: bold;}
+.masive-uploader span {background: #00162a;}
+.masive-uploader h3::before {content: url('data:image/svg+xml,%3Csvg xmlns="http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg" width="25" height="25" viewBox="0 0 24 24"%3E%3Cmask id="lineMdCloudUploadLoop0"%3E%3Cg fill="%23fff"%3E%3Ccircle cx="12" cy="10" r="6"%2F%3E%3Crect width="9" height="7" x="8" y="13"%2F%3E%3Crect width="15" height="12" x="1" y="8" rx="6"%3E%3Canimate attributeName="x" dur="21s" repeatCount="indefinite" values="1%3B0%3B1%3B2%3B1"%2F%3E%3C%2Frect%3E%3Crect width="13" height="10" x="10" y="10" rx="5"%3E%3Canimate attributeName="x" dur="19s" repeatCount="indefinite" values="10%3B9%3B10%3B11%3B10"%2F%3E%3C%2Frect%3E%3C%2Fg%3E%3Crect width="4" height="5" x="10" y="12"%2F%3E%3Cpath d="M12 8L17 13H7L12 8Z"%3E%3CanimateMotion calcMode="linear" dur="1.5s" keyPoints="0%3B0.25%3B0.5%3B0.75%3B1" keyTimes="0%3B0.1%3B0.5%3B0.8%3B1" path="M0 0v-1v2z" repeatCount="indefinite"%2F%3E%3C%2Fpath%3E%3C%2Fmask%3E%3Crect width="24" height="24" fill="white" mask="url(%23lineMdCloudUploadLoop0)"%2F%3E%3C%2Fsvg%3E'); width: 25px; height: 25px; border-radius: 0px; cursor: pointer; transition: all 250ms ease; display: flex; align-items: center; justify-content: center; float: left; margin-right: 10px;}
+#upload #sidebar > div h3::before {content: url('data:image/svg+xml,%3Csvg xmlns="http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg" width="25" height="25" viewBox="0 0 24 24"%3E%3Cmask id="lineMdCloudUploadLoop0"%3E%3Cg fill="%23fff"%3E%3Ccircle cx="12" cy="10" r="6"%2F%3E%3Crect width="9" height="7" x="8" y="13"%2F%3E%3Crect width="15" height="12" x="1" y="8" rx="6"%3E%3Canimate attributeName="x" dur="21s" repeatCount="indefinite" values="1%3B0%3B1%3B2%3B1"%2F%3E%3C%2Frect%3E%3Crect width="13" height="10" x="10" y="10" rx="5"%3E%3Canimate attributeName="x" dur="19s" repeatCount="indefinite" values="10%3B9%3B10%3B11%3B10"%2F%3E%3C%2Frect%3E%3C%2Fg%3E%3Crect width="4" height="5" x="10" y="12"%2F%3E%3Cpath d="M12 8L17 13H7L12 8Z"%3E%3CanimateMotion calcMode="linear" dur="1.5s" keyPoints="0%3B0.25%3B0.5%3B0.75%3B1" keyTimes="0%3B0.1%3B0.5%3B0.8%3B1" path="M0 0v-1v2z" repeatCount="indefinite"%2F%3E%3C%2Fpath%3E%3C%2Fmask%3E%3Crect width="24" height="24" fill="white" mask="url(%23lineMdCloudUploadLoop0)"%2F%3E%3C%2Fsvg%3E'); width: 25px; height: 25px; border-radius: 0px; cursor: pointer; transition: all 250ms ease; display: flex; align-items: center; justify-content: center; float: left; margin-right: 10px;}
+#sidebar > div:nth-child(2){background: #339AF0 !important;}
+#sidebar > div:nth-child(2) > form:nth-child(2) > input:nth-child(4){background: #0E80CB !important; border: #414141 solid 1px !important;}
+
+input[type="submit"] {background: #8CC63F !important;}
+input.cleanthumb {background: #F00 !important;}
+input.mb_edit.mb_edit_delete {background: #F00 !important;}
+
+#metadata_window input, #metadata_window select, #metadata_window textarea {padding:7px;font-size:1em;border-radius:5px;}
+#metadata_window #menu-items {height: 65px;background: #339af0;border-radius:5px;}
+#metadata_window textarea {height: 85px;}
+#edit_window input#post-title {padding: 7px;font-weight: 590;color: #444;}
+
+form input.text, form select.text {padding: 7px;font-size: 1em;border-radius: 5px;}
+
+#gsdebug {border: 1px solid #C00;}

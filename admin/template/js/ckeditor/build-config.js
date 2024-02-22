@@ -120,6 +120,7 @@ var CKBUILDER_CONFIG = {
 		'pl' : 1,
 		'pt' : 1,
 		'ru' : 1,
-		'sv' : 1
+		'sv' : 1,
+		'uk' : 1
 	}
 };

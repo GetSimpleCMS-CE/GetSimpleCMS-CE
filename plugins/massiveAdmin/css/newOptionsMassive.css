@@ -1,0 +1,182 @@
+#imageTable tr td {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+#imageTable .delconfirm {
+    background: none;
+    color: #111 !important;
+    border: solid 1px #111;
+    width: 100%;
+    margin: 5px;
+}
+
+
+#imageTable .rename-massive-btn,
+#imageTable .copy-massive-btn,
+#imageTable .download-massive-btn {
+    all: unset;
+    background: none;
+    color: #111 !important;
+    border: solid 1px #111;
+    width: 100%;
+    margin: 5px;
+    border-radius: 5px;
+    padding: 3px;
+    transition: all 250ms linear;
+    cursor: pointer;
+    font-size: 19px !important;
+}
+
+#imageTable .rename-massive-btn:hover,
+#imageTable .copy-massive-btn:hover,
+#imageTable .download-massive-btn:hover {
+    background: #000 !important;
+    color: #fff !important;
+
+}
+
+
+
+.rename-fog {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 99;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.3);
+}
+
+.form-rename {
+    width: 300px;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: #fff;
+    padding: 15px;
+    padding-top: 40px;
+    position: relative;
+
+}
+
+.form-rename input {
+    width: 100%;
+    padding: 15px;
+    margin: 10px;
+}
+
+.form-rename .submit {
+    width: 250px;
+}
+
+.form-rename input {
+    width: 100%;
+    padding: 15px;
+    margin: 10px;
+}
+
+.hide-fog {
+    display: none;
+}
+
+.close-rename-fog {
+
+    background: #00162a;
+    color: #fff;
+    width: 250px;
+    padding: 10px;
+    border-radius: 5px;
+    background: #D94136;
+    border: none;
+    transition: all 250ms linear;
+}
+
+.close-rename-fog:hover {
+    background: #AA190F;
+}
+
+.massive-error {
+    background: red;
+    color: #fff;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 5px;
+    display: block;
+}
+
+.massive-done {
+    background: green;
+    color: #fff;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 5px;
+    display: block;
+}
+
+.All.folder tr td {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    padding: 0;
+    text-align: center !important;
+    width: 100% !important;
+    flex: 40px 1 0;
+    border: none;
+
+}
+
+.massive-folder-linker {
+    background: #00162a;
+    width: 100%;
+    height: 110px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 250ms linear;
+
+}
+
+.massive-folder-linker i {
+    color: #fff;
+}
+
+
+.All .delete {
+    display: flex !important;
+    flex-direction: row !important;
+}
+
+
+.All.folder a:nth-child(2) {
+    margin-top: 26px;
+    margin-bottom: 10px;
+}
+
+
+#imageTable .delconfirm {
+    background: none;
+    color: #111 !important;
+    border: solid 1px #111;
+    width: 100%;
+    margin: 5px;
+    padding: 3px;
+    display: block;
+    padding: 3;
+    padding: 3px;
+    padding: 5px !important;
+}
+
+
+.All.folder:hover .massive-folder-linker {
+    background: #000409;
+}

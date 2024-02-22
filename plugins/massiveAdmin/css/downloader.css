@@ -1,0 +1,75 @@
+.db-list {
+    list-style-type: none;
+    margin: 0 !important;
+    box-sizing: border-box;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-auto-rows: 200px;
+    gap: 15px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    height: 600px;
+    margin-top: 20px !important;
+    position: relative;
+}
+
+@media(max-width:768px){
+
+    .db-list{
+        grid-template-columns: 1fr;
+    }
+
+}
+
+.db-list li {
+    background: #eee;
+    border: solid 1px #ddd;
+    padding: 10px;
+
+    box-sizing: border-box;
+}
+
+.db-list p.info {
+    margin: 0 !important;
+    padding: 0 !important;
+    font-size: 0.9rem;
+    height: auto;
+    margin: 10px 0 !important;
+    display: block;
+}
+
+.db-list .author {
+    font-size: 0.7rem;
+    opacity: 0.8;
+
+}
+
+.db-list .download {
+    background: #000;
+    border: none;
+    color: #fff;
+    padding: 0.3rem 0.5rem;
+    cursor: pointer;
+}
+
+.db-list hr {
+    border: none;
+    border: solid 1px #ddd;
+}
+
+.searchce {
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+    border: solid 1px #ddd;
+}
+
+.success {
+    width: 100%;
+    background: green;
+    padding: 10px;
+    box-sizing: border-box;
+    color: #fff;
+    margin-bottom: 20px;
+}

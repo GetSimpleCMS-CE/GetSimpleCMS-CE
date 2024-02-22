@@ -17,10 +17,6 @@
 		echo '<div class="error"><p>'.i18n_r('ER_PWD_CHANGE').'</p></div>';
 	}
 
-  if ((!defined('GSNOAPACHECHECK') || GSNOAPACHECHECK == false) and !server_is_apache()) {
-      echo '<div class="error">'.i18n_r('WARNING').': <a href="health-check.php">'.i18n_r('SERVER_SETUP').' non-Apache</a></div>';
-  }
-
 	if(!isset($update)) $update = '';
 	$err = '';
 	$restored = '';

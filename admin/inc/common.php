@@ -329,6 +329,15 @@ if (get_filename_id() != 'install' && get_filename_id() != 'setup' && get_filena
 		if (file_exists(GSADMINPATH.'update.php'))	{
 			$filedeletionstatus = unlink(GSADMINPATH.'update.php');
 		}
+		if (file_exists(GSADMINPATH.'option.txt'))	{
+			$filedeletionstatus = unlink(GSADMINPATH.'option.txt');
+		}
+		if (file_exists('../README.md'))	{
+			$filedeletionstatus = unlink('../README.md');
+		}
+		if (file_exists('../LICENSE'))	{
+			$filedeletionstatus = unlink('../LICENSE');
+		}
 		if (!$filedeletionstatus) {
 			$error = sprintf(i18n_r('ERR_CANNOT_DELETE'), '<code>/'.$GSADMIN.'/install.php</code>, <code>/'.$GSADMIN.'/setup.php</code> or <code>/'.$GSADMIN.'/update.php</code>');
 		}

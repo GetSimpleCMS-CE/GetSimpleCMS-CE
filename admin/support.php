@@ -35,7 +35,6 @@ get_template('header', cl($SITENAME).' &raquo; '.i18n_r('SUPPORT') );
 			<p><?php i18n('WELCOME_MSG'); ?> <?php i18n('WELCOME_P'); ?></p>
 			
 			<ul>
-				<li><a href="health-check.php"><?php i18n('WEB_HEALTH_CHECK'); ?></a></li>
 				<li><a href="edit.php"><?php i18n('CREATE_NEW_PAGE'); ?></a></li>
 				<li><a href="upload.php"><?php i18n('UPLOADIFY_BUTTON'); ?></a></li>
 				<li><a href="settings.php"><?php i18n('GENERAL_SETTINGS'); ?></a></li>
@@ -46,7 +45,10 @@ get_template('header', cl($SITENAME).' &raquo; '.i18n_r('SUPPORT') );
 			
 			<h3><?php i18n('SUPPORT');?></h3>
 			<ul>
-				<li><p><a href="log.php?log=failedlogins.log"><?php i18n('VIEW_FAILED_LOGIN');?></a></p></li>
+				<li><a href="health-check.php"><?php i18n('WEB_HEALTH_CHECK'); ?></a></li>
+				<li><a href="log.php?log=failedlogins.log"><?php i18n('VIEW_FAILED_LOGIN');?></a></li>
+				<li><a href="log-error.php?log=errorlog.txt"><?php i18n('VIEW');?> ErrorLog</a></li>
+				<li><a href="phpinfo.php"><?php i18n('VIEW');?> phpInfo</a></p></li>
 				<?php exec_action('support-extras'); ?>
 			</ul>
 

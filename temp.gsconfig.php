@@ -21,8 +21,8 @@ if (basename($_SERVER['PHP_SELF']) == 'gsconfig.php') {
 # Turn off auto-generation of SALT and use a custom value. Used for cookies & upload security.
 # define('GSUSECUSTOMSALT', 'your_new_salt_value_here');
 
-# Default thumbnail width of uploaded image
-define('GSIMAGEWIDTH', '480');
+# Login Page Default Language;
+$LANG = 'en_EN'; // es_ES, pl_PL, de_DE, uk_UK, etc.
 
 # Change the administrative panel folder name
 # define('GSADMIN', 'admin');
@@ -45,20 +45,30 @@ define('GSDONOTPING', 1);
 # Enable Canonical Redirects?
 # define('GSCANONICAL', 1);
 
+# Sort admin page list by title or menu
+define('GSSORTPAGELISTBY','menu');
+
+# Default thumbnail width of uploaded image
+define('GSIMAGEWIDTH', '480');
+
 # Use Uploadify to upload files?
 # define('GSNOUPLOADIFY', 0); // 0 to reenable uploadify ( uploadify is outdated flash based and has known xss exploits! USE AT OWN RISK )
 
 # WYSIWYG editor height (default 500)
 # define('GSEDITORHEIGHT', '400');
 
-# WYSIWYG toolbars (advanced, basic or [custom config]) 
-# define('GSEDITORTOOL', 'advanced');
-
 # WYSIWYG editor language (default en)
 # define('GSEDITORLANG', 'en');
 
+# WYSIWYG toolbars (advanced, basic, advanced, island, CEbar or [custom config])
+define('GSEDITORTOOL', "CEbar");
+
 # WYSIWYG Editor Options
-# define('GSEDITOROPTIONS', '');
+define('GSEDITOROPTIONS', '
+extraPlugins:"fontawesome5,youtube,codemirror,cmsgrid,colorbutton,oembed,simplebutton,spacingsliders",
+disableNativeSpellChecker : false,
+forcePasteAsPlainText : true
+');
 
 # Set email from address
 # define('GSFROMEMAIL', 'noreply@get-simple.info');
@@ -76,6 +86,7 @@ define('GSDONOTPING', 1);
 # Define default timezone of server, accepts php timezone string
 # valid timeszones can be found here http://www.php.net/manual/en/timezones.php
 # define('GSTIMEZONE', 'America/Chicago');
+# define('GSTIMEZONE', 'Europe/London');
 
 # Disable loading of external CDN versions of scripts (jQuery/jQueryUI)
 # define("GSNOCDN",true);
@@ -86,32 +97,13 @@ define('GSDONOTPING', 1);
 # Forces suppression of php errors when GSDEBUG is false, despite php ini settings
 define('GSSUPPRESSERRORS',true);
 
-# Disable check for Apache web server, default false
-# define('GSNOAPACHECHECK', true);
-
-# Disable header version check
-# define('GSNOVERCHECK', true);
-
-# Enable alternate admin styles, current style constants are
-# GSSTYLE can be a comma delimied list of flags
-# note: stylesheets are cached, flush cache after changing
-#
-# style flags:
-# GSSTYLEWIDE = wide fluid
-# GSSTYLE_SBFIXED = fixed sidemenu
-# 
-# eg. 
-# define('GSSTYLE',GSSTYLE_SBFIXED);
-# define('GSSTYLE',GSSTYLEWIDE);
-# define('GSSTYLE',implode(',',array(GSSTYLEWIDE,GSSTYLE_SBFIXED)));
-
 # Disable Sitemap generation and menu items
 # define('GSNOSITEMAP',true);
 
 # Hide I18N text on View All Pages.
 # define('I18N_SINGLE_LANGUAGE', true);
 
-# Ignore user's browser language
+# Ignore user browser language
 # define('I18N_IGNORE_USER_LANGUAGE',true);
 
 # Enable auto meta descriptions from content excerpts when empty

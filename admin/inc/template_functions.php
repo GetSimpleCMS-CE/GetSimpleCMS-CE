@@ -705,7 +705,7 @@ function get_link_menu_array($parent='', $array=[], $level=0) {
 	  		}
 			for ($i=0;$i<=$level-1;$i++){
 				if ($i!=$level-1){
-	  				$dash .= utf8_encode("\xA0\xA0"); // outer level
+	  				$dash .= "\u{00A0}\u{00A0}"; // outer level
           } else {
 					$dash .= '- '; // inner level
             }   

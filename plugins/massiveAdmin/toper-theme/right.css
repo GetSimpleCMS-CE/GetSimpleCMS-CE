@@ -1,0 +1,126 @@
+@import url("https://fonts.googleapis.com/css2?family=Lato:wght@300;400&display=swap");
+@import url("https://unicons.iconscout.com/release/v2.1.9/css/unicons.css");
+
+body {
+    padding-right: 50px;
+}
+
+.m-toper {
+    font-family: "Lato", sans-serif;
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    width: 50px;
+    height: 100vh;
+    background: #111;
+    z-index: 999;
+    display: row;
+    flex-direction: column;
+}
+
+.m-toper span {
+    display: none;
+}
+
+.m-toper ul {
+    display: flex;
+    flex-direction: column;
+   margin: 0;
+    width: 100%;
+}
+
+.m-toper ul li {
+    list-style-type: none !important;
+    margin: 0;
+    padding: 10px 0 !important;
+    text-align: center;
+    width: 100%;
+}
+
+
+.m-toper ul li:hover {
+    background: #ffffff10;
+}
+
+.massivepages,
+.massiveedit {
+    padding: 0 !important;
+    list-style-type: none;
+
+}
+
+.massivepages li a,
+.massiveedit li a {
+    color: #fff;
+
+    text-decoration: none;
+    font-size: 16px;
+    transition: all 250ms linear;
+}
+
+.massivepages li a:hover,
+.massiveedit li a:hover {
+    opacity: 0.8;
+}
+
+.m-toper-container {
+    width: 96%;
+    margin: 0 auto;
+    max-width: 1240px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    height: 100%;
+}
+
+@media(max-width:768px) {
+    .massivepages {
+        display: none
+    }
+
+    .massiveedit {
+        width: 100%;
+        margin: 0 auto;
+        justify-content: center;
+    }
+
+    .massiveedit li {
+        margin-right: 15px;
+    }
+}
+
+.maintenceOn {
+    display: none !important;
+}
+
+.m-toper ul li {
+    position: relative !important;
+}
+
+.m-toper ul li::after {
+    content: attr(data-hover);
+    position: absolute;
+    top: 0;
+    right: 50px;
+    border: solid 1px #ddd;
+    padding: 5px;
+    display: block;
+    width: auto;
+    font-size: 12px;
+    background: #fff;
+    padding: 10px;
+    text-align: center;
+    display: none;
+}
+
+.m-toper ul li:hover::after {
+    display: block;
+}
+
+@media(max-width:768px) {
+
+    .m-toper span {
+        display: none;
+    }
+}

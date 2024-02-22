@@ -156,8 +156,7 @@ if(isset($_POST['submitted'])) {
 		$message .= '<p><em>'. i18n_r('EMAIL_THANKYOU') .' '.$site_full_name.'!</em></p>';
 		$status   = sendmail($EMAIL,$subject,$message);
 		# activate default plugins
-		# change_plugin('anonymous_data.php',true); // change to opt-in to comply with GDPR.
-		# change_plugin('InnovationPlugin.php',true);
+		change_plugin('massiveAdmin.php',true);
 
 		# set the login cookie, then redirect user to secure panel
 		create_cookie();
@@ -165,10 +164,22 @@ if(isset($_POST['submitted'])) {
 	}
 }
 
-get_template('header', $site_full_name.' &raquo; '. i18n_r('INSTALLATION'));
+get_template('header', $site_full_name.' CE &raquo; '. i18n_r('INSTALLATION'));
 
 ?>
 	
+	<style>
+		body{
+			background-image: url('https://picsum.photos/seed/picsum/1600/900?blur');
+			background-size: cover;
+			height:100vh;
+			width:100%;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+		}
+	</style>
+
 		<h1><?php echo $site_full_name; ?></h1>
 	</div>
 </div>
@@ -213,3 +224,15 @@ get_template('header', $site_full_name.' &raquo; '. i18n_r('INSTALLATION'));
 <?php get_template('footer'); ?>
 
 <?php } ?>
+
+<!--  create default theme -->
+<?php 
+	if(isset($_POST['continue'])){
+		$folder =GSDATAOTHERPATH.'massiveTheme/';
+		if(!file_exists($folder)){
+			mkdir($folder,0755);
+		}
+
+		file_put_contents($folder.'option.txt',$_POST['theme']);
+	};
+;?>

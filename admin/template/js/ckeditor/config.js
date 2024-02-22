@@ -33,6 +33,26 @@ CKEDITOR.editorConfig = function( config )
 	config.toolbar_basic = 
 		[['Bold', 'Italic', 'Underline', 'NumberedList', 'BulletedList', 'JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock', 'Link', 'Unlink', 'Image', 'RemoveFormat', 'Source']];
 
+	config.toolbar_CEbar = 
+		[[ 'Cut', 'Copy', 'Paste', 'PasteText', 'PasteFromWord', '-', 'Undo', 'Redo' ],
+		[ 'Find', 'Replace', '-', 'SelectAll', '-', 'Scayt', 'ShowBlocks', 'Bold', 'Italic', 'Underline', 'Strike', 'Subscript', 'Superscript', '-', 'CopyFormatting', 'RemoveFormat','NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'Blockquote', 'CreateDiv', '-', 'Table', 'HorizontalRule', 'SpecialChar','Youtube', '-', 'Anchor', 'TextColor', 'BGColor', '-', 'fontawesome5', 'Smiley','oembed','simplebutton','ckeditor-gwf-plugin','spacingsliders' ],
+		['Styles', 'Format', 'Font', 'FontSize','JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock','Image','Link','Unlink', 'Templates', 'Maximize','-','AddCMSGrid', 'AddCMSGridRow','DeleteCMSGridRow','ExpandCMSColLeft','ExpandCMSColRight','SwapCMSCols','-','Source' ]];
+
+	config.toolbar_island = 
+		[[ 'Source', '-', 'Templates' ],
+		[ 'Cut', 'Copy', 'Paste', 'PasteText', 'PasteFromWord', '-', 'Undo', 'Redo' ],
+		[ 'Find', 'Replace', '-', 'SelectAll', '-', 'Scayt', 'ShowBlocks'],
+		[ 'Maximize' ],
+		'/',
+		[ 'Bold', 'Italic', 'Underline', 'Strike', 'Subscript', 'Superscript', '-', 'CopyFormatting', 'RemoveFormat' ],
+		[ 'NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'Blockquote', 'CreateDiv', '-', 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock' ],
+		[ 'Table', 'HorizontalRule', 'SpecialChar' ],
+		'/',
+		[ 'Image', 'Youtube', '-', 'Link', 'Unlink', 'Anchor' ],
+		[ 'Styles', 'Format', 'Font', 'FontSize' ],
+		[ 'TextColor', 'BGColor', '-', 'fontawesome5', 'Smiley' ],];
+		
+		
 	/*
 	 * Add 'about' button for debug
 	 */

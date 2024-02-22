@@ -1,0 +1,110 @@
+@import url("https://fonts.googleapis.com/css2?family=Lato:wght@300;400&display=swap");
+@import url("https://unicons.iconscout.com/release/v2.1.9/css/unicons.css");
+
+body {
+    padding-top: 38px;
+}
+
+.m-toper {
+    font-family: "Lato", sans-serif;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 38px;
+    background: #111;
+    z-index: 999;
+}
+
+.m-toper ul {
+    display: flex;
+    flex-direction: row;
+    padding: 20px 0;
+}
+
+.m-toper ul li {
+    list-style-type: none !important;
+    margin: 0;
+    padding: 10px 0 !important;
+}
+
+.massivepages,
+.massiveedit {
+    padding: 0 !important;
+    display: flex;
+    list-style-type: none;
+}
+
+.massivepages li a,
+.massiveedit li a {
+    color: #fff;
+    margin-left: 20px;
+    text-decoration: none;
+    font-size: 16px;
+    transition: all 250ms linear;
+}
+
+.massivepages li a:hover,
+.massiveedit li a:hover {
+    opacity: 0.8;
+}
+
+.m-toper-container {
+    width: 96%;
+    margin: 0 auto;
+    max-width: 1240px;
+    display: flex;
+    justify-content: space-between;
+    height: 40px;
+}
+
+@media(max-width:768px) {
+    .massivepages {
+        display: none
+    }
+
+    .massiveedit {
+        width: 100%;
+        margin: 0 auto;
+        justify-content: center;
+    }
+
+    .massiveedit li {
+        margin-right: 15px;
+    }
+}
+
+.maintenceOn {
+    display: none !important;
+}
+
+.m-toper ul:not(.massiveedit) li {
+    position: relative !important;
+}
+
+.m-toper ul:not(.massiveedit) li::after {
+    content: attr(data-hover);
+    position: absolute;
+    top: 40px;
+    left: 0;
+    border: solid 1px #ddd;
+    padding: 5px;
+    display: block;
+    width: auto;
+    font-size: 12px;
+    background: #fff;
+    padding: 10px;
+    text-align: center;
+    display: none;
+}
+
+.m-toper ul li:hover::after {
+    display: block;
+}
+
+@media(max-width:768px){
+
+    .m-toper span{
+        display: none;
+    }
+}

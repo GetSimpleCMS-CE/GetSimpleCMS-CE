@@ -1,0 +1,5 @@
+/* CMS Grid */
+.container {border-left: 1px dashed #d2d6ff; border-right: 1px dashed #d2d6ff; }
+.row {outline:1px solid #ff9595;padding-top: 2px; padding-bottom: 2px; margin-top: 8px; margin-bottom: 8px;}
+div[class^="col-"] {outline:1px solid #4196ff;padding-top: 10px; padding-bottom: 10px;}
+.cke_editable img {max-width: 100%;height: auto; }

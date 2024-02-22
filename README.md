@@ -1,17 +1,38 @@
-GetSimple CMS 3.3.18.1 Community Edition
+GetSimple CMS 3.3.19.1 Community Edition
 =========================================
 
 The official unofficial GS update repo. Helping to bridge the gap in PHP compatibility. 
 
-What has changed in this first version of the Community Edition?
+What has changed in this version of the Community Edition:
 
-🚀 **_Additional compatibility added for php7.4-8.2_**
+🚀 **_Massive Admin included by default (responsive admin + user manager + much much more...)._**
 
-🚀 **_Added default theme: ResponsiveCE_**
+🌐 11 default languages included (de, es, en, fr, it, ja, nl, pl, pt, ru, uk)
+
+**Whats New in this Update:**
+
+⭐ New gsconfig option (set login page language)
+
+⭐ New Admin themes option.
+
+⭐ ResponsiveCE default template (front-end starter theme).
+
+⭐ New ckEditor plugins (Codemirror, YouTube, FontAwesome, etc.).
+
+⭐ New Soport Page options (view errorlog & phpInfo).
+
+⭐ New gsconfig option (view page tree by Title or Menu order).
+
+⭐ New Copy Component code button.
+
+⭐ Other minor fixes and cleanup.
+
+**Recent Updates:**
 
 
-**Updates:**
+**Previous Updates:**
 
+- Added support for php7.4-8.2
 - Fix deprecated Text-encoding HTML-ENTITIES for php8.2.
 - Hotfixes: form action reflection, add phar to blacklist, .htaccess
 - Fix bug in Components if none exist.
@@ -64,12 +85,7 @@ SimpleXML
 Javascript Enabled
 
 ### Server ###
-*Apache ( required for out of the box security using .htaccess )
-
-*If not using Apache you will get a non-apache warning, 
-this warning is to alert you that your data files will not be secure 
-and you must take proper precautions to secure your site.
-To disable this warning see gsconfig definition GSNOAPACHECHECK
+*Apache ( recommended for out of the box security using .htaccess )
 
 
 INSTALLATION:

@@ -3,10 +3,10 @@
 /**
  * English Language File
  *
- * Date:			6 December 2011
- * Revision:		Dec 2022
- * Version:			GetSimple 3.3.6-CE
- * Traductors: 		GS Community 
+ * Date: 		2009.09.10
+ * Revision:	2023.07.23
+ * Version:		GetSimple 3.3.19 CE
+ * Traductors: 	GS Community 
  *
  * @package GetSimple
  * @subpackage Language
@@ -17,7 +17,7 @@ $i18n = [
     /* 
      * For: install.php
     */
-    "PHPVER_ERROR"			=>	"<b>Unable to continue:</b> PHP 5.1.3 or greater is required, you have ",
+    "PHPVER_ERROR"			=>	"<b>Unable to continue:</b> PHP 7.4 or greater is required, you have ",
     "SIMPLEXML_ERROR"		=>	"<b>Unable to continue:</b> <em>SimpleXML</em> is not installed",
     "CURL_WARNING"			=>	"<b>Warning:</b> <em>cURL</em> Not Installed",
     "TZ_WARNING"			=>	"<b>Warning:</b> <em>date_default_timezone_set</em> is missing",
@@ -276,7 +276,7 @@ $i18n = [
      * For: archive.php
     */
     "SUCC_WEB_ARCHIVE"		=>	"An archive of your website has been successfully created",
-    "SUCC_WEB_ARC_DEL"		=>	"The seleted archive has been successfully deleted",
+    "SUCC_WEB_ARC_DEL"		=>	"The selected archive has been successfully deleted",
     "WEBSITE_ARCHIVES"		=>	"Website Archives",
     "ARCHIVE_DELETED"		=>	"Archive deleted successfully",
     "CREATE_NEW_ARC"		=>	"Create a New Archive",

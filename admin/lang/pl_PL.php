@@ -3,10 +3,10 @@
 /**
  * Polish Language File
  *
- * Date:			6 December 2011
- * Revision:		Dec 2013
- * Version:			GetSimple 3.3.6-CE
- * Traductors: 		GS Community 
+ * Date: 		2011.12.06
+ * Revision:	2023.07.23
+ * Version:		GetSimple 3.3.19 CE
+ * Traductors: 	GS Community 
  *
  * @package GetSimple
  * @subpackage Language
@@ -17,7 +17,7 @@ $i18n = [
 /* 
  * For: install.php
 */
-"PHPVER_ERROR"			=>	"<strong>Kontynuacja niemożliwa:</strong> wymagane jest PHP 5.2.0, lub nowsze, na serwerze zainstalowane jest",
+"PHPVER_ERROR"			=>	"<strong>Kontynuacja niemożliwa:</strong> wymagane jest PHP 7.4, lub nowsze, na serwerze zainstalowane jest",
 "SIMPLEXML_ERROR"		=>	"<strong>Kontynuacja niemożliwa:</strong> <em>SimpleXML</em> nie jest zainstalowany",
 "CURL_WARNING"			=>	"<strong>Ostrzeżenie:</strong> <em>cURL</em> nie jest zainstalowany",
 "TZ_WARNING"			=>	"<strong>Ostrzeżenie:</strong> <em>date_default_timezone_set</em> nie został ustawiony",
@@ -386,9 +386,10 @@ $i18n = [
 */
 "FILL_IN_REQ_FIELD"	=>	"Wpełnij wszystkie wymagane pola",
 "LOGIN_FAILED"		=>	"Podałeś zły login lub hasło. Sprawdź ponownie wpisane dane",
-/* 
- * For: Date Format
-*/
+
+	/* 
+	 * For: Date Format
+	*/
 "DATE_FORMAT"			=>	"j.m.Y", //please keep short
 "DATE_AND_TIME_FORMAT"	=>	"j.m.Y - G:i",
 

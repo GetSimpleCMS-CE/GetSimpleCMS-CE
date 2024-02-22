@@ -21,6 +21,7 @@
     <link rel="stylesheet" type="text/css" href="<?php get_theme_url(); ?>/css/pico.min.css">
     <?php echo ($bootstrap !== 'yes' ?  '' : '<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.2.3/css/bootstrap-grid.min.css" integrity="sha512-JQksK36WdRekVrvdxNyV3B0Q1huqbTkIQNbz1dlcFVgNynEMRl0F8OSqOGdVppLUDIvsOejhr/W5L3G/b3J+8w==" crossorigin="anonymous" referrerpolicy="no-referrer" />'); ?>
     <link rel="stylesheet" type="text/css" href="<?php get_theme_url(); ?>/css/style.css?v=<?php echo rand(); ?>">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
     <?php get_header(); ?>
 </head>
 

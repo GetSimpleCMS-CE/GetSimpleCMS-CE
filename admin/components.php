@@ -104,7 +104,26 @@ $count= 0;
 if (count($componentsec) != 0) {
 	foreach ($componentsec as $component) {
 		$table .= '<div class="compdiv" id="section-'.$count.'"><table class="comptable" ><tr><td><b title="'.i18n_r('DOUBLE_CLICK_EDIT').'" class="editable">'. stripslashes($component->title) .'</b></td>';
-		$table .= '<td style="text-align:right;" ><code>&lt;?php get_component(<span class="compslugcode">\''.$component->slug.'\'</span>); ?&gt;</code></td><td class="delete" >';
+		//$table .= '<td style="text-align:right;" ><code>&lt;?php get_component(<span class="compslugcode">\''.$component->slug.'\'</span>); ?&gt;</code></td><td class="delete" >';
+		$table .= '
+		<td style="text-align:center;" >
+			<span id="' . stripslashes($component->title) . '_c" class="shortcode tpl">&#60;?php get_component("' . $component->slug . '"); ?></span>
+			<a href="javascript:;" class="copybutton">
+			<image id="copy-' . stripslashes($component->title) . '" data-clipboard-target="#' . stripslashes($component->title) . '" src=" data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAQAAABKfvVzAAAAIGNIUk0AAHomAACAhAAA+gAAAIDoAAB1MAAA6mAAADqYAAAXcJy6UTwAAAACYktHRAAAqo0jMgAAAAlwSFlzAAAAYAAAAGAA8GtCzwAAAAd0SU1FB+cFFgkEJsO3fd8AAADQSURBVDjLvZM7CsJAFEWP0SKSUlJoOi2yiDSJK3ALFindUMBSV2HAzyJEQVHxU0gqm5QWAXWSyWdAPeV9c7nzLjPwa2pS1cPHFJQ7AXMATXp8hpPSHELcvNQpR/SUpnNikpfQZk+c0mJ2dAAaEsOjaGmZYahqiKoYCooU0VSLTBJ8ztipZnS2+NkMrbxIAJr0uOYtLdJijIGNRfBOKGeFx6JaQsQgu4MC/zLc6GYe9KtIkeTHuYRc2AgTG4t+0swndQAOLDAxhMmaEUvVC3+DJ4xiLDPLiEozAAAAJXRFWHRkYXRlOmNyZWF0ZQAyMDIzLTA1LTIyVDA5OjA0OjM4KzAwOjAwa+wQugAAACV0RVh0ZGF0ZTptb2RpZnkAMjAyMy0wNS0yMlQwOTowNDozOCswMDowMBqxqAYAAAAodEVYdGRhdGU6dGltZXN0YW1wADIwMjMtMDUtMjJUMDk6MDQ6MzgrMDA6MDBNpInZAAAAAElFTkSuQmCC"></a>
+			<script>
+				document.getElementById("copy-' . stripslashes($component->title) . '").addEventListener("click", copyCodeToClipboard);
+				function copyCodeToClipboard() {
+				  const codeSnippet = document.getElementById("' .  stripslashes($component->title) . '");
+				  const range = document.createRange();
+				  range.selectNode(' .  stripslashes($component->title) . '_c);
+				  const selection = window.getSelection();
+				  selection.removeAllRanges();
+				  selection.addRange(range);
+				  document.execCommand("copy");
+				  selection.removeAllRanges();
+				}
+			</script>
+		</td><td class="delete" >';
 		$table .= '<a href="#" title="'.i18n_r('DELETE_COMPONENT').': '. cl($component->title).'?" class="delcomponent" rel="'.$count.'" >&times;</a></td></tr></table>';
 		$table .= '<textarea name="val[]">'. stripslashes($component->value) .'</textarea>';
 		$table .= '<input type="hidden" class="compslug" name="slug[]" value="'. $component->slug .'" />';
