@@ -3,10 +3,10 @@
 /*
  * Spanish Language File
  *
- * Date:			21 November 2015
- * Revision:		Dec 2022
- * Version:			GetSimple 3.3.6-CE
- * Traductors: 		GS Community
+ * Date:		2015.11.21
+ * Revision:	2023.07.23
+ * Version:		GetSimple 3.3.19 CE
+ * Traductors: 	GS Community 
  *
  * @package GetSimple
  * @subpackage Language
@@ -14,10 +14,10 @@
 
 $i18n = [
 
-	/* 
-	 * For: install.php
-	 */
-	"PHPVER_ERROR"			=>	"<b>No es posible continuar:</b> PHP 5.1.3 o superior requerido, usted tiene ",
+    /* 
+     * For: install.php
+    */
+	"PHPVER_ERROR"			=>	"<b>No es posible continuar:</b> PHP 7.4 o superior requerido, usted tiene ",
 	"SIMPLEXML_ERROR"		=>	"<b>No es posible continuar:</b> SimpleXML no instalado",
 	"CURL_WARNING"			=>	"<b>Aviso:</b> cURL no instalado",
 	"TZ_WARNING"			=>	"<b>Aviso:</b> date_default_timezone_set no ",
