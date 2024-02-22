@@ -1,11 +1,11 @@
-GetSimple CMS 3.3.17 Community Edition
+GetSimple CMS 3.3.18 Community Edition
 =========================================
 
 The official unofficial GS update repo. Helping to bridge the gap in PHP compatibility. 
 
 What has changed in this first version of the Community Edition?
 
-🚀 **_Added support for php7.4-8.1_**
+🚀 **_Additional compatibility added for php7.4-8.1._**
 
 
 **Updates:**
