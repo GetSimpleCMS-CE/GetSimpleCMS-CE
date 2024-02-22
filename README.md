@@ -5,7 +5,7 @@ The official unofficial GS update repo. Helping to bridge the gap in PHP compati
 
 What has changed in this first version of the Community Edition?
 
-🚀 **_Additional compatibility added for php7.4-8.1_**
+🚀 **_Additional compatibility added for php7.4-8.1._**
 
 
 **Updates:**
