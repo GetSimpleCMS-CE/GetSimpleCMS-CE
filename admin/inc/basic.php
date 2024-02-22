@@ -61,8 +61,8 @@ function clean_img_name($text)  {
  * @return string 
  */
 function to7bit($text,$from_enc="UTF-8") {
-	if (function_exists('mb_convert_encoding')) {
-		$text = mb_convert_encoding($text ?? "",'HTML-ENTITIES',$from_enc);
+	if (function_exists('mb_encode_numericentity')) {
+		$text = mb_encode_numericentity($text ?? "",[0x80, 0x10FFFF, 0, ~0],$from_enc);
     } else {
 		$text = htmlspecialchars_decode(utf8_decode(htmlentities($text, ENT_COMPAT, 'utf-8', false)));
 	}

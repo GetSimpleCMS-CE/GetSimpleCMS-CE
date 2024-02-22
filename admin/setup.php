@@ -83,7 +83,7 @@ if(isset($_POST['submitted'])) {
 		$note->addCData($SITENAME);
 		$note = $xmls->addChild('SITEURL');
 		$note->addCData($SITEURL);
-		$xmls->addChild('TEMPLATE', 'Innovation');
+		$xmls->addChild('TEMPLATE', 'ResponsiveCE');
 		$xmls->addChild('PRETTYURLS', '');
 		$xmls->addChild('PERMALINK', '');
 		if (! XMLsave($xmls, GSDATAOTHERPATH . $file) ) {
@@ -157,7 +157,7 @@ if(isset($_POST['submitted'])) {
 		$status   = sendmail($EMAIL,$subject,$message);
 		# activate default plugins
 		# change_plugin('anonymous_data.php',true); // change to opt-in to comply with GDPR.
-		change_plugin('InnovationPlugin.php',true);
+		# change_plugin('InnovationPlugin.php',true);
 
 		# set the login cookie, then redirect user to secure panel
 		create_cookie();

@@ -1,15 +1,16 @@
-GetSimple CMS 3.3.17 Community Edition
+GetSimple CMS 3.3.18.1 Community Edition
 =========================================
 
 The official unofficial GS update repo. Helping to bridge the gap in PHP compatibility. 
 
 What has changed in this first version of the Community Edition?
 
-🚀 **_Added support for php7.4-8.1_**
-
+🚀 **_Additional compatibility added for php7.4-8.2_**
+🚀 **_Added default theme: ResponsiveCE_**
 
 **Updates:**
 
+- Fix deprecated Text-encoding HTML-ENTITIES for php8.2.
 - Hotfixes: form action reflection, add phar to blacklist, .htaccess
 - Fix bug in Components if none exist.
 - Fix non numeric error on gsdebug.
