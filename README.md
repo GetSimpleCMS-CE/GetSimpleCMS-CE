@@ -3,11 +3,13 @@ GetSimple CMS 3.3.19.1 Community Edition
 
 The official unofficial GS update repo. Helping to bridge the gap in PHP compatibility. 
 
+
 What has changed in this version of the Community Edition:
 
-🚀 **_Massive Admin included by default (responsive admin + user manager + much much more...)._**
+🚀 **_Massive Admin 5 included by default (responsive admin + user manager + much much more...)._**
 
 🌐 11 default languages included (de, es, en, fr, it, ja, nl, pl, pt, ru, uk)
+
 
 **Whats New in this Update:**
 
