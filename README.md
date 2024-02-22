@@ -8,6 +8,7 @@ What has changed in this first version of the Community Edition?
 🚀 **_Additional compatibility added for php7.4-8.2_**
 🚀 **_Added default theme: ResponsiveCE_**
 
+
 **Updates:**
 
 - Fix deprecated Text-encoding HTML-ENTITIES for php8.2.
