@@ -64,10 +64,10 @@ function genStdThumb($path,$name){
 	$src_w = $imgsize[0];
 	$src_h = $imgsize[1];
 	
-	$picture = imagecreatetruecolor($width, $height);
+	$picture = @imagecreatetruecolor($width, $height);
 	imagealphablending($picture, false);
 	imagesavealpha($picture, true);
-	$bool = imagecopyresampled($picture, $image, 0, 0, 0, 0, $width, $height, $src_w, $src_h); 
+	$bool = @imagecopyresampled($picture, $image, 0, 0, 0, 0, $width, $height, $src_w, $src_h); 
 	
 	if($bool)	{	
 		$thumbnailFile = $thumbsPath . "thumbnail." . $name;
@@ -115,9 +115,9 @@ class ImageManipulation {
 	 *
 	 * @var array
 	 */
-	public $image = array('targetx'=>0, 
+	public $image = ['targetx'=>0, 
 							'targety'=>0,
-							'quality'=>75);
+							'quality'=>75];
 	
 	/**
 	 * A boolean value to detect if an image has not been created. This

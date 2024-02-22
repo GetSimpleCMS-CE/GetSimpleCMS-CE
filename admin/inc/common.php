@@ -31,7 +31,7 @@ define('IN_GS', TRUE); // GS enviroment flag
 
 // GS Debugger
 global $GS_debug; // GS debug trace array
-if(!isset($GS_debug)) $GS_debug = array();	
+if(!isset($GS_debug)) $GS_debug = [];	
 
 /**
  * Debug Console Log
@@ -127,7 +127,7 @@ define('GSBACKUSERSPATH', GSROOTPATH. 'backups/users/');
 define('GSCACHEPATH', GSROOTPATH. 'data/cache/');
 define('GSAUTOSAVEPATH', GSROOTPATH. 'data/pages/autosave/');
 
-$reservedSlugs = array($GSADMIN,'data','theme','plugins','backups');
+$reservedSlugs = [$GSADMIN, 'data', 'theme', 'plugins', 'backups'];
 
 require_once(GSADMININCPATH.'configuration.php');
 

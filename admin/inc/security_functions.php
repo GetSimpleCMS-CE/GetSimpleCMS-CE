@@ -9,7 +9,7 @@
 /*
  * File and File MIME-TYPE Blacklist arrays
  */
-$mime_type_blacklist = array(
+$mime_type_blacklist = [
 	# HTML may contain cookie-stealing JavaScript and web bugs
 	'text/html', 'text/javascript', 'text/x-javascript',  'application/x-shellscript',
 	# PHP scripts may execute arbitrary code on the server
@@ -23,8 +23,8 @@ $mime_type_blacklist = array(
 	# MS Office OpenXML and other Open Package Conventions files are zip files
 	# and thus blacklisted just as other zip files
 	'application/x-opc+zip'
-);
-$file_ext_blacklist = array(
+];
+$file_ext_blacklist = [
 	# HTML may contain cookie-stealing JavaScript and web bugs
 	'html', 'htm', 'js', 'jsb', 'mhtml', 'mht',
 	# PHP scripts may execute arbitrary code on the server
@@ -32,8 +32,8 @@ $file_ext_blacklist = array(
 	# Other types that may be interpreted by some servers
 	'shtml', 'jhtml', 'pl', 'py', 'cgi', 'sh', 'ksh', 'bsh', 'c', 'htaccess', 'htpasswd',
 	# May contain harmful executables for Windows victims
-	'exe', 'scr', 'dll', 'msi', 'vbs', 'bat', 'com', 'pif', 'cmd', 'vxd', 'cpl' 
-);
+	'exe', 'scr', 'dll', 'msi', 'vbs', 'bat', 'com', 'pif', 'cmd', 'vxd', 'cpl', 
+];
 
 
 /**
@@ -50,9 +50,9 @@ $file_ext_blacklist = array(
 function antixss($str){
 	$strdirty = $str;
 	// attributes blacklist:
-	$attr = array('style','on[a-z]+');
+	$attr = ['style', 'on[a-z]+'];
 	// elements blacklist:
-	$elem = array('script','iframe','embed','object');
+	$elem = ['script', 'iframe', 'embed', 'object'];
 	// extermination:
 	$str = preg_replace('#<!--.*?-->?#', '', $str);
 	$str = preg_replace('#<!--#', '', $str);
@@ -73,7 +73,7 @@ function antixss($str){
 function xss_clean($data){
 	$datadirty = $data;
 	// Fix &entity\n;
-	$data = str_replace(array('&amp;','&lt;','&gt;'), array('&amp;amp;','&amp;lt;','&amp;gt;'), $data);
+	$data = str_replace(['&amp;', '&lt;', '&gt;'], ['&amp;amp;', '&amp;lt;', '&amp;gt;'], $data);
 	$data = preg_replace('/(&#*\w+)[\x00-\x20]+;/u', '$1;', $data);
 	$data = preg_replace('/(&#x*[0-9A-F]+);*/iu', '$1;', $data);
 	$data = html_entity_decode($data, ENT_COMPAT, 'UTF-8');
@@ -259,14 +259,14 @@ function var_out($var,$filter = "special"){
 
 	// php 8.1: FILTER_SANITIZE_STRING deprecated
 	if(function_exists( "filter_var") && ($filter !== "string" )){
-		$aryFilter = array(
-			"int"    => FILTER_SANITIZE_NUMBER_INT,
-			"float"  => FILTER_SANITIZE_NUMBER_FLOAT,
-			"url"    => FILTER_SANITIZE_URL,
-			"email"  => FILTER_SANITIZE_EMAIL,
+		$aryFilter = [
+			"int"     => FILTER_SANITIZE_NUMBER_INT,
+			"float"   => FILTER_SANITIZE_NUMBER_FLOAT,
+			"url"     => FILTER_SANITIZE_URL,
+			"email"   => FILTER_SANITIZE_EMAIL,
 			"special" => FILTER_SANITIZE_SPECIAL_CHARS,
 			"full"    => FILTER_SANITIZE_FULL_SPECIAL_CHARS
-		);
+		];
 		if(isset($aryFilter[$filter])) return filter_var( $var, $aryFilter[$filter]);
 		return filter_var( $var, FILTER_SANITIZE_SPECIAL_CHARS);
 	}
@@ -279,6 +279,6 @@ function var_out($var,$filter = "special"){
 }
 
 function validImageFilename($file){
-	$image_exts = array('jpg','jpeg','gif','png','webp');
+	$image_exts = ['jpg', 'jpeg', 'gif', 'png', 'webp'];
 	return in_array(getFileExtension($file),$image_exts);
 }

@@ -36,7 +36,7 @@ get_template('header', cl($SITENAME).' &raquo; '. $plugin_info[$plugin_id]['name
 		<div class="main">
 
 		<?php 
-			call_user_func_array($plugin_info[$plugin_id]['load_data'],array()); 
+			call_user_func_array($plugin_info[$plugin_id]['load_data'],[]); 
 		?>
 
 		</div>

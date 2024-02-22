@@ -19,7 +19,9 @@
 	
 	<meta name="robots" content="index, follow">
 
-	<link href='//fonts.googleapis.com/css?family=Yanone+Kaffeesatz' rel='stylesheet' type='text/css'>
+	<!--<link href='//fonts.googleapis.com/css?family=Yanone+Kaffeesatz' rel='stylesheet' type='text/css'>-->
+	<!-- Do not load Google Font from Google servers, this causes Data Protection issues in Germany -->
+	<link href="<?php get_theme_url(); ?>/yanonekaffeesatz/font.css" rel='stylesheet' type='text/css'>
 	<link href="<?php get_theme_url(); ?>/assets/css/reset.css" rel="stylesheet">
 	<link href="<?php get_theme_url(); ?>/style.css?v=<?php echo get_site_version(); ?>" rel="stylesheet">
 	

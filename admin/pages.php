@@ -77,7 +77,7 @@ foreach ($pagesArray as $page) {
 	} else {
 		$sort = $page['title'];
 	}
-	$page = array_merge($page, array('sort' => $sort));
+	$page = array_merge($page, ['sort' => $sort]);
 	$pagesArray_tmp[$count] = $page;
 	$count++;
 }

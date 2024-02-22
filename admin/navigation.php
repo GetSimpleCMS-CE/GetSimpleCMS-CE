@@ -68,7 +68,7 @@ global $LANG; $LANG_header = preg_replace('/(?:(?<=([a-z]{2}))).*/', '', $LANG);
 		}
 						
 	?>
-	<p class="edit"><a href="menu-manager.php" target="_blank" ><?php echo str_replace(array('<em>','</em>'), '', i18n_r('MENU_MANAGER')); ?> &raquo;</a></p>
+	<p class="edit"><a href="menu-manager.php" target="_blank" ><?php echo str_replace(['<em>', '</em>'], '', i18n_r('MENU_MANAGER')); ?> &raquo;</a></p>
 	</div>
 </body>
 </html>

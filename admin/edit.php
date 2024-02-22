@@ -172,7 +172,7 @@ get_template('header', cl($SITENAME).' &raquo; '.i18n_r('EDIT').' '.$title);
 							} else {
 								$sort = $page['title'];
 							}
-							$page = array_merge($page, array('sort' => $sort));
+							$page = array_merge($page, ['sort' => $sort]);
 							$pagesArray_tmp[$count] = $page;
 							$count++;
 						}

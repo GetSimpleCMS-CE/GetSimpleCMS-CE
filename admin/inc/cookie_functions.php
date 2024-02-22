@@ -106,7 +106,7 @@ function login_cookie_check() {
 	if(cookie_check()) {
 		create_cookie();
 	} else {
-		$qstring = filter_queryString(array('id'));
+		$qstring = filter_queryString(['id']);
 		$redirect_url = $cookie_login.'?redirect='.myself(FALSE).'?'.$qstring; // @todo reimplement safely, removed redirect getter #1300
 		redirect($redirect_url);
 	}

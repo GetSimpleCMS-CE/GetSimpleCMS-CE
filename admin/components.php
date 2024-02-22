@@ -28,7 +28,7 @@ if (isset($_POST['submitted'])){
 	$ids = @$_POST['id'];
 	
 	if($ids==""){
-	    $ids = array();
+	    $ids = [];
 	};
 	
 	// check for csrf
@@ -46,7 +46,7 @@ if (isset($_POST['submitted'])){
 	$xml = new SimpleXMLExtended('<?xml version="1.0" encoding="UTF-8"?><channel></channel>');
 	if (count($ids) != 0) { 
 		
-		$ct = 0; $coArray = array();
+		$ct = 0; $coArray = [];
 		foreach ($ids as $id)		{
 			if ($title[$ct] != null) {
 				if ( $slug[$ct] == null )	{

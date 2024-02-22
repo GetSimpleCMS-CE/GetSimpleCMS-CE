@@ -11,7 +11,7 @@
  * @subpackage Language
  */
  
-$i18n = array (
+$i18n = [
 	
 	"ANONY_TITLE"=> 'Send Anonymous Data',
 	"ANONY_DESC" => "GetSimple needs your anonymous data so we can understand our users better. It's completely voluntary and will help us improve our product.",
@@ -65,4 +65,4 @@ $i18n = array (
 	"ANONY_TRANSPORTATION" => "Transportation",
 	"ANONY_TRAVEL" => "Travel",
 	"ANONY_XRATED" => "X-rated"
-);
+];

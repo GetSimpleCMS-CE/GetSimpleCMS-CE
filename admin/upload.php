@@ -36,13 +36,13 @@ $isUnixHost = (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN' ? false : true);
 if (isset($_FILES['file'])) {
 	$uploadsCount = count($_FILES['file']['name']);
 	if($uploadsCount > 0) {
-	 $errors = array();
-	 $messages = array();
+	 $errors = [];
+	 $messages = [];
 	 for ($i=0; $i < $uploadsCount; $i++) {
 		if ($_FILES["file"]["error"][$i] > 0)	{
 			$errors[] = i18n_r('ERROR_UPLOAD');
 		} else {
-			
+
 			//set variables
 			$count = '1';
 			$file = $_FILES["file"]["name"][$i];
@@ -54,14 +54,14 @@ if (isset($_FILES['file'])) {
 			$base      = $name . '.' . $extension;
 
 			$file_loc = $path . $base;
-			
+
 			//prevent overwriting
 			while ( file_exists($file_loc) ) {
 				$file_loc = $path . $count.'-'. $base;
 				$base = $count.'-'. $base;
 				$count++;
 			}
-			
+
 			//validate file
 			if (validate_safe_file($_FILES["file"]["tmp_name"][$i], $_FILES["file"]["name"][$i])) {
 				move_uploaded_file($_FILES["file"]["tmp_name"][$i], $file_loc);
@@ -71,7 +71,7 @@ if (isset($_FILES['file'])) {
 					chmod($file_loc, 0644);
 				}
 				exec_action('file-uploaded');
-				
+
 				// generate thumbnail				
 				require_once('inc/imagemanipulation.php');	
 				genStdThumb($subFolder,$base);					
@@ -79,7 +79,7 @@ if (isset($_FILES['file'])) {
 			} else {
 				$errors[] = $_FILES["file"]["name"][$i] .' - '.i18n_r('ERROR_UPLOAD');
 			}
-			
+
 			//successfull message
 			
 		}
@@ -146,8 +146,8 @@ get_template('header', cl($SITENAME).' &raquo; '.i18n_r('FILE_MANAGEMENT'));
       		$dircount="0";
 			$counter = "0";
 			$totalsize = 0;
-			$filesArray = array();
-      		$dirsArray = array();
+			$filesArray = [];
+      		$dirsArray = [];
       
 			$filenames = getFiles($path);
 

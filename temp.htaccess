@@ -6,6 +6,21 @@
 # The following require certain allow overrides, if getting 500 error comment them out one by one 
 # can be resolved in apache httpd.conf to ensure security alternatives
 
+#Redirect HTTP to HTTPS (change example.com to proper domain)
+#RewriteCond %{REQUEST_URI} !^/[0-9]+\..+\.cpaneldcv$
+#RewriteCond %{REQUEST_URI} !^/\.well-known/pki-validation/[A-F0-9]{32}\.txt(?:\ Comodo\ DCV)?$
+#RewriteCond %{SERVER_PORT} 80 
+#RewriteRule ^(.*)$ https://www.example.com/$1 [R=301,L]
+
+# Rewrite domain.com -> www.domain.com -- used with SEO Strict URLs plugin
+#RewriteCond %{HTTP_HOST} !^$
+#RewriteCond %{HTTP_HOST} !^www\. [NC]
+#RewriteCond %{HTTP_HOST} (.+)$
+#RewriteRule ^(.*)$ http://www.%1/$1 [R=permanent,L] . 
+
+# Enable gzip compression
+#AddOutputFilterByType DEFLATE text/text text/html text/plain text/xml text/css application/x-javascript application/javascript
+
 # override charset
 AddDefaultCharset UTF-8
 

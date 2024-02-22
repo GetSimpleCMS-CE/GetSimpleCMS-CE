@@ -18,8 +18,8 @@
  */
 function clean_url($text)  { 
 	$text = strip_tags(lowercase($text)); 
-	$code_entities_match = array(' ?',' ','--','&quot;','!','@','#','$','%','^','&','*','(',')','+','{','}','|',':','"','<','>','?','[',']','\\',';',"'",',','/','*','+','~','`','=','.'); 
-	$code_entities_replace = array('','-','-','','','','','','','','','','','','','','','','','','','','','','','',''); 
+	$code_entities_match = [' ?', ' ', '--', '&quot;', '!', '@', '#', '$', '%', '^', '&', '*', '(', ')', '+', '{', '}', '|', ':', '"', '<', '>', '?', '[', ']', '\\', ';', "'", ',', '/', '*', '+', '~', '`', '=', '.']; 
+	$code_entities_replace = ['', '-', '-', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '']; 
 	$text = str_replace($code_entities_match, $code_entities_replace, $text); 
 	$text = urlencode($text);
 	$text = str_replace('--','-',$text);
@@ -39,8 +39,8 @@ function clean_url($text)  {
  */
 function clean_img_name($text)  {
 	$text = getDef('GSUPLOADSLC',true) ? strip_tags(lowercase($text)) : strip_tags($text);
-	$code_entities_match = array(' ?',' ','--','&quot;','!','#','$','%','^','&','*','(',')','+','{','}','|',':','"','<','>','?','[',']','\\',';',"'",',','/','*','+','~','`','='); 
-	$code_entities_replace = array('','-','-','','','','','','','','','','','','','','','','','','','','','',''); 
+	$code_entities_match = [' ?', ' ', '--', '&quot;', '!', '#', '$', '%', '^', '&', '*', '(', ')', '+', '{', '}', '|', ':', '"', '<', '>', '?', '[', ']', '\\', ';', "'", ',', '/', '*', '+', '~', '`', '=']; 
+	$code_entities_replace = ['', '-', '-', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '']; 
 	$text = str_replace($code_entities_match, $code_entities_replace, $text); 
 	$text = urlencode($text);
 	$text = str_replace('--','-',$text);
@@ -67,9 +67,9 @@ function to7bit($text,$from_enc="UTF-8") {
 		$text = htmlspecialchars_decode(utf8_decode(htmlentities($text, ENT_COMPAT, 'utf-8', false)));
 	}
     $text = preg_replace(
-        array('/&szlig;/','/&(..)lig;/',
-             '/&([aouAOU])uml;/','/&(.)[^;]*;/'),
-        array('ss',"$1","$1".'e',"$1"),
+        ['/&szlig;/', '/&(..)lig;/', 
+             '/&([aouAOU])uml;/','/&(.)[^;]*;/'],
+        ['ss', "$1", "$1".'e', "$1"],
         $text);
     return $text;
 }
@@ -250,7 +250,7 @@ function isFile($file, $path, $type = 'xml') {
  */
 function getFiles($path) {
 	$handle = opendir($path) or die("getFiles: Unable to open $path");
-	$file_arr = array();
+	$file_arr = [];
 	while ($file = readdir($handle)) {
 		if ($file != '.' && $file != '..') {
 			$file_arr[] = $file;
@@ -496,7 +496,7 @@ function strippath($path) {
  */
 function strip_quotes($text)  { 
 	$text = strip_tags($text); 
-	$code_entities_match = array('"','\'','&quot;'); 
+	$code_entities_match = ['"', '\'', '&quot;']; 
 	$text = str_replace($code_entities_match, '', $text); 
 	return trim($text); 
 }
@@ -511,7 +511,7 @@ function strip_quotes($text)  {
  */
 function encode_quotes($text)  { 
 	$text = strip_tags($text);
-	if (version_compare(PHP_VERSION, "5.2.3")  >= 0) {	
+	if (version_compare(PHP_VERSION, "7.2")  >= 0) {	
 		$text = htmlspecialchars($text, ENT_QUOTES, 'UTF-8', false);
 	} else {	
 		$text = htmlspecialchars($text, ENT_QUOTES, 'UTF-8');
@@ -627,7 +627,7 @@ function i18n_r($name) {
  */
 function i18n_merge($plugin, $language=null) {
   global $i18n, $LANG;
-  return i18n_merge_impl($plugin, $language ? $language : $LANG, $i18n);
+  return i18n_merge_impl($plugin, $language ?: $LANG, $i18n);
 }
 
 /**
@@ -646,8 +646,8 @@ function i18n_merge($plugin, $language=null) {
  */
 function i18n_merge_impl($plugin, $lang, &$globali18n) { 
 
-  $i18n = array(); // local from file
-  if(!isset($globali18n)) $globali18n = array(); //global ref to $i18n
+  $i18n = []; // local from file
+  if(!isset($globali18n)) $globali18n = []; //global ref to $i18n
 	
   $path     = ($plugin ? GSPLUGINPATH.$plugin.'/lang/' : GSLANGPATH);
   $filename = $path.$lang.'.php';
@@ -724,7 +724,7 @@ function xmlFilterChars($str){
  * @return mixed     array or str if id specified of regex char strings
  */
 function getRegexUnicode($id = null){
-	$chars = array(
+	$chars = [
 		'null'       => '\x{0000}',            // 0 null
 		'ht'         => '\x{0009}',            // 9 horizontal tab
 		'lf'         => '\x{000a}',            // 10 line feed
@@ -739,8 +739,8 @@ function getRegexUnicode($id = null){
 		'surrogates' => '\x{D800}-\x{DFFF}',   // 55296 - 57343
 		'upper'      => '\x{E000}-\x{FFFD}',   // 57344 - 65533
 		'nonchars'   => '\x{FFFE}-\x{FFFF}',   // 65534 - 65535
-		'privateb'   => '\x{10000}-\x{10FFFD}' // 65536 - 1114109
-	);
+		'privateb'   => '\x{10000}-\x{10FFFD}', // 65536 - 1114109
+ 	];
 
 	if(isset($id)) return $chars[$id];
 	return $chars;
@@ -943,7 +943,7 @@ function lowercase($text) {
  * @return string
  */
 function find_accesskey($string) {
-  $found = array();
+  $found = [];
   $matched = preg_match('/<em>([a-zA-Z])<\/em>/', $string, $found);
   if ($matched != 1) {
      return null;
@@ -995,7 +995,7 @@ function defined_array($constants) {
  * @return bool
  */
 function check_empty_folder($folder) {
-	$files = array ();
+	$files = [];
 	if ( $handle = opendir ( $folder ) ) {
 		while ( false !== ( $file = readdir ( $handle ) ) ) {
 			if ( $file != "." && $file != ".." ) {
@@ -1017,7 +1017,7 @@ function check_empty_folder($folder) {
  * @return string
  */
 function folder_items($folder) {
-	$files = array ();
+	$files = [];
 	if ( $handle = opendir ( $folder ) ) {
 		while ( false !== ( $file = readdir ( $handle ) ) ) {
 			if ( $file != "." && $file != ".." ) {
@@ -1055,13 +1055,13 @@ function formatXmlString_legacy($xml) {
   $token      = strtok($xml, "\n");
   $result     = ''; // holds formatted version as it is built
   $pad        = 0; // initial indent
-  $matches    = array(); // returns from preg_matches()
+  $matches    = []; // returns from preg_matches()
   
   // scan each line and adjust indent based on opening/closing tags
   while ($token !== false) : 
-  
+
     // test for the various tag states
-    
+
     // 1. open and closing tags on same line - no change
     if (preg_match('/.+<\/\w[^>]*>$/', $token, $matches)) : 
       $indent=0;
@@ -1075,7 +1075,7 @@ function formatXmlString_legacy($xml) {
     else :
       $indent = 0; 
     endif;
-    
+
     // pad the line with the required number of leading spaces
     $line    = str_pad($token, strlen($token)+$pad, ' ', STR_PAD_LEFT);
     $result .= $line . "\n"; // add to the cumulative result, with linefeed
@@ -1218,9 +1218,9 @@ function toBytes($str){
 	$val = trim($str);
 	$last = strtolower($str[strlen($str)-1]);
 		switch($last) {
-			case 'g': $val *= 1024;
+			case 'g': @$val *= 1024;
 			case 'm': @$val *= 1024;
-			case 'k': $val *= 1024;
+			case 'k': @$val *= 1024;
 		}
 	return $val;
 }
@@ -1250,7 +1250,7 @@ function removerelativepath($file) {
  * @return array or files and folders
  */
 function directoryToArray($directory, $recursive) {
-	$array_items = array();
+	$array_items = [];
 	if ($handle = opendir($directory)) {
 		while (false !== ($file = readdir($handle))) {
 			if ($file != "." && $file != "..") {
@@ -1393,7 +1393,7 @@ function header_xframeoptions($value = null){
  * @return str          new string
  */
 function strip_whitespace($str,$replace = ' '){
-	$chars = array("\r\n", "\n", "\r", "\t");
+	$chars = ["\r\n", "\n", "\r", "\t"];
 	$str   = str_replace($chars, $replace, $str);
 	return preg_replace('/['.$replace.']+/', $replace, $str);
 }

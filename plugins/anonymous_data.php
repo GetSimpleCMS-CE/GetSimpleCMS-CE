@@ -27,8 +27,8 @@ register_plugin(
 );
 
 # activate hooks
-add_action('plugins-sidebar','createSideMenu',array($thisfile_anony,i18n_r($thisfile_anony.'/ANONY_TITLE'))); 
-add_action($thisfile_anony.'-sidebar','createSideMenu',array("",i18n_r("CANCEL"))); 
+add_action('plugins-sidebar','createSideMenu',[$thisfile_anony, i18n_r($thisfile_anony.'/ANONY_TITLE')]); 
+add_action($thisfile_anony.'-sidebar','createSideMenu',["", i18n_r("CANCEL")]); 
 
 if ( ! function_exists('get_tld_from_url')){ 
 	function get_tld_from_url( $url ){
@@ -59,7 +59,7 @@ function gs_anonymousdata() {
 	if(isset($_POST['preview'])) {
 		global $LANG, $TIMEZONE, $SITEURL, $live_plugins, $thisfile_anony;
 		
-		$missing_modules = array();
+		$missing_modules = [];
 		
 		$php_modules = get_loaded_extensions();
 		if (! in_arrayi('curl', $php_modules) ) {
@@ -119,7 +119,7 @@ function gs_anonymousdata() {
 			curl_setopt($ch, CURLOPT_TIMEOUT, 4);
 			curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 			curl_setopt($ch, CURLOPT_URL, 'http://get-simple.info/api/anonymous/?data='.urlencode($xml));
-			curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-type: text/xml'));
+			curl_setopt($ch, CURLOPT_HTTPHEADER, ['Content-type: text/xml']);
 			$result = curl_exec($ch);
 			curl_close($ch);
 		} else {

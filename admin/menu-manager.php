@@ -37,7 +37,7 @@ if (isset($_POST['menuOrder'])) {
 getPagesXmlValues();
 $pagesSorted = subval_sort($pagesArray,'menuOrder');
 
-get_template('header', cl($SITENAME).' &raquo; '.i18n_r('PAGE_MANAGEMENT').' &raquo; '.str_replace(array('<em>','</em>'), '', i18n_r('MENU_MANAGER'))); 
+get_template('header', cl($SITENAME).' &raquo; '.i18n_r('PAGE_MANAGEMENT').' &raquo; '.str_replace(['<em>', '</em>'], '', i18n_r('MENU_MANAGER'))); 
 
 ?>
 	
@@ -47,7 +47,7 @@ get_template('header', cl($SITENAME).' &raquo; '.i18n_r('PAGE_MANAGEMENT').' &ra
 	
 	<div id="maincontent">
 		<div class="main" >
-			<h3><?php echo str_replace(array('<em>','</em>'), '', i18n_r('MENU_MANAGER')); ?></h3>
+			<h3><?php echo str_replace(['<em>', '</em>'], '', i18n_r('MENU_MANAGER')); ?></h3>
 			<p><?php i18n('MENU_MANAGER_DESC'); ?></p>
 			<?php
 				if (count($pagesSorted) != 0) { 

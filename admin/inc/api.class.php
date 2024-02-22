@@ -6,9 +6,9 @@
  */
 
 class API_Request {
-	
+
 	var $xml;
-	
+
 	/* 
 	 * Authenticate
 	 * 
@@ -21,15 +21,15 @@ class API_Request {
 			if ( (string)$appid_file->key == (string)$this->xml->key) {
 				return true;
 			} else {
-				$message = array('status' => 'error', 'message' => i18n_r('API_ERR_AUTHFAILED'));
+				$message = ['status' => 'error', 'message' => i18n_r('API_ERR_AUTHFAILED')];
 				echo json_encode($message);
 			}
 		} else {
-			$message = array('status' => 'error', 'message' => i18n_r('API_ERR_AUTHDISABLED'));
+			$message = ['status' => 'error', 'message' => i18n_r('API_ERR_AUTHDISABLED')];
 			echo json_encode($message);
 		}
 	}
-	
+
 	public function add_data($array) {
 		$this->xml = $array;
 	}
@@ -48,10 +48,10 @@ class API_Request {
 				$page->metak = strip_decode($page->metak);
 				$page->metad = strip_decode($page->metad);
 				$page->title = strip_decode($page->title);
-				$wrapper = array('status' => 'success', 'message' => 'page_read ok', 'response' => $page);
+				$wrapper = ['status' => 'success', 'message' => 'page_read ok', 'response' => $page];
 				return json_encode($wrapper);
 			} else {
-				$error = array('status' => 'error', 'message' => sprintf(i18n_r('API_ERR_NOPAGE'), $id));
+				$error = ['status' => 'error', 'message' => sprintf(i18n_r('API_ERR_NOPAGE'), $id)];
 				return json_encode($error);
 			}
 		}
@@ -65,11 +65,11 @@ class API_Request {
 	public function settings_read() {
 		if($this->auth()) {
 			$settings = getXML(GSDATAOTHERPATH.'website.xml');
-			$wrapper = array('status' => 'success', 'message' => 'settings_read ok', 'response' => $settings);
+			$wrapper = ['status' => 'success', 'message' => 'settings_read ok', 'response' => $settings];
 			return json_encode($wrapper);
 		}
 	}
-	
+
 	/* 
 	 * Read All Pages
 	 * 
@@ -78,11 +78,11 @@ class API_Request {
 	public function all_pages_read() {
 		if($this->auth()) {
 			$pages = get_available_pages();
-			$wrapper = array('status' => 'success', 'message' => 'all_pages_read ok', 'response' => $pages);
+			$wrapper = ['status' => 'success', 'message' => 'all_pages_read ok', 'response' => $pages];
 			return json_encode($wrapper);
 		}
 	}
-	
+
 	/* 
 	 * Upload File
 	 * 
@@ -90,13 +90,13 @@ class API_Request {
 	 */
 	public function file_upload() {
 		if($this->auth()) {
-			
+
 			$patho = (string)$this->xml->data->path;
 			$path = tsl(GSDATAUPLOADPATH . $patho);
 
 		}
 	}
-	
+
 	/* 
 	 * Save Page
 	 * 
@@ -116,18 +116,18 @@ class API_Request {
 				$status = XMLsave($page, $thisfile);
 				if ($status) {
 					touch($thisfile);
-					$wrapper = array('status' => 'success', 'message' => 'page_save ok', 'response' => $page);
+					$wrapper = ['status' => 'success', 'message' => 'page_save ok', 'response' => $page];
 				} else {
-					$wrapper = array('status' => 'error', 'message' => 'There was an error saving your page');
+					$wrapper = ['status' => 'error', 'message' => 'There was an error saving your page'];
 				}
 				return json_encode($wrapper);
 			} else {
-				$error = array('status' => 'error', 'message' => sprintf(i18n_r('API_ERR_NOPAGE'), $id));
+				$error = ['status' => 'error', 'message' => sprintf(i18n_r('API_ERR_NOPAGE'), $id)];
 				return json_encode($error);
 			}
 		}
 	}
-	
+
 	/* 
 	 * Read Files
 	 * 
@@ -137,17 +137,17 @@ class API_Request {
 		if($this->auth()) {
 			$patho = (string)$this->xml->data->path;
 			$path = tsl(GSDATAUPLOADPATH . $patho);
-			$filesArray = array();
+			$filesArray = [];
 			$count =0;
 			global $SITEURL;
-			
+
 			$filenames = getFiles($path);
 			if (count($filenames) != 0) { 
 				foreach ($filenames as $file) {
 					if ($file == "." || $file == ".." || $file == ".htaccess" ){
 				    // not a upload file
 				  } else {
-				  	
+
 				  	$filesArray[$count]['name'] = $file;
 				  	if (is_dir($path . $file)) {
 					    $filesArray[$count]['type'] = 'folder';
@@ -162,17 +162,17 @@ class API_Request {
 							$filesArray[$count]['date'] = date('c',$ss['mtime']);
 							$filesArray[$count]['size'] = $ss['size'];
 						}
-						
+
 					}
 					$count++;
 				}
 			}
 			$filesArray = subval_sort($filesArray, 'name');
 			$filesArray = subval_sort($filesArray, 'type');
-			$wrapper = array('status' => 'success', 'message' => 'all_files_read ok', 'response' => $filesArray);
+			$wrapper = ['status' => 'success', 'message' => 'all_files_read ok', 'response' => $filesArray];
 			return json_encode($wrapper);
 		}
 	}
-	
+
 } // end of class
 ?>

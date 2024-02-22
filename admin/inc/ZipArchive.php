@@ -75,7 +75,7 @@ class ZipArchive  {
 	private $tempDirPath;
 	private $zip_is_open=false;
 	
-	private $fileIndex = array();
+	private $fileIndex = [];
 	
 	
 	public static function setup(){
@@ -246,7 +246,7 @@ class ZipArchive  {
 		$this->zip_is_open = false;
 		$this->zipFilePath = "";
 		$this->tempDirPath = "";
-		$this->fileIndex = array();
+		$this->fileIndex = [];
 		
 		return true;
 	}
@@ -571,7 +571,7 @@ class ZipArchive  {
 
 	private function __extractTo($zip_path, $destination, $entries = null) {
 		$return_value=0;
-		$output = array();
+		$output = [];
 				
 		//determine list of files to extract
 		$list = "";

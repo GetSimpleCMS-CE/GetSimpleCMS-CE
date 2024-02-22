@@ -22,7 +22,7 @@ ob_start();
 
 function compress($buffer) {
   $buffer = preg_replace('!/\*[^*]*\*+([^/][^*]*\*+)*/!', '', $buffer); /* remove comments */
-  $buffer = str_replace(array("\r\n", "\r", "\n", "\t", '  ', '    ', '    '), '', $buffer); /* remove tabs, spaces, newlines, etc. */
+  $buffer = str_replace(["\r\n", "\r", "\n", "\t", '  ', '    ', '    '], '', $buffer); /* remove tabs, spaces, newlines, etc. */
   return $buffer;
 }
 
@@ -53,7 +53,7 @@ if (file_exists('../../theme/admin.xml')) {
 	$primary_4 = '#618899';
 	$primary_5 = '#E8EDF0';
 	$primary_6 = '#AFC5CF'; # lightest
-	
+
 	$secondary_0 = '#9F2C04'; # darkest
 	$secondary_1 = '#CF3805'; # lightest
 }

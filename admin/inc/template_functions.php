@@ -552,8 +552,8 @@ function get_admin_path() {
  * @return string
  */
 function get_root_path() {
-  $pos = strrpos(dirname(__FILE__),DIRECTORY_SEPARATOR.'inc');
-  $adm = substr(dirname(__FILE__), 0, $pos);
+  $pos = strrpos(__DIR__,DIRECTORY_SEPARATOR.'inc');
+  $adm = substr(__DIR__, 0, $pos);
   $pos2 = strrpos($adm,DIRECTORY_SEPARATOR);
   return tsl(substr(__FILE__, 0, $pos2));
 }
@@ -631,7 +631,7 @@ function get_available_pages() {
         
         $url = find_url($slug,$parent);
         
-        $specific = array("slug"=>$slug,"url"=>$url,"parent_slug"=>$parent,"title"=>$title,"menu_priority"=>$pri,"menu_text"=>$text,"menu_status"=>$menuStatus,"private"=>$private,"pub_date"=>$pubDate);
+        $specific = ["slug"=>$slug, "url"=>$url, "parent_slug"=>$parent, "title"=>$title, "menu_priority"=>$pri, "menu_text"=>$text, "menu_status"=>$menuStatus, "private"=>$private, "pub_date"=>$pubDate];
         
         $extract[] = $specific;
       } 
@@ -684,11 +684,11 @@ function updateSlugs($existingUrl, $newurl=null){
  * @param int $level
  * @return array menuitems title,url,parent
  */
-function get_link_menu_array($parent='', $array=array(), $level=0) {
+function get_link_menu_array($parent='', $array=[], $level=0) {
 	
 	global $pagesSorted;
 	
-	$items=array();
+	$items=[];
 	// $pageList=array();
 
 	foreach ($pagesSorted as $page) {
@@ -710,7 +710,7 @@ function get_link_menu_array($parent='', $array=array(), $level=0) {
 					$dash .= '- '; // inner level
             }   
           } 
-			array_push($array, array( $dash . $page['title'], find_url($page['url'], $page['parent'])));
+			array_push($array, [$dash . $page['title'], find_url($page['url'], $page['parent'])]);
 			// recurse submenus
 			$array=get_link_menu_array((string)$page['url'], $array,$level+1);	 
         }
@@ -736,7 +736,7 @@ function get_link_menu_array($parent='', $array=array(), $level=0) {
 function list_pages_json() {
 	GLOBAL $pagesArray,$pagesSorted;
 
-	$pagesArray_tmp = array();
+	$pagesArray_tmp = [];
 	$count = 0;
 	foreach ($pagesArray as $page) {
 		if ($page['parent'] != '') { 
@@ -745,7 +745,7 @@ function list_pages_json() {
 			} else {
 			$sort = $page['title'];
 			}
-		$page = array_merge($page, array('sort' => $sort));
+		$page = array_merge($page, ['sort' => $sort]);
 		$pagesArray_tmp[$count] = $page;
 			$count++;
 			}
@@ -788,7 +788,7 @@ function ckeditor_add_page_link(){
 function get_pages_menu($parent, $menu,$level) {
 	global $pagesSorted;
 	
-	$items=array();
+	$items=[];
 	foreach ($pagesSorted as $page) {
 		if ($page['parent']==$parent){
 			$items[(string)$page['url']]=$page;
@@ -850,7 +850,7 @@ function get_pages_menu_dropdown($parentitem, $menu,$level) {
 	global $pagesSorted;
 	global $parent; 
 	
-	$items=array();
+	$items=[];
 	foreach ($pagesSorted as $page) {
 		if ($page['parent']==$parentitem){
 			$items[(string)$page['url']]=$page;
@@ -1015,7 +1015,7 @@ function get_api_details($type='core', $args=null, $cached = false) {
 			$timeout = $api_timeout / 1000; // ms to float seconds
 			// $context = stream_context_create();
 			// stream_context_set_option ( $context, array('http' => array('timeout' => $timeout)) );
-			$context = stream_context_create(array('http' => array('timeout' => $timeout))); 
+			$context = stream_context_create(['http' => ['timeout' => $timeout]]); 
 			$data = @file_get_contents($fetch_this_api,false,$context);	
 			debug_api_details("fopen data: " .$data);		
 		} else {
@@ -1191,7 +1191,7 @@ function isAuthPage(){
  * @param  array $allowed array of querystring keys to keep
  * @return string built query string
  */
-function filter_queryString($allowed = array()){
+function filter_queryString($allowed = []){
 	parse_str($_SERVER['QUERY_STRING'], $query_string);
 	$qstring_filtered = array_intersect_key($query_string, array_flip($allowed));
 	$new_qstring = http_build_query($qstring_filtered,'','&amp;');
@@ -1225,7 +1225,7 @@ function getExcerpt($str, $len = 200, $striphtml = true, $ellipsis = '...', $bre
 
 	// setup multibyte function names
 	$prefix = strIsMultibyte($str) ?  'mb_' : '';
-	list($substr,$strlen,$strrpos) = array($prefix.'substr',$prefix.'strlen',$prefix.'strrpos');
+	list($substr,$strlen,$strrpos) = [$prefix.'substr', $prefix.'strlen', $prefix.'strrpos'];
 
 	// string is shorter than truncate length, return
 	if ($strlen($str) < $len) return $str;
@@ -1269,7 +1269,7 @@ function strIsMultibyte($str){
  * @param  array $strip_tags optional elements to remove eg. array('style')
  * @return string      return well formed html , with open tags being closed and incomplete open tags removed
  */
-function cleanHtml($str,$strip_tags = array()){
+function cleanHtml($str,$strip_tags = []){
 	// setup encoding, required for proper dom loading
 	// @note
 	// $dom_document = new DOMDocument('1.0', 'utf-8'); // this does not deal with transcoding issues, loadhtml will treat string as ISO-8859-1 unless the doc specifies it 
@@ -1288,7 +1288,7 @@ function cleanHtml($str,$strip_tags = array()){
 
 	// strip dom tags that we added, and ones that savehtml adds
 	// strip doctype, head, html, body tags
-	$html_fragment = preg_replace('/^<!DOCTYPE.+?>|<head.*?>(.*)?<\/head>/', '', str_replace( array('<html>', '</html>', '<body>', '</body>'), array('', '', '', ''), @$dom_document->saveHTML()));	
+	$html_fragment = preg_replace('/^<!DOCTYPE.+?>|<head.*?>(.*)?<\/head>/', '', str_replace( ['<html>', '</html>', '<body>', '</body>'], ['', '', '', ''], @$dom_document->saveHTML()));	
 	return $html_fragment;
 }	
 

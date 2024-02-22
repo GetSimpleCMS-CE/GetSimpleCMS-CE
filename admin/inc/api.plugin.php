@@ -24,7 +24,7 @@ register_plugin(
 );
 
 # activate hooks
-add_action('settings-sidebar','createSideMenu',array($thisfileapi, i18n_r('API_CONFIGURATION'))); 
+add_action('settings-sidebar','createSideMenu',[$thisfileapi, i18n_r('API_CONFIGURATION')]); 
 
 function gsapi_display_cp() {
 	$thisdatafile = GSDATAOTHERPATH.'appid.xml';

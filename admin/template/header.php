@@ -26,10 +26,7 @@ if(get_filename_id()!='index') exec_action('admin-pre-header');
 	<title><?php echo $title ?></title>
 	<?php if(!isAuthPage()) { ?><meta name="generator" content="GetSimple - <?php echo GSVERSION; ?>" /> 
 	<link rel="shortcut icon" href="favicon.png" type="image/x-icon" />
-	<link rel="author" href="humans.txt" />
 	<link rel="apple-touch-icon" href="apple-touch-icon.png"/>
-	<?php } ?>	
-	<meta name="robots" content="noindex, nofollow">
 	<link rel="stylesheet" type="text/css" href="template/style.php?<?php echo 's='.$GSSTYLE.'&amp;v='.GSVERSION; ?>" media="screen" />
 	<!--[if IE 6]><link rel="stylesheet" type="text/css" href="template/ie6.css?v=<?php echo GSVERSION; ?>" media="screen" /><![endif]-->
     <?php
@@ -37,7 +34,13 @@ if(get_filename_id()!='index') exec_action('admin-pre-header');
 		get_scripts_backend();
 	?>
 	<script type="text/javascript" src="template/js/jquery.getsimple.js?v=<?php echo GSVERSION; ?>"></script>
-
+	<?php  } else { ?> 
+	<link rel="shortcut icon" href="favicon.png" type="image/x-icon" />
+	<link rel="apple-touch-icon" href="apple-touch-icon.png"/>
+	<meta name="robots" content="noindex, nofollow">
+	<link rel="stylesheet" type="text/css" href="template/style.php" media="screen" />
+	<!--[if IE 6]><link rel="stylesheet" type="text/css" href="template/ie6.css" media="screen" /><![endif]-->
+	<?php } ?>
 	<!--[if lt IE 9]><script type="text/javascript" src="//html5shiv.googlecode.com/svn/trunk/html5.js" ></script><![endif]-->
 	<?php if( ((get_filename_id()=='upload') || (get_filename_id()=='image')) && (!getDef('GSNOUPLOADIFY',true)) ) { ?>
 	<script type="text/javascript" src="template/js/uploadify/jquery.uploadify.js?v=3.0"></script>
@@ -68,11 +71,11 @@ if(get_filename_id()!='index') exec_action('admin-pre-header');
 						$verstatus = $apikey->status;
 			?>
 				var verstatus = <?php echo $verstatus; ?>;
-				if(verstatus != 1) {
+				/*if(verstatus != 1) {
 					<?php if(isBeta()){ ?> $('a.support').parent('li').append('<span class="info">i</span>');
 					<?php } else { ?> $('a.support').parent('li').append('<span class="warning">!</span>'); <?php } ?>
 					$('a.support').attr('href', 'health-check.php');
-				}
+				}*/
 			<?php  }} ?>
 		});
 	</script>

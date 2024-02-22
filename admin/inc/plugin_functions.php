@@ -6,12 +6,12 @@
  * @subpackage Plugin-Functions
  */
 
-$plugins          = array();  // used for option names
-$plugins_info     = array();
-$filters          = array();
-$live_plugins     = array();  // used for enablie/disable functions
-$GS_scripts       = array();  // used for queing Scripts
-$GS_styles        = array();  // used for queing Styles
+$plugins          = [];  // used for option names
+$plugins_info     = [];
+$filters          = [];
+$live_plugins     = [];  // used for enablie/disable functions
+$GS_scripts       = [];  // used for queing Scripts
+$GS_styles        = [];  // used for queing Styles
 
 // constants
 // asseturl is scheme-less ://url if GSASSETSCHEMES is not true
@@ -21,10 +21,10 @@ if (!defined('GSFRONT')) define('GSFRONT',1);
 if (!defined('GSBACK'))  define('GSBACK',2);
 if (!defined('GSBOTH'))  define('GSBOTH',3);
 
-$GS_script_assets = array(); // defines asset scripts
-$GS_style_assets  = array();  // defines asset styles
+$GS_script_assets = []; // defines asset scripts
+$GS_style_assets  = [];  // defines asset styles
 
-$GS_asset_objects = array(); // holds asset js object names
+$GS_asset_objects = []; // holds asset js object names
 $GS_asset_objects['jquery']    = 'jQuery';
 $GS_asset_objects['jquery-ui'] = 'jQuery.ui'; 
 
@@ -195,7 +195,7 @@ function create_pluginsxml($force=false){
   if (file_exists(GSPLUGINPATH)){
 	$pluginfiles = getFiles(GSPLUGINPATH);
   }
-  $phpfiles = array();
+  $phpfiles = [];
   foreach ($pluginfiles as $fi) {
 	if (lowercase(pathinfo($fi, PATHINFO_EXTENSION))=='php') {
 	  $phpfiles[] = $fi;
@@ -238,7 +238,7 @@ function create_pluginsxml($force=false){
  * @param string $added_function
  * @param array $args
  */
-function add_action($hook_name, $added_function, $args = array()) {
+function add_action($hook_name, $added_function, $args = []) {
 	global $plugins;
 	global $live_plugins; 
   
@@ -267,13 +267,13 @@ function add_action($hook_name, $added_function, $args = array()) {
 			$lineNumber=$caller['line'];
 		}
 		
-		$plugins[] = array(
+		$plugins[] = [
 			'hook' => $hook_name,
 			'function' => $added_function,
 			'args' => (array) $args,
 			'file' => $pathName.'.php',
-		'line' => $caller['line']
-		);
+			'line' => $caller['line']
+		];
 	  } 
 }
 
@@ -357,7 +357,7 @@ function createNavTab($tabname, $id, $txt, $action=null) {
 function register_plugin($id, $name, $ver=null, $auth=null, $auth_url=null, $desc=null, $type=null, $loaddata=null) {
 	global $plugin_info;
 	
-	$plugin_info[$id] = array(
+	$plugin_info[$id] = [
 	  'name' => $name,
 	  'version' => $ver,
 	  'author' => $auth,
@@ -365,7 +365,7 @@ function register_plugin($id, $name, $ver=null, $auth=null, $auth_url=null, $des
 	  'description' => $desc,
 	  'page_type' => $type,
 	  'load_data' => $loaddata
-	);
+	];
 
 }
 
@@ -386,10 +386,10 @@ function add_filter($filter_name, $added_function) {
   $bt = debug_backtrace();
   $caller = array_shift($bt);
   $pathName= pathinfo_filename($caller['file']);
-	$filters[] = array(
+	$filters[] = [
 		'filter' => $filter_name,
 		'function' => $added_function
-	);
+	];
 }
 
 /**
@@ -403,11 +403,11 @@ function add_filter($filter_name, $added_function) {
  * @param string $script Filter name to execute
  * @param array $data
  */
-function exec_filter($script,$data=array()) {
+function exec_filter($script,$data=[]) {
 	global $filters;
 	foreach ($filters as $filter)	{
 		if ($filter['filter'] == $script) {
-			$data = call_user_func_array($filter['function'], array($data));
+			$data = call_user_func_array($filter['function'], [$data]);
 		}
 	}
 	return $data;
@@ -428,13 +428,13 @@ function exec_filter($script,$data=array()) {
  */
 function register_script($handle, $src, $ver, $in_footer=FALSE){
 	global $GS_scripts;
-	$GS_scripts[$handle] = array(
+	$GS_scripts[$handle] = [
 	  'name' => $handle,
 	  'src' => $src,
 	  'ver' => $ver,
 	  'in_footer' => $in_footer,
 	  'where' => 0
-	);
+	];
 }
 
 /**
@@ -623,13 +623,13 @@ function dequeue_style($handle,$where){
  */
 function register_style($handle, $src, $ver, $media){
 	global $GS_styles;
-	$GS_styles[$handle] = array(
+	$GS_styles[$handle] = [
 	  'name' => $handle,
 	  'src' => $src,
 	  'ver' => $ver,
 	  'media' => $media,
 	  'where' => 0
-	);	
+	];	
 }
 
 /**

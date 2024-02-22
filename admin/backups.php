@@ -48,8 +48,8 @@ if (isset($_GET['deleteall'])){
 //display all page backups
 $filenames = getFiles($path);
 $count="0";
-$pagesArray_tmp = array();
-$pagesSorted=array(); 
+$pagesArray_tmp = [];
+$pagesSorted=[]; 
 
 if (count($filenames) != 0) 
 { 
@@ -68,9 +68,9 @@ if (count($filenames) != 0)
 	$pagesSorted = subval_sort($pagesArray_tmp,'title');
 }
 
-if (count($pagesSorted) != 0) 
+if (count((array)$pagesSorted) != 0) 
 { 
-	foreach ($pagesSorted as $page) 
+	foreach ((array)$pagesSorted as $page) 
 	{					
 		$counter++;
 		$table .= '<tr id="tr-'.$page['url'] .'" >';

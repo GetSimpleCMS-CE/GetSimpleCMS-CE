@@ -8,13 +8,13 @@
 *
 *****************************************************/
 
-$pagesArray = array();
+$pagesArray = [];
 
-add_action('index-header','getPagesXmlValues',array(false));      // make $pagesArray available to the front 
-add_action('header', 'getPagesXmlValues',array(get_filename_id() != 'pages'));  // make $pagesArray available to the back
-add_action('page-delete', 'create_pagesxml',array(true));         // Create pages.array if page deleted
-add_action('page-restored', 'create_pagesxml',array(true));        // Create pages.array if page undo
-add_action('changedata-aftersave', 'create_pagesxml',array(true));     // Create pages.array if page is updated
+add_action('index-header','getPagesXmlValues',[false]);      // make $pagesArray available to the front 
+add_action('header', 'getPagesXmlValues',[get_filename_id() != 'pages']);  // make $pagesArray available to the back
+add_action('page-delete', 'create_pagesxml',[true]);         // Create pages.array if page deleted
+add_action('page-restored', 'create_pagesxml',[true]);        // Create pages.array if page undo
+add_action('changedata-aftersave', 'create_pagesxml',[true]);     // Create pages.array if page is updated
 
 /**
  * Get Page Content
@@ -142,7 +142,7 @@ function returnPageField($page,$field){
 function getChildren($page){
 	global $pagesArray;
 	if(!$pagesArray) getPagesXmlValues();		
-	$returnArray = array();
+	$returnArray = [];
 	foreach ($pagesArray as $key => $value) {
 	    if ($pagesArray[$key]['parent']==$page){
 	      $returnArray[]=$key;
@@ -164,14 +164,14 @@ function getChildren($page){
  * 
  */
 
-function getChildrenMulti($page,$options=array()){
+function getChildrenMulti($page,$options=[]){
 	global $pagesArray;
 	if(!$pagesArray) getPagesXmlValues();		
 	$count=0;
-	$returnArray = array();
+	$returnArray = [];
 	foreach ($pagesArray as $key => $value) {
 	    if ($pagesArray[$key]['parent']==$page){
-	      	$returnArray[$count]=array();
+	      	$returnArray[$count]=[];
 			$returnArray[$count]['url']=$key;
 	    	foreach ($options as $option){
 	    		$returnArray[$count][$option]=returnPageField($key,$option);
@@ -198,7 +198,7 @@ function getPagesXmlValues($chkcount=false){
    
    // if page cache not load load it
    if(!$pagesArray){
-		$pagesArray=array();
+		$pagesArray=[];
 		$file=GSDATAOTHERPATH."pages.xml";
 		if (file_exists($file)){
 			// load the xml file and setup the array. 
@@ -208,7 +208,7 @@ function getPagesXmlValues($chkcount=false){
 			$pages = $data->item;
 			  foreach ($pages as $page) {
 			    $key=$page->url;
-			    $pagesArray[(string)$key]=array();
+			    $pagesArray[(string)$key]=[];
 			    foreach ($page->children() as $opt=>$val) {
 			        $pagesArray[(string)$key][(string)$opt]=(string)$val;
 			    }
@@ -226,7 +226,7 @@ function getPagesXmlValues($chkcount=false){
 	if ($chkcount==true){
 		$path = GSDATAPAGESPATH;
 		$dir_handle = @opendir($path) or die("getPageXmlValues: Unable to open $path");
-		$filenames = array();
+		$filenames = [];
 		while ($filename = readdir($dir_handle)) {
 			$ext = substr($filename, strrpos($filename, '.') + 1);
 			if ($ext=="xml"){
@@ -257,14 +257,14 @@ $success = '';
 
 // debugLog("create_pagesxml: " . $flag);
 if ((isset($_GET['upd']) && $_GET['upd']=="edit-success") || $flag===true || $flag=='true'){
-  $pagesArray = array();
+  $pagesArray = [];
   // debugLog("create_pagesxml proceeding");
   $menu = '';
   $filem=GSDATAOTHERPATH."pages.xml";
 
   $path = GSDATAPAGESPATH;
   $dir_handle = @opendir($path) or die("create_pagesxml: Unable to open $path");
-  $filenames = array();
+  $filenames = [];
   while ($filename = readdir($dir_handle)) {
     $ext = substr($filename, strrpos($filename, '.') + 1);
     if ($ext=="xml"){
@@ -281,20 +281,20 @@ if ((isset($_GET['upd']) && $_GET['upd']=="edit-success") || $flag===true || $fl
       } else {
         $thisfile = file_get_contents($path.$file);
         $data = simplexml_load_string($thisfile);
-        
+
         if(!$data){
         	// handle corrupt page xml
         	debugLog("page $file is corrupt");
         	continue;
         }
-        
+
         $count++;   
         $id=$data->url;
-        
+
     	$pages = $xml->addChild('item');
         // $pages->addChild('url', $id);
         // $pagesArray[(string)$id]['url']=(string)$id;            
-                
+
         foreach ($data->children() as $item => $itemdata) {
                 if ($item!="content"){
                         $note = $pages->addChild($item);
@@ -302,15 +302,15 @@ if ((isset($_GET['upd']) && $_GET['upd']=="edit-success") || $flag===true || $fl
                 $pagesArray[(string)$id][$item]=(string)$itemdata;
                 }
         }
-                
+
         $note = $pages->addChild('slug');
         $note->addCData($id);
         $pagesArray[(string)$id]['slug']=(string)$id;
-                
+
         $pagesArray[(string)$id]['filename']=$file;
         $note = $pages->addChild('filename'); 
         $note->addCData($file);
-			  
+
       } // else
     } // end foreach
   }   // endif      

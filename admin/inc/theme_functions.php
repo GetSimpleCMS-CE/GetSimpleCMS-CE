@@ -275,7 +275,7 @@ function get_header($full=true) {
 		// use content excerpt, NOT filtered
 		$desc = strip_decode($content);
 		if(getDef('GSCONTENTSTRIP',true)) $desc = strip_content($desc);
-		$desc = cleanHtml($desc,array('style','script')); // remove unwanted elements that strip_tags fails to remove
+		$desc = cleanHtml($desc,['style', 'script']); // remove unwanted elements that strip_tags fails to remove
 		$desc = getExcerpt($desc,160); // grab 160 chars
 		$desc = strip_whitespace($desc); // remove newlines, tab chars
 		$desc = encode_quotes($desc);
@@ -447,7 +447,7 @@ function get_site_credits($text ='Powered by ') {
  * @return array|string Type 'string' in this case will be XML 
  */
 function menu_data($id = null,$xml=false) {
-    $menu_extract = array();
+    $menu_extract = [];
 
     global $pagesArray; 
     $pagesSorted = subval_sort($pagesArray,'menuOrder');
@@ -466,7 +466,7 @@ function menu_data($id = null,$xml=false) {
           
           $url = find_url($slug,$parent);
           
-          $specific = array("slug"=>$slug,"url"=>$url,"parent_slug"=>$parent,"title"=>$title,"menu_priority"=>$pri,"menu_text"=>$text,"menu_status"=>$menuStatus,"private"=>$private,"pub_date"=>$pubDate);
+          $specific = ["slug"=>$slug, "url"=>$url, "parent_slug"=>$parent, "title"=>$title, "menu_priority"=>$pri, "menu_text"=>$text, "menu_status"=>$menuStatus, "private"=>$private, "pub_date"=>$pubDate];
           
           if ($id == $slug) { 
               return $specific; 
@@ -535,7 +535,7 @@ function get_component($id, $ret=false) {
             $data = getXML(GSDATAOTHERPATH.'components.xml');
             $components = $data->item;
         } else {
-            $components = array();
+            $components = [];
         }
     }
     if (count($components) > 0) {
@@ -558,7 +558,7 @@ function splitComponent($component) {
 	$title = $parts[0]; unset($parts[0]);
 	$text  = implode("<br/>", $parts);
 	
-	return array($content, $title, $text);
+	return [$content, $title, $text];
 }
 
 // Returns component as array of lines of the component

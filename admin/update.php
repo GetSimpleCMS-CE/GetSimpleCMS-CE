@@ -20,21 +20,21 @@ delete_cache();
 
 $message = null;
 
-$create_dirs = array(
+$create_dirs = [
 	GSCACHEPATH,
 	GSAUTOSAVEPATH
-);
+];
 
-$create_files = array();
+$create_files = [];
 
-$delete_files = array(
+$delete_files = [
 	GSADMININCPATH.'xss.php',
 	GSADMININCPATH.'nonce.php',
 	GSADMININCPATH.'install.php',
 	GSADMINPATH.'load-ajax.php',
 	GSADMINPATH.'cron.php',
 	GSADMINPATH.'loadtab.php'
-);
+];
 
 
 function msgOK($msg){
@@ -62,8 +62,8 @@ foreach($create_dirs as $dir){
 
 /* check for legacy version of user.xml */
 if (file_exists(GSDATAOTHERPATH .'user.xml')) {
-	
-	
+
+
 	# make new users folder
 	if (!file_exists(GSUSERSPATH)) {
 		$status = mkdir(GSUSERSPATH, 0777);
@@ -101,8 +101,8 @@ if (file_exists(GSDATAOTHERPATH .'user.xml')) {
 	$SITENAME = stripslashes($dataw->SITENAME);
 	$SITEURL = $dataw->SITEURL;
 	$TEMPLATE = $dataw->TEMPLATE;
-	
-	
+
+
 	# creating new user file
 	$xml = new SimpleXMLElement('<item></item>');
 	$xml->addChild('USR', $USR);
@@ -118,8 +118,8 @@ if (file_exists(GSDATAOTHERPATH .'user.xml')) {
 	} else {
 		$message .= msgOK('Created new '._id($USR).'.xml file');
 	}
-	
-	
+
+
 	# rename old wesbite.xml
 	if (!file_exists(GSDATAOTHERPATH .'_legacy_website.xml')) {
 		$status = rename(GSDATAOTHERPATH .'website.xml', GSDATAOTHERPATH .'_legacy_website.xml');
@@ -129,7 +129,7 @@ if (file_exists(GSDATAOTHERPATH .'user.xml')) {
 			$message .= msgOK('Renamed website.xml to _legacy_website.xml');
 		}
 	}
-	
+
 	#creating new website file
 	$xml = new SimpleXMLElement('<item></item>');
 	$xml->addChild('SITENAME', $SITENAME);
@@ -143,8 +143,8 @@ if (file_exists(GSDATAOTHERPATH .'user.xml')) {
 	} else {
 		$message .= msgOK('Created updated website.xml file');
 	}
-	
-	
+
+
 	# rename old user.xml
 	if (!file_exists(GSDATAOTHERPATH .'_legacy_user.xml')) {
 		$status = rename(GSDATAOTHERPATH .'user.xml', GSDATAOTHERPATH .'_legacy_user.xml');
@@ -183,22 +183,22 @@ else $message.= "<p><div class=\"notify notify_ok\">".i18n_r('SITE_UPDATED')."</
 get_template('header', $site_full_name.' &raquo; '. i18n_r('SYSTEM_UPDATE')); 
 
 ?>
-	
+
 	<h1><?php echo $site_full_name; ?></h1>
 </div> 
 </div><!-- Closes header -->
 <div class="wrapper">
 	<?php // include('template/error_checking.php'); ?>
-	
+
 	<div id="maincontent">
 		<div class="main" >
 			<h3><?php i18n('SYSTEM_UPDATE'); ?></h3>
-			
+
 			<?php 
 				echo "$message";
 				echo '<p><a href="'.$redirect.'">'.i18n_r('CONTINUE_SETUP').'</a></p>';
 			?>
-			
+
 		</div>
 	</div>
 	<div class="clear"></div>
