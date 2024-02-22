@@ -62,7 +62,7 @@ function clean_img_name($text)  {
  */
 function to7bit($text,$from_enc="UTF-8") {
 	if (function_exists('mb_convert_encoding')) {
-   		$text = mb_convert_encoding($text,'HTML-ENTITIES',$from_enc);
+		$text = mb_convert_encoding($text ?? "",'HTML-ENTITIES',$from_enc);
     } else {
 		$text = htmlspecialchars_decode(utf8_decode(htmlentities($text, ENT_COMPAT, 'utf-8', false)));
 	}
@@ -686,12 +686,19 @@ function i18n_merge_impl($plugin, $lang, &$globali18n) {
  * @return string
  */
 function safe_slash_html($text) {
+
+/*	// PHP 8, no get_magic_quotes_gpc()
 	if (get_magic_quotes_gpc()==0) {
 		$text = addslashes(htmlspecialchars($text, ENT_QUOTES, 'UTF-8'));
 	} else {
 		$text = htmlspecialchars($text, ENT_QUOTES, 'UTF-8');
 	}
+	
+	return xmlFilterChars($text);
+	*/
 
+	// replacement
+	$text = htmlspecialchars($text, ENT_QUOTES, 'UTF-8');
 	return xmlFilterChars($text);
 }
 
@@ -749,11 +756,19 @@ function getRegexUnicode($id = null){
  * @return string
  */
 function safe_strip_decode($text) {
+
+/*	// PHP 8, no get_magic_quotes_gpc()
+
 	if (get_magic_quotes_gpc()==0) {
 		$text = htmlspecialchars_decode($text, ENT_QUOTES);
 	} else {
 		$text = stripslashes(htmlspecialchars_decode($text, ENT_QUOTES));
 	}
+	return $text;
+*/	
+		// replacement
+	$text = stripslashes(htmlspecialchars_decode($text, ENT_QUOTES));
+	
 	return $text;
 }
 
@@ -845,12 +860,21 @@ function suggest_site_path($parts=false, $protocolRelative = false) {
  *
  * @param bool $echo
  * @return string
- */
+*/
 function myself($echo=true) {
+	return myself_new($echo);
 	if ($echo) {
 		echo htmlentities(basename($_SERVER['PHP_SELF']), ENT_QUOTES);
 	} else {
 		return htmlentities(basename($_SERVER['PHP_SELF']), ENT_QUOTES);
+	}
+}
+
+function myself_new($echo=true) {
+	if ($echo) {
+		echo htmlentities(basename($_SERVER['SCRIPT_NAME']), ENT_QUOTES);
+	} else {
+		return htmlentities(basename($_SERVER['SCRIPT_NAME']), ENT_QUOTES);
 	}
 }
 
@@ -1195,7 +1219,7 @@ function toBytes($str){
 	$last = strtolower($str[strlen($str)-1]);
 		switch($last) {
 			case 'g': $val *= 1024;
-			case 'm': $val *= 1024;
+			case 'm': @$val *= 1024;
 			case 'k': $val *= 1024;
 		}
 	return $val;
@@ -1393,7 +1417,7 @@ function strip_content($str, $pattern = '/[({]%.*?%[})]/'){
  * @return str      str after transliteration replacement array ran on it
  */
 function doTransliteration($str){
-	if (getTransliteration() && is_array($translit=getTransliteration()) && count($translit>0)) {
+	if (getTransliteration() && is_array($translit=getTransliteration()) && count($translit)>0) {
 		$str = str_replace(array_keys($translit),array_values($translit),$str);
 	}
 	return $str;

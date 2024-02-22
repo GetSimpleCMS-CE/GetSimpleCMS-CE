@@ -22,10 +22,14 @@ $update 	= ''; $table = ''; $list='';
 
 # check to see if form was submitted
 if (isset($_POST['submitted'])){
-	$value = $_POST['val'];
-	$slug = $_POST['slug'];
-	$title = $_POST['title'];
-	$ids = $_POST['id'];
+	$value = @$_POST['val'];
+	$slug = @$_POST['slug'];
+	$title = @$_POST['title'];
+	$ids = @$_POST['id'];
+	
+	if($ids==""){
+	    $ids = array();
+	};
 	
 	// check for csrf
 	if (!defined('GSNOCSRF') || (GSNOCSRF == FALSE) ) {

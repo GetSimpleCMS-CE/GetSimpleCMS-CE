@@ -523,7 +523,7 @@ function menu_data($id = null,$xml=false) {
  *				True will return value in XML format. False will return an array
  * @return string 
  */
-function get_component($id) {
+function get_component($id, $ret=false) {
     global $components;
 
     // normalize id
@@ -540,11 +540,34 @@ function get_component($id) {
     }
     if (count($components) > 0) {
         foreach ($components as $component) {
-            if ($id == $component->slug) { 
-                eval("?>" . strip_decode($component->value) . "<?php "); 
+            if ($id == $component->slug) {
+				if ($ret) return strip_decode($component->value);
+                else eval("?>" . strip_decode($component->value) . "<?php "); 
             }
         }
     }
+}
+
+// Returns component as array of lines of the component
+// 1st element is the array of lines
+// 2nd element is the first line in the component (as title, if you wish)
+// 3rd element is the rest of lines seperated by <br/>
+function splitComponent($component) {
+	$comp  = $component;
+	$parts = $content = preg_split("/\r\n|\r|\n/", $comp, 0);
+	$title = $parts[0]; unset($parts[0]);
+	$text  = implode("<br/>", $parts);
+	
+	return array($content, $title, $text);
+}
+
+// Returns component as array of lines of the component
+// usefull for creating <LI> items etc.
+function split_component($sec) {
+	$comp  = get_component($sec, true);
+	$parts = preg_split("/\r\n|\r|\n/", $comp, 0);
+
+	return $parts;
 }
 
 /**

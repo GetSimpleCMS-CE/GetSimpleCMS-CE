@@ -175,13 +175,13 @@ get_template('header', cl($SITENAME).' &raquo; '.i18n_r('FILE_MANAGEMENT'));
 					}
 				}
 				$filesSorted = subval_sort($filesArray,'name');
-        $dirsSorted = subval_sort($dirsArray,'name');
+		$dirsSorted = subval_sort($dirsArray,'name');
 			}
 			echo '<div class="edit-nav" >';
 			echo '<select id="imageFilter">';
 			echo '<option value="All">'.i18n_r('SHOW_ALL').'</option>';
-			if (count($filesSorted) > 0) {
-				foreach ($filesSorted as $filter) {
+			if (count((array)$filesSorted) > 0) {
+				foreach ((array)$filesSorted as $filter) {
 					$filterArr[] = $filter['type'];
 				}
 				if (count($filterArr) != 0) { 
@@ -232,9 +232,9 @@ get_template('header', cl($SITENAME).' &raquo; '.i18n_r('FILE_MANAGEMENT'));
      }
      echo '<th style="text-align:right;">'.i18n_r('DATE').'</th>';
      echo '<th><!-- actions --></th></tr>';  
-     if (count($dirsSorted) != 0) {
+     if (count((array)$dirsSorted) != 0) {
      		$foldercount = 0;
-        foreach ($dirsSorted as $upload) {
+        foreach ((array)$dirsSorted as $upload) {
         	
         	# check to see if folder is empty
         	$directory_delete = null;
@@ -268,8 +268,8 @@ get_template('header', cl($SITENAME).' &raquo; '.i18n_r('FILE_MANAGEMENT'));
           $foldercount++;
         }
      }
-			if (count($filesSorted) != 0) { 			
-				foreach ($filesSorted as $upload) {
+			if (count((array)$filesSorted) != 0) { 			
+				foreach ((array)$filesSorted as $upload) {
 					$counter++;
 					if ($upload['type'] == i18n_r('IMAGES') .' Images') {
 						$cclass = 'iimage';
@@ -288,14 +288,24 @@ get_template('header', cl($SITENAME).' &raquo; '.i18n_r('FILE_MANAGEMENT'));
 						} else {
 							$imgSrc='<img src="inc/thumb.php?src='. $urlPath . rawurlencode($upload['name']) .'&amp;dest='. $thumbLinkEncoded .'&amp;f=1" />';
 						}
+						
 						echo '<a href="'. $path . rawurlencode($upload['name']) .'" title="'. rawurlencode($upload['name']) .'" rel=" facybox_i" >'.$imgSrc.'</a>';
 					} else {
 						$gallery = '';
 						$controlpanel = '';
 						$pathlink = $path . $upload['name'];
 					}
-					echo '</td><td><a title="'.i18n_r('VIEW_FILE').': '. htmlspecialchars($upload['name']) .'" href="'. $pathlink .'" class="primarylink">'.htmlspecialchars($upload['name']) .'</a></td>';
-					echo '<td style="width:80px;text-align:right;" ><span>'. $upload['size'] .'</span></td>';
+
+					echo '</td><td><a title="'.i18n_r('VIEW_FILE').': ' . htmlspecialchars($upload['name']) .'" href="'. $pathlink .'" class="primarylink" style="text-decoration:none;">';
+					
+					$filePath = $path . $upload['name'];
+					$size = scaleImage($filePath, 40, 25);
+					if (is_array($size) ) {
+						echo '<img src="' . $filePath . '" width= "'.$size[0].'"height ="'.$size[1].'" style="vertical-align:middle" /> ';
+					}
+					echo htmlspecialchars($upload['name']) .'</a></td>';
+					
+					echo '<td style="width:80px;text-align:right;" ><span style="padding-bottom:10px">'. $upload['size'] .'</span></td>';
              
 		            
 					// get the file permissions.
@@ -337,3 +347,48 @@ get_template('header', cl($SITENAME).' &raquo; '.i18n_r('FILE_MANAGEMENT'));
 	
 </div>
 <?php get_template('footer'); ?>
+
+<?php
+
+/**
+ * Resize image - preserve ratio of width and height.
+ * @param string $sourceImage path to source JPEG image
+ * @param int $maxWidth maximum width of final image (value 0 - width is optional)
+ * @param int $maxHeight maximum height of final image (value 0 - height is optional)
+ * @return array (width, height)
+
+ * Usage:
+ * scaleImage($sourceImage, 200, 100);
+ */
+function scaleImage($sourceImage, $maxWidth, $maxHeight)
+{
+    // Get dimensions of source image.
+	$size = getimagesize($sourceImage);
+	if (! is_array($size) ) return null;
+
+    list($origWidth, $origHeight) = $size;
+
+    if ($maxWidth == 0) {
+        $maxWidth  = $origWidth;
+    }
+
+    if ($maxHeight == 0) {
+        $maxHeight = $origHeight;
+    }
+
+    // Calculate ratio of desired maximum sizes and original sizes.
+    $widthRatio = $maxWidth / $origWidth;
+    $heightRatio = $maxHeight / $origHeight;
+
+    // Ratio used for calculating new image dimensions.
+    $ratio = min($widthRatio, $heightRatio);
+
+    // Calculate new image dimensions.
+	$size[0]  = (int)$origWidth  * $ratio;
+	$size[1] = (int)$origHeight * $ratio;
+
+    return $size;
+
+}
+
+?>

@@ -13,7 +13,7 @@ $mime_type_blacklist = array(
 	# HTML may contain cookie-stealing JavaScript and web bugs
 	'text/html', 'text/javascript', 'text/x-javascript',  'application/x-shellscript',
 	# PHP scripts may execute arbitrary code on the server
-	'application/x-php', 'text/x-php',
+	'application/x-php', 'text/x-php', 'application/php', 'application/x-httpd-php', 'application/x-httpd-php-source',
 	# Other types that may be interpreted by some servers
 	'text/x-python', 'text/x-perl', 'text/x-bash', 'text/x-sh', 'text/x-csh',
 	# Client-side hazards on Internet Explorer
@@ -28,7 +28,7 @@ $file_ext_blacklist = array(
 	# HTML may contain cookie-stealing JavaScript and web bugs
 	'html', 'htm', 'js', 'jsb', 'mhtml', 'mht',
 	# PHP scripts may execute arbitrary code on the server
-	'php', 'pht', 'phtm', 'phtml', 'php3', 'php4', 'php5', 'ph3', 'ph4', 'ph5', 'phps',
+	'php', 'pht', 'phtm', 'phtml', 'php3', 'php4', 'php5', 'ph3', 'ph4', 'ph5', 'phps', 'phar', 'php7', 'php8',
 	# Other types that may be interpreted by some servers
 	'shtml', 'jhtml', 'pl', 'py', 'cgi', 'sh', 'ksh', 'bsh', 'c', 'htaccess', 'htpasswd',
 	# May contain harmful executables for Windows victims
@@ -257,18 +257,21 @@ function var_out($var,$filter = "special"){
 		if($filter == "full") return htmlspecialchars($var, ENT_QUOTES);
 	}
 
-	if(function_exists( "filter_var") ){
+	// php 8.1: FILTER_SANITIZE_STRING deprecated
+	if(function_exists( "filter_var") && ($filter !== "string" )){
 		$aryFilter = array(
-			"string"  => FILTER_SANITIZE_STRING,
-			"int"     => FILTER_SANITIZE_NUMBER_INT,
-			"float"   => FILTER_SANITIZE_NUMBER_FLOAT,
-			"url"     => FILTER_SANITIZE_URL,
-			"email"   => FILTER_SANITIZE_EMAIL,
+			"int"    => FILTER_SANITIZE_NUMBER_INT,
+			"float"  => FILTER_SANITIZE_NUMBER_FLOAT,
+			"url"    => FILTER_SANITIZE_URL,
+			"email"  => FILTER_SANITIZE_EMAIL,
 			"special" => FILTER_SANITIZE_SPECIAL_CHARS,
 			"full"    => FILTER_SANITIZE_FULL_SPECIAL_CHARS
 		);
 		if(isset($aryFilter[$filter])) return filter_var( $var, $aryFilter[$filter]);
 		return filter_var( $var, FILTER_SANITIZE_SPECIAL_CHARS);
+	}
+	else if ($filter === "string") {
+		return htmlspecialchars($var);
 	}
 	else {
 		return htmlentities($var);
@@ -276,6 +279,6 @@ function var_out($var,$filter = "special"){
 }
 
 function validImageFilename($file){
-	$image_exts = array('jpg','jpeg','gif','png');
+	$image_exts = array('jpg','jpeg','gif','png','webp');
 	return in_array(getFileExtension($file),$image_exts);
 }

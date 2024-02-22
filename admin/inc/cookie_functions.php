@@ -20,7 +20,7 @@ function gs_setcookie($id,$value){
 	
 	$expire = time() + $cookie_time;
 	// debugLog('set cookie: '.implode(',',array($id, $value, $cookie_time, $cookie_path, $cookie_domain, $cookie_secure, $cookie_httponly)));
-  	return setcookie($id, $value, $expire, $cookie_path, $cookie_domain, $cookie_secure, $cookie_httponly); 
+	return setcookie($id, $value, $expire, $cookie_path, isset($cookie_domain)?$cookie_domain:'', $cookie_secure??"", $cookie_httponly);
 }
 
 /**
@@ -32,7 +32,7 @@ function gs_setcookie($id,$value){
 function gs_unsetcookie($id){
 	GLOBAL $cookie_time, $cookie_path, $cookie_domain, $cookie_secure, $cookie_httponly;
 	// debugLog('unset cookie: '.implode(',',array($id, false, $cookie_time, $cookie_path, $cookie_domain, $cookie_secure, $cookie_httponly)));
-	return setcookie($id,false,1,$cookie_path,$cookie_domain,$cookie_secure, $cookie_httponly);
+	return setcookie($id,false,1,$cookie_path,isset($cookie_domain)?$cookie_domain:'',$cookie_secure??"", $cookie_httponly);
 }
 
 /**
