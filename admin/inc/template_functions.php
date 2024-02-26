@@ -256,7 +256,7 @@ function get_FileType($ext) {
 		return i18n_r('FTYPE_VECTOR');
 	} elseif ( $ext == 'swf' || $ext == 'fla' ) {
 		return i18n_r('FTYPE_FLASH');	
-	} elseif ( $ext == 'mov' || $ext == 'mpg' || $ext == 'avi' || $ext == 'mpeg' || $ext == 'rm' || $ext == 'wmv' ) {
+	} elseif ( $ext == 'mp4' || $ext == 'mov' || $ext == 'mpg' || $ext == 'avi' || $ext == 'mpeg' || $ext == 'rm' || $ext == 'wmv' ) {
 		return i18n_r('FTYPE_VIDEO');
 	} elseif ( $ext == 'mp3' || $ext == 'wav' || $ext == 'wma' || $ext == 'midi' || $ext == 'mid' || $ext == 'm3u' || $ext == 'ra' || $ext == 'aif' ) {
 		return i18n_r('FTYPE_AUDIO');

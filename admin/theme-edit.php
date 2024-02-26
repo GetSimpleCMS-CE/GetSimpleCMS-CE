@@ -87,7 +87,7 @@ if (count($theme_dir_array) == 1){ $theme_options = ''; }
 
 $templates = directoryToArray(GSTHEMESPATH . $template . '/', true);
 $theme_templates .= '<span id="themefiles"><select class="text" id="theme_files" style="width:425px;" name="f" >';
-$allowed_extensions=['php', 'css', 'js', 'html', 'htm'];
+$allowed_extensions=['php', 'css', 'js', 'html', 'htm','json'];
 foreach ($templates as $file){
   $extension=pathinfo($file,PATHINFO_EXTENSION);
   if (in_array($extension, $allowed_extensions)){

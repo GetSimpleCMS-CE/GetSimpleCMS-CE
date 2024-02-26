@@ -1733,13 +1733,6 @@ textarea.copykit {
 	font-weight: bold;
 }
 
-#jcropform .submit {
-	margin: 20px 0 0 0;
-}
-
-#jcrop_open {
-}
-
 a.updatelink:link, 
 a.updatelink:visited {
 	color: #CF3805;

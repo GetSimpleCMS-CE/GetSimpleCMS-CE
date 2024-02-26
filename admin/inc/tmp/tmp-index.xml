@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<item><pubDate>Fri, 07 Apr 2023 16:14:56 +0000</pubDate><title><![CDATA[Welcome to GetSimple!]]></title><url><![CDATA[index]]></url><meta><![CDATA[getsimple, easy, content management system]]></meta><metad></metad><menu><![CDATA[Home]]></menu><menuOrder><![CDATA[1]]></menuOrder><menuStatus><![CDATA[Y]]></menuStatus><template><![CDATA[template.php]]></template><parent></parent><content><![CDATA[&lt;p&gt;&lt;img alt=&quot;&quot; src=&quot;https://images.unsplash.com/photo-1454496522488-7a8e488e8606?ixlib=rb-4.0.3&amp;amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&quot; style=&quot;width: 100%; height: 400px; object-fit: cover;&quot; /&gt;&lt;br /&gt;
+<item><pubDate>Fri, 23 Feb 2024 16:14:56 +0000</pubDate><title><![CDATA[Welcome to GetSimple CE!]]></title><url><![CDATA[index]]></url><meta><![CDATA[getsimple ce, easy, content management system]]></meta><metad></metad><menu><![CDATA[Home]]></menu><menuOrder><![CDATA[1]]></menuOrder><menuStatus><![CDATA[Y]]></menuStatus><template><![CDATA[template.php]]></template><parent></parent><content><![CDATA[&lt;p&gt;&lt;img alt=&quot;&quot; src=&quot;https://images.unsplash.com/photo-1454496522488-7a8e488e8606?ixlib=rb-4.0.3&amp;amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&quot; style=&quot;width: 100%; height: 400px; object-fit: cover;&quot; /&gt;&lt;br /&gt;
 &lt;br /&gt;
-	Thank you for using GetSimple CMS. This is your homepage, so please change this text to be what you want.&lt;/p&gt;
+	Thank you for using GetSimple CMS CE. This is your homepage, so please change this text to be what you want.&lt;/p&gt;
 &lt;ul&gt;
 	&lt;li&gt;&lt;a href=\&quot;http://get-simple.info/docs/\&quot;&gt;GetSimple CMS Documentation&lt;/a&gt;
 		&lt;ul&gt;

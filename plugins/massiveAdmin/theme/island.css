@@ -1,3 +1,8 @@
+/* ----------------
+MA Theme: Island 🌅
+Author: Islander 🌴
+---------------- */
+
 @import url('massive.css');
 
 :root {--main-color: #0E80CB;}
@@ -5,10 +10,7 @@
 #header {background: var(--main-color);}
 
 body#index,
-body#resetpassword {
-	background-image: url("https://picsum.photos/1600/900/?blur") !important;
-	background-color: var(--main-color);
-}
+body#resetpassword {background-image: url("https://picsum.photos/1600/900/?blur") !important; background-color: var(--main-color);}
 
 .wrapper table tr#tr-index a {margin-left: 20px;}
 .wrapper table tr#tr-index a::before {content: url('data:image/svg+xml,%3Csvg xmlns="http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg" width="16" height="16" viewBox="0 0 24 24"%3E%3Cpath fill="%230e80cb" fill-opacity="0" d="M6 8L12 3L18 8V20H6V8Z"%3E%3Canimate fill="freeze" attributeName="fill-opacity" begin="0.9s" dur="0.5s" values="0%3B1"%2F%3E%3C%2Fpath%3E%3Cg fill="none" stroke="%230e80cb" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"%3E%3Cpath stroke-dasharray="21" stroke-dashoffset="21" d="M5 21H19"%3E%3Canimate fill="freeze" attributeName="stroke-dashoffset" dur="0.2s" values="21%3B0"%2F%3E%3C%2Fpath%3E%3Cpath stroke-dasharray="15" stroke-dashoffset="15" d="M5 21V8M19 21V8"%3E%3Canimate fill="freeze" attributeName="stroke-dashoffset" begin="0.2s" dur="0.2s" values="15%3B0"%2F%3E%3C%2Fpath%3E%3Cpath stroke-dasharray="26" stroke-dashoffset="26" d="M2 10L12 2L22 10"%3E%3Canimate fill="freeze" attributeName="stroke-dashoffset" begin="0.5s" dur="0.4s" values="26%3B0"%2F%3E%3C%2Fpath%3E%3C%2Fg%3E%3C%2Fsvg%3E'); position: absolute; top: 12px; border-radius: 0px; cursor: pointer; transition: all 250ms ease; display: flex; left:0;}
@@ -54,3 +56,9 @@ input.mb_edit.mb_edit_delete {background: #F00 !important;}
 form input.text, form select.text {padding: 7px;font-size: 1em;border-radius: 5px;}
 
 #gsdebug {border: 1px solid #C00;}
+
+/* ----------------
+  (\ /)
+  (^.^) -{hola)
+ C(")(")
+---------------- */

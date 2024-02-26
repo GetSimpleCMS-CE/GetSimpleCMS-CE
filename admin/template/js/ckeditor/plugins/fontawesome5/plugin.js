@@ -5,8 +5,8 @@ init:function(editor){
 	
 	var path = '';
 	var config = {
-		'path':'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css', // 5.15.4 or 6.4.0
-		'version':'5.15.4', // 5.15.4 or 6.4.0
+		'path':this.path +'../../../fontawesome/fa6/css/all.min.css', // fa5 or fa6
+		'version':'6.4.2', // 5.15.4 or 6.4.2
 		'edition':'free',
 		'element':'i'
 	};

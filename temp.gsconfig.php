@@ -51,9 +51,6 @@ define('GSSORTPAGELISTBY','menu');
 # Default thumbnail width of uploaded image
 define('GSIMAGEWIDTH', '480');
 
-# Use Uploadify to upload files?
-# define('GSNOUPLOADIFY', 0); // 0 to reenable uploadify ( uploadify is outdated flash based and has known xss exploits! USE AT OWN RISK )
-
 # WYSIWYG editor height (default 500)
 # define('GSEDITORHEIGHT', '400');
 
@@ -89,7 +86,7 @@ forcePasteAsPlainText : true
 # define('GSTIMEZONE', 'Europe/London');
 
 # Disable loading of external CDN versions of scripts (jQuery/jQueryUI)
-# define("GSNOCDN",true);
+define("GSNOCDN",true);
 
 # Disable Codemirror theme editor
 # define("GSNOHIGHLIGHT",true);
@@ -107,7 +104,7 @@ define('GSSUPPRESSERRORS',true);
 # define('I18N_IGNORE_USER_LANGUAGE',true);
 
 # Enable auto meta descriptions from content excerpts when empty
-# define('GSAUTOMETAD',true);
+define('GSAUTOMETAD',true);
 
 # Set default language for missing lang token merge, 
 # accepts a lang string, default is 'en_US', false to disable

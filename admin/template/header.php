@@ -42,13 +42,6 @@ if(get_filename_id()!='index') exec_action('admin-pre-header');
 	<!--[if IE 6]><link rel="stylesheet" type="text/css" href="template/ie6.css" media="screen" /><![endif]-->
 	<?php } ?>
 	<!--[if lt IE 9]><script type="text/javascript" src="//html5shiv.googlecode.com/svn/trunk/html5.js" ></script><![endif]-->
-	<?php if( ((get_filename_id()=='upload') || (get_filename_id()=='image')) && (!getDef('GSNOUPLOADIFY',true)) ) { ?>
-	<script type="text/javascript" src="template/js/uploadify/jquery.uploadify.js?v=3.0"></script>
-	<?php } ?>
-	<?php if(get_filename_id()=='image') { ?>
-	<script type="text/javascript" src="template/js/jcrop/jquery.Jcrop.min.js"></script>
-	<link rel="stylesheet" type="text/css" href="template/js/jcrop/jquery.Jcrop.css" media="screen" />
-	<?php } ?>
 
     <?php 
 	# Plugin hook to allow insertion of stuff into the header

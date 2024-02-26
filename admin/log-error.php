@@ -26,6 +26,24 @@ if (!isset($log_name) || !file_exists($log_file)) {
     $log_data = true;
 }
 
+// clear log file
+if (isset($_GET['action']) && $_GET['action'] == 'delete' && strlen($log_name)>0) {
+	
+	if(!$log_data){
+		redirect('support.php?error='.urlencode(i18n_r('LOG_FILE_EMPTY')));		
+	}
+	// check for csrf
+	if (!defined('GSNOCSRF') || (GSNOCSRF == FALSE) ) {
+		$nonce = $_GET['nonce'];
+		if(!check_nonce($nonce, "delete")) {
+			die("CSRF detected!");	
+		}
+	}
+	unlink($log_file);
+	exec_action('logfile_delete');
+	redirect('support.php?success='.urlencode('Log '.$log_name . i18n_r('MSG_HAS_BEEN_CLR')));
+}
+
 get_template('header', cl($SITENAME).' &raquo; '.i18n_r('SUPPORT').' &raquo; '.i18n_r('LOGS')); 
 ?>
 
@@ -72,7 +90,7 @@ get_template('header', cl($SITENAME).' &raquo; '.i18n_r('SUPPORT').' &raquo; '.i
         <div class="main">
             <h3 class="floated"><?php i18n('VIEWING');?> <?php i18n('LOG_FILE');?>: &lsquo;<em><?php echo $log_name; ?></em>&rsquo;</h3>
             <div class="edit-nav" >
-                <!--a href="log-error.php?log=<?php echo $log_name; ?>&action=delete&nonce=<?php echo get_nonce("delete"); ?>" accesskey="<?php echo find_accesskey(i18n_r('CLEAR_ALL_DATA'));?>" title="<?php i18n('CLEAR_ALL_DATA');?> <?php echo $log_name; ?>?" /><?php i18n('CLEAR_THIS_LOG');?></a-->
+                <a href="log-error.php?log=<?php echo $log_name; ?>&action=delete&nonce=<?php echo get_nonce("delete"); ?>" accesskey="<?php echo find_accesskey(i18n_r('CLEAR_ALL_DATA'));?>" title="<?php i18n('CLEAR_ALL_DATA');?> <?php echo $log_name; ?>?" /><?php i18n('CLEAR_THIS_LOG');?></a>
                 <div class="clear"></div>
             </div>
             <?php if (!$log_data) echo '<p><em>'.i18n_r('LOG_FILE_EMPTY').'</em></p>'; ?>

@@ -90,58 +90,13 @@ include('template/include-nav.php'); ?>
 				<p id="code-imgthumb-html">&lt;a href="<?php echo tsl($SITEURL) .'data/uploads/'. $subPath. rawurlencode($src); ?>" class="gs_image_link" >&lt;img src="<?php echo tsl($SITEURL) .'data/thumbs/'.$subPath.'thumbnail.'.rawurlencode($src); ?>" class="gs_thumb" height="<?php echo $thheight; ?>" width="<?php echo $thwidth; ?>" alt="" />&lt;/a></p>
 				<?php } ?>
 			</div>
-	</div>
-
-<?php
-$jcrop = !empty($thumb_exists);
-if($jcrop){ ?>
-	<div id="jcrop_open" class="main">
-	    <img src="<?php echo $src_folder . $subPath.rawurlencode($src); ?>" id="cropbox" />
-			<div id="handw" class="toggle" ><?php i18n('SELECT_DIMENTIONS'); ?><br /><span id="picw"></span> x <span id="pich"></span></div>
-	    <!-- This is the form that our event handler fills -->
-	    <form id="jcropform" action="<?php myself(); ?>?i=<?php echo rawurlencode($src); ?>&amp;path=<?php echo $subPath; ?>" method="post" onsubmit="return checkCoords();">
-	      <input type="hidden" id="x" name="x" />
-	      <input type="hidden" id="y" name="y" />
-	      <input type="hidden" id="w" name="w" />
-	      <input type="hidden" id="h" name="h" />
-	      <input type="submit" class="submit" value="<?php i18n('CREATE_THUMBNAIL');?>" /> &nbsp; <span style="color:#666;font-size:11px;"><?php i18n('CROP_INSTR_NEW');?></span>
-
-	    </form>
-	</div>
+		</div>
 	
-<?php } ?>
 	</div>
 	
 	<div id="sidebar" >
 		<?php include('template/sidebar-files.php'); ?>
-	</div>	
-
-	<script>
-	  jQuery(document).ready(function() { 
-	    		
-			$(window).load(function(){
-				var api = $.Jcrop('#cropbox',{
-			    onChange: updateCoords,
-			    onSelect: updateCoords,
-			    boxWidth: 585, 
-			    boxHeight: 500
-			  }); 
-			  var isCtrl = false;
-				$(document).keyup(function (e) {
-					api.setOptions({ aspectRatio: 0 });
-					api.focus();
-					if(e.which == 17) isCtrl=false;
-				}).keydown(function (e) {
-					if(e.which == 17) isCtrl=true;
-					if(e.which == 66 && isCtrl == true) {
-						api.setOptions({ aspectRatio: 1 });
-						api.focus();
-					}
-				});
-			});
-		
-		});
-	</script>
-	
 	</div>
+	
+</div>
 <?php get_template('footer'); ?>
