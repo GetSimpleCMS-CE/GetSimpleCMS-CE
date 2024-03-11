@@ -11,15 +11,6 @@
 /*
  * GetSimple js file    
  */
-function updateCoords(c) {
-	$('#handw').show();
-	$('#x').val(c.x);
-	$('#y').val(c.y);
-	$('#w').val(c.w);
-	$('#h').val(c.h);
-	$('#pich').html(c.h);
-	$('#picw').html(c.w);
-};
 var Debugger = function () {}
 Debugger.log = function (message) {
 	try {
@@ -93,12 +84,6 @@ basename = function(str){
 function i18n(key){
 	return GS.i18n[key];
 }
-
-function checkCoords() {
-	if (parseInt($('#x').val())) return true;
-	alert('Please select a crop region then press submit.');
-	return false;
-};
 		 
 jQuery(document).ready(function () {
  
@@ -321,20 +306,13 @@ jQuery(document).ready(function () {
  
 	popAlertMsg();
  
-	if (jQuery().fancybox) {
-		$('a[rel*=facybox]').fancybox({
-			type: 'ajax',
-			padding: 0,
-			scrolling: 'auto'
-		});
-		$('a[rel*=facybox_i]').fancybox();
-		$('a[rel*=facybox_s]').fancybox({
-			type: 'ajax',
-			padding: 0,
-			scrolling: 'no'
-		}).on('click',function(e){e.preventDefault();});
-	}
- 
+	//SimpleLightbox upload.php
+	$(document).ready(function() {
+		(function() {
+			var $gallery = new SimpleLightbox('.iimage a', {scrollZoom: false});
+		})();
+	});
+	
 	//plugins.php
 	$(".toggleEnable").live("click", function ($e) {
 		$e.preventDefault();

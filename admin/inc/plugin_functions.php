@@ -46,11 +46,11 @@ $GS_script_assets['jquery-ui']['local']['url'] = $ASSETURL.$GSADMIN.'/template/j
 $GS_script_assets['jquery-ui']['local']['ver'] = $jquery_ui_ver;
 
 // misc
-$GS_script_assets['fancybox']['local']['url']  = $ASSETURL.$GSADMIN.'/template/js/fancybox/jquery.fancybox.pack.js';
-$GS_script_assets['fancybox']['local']['ver']  = '2.0.4';
+$GS_script_assets['simplelightbox']['local']['url']  = $ASSETURL.$GSADMIN.'/template/js/simplelightbox/simple-lightbox.min.js';
+$GS_script_assets['simplelightbox']['local']['ver']  = '2.14.2';
 
-$GS_style_assets['fancybox']['local']['url']   =  $ASSETURL.$GSADMIN.'/template/js/fancybox/jquery.fancybox.css';
-$GS_style_assets['fancybox']['local']['ver']   = '2.0.4';
+$GS_style_assets['simplelightbox']['local']['url']   =  $ASSETURL.$GSADMIN.'/template/js/simplelightbox/simple-lightbox.min.css';
+$GS_style_assets['simplelightbox']['local']['ver']   = '2.14.2';
 
 // scrolltofixed
 $GS_script_assets['scrolltofixed']['local']['url']   =  $ASSETURL.$GSADMIN.'/template/js/jquery-scrolltofixed.js';
@@ -66,8 +66,8 @@ if (!getDef('GSNOCDN',true)){
 	register_script('jquery', $GS_script_assets['jquery']['local']['url'], $GS_script_assets['jquery']['local']['ver'], FALSE);
 	register_script('jquery-ui',$GS_script_assets['jquery-ui']['local']['url'],$GS_script_assets['jquery-ui']['local']['ver'],FALSE);
 }
-register_script('fancybox', $GS_script_assets['fancybox']['local']['url'], $GS_script_assets['fancybox']['local']['ver'],FALSE);
-register_style('fancybox-css', $GS_style_assets['fancybox']['local']['url'], $GS_style_assets['fancybox']['local']['ver'], 'screen');
+register_script('simplelightbox', $GS_script_assets['simplelightbox']['local']['url'], $GS_script_assets['simplelightbox']['local']['ver'],FALSE);
+register_style('simplelightbox-css', $GS_style_assets['simplelightbox']['local']['url'], $GS_style_assets['simplelightbox']['local']['ver'], 'screen');
 
 register_script('scrolltofixed', $GS_script_assets['scrolltofixed']['local']['url'], $GS_script_assets['scrolltofixed']['local']['ver'],FALSE);
 
@@ -76,9 +76,9 @@ register_script('scrolltofixed', $GS_script_assets['scrolltofixed']['local']['ur
  */
 queue_script('jquery', GSBACK);
 queue_script('jquery-ui', GSBACK);
-queue_script('fancybox', GSBACK);
+queue_script('simplelightbox', GSBACK);
 
-queue_style('fancybox-css',GSBACK);
+queue_style('simplelightbox-css',GSBACK);
 
 /**
  * Include any plugins, depending on where the referring 

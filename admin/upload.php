@@ -284,7 +284,7 @@ get_template('header', cl($SITENAME).' &raquo; '.i18n_r('FILE_MANAGEMENT'));
 						$thumbLink = $urlPath.'thumbsm.'.$upload['name'];
 						$thumbLinkEncoded = $urlPath.'thumbsm.'.rawurlencode($upload['name']);
 						if (file_exists(GSTHUMBNAILPATH.$thumbLink)) {
-							$imgSrc='<img src="../data/thumbs/'. $thumbLinkEncoded .'" />';
+							$imgSrc='<img src="../data/thumbs/'. $thumbLinkEncoded .'" title="'. rawurlencode($upload['name']) .'"/>';
 						} else {
 							$imgSrc='<img src="inc/thumb.php?src='. $urlPath . rawurlencode($upload['name']) .'&amp;dest='. $thumbLinkEncoded .'&amp;f=1" />';
 						}

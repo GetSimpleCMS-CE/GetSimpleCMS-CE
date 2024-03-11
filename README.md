@@ -65,13 +65,14 @@ Hobbies: Hiking & Design <br/>
 
 ## Whats New? :pushpin: ##
 
-- Minor php8.x compatibility improvements 
+- Replaced fancybox with SimpleLightbox
 - Fontawesome added to core
 - Removed Uploadify & Jcrop
 - Massive Admin 5.x updated
 - Support page updated
 - Support>ErrorLog updated
 - Other minor fixes
+- Minor php8.x compatibility improvements
 
 ### Recent Updates: ###
 
