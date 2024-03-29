@@ -43,30 +43,11 @@ We have how to documents that show you how to create a custom theme. Our goal wa
 Designed to be light and agile, the base install comes to you clutter free, without dozens of extras you dont need. But of course we do have an ever growing selection of extensions ready to use and easy to install. Everything that you or your client are looking for…
 
 
-## History :pushpin:
-GetSimple CMS was created in 2009 and primarily developed for the creation of smaller websites, it is also became suitable for medium to large websites thanks to the extendability of the platform via plug-ins and themes.
-Though by 2020, development had slowed considerably as the original team were no longer able to dedicate their time and resources to the project.<br/>
-Recognizing the lapse in development and support on the current official website, we've taken the initiative to breathe new life into the platform by providing the essential updates it deserves, ensuring the advancement of this vital project.<br/>
-We're driven by a shared commitment to uphold the importance of GetSimple CMS project and community. Leveraging our firsthand experience with GetSimple CMS, we understand its value as a solution.
-
-## Team :pushpin: ##
-The following individuals generously donate their time to further developing this "Community Edition" version, please consider supporting their efforts:
-
-### :computer: multi / multicolor :video_game: ###
-Location: Poland <br/>
-Hobbies: Gaming & Programing <br/>
-[![Donate](https://img.shields.io/badge/Donate-PayPal-blue.svg)](https://www.paypal.com/donate/?hosted_button_id=TW6PXVCTM5A72)
-
-### :computer: islander / risingisland :palm_tree: ###
-Location: Spain <br/>
-Hobbies: Hiking & Design <br/>
-[![Donate](https://img.shields.io/badge/Donate-PayPal-blue.svg)](https://www.paypal.com/donate/?hosted_button_id=C3FTNQ78HH8BE)
-
-
 ## Whats New? :pushpin: ##
 
 - Replaced fancybox with SimpleLightbox
 - Fontawesome added to core
+- W3 Css & JS added to core (simplify plugin development)
 - Removed Uploadify & Jcrop
 - Massive Admin 5.x updated
 - Support page updated
@@ -105,6 +86,26 @@ Hobbies: Hiking & Design <br/>
 - Update Google Fonts to local in Innovation theme (for German GDPR).
 - Changed function name do to deprecated class constructor.
 - Further 8.x compatibility from Topic with fixes ([Forum Thread](http://get-simple.info/forums/showthread.php?tid=16548))
+
+
+## History :pushpin:
+GetSimple CMS was created in 2009 and primarily developed for the creation of smaller websites, it is also became suitable for medium to large websites thanks to the extendability of the platform via plug-ins and themes.
+Though by 2020, development had slowed considerably as the original team were no longer able to dedicate their time and resources to the project.<br/>
+Recognizing the lapse in development and support on the current official website, we've taken the initiative to breathe new life into the platform by providing the essential updates it deserves, ensuring the advancement of this vital project.<br/>
+We're driven by a shared commitment to uphold the importance of GetSimple CMS project and community. Leveraging our firsthand experience with GetSimple CMS, we understand its value as a solution.
+
+## Team :pushpin: ##
+The following individuals generously donate their time to further developing this "Community Edition" version, please consider supporting their efforts:
+
+### :computer: multi / multicolor :video_game: ###
+Location: Poland <br/>
+Hobbies: Gaming & Programing <br/>
+[![Donate](https://img.shields.io/badge/Donate-PayPal-blue.svg)](https://www.paypal.com/donate/?hosted_button_id=TW6PXVCTM5A72)
+
+### :computer: islander / risingisland :palm_tree: ###
+Location: Spain <br/>
+Hobbies: Hiking & Design <br/>
+[![Donate](https://img.shields.io/badge/Donate-PayPal-blue.svg)](https://www.paypal.com/donate/?hosted_button_id=C3FTNQ78HH8BE)
 
 
 ## LICENSE: :pushpin:
@@ -170,8 +171,11 @@ http://ckeditor.com/
 marijnh/CodeMirror  
 http://codemirror.net/
 
-fancybox  
-https://github.com/fancyapps/fancyBox
+simplelightbox  
+https://github.com/andreknieriem/simplelightbox
+
+W3 Css & JS  
+https://www.w3schools.com/w3css/default.asp
 
 rgrove/lazyload  
 https://github.com/rgrove/lazyload
