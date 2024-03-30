@@ -56,7 +56,7 @@ if (isset($_POST['submitted'])){
 				}
 				
 				$coArray[$ct]['id'] = $ids[$ct];
-				$coArray[$ct]['slug'] = $slug[$ct];
+				$coArray[$ct]['slug'] = safe_slash_html($slug[$ct]);
 				$coArray[$ct]['title'] = safe_slash_html($title[$ct]);
 				$coArray[$ct]['value'] = safe_slash_html($value[$ct]);
 				

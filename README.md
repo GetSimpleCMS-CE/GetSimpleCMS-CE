@@ -52,6 +52,7 @@ Designed to be light and agile, the base install comes to you clutter free, with
 - Massive Admin 5.x updated
 - Support page updated
 - Support>ErrorLog updated
+- Fix Cross-Site Scripting Vulnerability #1360 (https://github.com/GetSimpleCMS/GetSimpleCMS/issues/1360)
 - Other minor fixes
 - Minor php8.x compatibility improvements
 
