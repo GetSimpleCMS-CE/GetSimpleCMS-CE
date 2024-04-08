@@ -98,7 +98,7 @@ html body#upload div.wrapper div.bodycontent.clearfix div#sidebar form.uploadfor
 #sidebar .snav li{margin: 0;}
 #sidebar .snav li a:link, #sidebar .snav li a:visited, #sidebar .snav li a {color:#fff; background-color:#4B497B;}
 #sidebar .snav li a:link:hover, #sidebar .snav li a:visited:hover, #sidebar .snav li a.current:hover { border:solid 1px #8C8ABA; background-color:#4B497B !important; box-shadow: 0px 7px 7px rgb(0,0,0) !important;}
-#sidebar ul.snav li a.current{color:#fff; border:solid 1px #8C8ABA; background-color:#4B497B !important; box-shadow: 0px 7px 7px rgb(0,0,0)}
+#sidebar ul.snav li a.current{color:#fff; border:solid 2px #8C8ABA; background-color:#4B497B !important; box-shadow: 0px 7px 7px rgb(0,0,0)}
 #sidebar ul.snav li a.current:hover{color:#fff; background-color:#4B497B !important;}
 
 input[type="submit"] {background: #4B497B !important;}
