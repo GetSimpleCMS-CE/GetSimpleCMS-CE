@@ -46,12 +46,11 @@ Designed to be light and agile, the base install comes to you clutter free, with
 ## Whats New? :pushpin: ##
 
 - Replaced fancybox with SimpleLightbox
-- Fontawesome added to core
-- W3 Css & JS added to core (simplify plugin development)
 - Removed Uploadify & Jcrop
 - Massive Admin 5.x updated
 - Support page updated
 - Support>ErrorLog updated
+- W3 Css & JS added to core (simplify plugin development)
 - Fix Remote command execution vulnerability #1352  (https://github.com/GetSimpleCMS/GetSimpleCMS/issues/1352)
 - Fix Cross-Site Scripting Vulnerability #1360 (https://github.com/GetSimpleCMS/GetSimpleCMS/issues/1360)
 - Other minor fixes
