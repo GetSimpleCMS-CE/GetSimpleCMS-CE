@@ -62,6 +62,10 @@ if(isset($_POST['submitted'])){
 				$status = sendmail($EMAIL,$subject,$message);
 				# show the result of the reset attempt
 				usleep($randSleep); 
+
+				#deleting $flagfile gives you the ability to reset your password multiple times (added on CE)
+				unlink($flagfile);
+				
 				$status = 'success';
 				redirect("resetpassword.php?upd=pwd-".$status);
 			} else{
