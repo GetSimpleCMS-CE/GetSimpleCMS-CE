@@ -50,7 +50,8 @@ Designed to be light and agile, the base install comes to you clutter free, with
 - Massive Admin 5.x updated
 - Support page updated
 - Support>ErrorLog updated
-- W3 Css & JS added to core (simplify plugin development)
+- jQuery, W3 & AlpineJS added to core (simplify plugin development)
+- Fix Password Reset
 - Fix Remote command execution vulnerability #1352  (https://github.com/GetSimpleCMS/GetSimpleCMS/issues/1352)
 - Fix Cross-Site Scripting Vulnerability #1360 (https://github.com/GetSimpleCMS/GetSimpleCMS/issues/1360)
 - Other minor fixes
