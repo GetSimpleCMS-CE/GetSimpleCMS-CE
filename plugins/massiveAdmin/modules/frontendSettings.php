@@ -4,7 +4,6 @@ $styleFile = @file_get_contents(GSDATAOTHERPATH . 'massiveToperSettings/style.tx
 
 ?>
 
-
 <form action="#" method="POST">
     <h3>FrontEnd Settings</h3>
     <label for="" style="display:flex;flex-direction:row;justify-content:space-between"><?php echo i18n_r("massiveAdmin/TURNONMTOPER"); ?>
@@ -28,7 +27,6 @@ $styleFile = @file_get_contents(GSDATAOTHERPATH . 'massiveToperSettings/style.tx
     <input type="submit" style="background:var(--main-color);color:#fff;padding:10px;margin-top:10px;border:none;" name="savesettings" value="<?php echo i18n_r('massiveAdmin/SAVEOPTION'); ?>">
 </form>
 
-
 <?php if (file_exists(GSDATAOTHERPATH . 'massiveToperSettings/style.txt')) : ?>
 
     <script>
@@ -44,6 +42,5 @@ if (isset($_POST['savesettings'])) {
     global $MA;
     $MA->mtoperSetting();
 };
-
 
 ?>

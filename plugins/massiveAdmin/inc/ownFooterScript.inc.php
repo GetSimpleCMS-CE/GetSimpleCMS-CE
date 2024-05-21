@@ -16,30 +16,25 @@ if (file_exists($thisfilew)) {
 	$SITEURL = '';
 } 
 
-
 ;?>
 
 <script>
+	if("<?php if(isset($data->turnon)){echo $data->turnon;};?>" == "true"){
+		
+	document.querySelector('.gslogo img').setAttribute('src','<?php echo $SITEURL;?>'+'data/other/footerfoto/'+'<?php if(isset($data->ownfootericon)){echo $data->ownfootericon;};?>');
+	document.querySelector('.gslogo img').style.maxHeight="30px";
+	document.querySelector('.gslogo a').setAttribute('href','<?php if(isset($data->ownfooterlink)){ echo $data->ownfooterlink;};?>');
+	document.querySelector('.gslogo a img').setAttribute('alt','<?php if(isset($data->ownfootername)){echo $data->ownfootername;};?>');
+	document.querySelector('.footer-left').style.marginTop = "5px";
+	document.querySelector('.footer-left').innerHTML = <?php echo date('Y');?> +` © <?php if(isset($data->ownfootername)){ echo $data->ownfootername;};?>`;
 
-if("<?php if(isset($data->turnon)){echo $data->turnon;};?>" == "true"){
-    
-document.querySelector('.gslogo img').setAttribute('src','<?php echo $SITEURL;?>'+'data/other/footerfoto/'+'<?php if(isset($data->ownfootericon)){echo $data->ownfootericon;};?>');
-document.querySelector('.gslogo img').style.maxHeight="30px";
-document.querySelector('.gslogo a').setAttribute('href','<?php if(isset($data->ownfooterlink)){ echo $data->ownfooterlink;};?>');
-document.querySelector('.gslogo a img').setAttribute('alt','<?php if(isset($data->ownfootername)){echo $data->ownfootername;};?>');
-document.querySelector('.footer-left').style.marginTop = "5px";
-document.querySelector('.footer-left').innerHTML = <?php echo date('Y');?> +` © <?php if(isset($data->ownfootername)){ echo $data->ownfootername;};?>`;
-
-};
-
+	};
 </script>
 
 <?php
 
-
 if(file_exists($filename)){
     echo $data->ownfooter;
 }
-
 
 ;?>

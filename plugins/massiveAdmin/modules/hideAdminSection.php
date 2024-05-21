@@ -95,8 +95,6 @@ if (file_exists($finaljson)) {
 
 	<?php foreach (glob(GSUSERSPATH . '*.xml') as $us) : ?>
 
-
-
 		<?php
 
 		$file =  GSDATAOTHERPATH . 'massiveHiddenSection/' . pathinfo($us)['filename'] . '.json';
@@ -110,12 +108,7 @@ if (file_exists($finaljson)) {
 			$data = null;
 		};
 
-
-
-
 		?>
-
-
 
 		<form method="POST" data-user="<?php echo pathinfo($us)['filename']; ?>" style="width:100%;height:auto; margin-top:20px;" class="hideadminsectionform">
 
@@ -174,10 +167,8 @@ if (file_exists($finaljson)) {
 			</select>
 
 			<br>
-
-
-
 			<br>
+			
 			<input type="submit" name="submit" value="<?php echo i18n_r('massiveAdmin/SAVEOPTION'); ?>" style="grid-column:1/3" />
 
 		</form>
@@ -253,14 +244,9 @@ if (file_exists($finaljson)) {
 	</script>
 </div>
 
-
-
 <?php
 if (isset($_POST['submit'])) {
 	global $MA;
 	$MA->submitHideAdminSection();
 };
-
-
-
 ?>

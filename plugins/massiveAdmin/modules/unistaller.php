@@ -46,6 +46,27 @@
 ?>
 </ul>
 
+<script>
+	// Function to hide <li> elements containing any of the specified words
+	function hideListItemsContainingWords(words) {
+		var listItems = document.querySelectorAll('li');
+		
+		listItems.forEach(function(item) {
+			var link = item.querySelector('a');
+			if (link) {
+				for (var i = 0; i < words.length; i++) {
+					if (link.href.indexOf(words[i]) !== -1) {
+						item.style.display = 'none';
+						break;
+					}
+				}
+			}
+		});
+	}
+
+	hideListItemsContainingWords(['&delPlugin=massiveAdmin', '&delPlugin=modernScript']);
+</script>
+
 <?php if(isset($_GET['delPlugin'])){
     global $MA;
     $MA->unistaller();

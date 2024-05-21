@@ -4,7 +4,6 @@
         padding: 0 !important;
         list-style-type: none;
     }
-
     .backuplist li {
         padding: 10px;
         border-bottom: solid 1px #ddd;
@@ -12,18 +11,14 @@
         align-items: center;
         justify-content: space-between;
     }
-
-
     .backuplist li:nth-child(2n) {
         background: #fafafa;
     }
-
     .delbackupbtn {
         cursor: pointer;
         background: var(--main-color);
         border: none;
     }
-
     .delbackupbtn svg {
         stroke: #fff !important;
     }
@@ -39,10 +34,8 @@
         <option value="<?php echo GSTHEMESPATH; ?>">Themes folder</option>
         <option value="<?php echo GSDATAUPLOADPATH; ?>">Uploads folder</option>
     </select>
-
-    <button class="button" name="backupcreate" style="padding:10px 15px"><?php i18n_r('massiveAdmin/CREATEBACKUP'); ?></button>
-
-
+	
+    <button class="button" name="backupcreate" style="padding:10px 15px"><?php echo i18n_r('massiveAdmin/CREATEBACKUP'); ?></button>
 </form>
 
 <?php
@@ -50,7 +43,6 @@
 echo '<ul class="backuplist">';
 
 foreach (glob(GSBACKUPSPATH . 'backupCreator/*.*') as $zip) {
-
     global $SITEURL;
     global $GSADMIN;
 
@@ -65,19 +57,14 @@ foreach (glob(GSBACKUPSPATH . 'backupCreator/*.*') as $zip) {
 
 echo '</ul>';; ?>
 
-
-
 <?php
 
 global $MA;
 
 if (isset($_POST['backupcreate'])) {
-
     $MA->createBackupZip();
 };
 
-
 if (isset($_POST['delbackup'])) {
-
     $MA->deleteBackupZip();
 }; ?>

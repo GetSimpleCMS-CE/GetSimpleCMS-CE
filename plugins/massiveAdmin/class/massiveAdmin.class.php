@@ -284,8 +284,7 @@ class MassiveAdminClass
 <input type="submit" value="' . i18n_r("massiveAdmin/SAVEOPTION") . '" style="background:var(--main-color); width:200px;color:#fff;border-radius:5px;border:none" name="changeuser-' . $newValue . '">
 
 </form>
-			
-			
+
 			</li>';
 
 
@@ -687,14 +686,12 @@ class MassiveAdminClass
 			$foldername = 'admin';
 		};
 
-
-
-
 		// Specify the name for the zip file
 		$dateString = date('Y-m-d-Hi_s');
 
 		if (!file_exists(GSBACKUPSPATH . 'backupCreator/')) {
 			mkdir(GSBACKUPSPATH . 'backupCreator/', 0755);
+			file_put_contents(GSBACKUPSPATH . 'backupCreator/.htaccess', 'Allow from all');
 		};
 
 		$zipFileName = GSBACKUPSPATH . 'backupCreator/' . $dateString . '-' . $foldername . '.zip';
@@ -703,27 +700,34 @@ class MassiveAdminClass
 		$zip = new ZipArchive();
 
 		// Open the zip file for writing
+
 		if ($zip->open($zipFileName, ZipArchive::CREATE) === TRUE) {
 
 			// Add all files and folders from the specified folder
-			$files = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($folderPath), RecursiveIteratorIterator::SELF_FIRST);
+			$files = new RecursiveIteratorIterator(
+				new RecursiveDirectoryIterator($folderPath, RecursiveDirectoryIterator::SKIP_DOTS),
+				RecursiveIteratorIterator::SELF_FIRST
+			);
 
 			foreach ($files as $file) {
-				// Exclude "." and ".." folders
-				if ($file->isDir() && !in_array($file->getBasename(), ['.', '..'])) {
-					$zip->addEmptyDir(str_replace($folderPath . '/', '', $file . '/'));
+				$filePath = $file->getRealPath();
+				$relativePath = substr($filePath, strlen(dirname($folderPath)) + 1);
+
+				if ($file->isDir()) {
+					$zip->addEmptyDir($relativePath);
 				} elseif ($file->isFile()) {
-					$zip->addFile($file, str_replace($folderPath . '/', '', $file));
+					$zip->addFile($filePath, $relativePath);
 				}
 			}
 
 			// Close the zip file
 			$zip->close();
-		};
+		} else {
+			echo 'Failed to create zip file';
+		}
 
 		echo ("<meta http-equiv='refresh' content='0'>");
 	}
-
 
 	public function deleteBackupZip()
 	{

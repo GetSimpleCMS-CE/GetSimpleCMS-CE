@@ -7,62 +7,50 @@
 		border: solid 1px #ddd;
 		margin-bottom: 10px;
 	}
-
 	.main>form:nth-child(2) select {
 		padding: 10px;
 		width: 100% !important;
 	}
-
 	.main>form:nth-child(2) #theme_files {
 		width: 100% !important;
 	}
-
 	#themefiles {
 		width: 100%;
 	}
-
 	select {
 		background: #fff;
 		border-radius: 5px;
 		border: solid 1px #ddd;
 	}
-
 	@media(min-width:968px) {
 		.main>form:nth-child(2) input.submit {
 			margin-left: -19px;
 		}
-
 		.themeSelector p {
 			display: flex;
 			flex-wrap: wrap;
 			gap: 10px;
 		}
-
 		.makefile input {
 			border-radius: 5px;
 			border: solid 1px #ddd;
 		}
-
 		.makefile input:not(input[type="submit"]) {
 			padding: 5px;
 
 		}
-
 		.makefile {
 			display: grid;
 			grid-template-columns: 1fr 1fr 1fr;
 			gap: 10px;
 		}
-
 		.themeSelector p {
 			width: 100% !important;
 		}
-
 		.themeSelector p select {
 			width: 100% !important;
 		}
 	}
-
 	.main>form:nth-child(2) {
 		width: 100%;
 		padding: 10px;
@@ -70,14 +58,11 @@
 		border: solid 1px #ddd;
 		margin-bottom: 10px;
 	}
-
 	.main>form>p {
 		padding: 0;
 		margin: 0;
 	}
-
 	@media(max-width:996px) {
-
 		input,
 		select {
 			width: 100%;
@@ -85,7 +70,6 @@
 			padding: 10px;
 			box-sizing: border-box;
 		}
-
 		.main>form:nth-child(2) input.submit {
 			margin-left: 0;
 		}

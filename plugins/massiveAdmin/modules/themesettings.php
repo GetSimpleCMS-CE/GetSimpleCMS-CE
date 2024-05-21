@@ -8,29 +8,24 @@
 
 </p>
 
-
 <style>
     ::backdrop {
         background: rgba(0, 0, 0, 0.4);
         opacity: 0.75;
     }
-
     dialog {
         width: 80vw;
         height: 50vh;
         padding: 30px 10vw;
         padding-bottom: 20px !important;
     }
-
     dialog .code {
         width: 100%;
         background: #161A30;
         color: #F0ECE5;
         padding: 15px;
         font-size: 16px;
-
     }
-
     .settheme :is(input, select) {
         width: 100% !important;
         padding: 6px !important;
@@ -39,21 +34,18 @@
         border-radius: 0;
         margin: 5px 0 !important;
     }
-
     .settheme {
         box-sizing: border-box;
         padding: 10px;
         background: #fafafa;
         border: solid 1px #ddd;
     }
-
     .settheme p {
         font-size: 14px !important;
         font-weight: bold !important;
         margin-bottom: 10px !important;
         display: block;
     }
-
     .settheme .mb_img {
         display: grid;
         gap: 10px;
@@ -63,27 +55,22 @@
         justify-items: center;
         margin-top: 10px;
     }
-
     .settheme .mb_img img {
         outline: solid;
         border: none;
         outline-offset: 1px;
         outline-color: var(--main-color);
     }
-
     .settheme .mb_img button {
         background: var(--main-color);
         border: none;
         cursor: pointer;
         border-radius: 4px;
     }
-
     .settheme .mb_img svg {
         width: 23px;
         fill: #fff;
     }
-
-
     .settheme .mb_file {
         display: grid;
         gap: 10px;
@@ -93,14 +80,12 @@
         justify-items: center;
         margin-top: 10px;
     }
-
     .settheme .mb_file button {
         background: var(--main-color);
         border: none;
         cursor: pointer;
         border-radius: 4px;
     }
-
     .settheme .mb_file svg {
         width: 23px;
         fill: #fff;
@@ -108,22 +93,14 @@
 </style>
 
 <?php
-
-
 $xml = simplexml_load_file(GSDATAOTHERPATH . 'website.xml');
-
 $activeTemplate = $xml->TEMPLATE;
-
-echo "Active Theme: <b>$activeTemplate</b> <br><br>";; ?>
-
-
-
+echo "Active Theme: <b>$activeTemplate</b> <br><br>";; 
+?>
 
 <h3 style="margin:0"><?php echo i18n_r("massiveAdmin/SETTINGS");?></h3>
 <hr>
 <?php
-
-
 if (file_exists(GSTHEMESPATH . $activeTemplate . '/settings.json')) {
     $data = file_get_contents(GSTHEMESPATH . $activeTemplate . '/settings.json');
     $filx =  json_decode($data);
@@ -131,8 +108,6 @@ if (file_exists(GSTHEMESPATH . $activeTemplate . '/settings.json')) {
     echo '<form class="settheme" method="post">';
 
     foreach ($filx->settings as $key => $loop) {
-
-
         if ($loop->type  == 'wysywig') {
 
             echo '<p style="margin: 0;
@@ -260,7 +235,6 @@ echo '
     </form>';
 ?>
 
-
 <?php
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['ssettings'])) {
@@ -273,9 +247,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['ssettings'])) {
 
     echo ("<meta http-equiv='refresh' content='0'>");
 }; ?>
-
-
-
 
 <script type="text/javascript" src="template/js/ckeditor/ckeditor.js?t=3.3.16"></script>
 
@@ -328,8 +299,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['ssettings'])) {
             })
     };
 
-
-
     if (document.querySelector('.mb_file') !== null) {
 
         let data = 0;
@@ -354,17 +323,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['ssettings'])) {
     }
 </script>
 
-
-
 <dialog>
-    <button autofocus style="background: var(--main-color);
-  color: #fff;
-  position: absolute;
-  top: 0;
-  right: 10px;
-  top: 10px;
-  padding: 5px;border-radius:5px;border:none;
-  cursor:pointer;">
+    <button autofocus style="background: var(--main-color); color: #fff; position: absolute; top: 0; right: 10px; top: 10px; padding: 5px;border-radius:5px;border:none; cursor:pointer;">
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" style="display:inline-block;width:25px;height:25px;margin:0;padding:0 " id="times"><path fill="#fff" d="M13.41,12l4.3-4.29a1,1,0,1,0-1.42-1.42L12,10.59,7.71,6.29A1,1,0,0,0,6.29,7.71L10.59,12l-4.3,4.29a1,1,0,0,0,0,1.42,1,1,0,0,0,1.42,0L12,13.41l4.29,4.3a1,1,0,0,0,1.42,0,1,1,0,0,0,0-1.42Z"></path></svg></button>
 
     <h3><?php echo i18n_r("massiveAdmin/HOWCREATETITLE");?></h3>
@@ -443,10 +403,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['ssettings'])) {
     });
 </script>
 
-
 <?php
-
-
 if (!file_exists(GSDATAOTHERPATH . 'jsonsupportadded.txt')) {
     $f = file_get_contents(GSADMINPATH . 'theme-edit.php');
     $n = str_replace("['php', 'css', 'js', 'html', 'htm']", "['php', 'css', 'js', 'html', 'htm','json']", $f);

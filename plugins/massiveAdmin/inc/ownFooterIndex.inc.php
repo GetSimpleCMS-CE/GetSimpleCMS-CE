@@ -19,14 +19,11 @@ if (file_exists($thisfilew)) {
 
 ?>
 
-
 <script>
-
 if( "<?php if(isset($data->ownlogo)){echo $data->ownlogo;};?>" =="yes"){
     document.querySelector('.uil-user-circle').classList.add('loger');
     document.querySelector('.loger').classList.remove('uil-user-circle','uil');
     document.querySelector('.loger').insertAdjacentHTML('afterbegin','<img class="logo" style="max-height:100px">');
-document.querySelector('.logo').setAttribute('src','<?php echo $SITEURL.'data/other/footerfoto/';?><?php if(isset($data->ownfootericon)){echo $data->ownfootericon;}?>');
+	document.querySelector('.logo').setAttribute('src','<?php echo $SITEURL.'data/other/footerfoto/';?><?php if(isset($data->ownfootericon)){echo $data->ownfootericon;}?>');
 }
-
 </script>

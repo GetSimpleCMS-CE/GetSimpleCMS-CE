@@ -13,7 +13,6 @@
     margin: 5px;
 }
 
-
 #imageTable .rename-massive-btn,
 #imageTable .copy-massive-btn,
 #imageTable .download-massive-btn {
@@ -37,8 +36,6 @@
     color: #fff !important;
 
 }
-
-
 
 .rename-fog {
     position: fixed;
@@ -64,7 +61,6 @@
     padding: 15px;
     padding-top: 40px;
     position: relative;
-
 }
 
 .form-rename input {
@@ -88,7 +84,6 @@
 }
 
 .close-rename-fog {
-
     background: #00162a;
     color: #fff;
     width: 250px;
@@ -132,7 +127,6 @@
     width: 100% !important;
     flex: 40px 1 0;
     border: none;
-
 }
 
 .massive-folder-linker {
@@ -143,25 +137,21 @@
     align-items: center;
     justify-content: center;
     transition: all 250ms linear;
-
 }
 
 .massive-folder-linker i {
     color: #fff;
 }
 
-
 .All .delete {
     display: flex !important;
     flex-direction: row !important;
 }
 
-
 .All.folder a:nth-child(2) {
     margin-top: 26px;
     margin-bottom: 10px;
 }
-
 
 #imageTable .delconfirm {
     background: none;
@@ -175,7 +165,6 @@
     padding: 3px;
     padding: 5px !important;
 }
-
 
 .All.folder:hover .massive-folder-linker {
     background: #000409;

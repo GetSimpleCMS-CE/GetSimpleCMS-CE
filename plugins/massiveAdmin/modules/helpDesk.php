@@ -9,23 +9,19 @@
 	}; 
 ?>
 
- 
 <?php 
- 
- global $EDTOOL;
- global $EDOPTIONS;
+	global $EDTOOL;
+	global $EDOPTIONS;
 
-if(isset($EDTOOL)) $EDTOOL = returnJsArray($EDTOOL);
-if(isset($toolbar)) $toolbar = returnJsArray($toolbar); // handle plugins that corrupt this
+	if(isset($EDTOOL)) $EDTOOL = returnJsArray($EDTOOL);
+	if(isset($toolbar)) $toolbar = returnJsArray($toolbar); // handle plugins that corrupt this
 
-else if(strpos(trim($EDTOOL),'[[')!==0 && strpos(trim($EDTOOL),'[')===0){ $EDTOOL = "[$EDTOOL]"; }
+	else if(strpos(trim($EDTOOL),'[[')!==0 && strpos(trim($EDTOOL),'[')===0){ $EDTOOL = "[$EDTOOL]"; }
 
-if(isset($toolbar) && strpos(trim($toolbar),'[[')!==0 && strpos($toolbar,'[')===0){ $toolbar = "[$toolbar]"; }
-$toolbar = isset($EDTOOL) ? ",toolbar: ".trim($EDTOOL,",") : '';
-$options = isset($EDOPTIONS) ? ','.trim($EDOPTIONS,",") : '';
-
+	if(isset($toolbar) && strpos(trim($toolbar),'[[')!==0 && strpos($toolbar,'[')===0){ $toolbar = "[$toolbar]"; }
+	$toolbar = isset($EDTOOL) ? ",toolbar: ".trim($EDTOOL,",") : '';
+	$options = isset($EDOPTIONS) ? ','.trim($EDOPTIONS,",") : '';
 ?>
-
 
 <?php error_reporting(E_ALL ^ E_NOTICE); ?>
 

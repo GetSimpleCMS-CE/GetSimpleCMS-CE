@@ -1,4 +1,3 @@
-
 const foldericon = `
 <svg xmlns="http://www.w3.org/2000/svg" style="display:inline-block;width:15px;" viewBox="0 0 24 24" id="folder"><path d="M19,5.5H12.72l-.32-1a3,3,0,0,0-2.84-2H5a3,3,0,0,0-3,3v13a3,3,0,0,0,3,3H19a3,3,0,0,0,3-3V8.5A3,3,0,0,0,19,5.5Zm1,13a1,1,0,0,1-1,1H5a1,1,0,0,1-1-1V5.5a1,1,0,0,1,1-1H9.56a1,1,0,0,1,.95.68l.54,1.64A1,1,0,0,0,12,7.5h7a1,1,0,0,1,1,1Z"></path></svg>`;
 
@@ -14,22 +13,15 @@ const downloadicon = `
 const closeicon = `
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="times"><path d="M13.41,12l4.3-4.29a1,1,0,1,0-1.42-1.42L12,10.59,7.71,6.29A1,1,0,0,0,6.29,7.71L10.59,12l-4.3,4.29a1,1,0,0,0,0,1.42,1,1,0,0,0,1.42,0L12,13.41l4.29,4.3a1,1,0,0,0,1.42,0,1,1,0,0,0,0-1.42Z"></path></svg>`;
 
-
-
-
 if (window.location.href.indexOf('?type=carousel') < 0) {
 
     window.onload = function () {
         const imageTableTd = document.querySelectorAll('#imageTable .All');
 
-
-
         imageTableTd.forEach(e => {
             if (e.querySelector('.imgthumb img') !== null) {
                 const name = e.querySelector('#imageTable .All .imgthumb img').getAttribute('src');
                 console.log(name);
-
-
 
                 if (e.querySelector('.delete .delconfirm') !== null) {
 
@@ -68,46 +60,27 @@ if (window.location.href.indexOf('?type=carousel') < 0) {
                         document.querySelector('input[name="copy-rename-massive"]').style.display = "block";
                     });
 
-
-
                 };
             }
         });
-
-
 
         const closeRename = document.querySelector('.close-rename-fog');
 
         closeRename.addEventListener('click', (e) => {
             e.preventDefault();
             document.querySelector('.rename-fog').classList.add('hide-fog');
-
-
         });
-
-
     };
 
-
-
-
     if (document.querySelector('.All.folder') !== null) {
-
         document.querySelectorAll('.All.folder').forEach(e => {
-
             const linker = e.querySelector('a').getAttribute('href');
             e.querySelector('img').insertAdjacentHTML('beforebegin', '<a href="' + linker + '" class="massive-folder-linker">'+foldericon2+'</a>');
 
             e.querySelector('img').remove();
             e.querySelector('.imgthumb').remove();
-
-
-
         });
     };
-
-
-
 };
 
 document.querySelectorAll('.imgthumb').forEach(x => {
@@ -119,14 +92,7 @@ document.querySelectorAll('.imgthumb').forEach(x => {
 });
 
 document.querySelectorAll('.all').forEach(c => {
-
     if (c.querySelector('.primarylink img') !== null) {
         c.querySelector('.primarylink img').style.display = "none";
     }
-
-
 })
-
-
- 
- 

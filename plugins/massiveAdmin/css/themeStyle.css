@@ -1,5 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Lato:wght@300;400&display=swap");
-@import url("https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css");
+ @import url("animate.min.css");
 
 :root{
 	--main-color:#00162a;
@@ -13,17 +12,12 @@
 
 body {
 	background: #f4f5f6;
-	font-family: "Lato", sans-serif;
+font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 	font-size: 0.9rem;
 }
 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-	font-family: "Lato", sans-serif;
+h1,h2,h3,h4,h5,h6 {
+	font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 	color: var(--main-color);
 	font-style: unset;
 }
@@ -212,7 +206,7 @@ h3.floated {
 	color: var(--main-color) !important;
 	font-style: unset;
 	font-family: "o";
-	font-family: "Lato", sans-serif;
+	font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 
 .rightnav {
@@ -657,7 +651,6 @@ tr .linker {
 body#index,
 body#resetpassword {
 	background-color: var(--main-color);
-	background-image: url("https://picsum.photos/1600/900/?blur");
 	background-size: cover;
 	background-position: center center;
 }
@@ -894,7 +887,6 @@ body#resetpassword #maincontent .main {
 	justify-content: space-between;
 	width: 100%;
 	padding: 10px;
-	  padding-left: 10px;
 	padding-left: 5px;
 	background: #fafafa;
 	border: solid 1px #ddd;

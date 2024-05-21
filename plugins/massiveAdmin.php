@@ -22,7 +22,7 @@ if (isset($_GET['snippet'])) {
 register_plugin(
 	$thisfile, //Plugin id
 	'Massive Admin Theme', 	//Plugin name
-	'5.0.2', 		//Plugin version
+	'5.0.3', 		//Plugin version
 	'Multicolor',  //Plugin author
 	'https://multicolor.stargard.pl', //author website
 	'Admin theme with new function', //Plugin description
@@ -439,10 +439,8 @@ function massiveOption()
 	};;
 
 	echo "
-	<style>
-.kofitext,.kofi-button{text-decoration:none !important}
-	</style>
-	<div style='margin:20px 0;width:100%;'>
-	<script type='text/javascript' src='https://storage.ko-fi.com/cdn/widget/Widget_2.js'></script><script type='text/javascript'>kofiwidget2.init('Support Me on Ko-fi', '#29abe0', 'I3I2RHQZS');kofiwidget2.draw();</script>
+	<style>.kofitext,.kofi-button{text-decoration:none !important}</style>
+	<div style='margin:20px 0;width:100%;' class='kofi'>
+		<script type='text/javascript' src='https://storage.ko-fi.com/cdn/widget/Widget_2.js'></script><script type='text/javascript'>kofiwidget2.init('Support Me on Ko-fi', '#29abe0', 'I3I2RHQZS');kofiwidget2.draw();</script>
 	</div> ";
 };

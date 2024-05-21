@@ -5,7 +5,6 @@ $massiveHiddenSection = GSDATAOTHERPATH . '/massiveHiddenSection/';
 $filejson = $USR . '.json';
 $finaljson = $massiveHiddenSection . $filejson;
 
-
 if (!file_exists($massiveHiddenSection)) {
     mkdir($massiveHiddenSection, 0755);
     file_put_contents($finaljson, '');
@@ -14,15 +13,10 @@ if (!file_exists($massiveHiddenSection)) {
 $datee = @file_get_contents($finaljson);
 $data = json_decode($datee);
 
-
 ?>
 
 <script>
     document.body.setAttribute('data-login', '<?php echo $_COOKIE['GS_ADMIN_USERNAME']; ?>');
-
- 
- 
-
 
     if (document.querySelector("#nav_pages") !== null) {
         if ("<?php if (isset($data->hidepages)) {

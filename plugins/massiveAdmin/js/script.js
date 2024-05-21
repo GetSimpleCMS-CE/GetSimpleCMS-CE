@@ -1,23 +1,16 @@
-
 const arrowicon = `
 <svg xmlns="http://www.w3.org/2000/svg" style="display:inline-block;width:16px;transform:translate(-5px,4px)" viewBox="0 0 24 24" id="arrow-circle-right"><path  d="M15.71,12.71a1,1,0,0,0,.21-.33,1,1,0,0,0,0-.76,1,1,0,0,0-.21-.33l-3-3a1,1,0,0,0-1.42,1.42L12.59,11H9a1,1,0,0,0,0,2h3.59l-1.3,1.29a1,1,0,0,0,0,1.42,1,1,0,0,0,1.42,0ZM22,12A10,10,0,1,0,12,22,10,10,0,0,0,22,12ZM4,12a8,8,0,1,1,8,8A8,8,0,0,1,4,12Z"></path></svg>`;
 
 const deskicon  = `<i class="gg-screen"></i>`;
-
 const fileicon = `<i class="gg-file"></i>`;
-
 const themeicon = `<i class="gg-browser"></i>`
-
 const backupicon = `<i class="gg-database"></i>`
 const plugicon = `<i class="gg-plug"></i>`;
-
 const usericon = `
 <svg xmlns="http://www.w3.org/2000/svg" style="display:inline-block;width:18px;transform:translate(-5px,0);fill:#fff;" viewBox="0 0 24 24" id="user"><path d="M15.71,12.71a6,6,0,1,0-7.42,0,10,10,0,0,0-6.22,8.18,1,1,0,0,0,2,.22,8,8,0,0,1,15.9,0,1,1,0,0,0,1,.89h.11a1,1,0,0,0,.88-1.1A10,10,0,0,0,15.71,12.71ZM12,12a4,4,0,1,1,4-4A4,4,0,0,1,12,12Z"></path></svg>`;
-
  
 const powericon = `
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" style="display:inline-block;width:18px;transform:translate(-5px,0);fill:#fff;" id="power"><path d="M10.21,6.21l.79-.8V10a1,1,0,0,0,2,0V5.41l.79.8a1,1,0,0,0,1.42,0,1,1,0,0,0,0-1.42l-2.5-2.5a1,1,0,0,0-.33-.21,1,1,0,0,0-.76,0,1,1,0,0,0-.33.21l-2.5,2.5a1,1,0,0,0,1.42,1.42ZM18,7.56A1,1,0,1,0,16.56,9,6.45,6.45,0,1,1,7.44,9,1,1,0,1,0,6,7.56a8.46,8.46,0,1,0,12,0Z"></path></svg>`;
-
 
 const settingsicon = `
 <svg xmlns="http://www.w3.org/2000/svg" style="display:inline-block;width:18px;transform:translate(-5px,0);fill:#fff;" data-name="Layer 1" viewBox="0 0 24 24" id="setting"><path  d="M19.9 12.66a1 1 0 0 1 0-1.32l1.28-1.44a1 1 0 0 0 .12-1.17l-2-3.46a1 1 0 0 0-1.07-.48l-1.88.38a1 1 0 0 1-1.15-.66l-.61-1.83a1 1 0 0 0-.95-.68h-4a1 1 0 0 0-1 .68l-.56 1.83a1 1 0 0 1-1.15.66L5 4.79a1 1 0 0 0-1 .48L2 8.73a1 1 0 0 0 .1 1.17l1.27 1.44a1 1 0 0 1 0 1.32L2.1 14.1a1 1 0 0 0-.1 1.17l2 3.46a1 1 0 0 0 1.07.48l1.88-.38a1 1 0 0 1 1.15.66l.61 1.83a1 1 0 0 0 1 .68h4a1 1 0 0 0 .95-.68l.61-1.83a1 1 0 0 1 1.15-.66l1.88.38a1 1 0 0 0 1.07-.48l2-3.46a1 1 0 0 0-.12-1.17ZM18.41 14l.8.9-1.28 2.22-1.18-.24a3 3 0 0 0-3.45 2L12.92 20h-2.56L10 18.86a3 3 0 0 0-3.45-2l-1.18.24-1.3-2.21.8-.9a3 3 0 0 0 0-4l-.8-.9 1.28-2.2 1.18.24a3 3 0 0 0 3.45-2L10.36 4h2.56l.38 1.14a3 3 0 0 0 3.45 2l1.18-.24 1.28 2.22-.8.9a3 3 0 0 0 0 3.98Zm-6.77-6a4 4 0 1 0 4 4 4 4 0 0 0-4-4Zm0 6a2 2 0 1 1 2-2 2 2 0 0 1-2 2Z"></path></svg>`;
@@ -41,9 +34,6 @@ document.querySelector("#header #pill .leftnav a").innerHTML = powericon;
 
 document.querySelector('.header .nav .rightnav .settings').innerHTML = settingsicon;
 document.querySelector('.header .nav .rightnav .support').innerHTML = liferingicon;
-
-
-
 
 const toper = document.createElement('div');
 toper.classList.add('toper');
@@ -85,31 +75,52 @@ if (document.querySelector('#pages') !== null) {
 	});
 }
 
-// 'Adds collapse/expand-functionality to page-list script by andy-man / plugin created by Carlos / added animation (good color for light-theme) by multicolor ',
+// 'Adds collapse/expand-functionality,
 
-$('#editpages tr').attr('rel', 0).addClass('l-0');
-$('.pagetitle span').not('.showstatus').each(function (i, e) {
-	$tr = $(this).parent().parent();
-	var level = $tr.find('.pagetitle span').not('.showstatus').size();
-	$tr.attr('rel', level);
-	$tr.attr('class', 'hidden l-' + level);
+ document.querySelectorAll('#editpages tr').forEach(function(row) {
+    row.setAttribute('rel', 0);
+    row.classList.add('l-0');
 });
 
-$('#editpages tr.hidden').each(function (i, e) {
-	if (parseInt($(this).prev().attr('rel')) < parseInt($(this).attr('rel'))) $(this).prev().find('.pagetitle').prepend('<div class="switch"></div>');
+ document.querySelectorAll('.pagetitle span:not(.showstatus)').forEach(function(span) {
+    var tr = span.parentElement.parentElement;
+    var level = tr.querySelectorAll('.pagetitle span:not(.showstatus)').length;
+    tr.setAttribute('rel', level);
+    tr.setAttribute('class', 'hidden l-' + level);
 });
 
-$('.pagetitle').on('click', '.switch', function () {
+ document.querySelectorAll('#editpages tr.hidden').forEach(function(row) {
+    var prevRel = parseInt(row.previousElementSibling.getAttribute('rel'));
+    var currentRel = parseInt(row.getAttribute('rel'));
+    if (prevRel < currentRel) {
+        row.previousElementSibling.querySelector('.pagetitle').insertAdjacentHTML('afterbegin', '<div class="switch"></div>');
+    }
+});
 
-	$tr = $(this).parent().parent();
-	var lvl = parseInt($tr.attr('rel'));
-
-	if ($(this).hasClass('on'))
-		$tr.nextUntil('.l-' + lvl).addClass('hidden').find('.switch.on').removeClass('on');
-	else
-		$tr.nextUntil('.l-' + lvl, '.l-' + (lvl + 1)).removeClass('hidden').addClass('fadeIn');
-
-	$(this).toggleClass('on');
+ document.querySelectorAll('.pagetitle').forEach(function(pagetitle) {
+    pagetitle.addEventListener('click', function() {
+        var tr = this.parentElement;
+        var lvl = parseInt(tr.getAttribute('rel'));
+        var switchDiv = this.querySelector('.switch');
+        if (switchDiv.classList.contains('on')) {
+            Array.from(tr.nextElementSiblings).forEach(function(next) {
+                if (next.classList.contains('l-' + lvl)) {
+                    next.classList.add('hidden');
+                    Array.from(next.querySelectorAll('.switch.on')).forEach(function(switchOn) {
+                        switchOn.classList.remove('on');
+                    });
+                }
+            });
+        } else {
+            Array.from(tr.nextElementSiblings).forEach(function(next) {
+                if (next.classList.contains('l-' + (lvl + 1))) {
+                    next.classList.remove('hidden');
+                    next.classList.add('fadeIn');
+                }
+            });
+        }
+        switchDiv.classList.toggle('on');
+    });
 });
 
 document.querySelectorAll('.switch').forEach(sx => {
@@ -121,21 +132,17 @@ document.querySelector('#header .nav').insertAdjacentHTML('beforebegin', `<butto
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="bars" style="display:inline-block;width:20px;height:20px;margin-bottom:-5px;"><path fill="#fff" d="M3,8H21a1,1,0,0,0,0-2H3A1,1,0,0,0,3,8Zm18,8H3a1,1,0,0,0,0,2H21a1,1,0,0,0,0-2Zm0-5H3a1,1,0,0,0,0,2H21a1,1,0,0,0,0-2Z"></path></svg></button>`);
 
 document.querySelector('.rwd').addEventListener('click', () => {
-
 	if (document.querySelector('#header .nav').style.display == "flex") {
 		document.querySelector('#header .nav').style.display = "none";
 	} else {
 		document.querySelector('#header .nav').style.display = "flex";
-
 	}
-
 });
 
 if (document.querySelector('#edit .edit-nav') !== null) {
 	document.querySelector('#edit .edit-nav a:nth-child(1)').insertAdjacentHTML('beforeend', `
 	
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="search" style="display:inline-block;width:10px;fill:#fff !important;margin-left:5px"><path  d="M21.71,20.29,18,16.61A9,9,0,1,0,16.61,18l3.68,3.68a1,1,0,0,0,1.42,0A1,1,0,0,0,21.71,20.29ZM11,18a7,7,0,1,1,7-7A7,7,0,0,1,11,18Z"></path></svg>
-	
 	`);
 }
 
@@ -155,20 +162,17 @@ if (hrefUrl.indexOf('?id=news_manager&') >= 0) {
 if (hrefUrl.indexOf('i18n_gallery&create') >= 0) {
   console.log('dziala')
   document.querySelector('.masive-uploader').style.display = "block";
-  
 }
 
 if (hrefUrl.indexOf('i18n_gallery&edit') >= 0) {
   console.log('dziala')
   document.querySelector('.masive-uploader').style.display = "block";
-
 }
 
 // upload support webp, svg
 
 document.querySelectorAll('.imgthumb').forEach((x,i)=>{
 	if(x.innerHTML=='' && document.querySelectorAll('.primarylink')[i].getAttribute('href').indexOf('.svg') >= 0 ){
-
 		x.innerHTML = `<div class="massive-folder-linker"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="file" style="display:inline-block;width:50px;"><path fill="#fff" d="M20,8.94a1.31,1.31,0,0,0-.06-.27l0-.09a1.07,1.07,0,0,0-.19-.28h0l-6-6h0a1.07,1.07,0,0,0-.28-.19l-.09,0L13.06,2H7A3,3,0,0,0,4,5V19a3,3,0,0,0,3,3H17a3,3,0,0,0,3-3V9S20,9,20,8.94ZM14,5.41,16.59,8H14ZM18,19a1,1,0,0,1-1,1H7a1,1,0,0,1-1-1V5A1,1,0,0,1,7,4h5V9a1,1,0,0,0,1,1h5Z"></path></svg></div>`;
 	}
 });
@@ -179,13 +183,10 @@ if (document.querySelector('#imageTable') !== null) {
 		const thumb = x.querySelector('.imgthumb');
 
 		if (x.querySelector('.primarylink img') !== null) {
-	 
 			if (x.querySelector('.primarylink img').getAttribute('src').indexOf('.webp') >= 0) {
 				 thumb.innerHTML = `<a href="${x.querySelector('.primarylink img').getAttribute('src')}"
 				  rel=" facybox_i"><img src="${x.querySelector('.primarylink img').getAttribute('src')}"></a>`;
 			}
-
-
 
 			if (x.querySelector('.primarylink').getAttribute('href').indexOf('.svg') >= 0) {
 				thumb.innerHTML = `<a href="${x.querySelector('.primarylink').getAttribute('href')}" rel=" facybox_i">
@@ -320,7 +321,6 @@ if (document.querySelector('body#edit') !== null) {
 		CKEDITOR.instances['post-content'].insertHtml('<div class="row"><div class="col-md-4"><p>lorem ipsum</p></div><div class="col-md-4"><p>lorem ipsum</p></div> <div class="col-md-4"><p>lorem ipsum</p></div></div>&nbsp;');
 	});
 	
-	
 	//with image
 	
 	col12wi.addEventListener('click',(e)=>{
@@ -355,9 +355,7 @@ if (document.querySelector('body#edit') !== null) {
 	
 };
 
-
 //zoom image button
-
 
 if(document.querySelector('body#upload')!==null){
 
@@ -384,7 +382,6 @@ if(document.querySelector('body#upload')!==null){
 
 	count = 3;
 
-	
 	function zoomup(){
 document.querySelector('#imageTable tbody').style.gridTemplateColumns = "repeat("+count+", minmax(20px, 1fr))";
 
@@ -393,34 +390,24 @@ if(count !== 1){
 };
 
 }
-	
 
 function zoomdown(){
 	document.querySelector('#imageTable tbody').style.gridTemplateColumns = "repeat("+count+", minmax(20px, 1fr))";
 	if(count <= 5){
 		count++
 	};
-
-	}
-
+}
 
 	zoomin.addEventListener('click',zoomup);
 	zoomout.addEventListener('click',zoomdown);
-		
-	
-
-
 
 	zoomin.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" style="display:inline-block;width:20px;height:20px;fill:#fff" viewBox="0 0 24 24" id="search-plus"><path   d="M15,10H12V7a1,1,0,0,0-2,0v3H7a1,1,0,0,0,0,2h3v3a1,1,0,0,0,2,0V12h3a1,1,0,0,0,0-2Zm6.71,10.29L18,16.61A9,9,0,1,0,16.61,18l3.68,3.68a1,1,0,0,0,1.42,0A1,1,0,0,0,21.71,20.29ZM11,18a7,7,0,1,1,7-7A7,7,0,0,1,11,18Z"></path></svg>`;
 	zoomout.innerHTML = `
 	<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="search-minus" style="display:inline-block;width:20px;height:20px;fill:#fff"><path  d="M21.71,20.29,18,16.61A9,9,0,1,0,16.61,18l3.68,3.68a1,1,0,0,0,1.42,0A1,1,0,0,0,21.71,20.29ZM11,18a7,7,0,1,1,7-7A7,7,0,0,1,11,18Zm4-8H7a1,1,0,0,0,0,2h8a1,1,0,0,0,0-2Z"></path></svg>`;
 
-
 	zoomer.appendChild(zoomin);
 	zoomer.appendChild(zoomout);
 	
-
 	h5.insertAdjacentElement('beforeend',zoomer);
-
 
 };
