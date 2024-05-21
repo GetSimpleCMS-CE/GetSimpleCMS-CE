@@ -45,18 +45,18 @@ Designed to be light and agile, the base install comes to you clutter free, with
 
 ## Whats New? :pushpin: ##
 
-- jQuery, W3 & AlpineJS added to core (simplify plugin development)
-- New - ability to choose modern admin css/js for plugins (modernScript plugin)
-- Replaced fancybox with SimpleLightbox
-- Removed Uploadify & Jcrop
+- New - jQuery, W3 & AlpineJS added to core (simplify plugin development)
+- New - Ability to choose modern admin css/js for plugins (modernScript plugin)
+- New - Replaced fancybox with SimpleLightbox
 - Update - Massive Admin 5.x
 - Update - Support page
 - Update - Support>ErrorLog
 - Update - Backup>Website Archives
-- Fix Password Reset
-- Fix Components copy code
-- Fix Remote command execution vulnerability #1352  (https://github.com/GetSimpleCMS/GetSimpleCMS/issues/1352)
-- Fix Cross-Site Scripting Vulnerability #1360 (https://github.com/GetSimpleCMS/GetSimpleCMS/issues/1360)
+- Removed - Deprecated Uploadify & Jcrop
+- Fix - Password Reset
+- Fix - Components copy code
+- Fix - Remote command execution vulnerability #1352  (https://github.com/GetSimpleCMS/GetSimpleCMS/issues/1352)
+- Fix - Cross-Site Scripting Vulnerability #1360 (https://github.com/GetSimpleCMS/GetSimpleCMS/issues/1360)
 - Other Minor php8.x compatibility improvements
 - Other minor fixes and improvements
 
