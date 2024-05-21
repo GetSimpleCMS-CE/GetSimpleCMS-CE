@@ -29,7 +29,7 @@ if(isset($_GET['do'])) {
 		}
 	}	
 	exec_action('archive-backup');
-	redirect('zip.php?s='.$SESSIONHASH);	
+	redirect('zip.php?s='.$SESSIONHASH.'&do=create');	
 }
 
 // if a backup has just been created
@@ -70,13 +70,21 @@ get_template('header', cl($SITENAME).' &raquo; '.i18n_r('BAK_MANAGEMENT').' &raq
 				
 				foreach ($filenames as $file) {
 					if($file[0] != "." ) {
-						$timestamp = explode('_', $file);
-						$name = lngDate($timestamp[0]);
+						$timestamp = pathinfo($file, PATHINFO_FILENAME); // Extract filename without extension
+						try {
+							$date = DateTime::createFromFormat('YmdHis', $timestamp);
+							if ($date === false) {
+								throw new Exception('Invalid date format');
+							}
+							$name = $date->format('F jS, Y - g:i A');
+						} catch (Exception $e) {
+							$name = 'Unknown Date';
+						}
 						clearstatcache();
 						$ss = stat($path . $file);
 						$size = fSize($ss['size']);
 						echo '<tr>
-								<td><a title="'.i18n_r('DOWNLOAD').' '. $name .'" href="download.php?file='. $path . $file .'&amp;nonce='.get_nonce("archive", "download.php").'">'.$name .'</a></td>
+								<td><a title="'.i18n_r('DOWNLOAD').': '. $name .'" href="download.php?file='. $path . $file .'&amp;nonce='.get_nonce("archive", "download.php").'" style="text-decoration:none;"><svg xmlns="http://www.w3.org/2000/svg" style="vertical-align:middle;" width="22px" height="22px" viewBox="0 0 24 24"><path fill="#E2990C" d="M16 16h2v-2h-2v-2h2v-2h-2V8h4v10h-4zm0 0h-2v2H4V6h5.17l2 2H14v2h2v2h-2v2h2z" opacity="0.3"/><path fill="#E2990C" d="M20 6h-8l-2-2H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2m-4 10h2v-2h-2v-2h2v-2h-2V8h4v10h-4zm0 0h-2v2H4V6h5.17l2 2H14v2h2v2h-2v2h2z"/></svg> '.$name .'</a></td>
 								<td style="width:70px;text-align:right;" ><span>'.$size.'</span></td>
 								<td class="delete" ><a class="delconfirm" title="'.i18n_r('DELETE_ARCHIVE').': '. $name .'?" href="deletefile.php?zip='. $file .'&amp;nonce='.get_nonce("delete", "deletefile.php").'">&times;</a></td>
 							  </tr>';

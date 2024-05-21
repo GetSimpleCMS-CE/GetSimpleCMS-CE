@@ -1,92 +1,78 @@
 <?php
-/**
- * Zip Archive
- *
- * Creates a zip archive of the site
- *
- * @package GetSimple
- * @subpackage Backups
- */
 
 // Setup inclusions
 $load['plugin'] = true;
-
 
 // Include common.php
 include('inc/common.php');
 login_cookie_check();
 
-// check validity of request
-if ($_REQUEST['s'] === $SESSIONHASH) {
-	
-	
-	# fix from hameau 
-	//$timestamp = date('Y-m-d-Hi');
-	$timestamp = gmdate('Y-m-d-Hi_s');
-	$zipcreated = true;
-	
-	set_time_limit (0);
-	ini_set("memory_limit","800M"); 
-
-	$saved_zip_file = GSBACKUPSPATH.'zip/'. $timestamp .'_archive.zip';	
-	
-	$sourcePath = str_replace('/', DIRECTORY_SEPARATOR, GSROOTPATH);
-	if (!class_exists ( 'ZipArchive' , false)) {
-		include('inc/ZipArchive.php');
-	}
-	if (class_exists ( 'ZipArchive' , false)) {
-	
-		$archiv = new ZipArchive();
-		$archiv->open($saved_zip_file, ZipArchive::CREATE);
-		$dirIter = new RecursiveDirectoryIterator($sourcePath);
-		$iter = new RecursiveIteratorIterator($dirIter,
-			         	RecursiveIteratorIterator::LEAVES_ONLY,
-			        	RecursiveIteratorIterator::CATCH_GET_CHILD
-			    	);
-		
-		foreach($iter as $element) {
-		    /* @var $element SplFileInfo */
-		    $dir = str_replace($sourcePath, '', $element->getPath()) . DIRECTORY_SEPARATOR;
-		    if ( strstr($dir, $GSADMIN.DIRECTORY_SEPARATOR ) || strstr($dir, 'backups'.DIRECTORY_SEPARATOR )) {
-  				#don't archive these folders
-				} else if ($element->getFilename() != '..') { // FIX: if added to ignore parent directories
-				  if ($element->isDir()) {
-				     $archiv->addEmptyDir($dir);
-			    } elseif ($element->isFile()) {
-			        $file         = $element->getPath() .
-			                        DIRECTORY_SEPARATOR  . $element->getFilename();
-			        $fileInArchiv = $dir . $element->getFilename();
-			        // add file to archive 
-			        $archiv->addFile($file, $fileInArchiv);
-			    }
-			  }
-		}
-		
-		$archiv->addFile(GSROOTPATH.'.htaccess', '.htaccess' );
-		$archiv->addFile(GSROOTPATH.'gsconfig.php', 'gsconfig.php' );
-		
-		// save and close 
-		$status = $archiv->close();
-		if (!$status) {
-			$zipcreated = false;
-		}
-		
-	} else {
-		$zipcreated = false;	
-	}
-	if (!$zipcreated) {
-		$zipcreated = archive_targz();
-	}
-	if (!$zipcreated) {
-		redirect('archive.php?nozip');
-	} 
-	
-	// redirect back to archive page with a success
-	redirect('archive.php?done');
-
-} else {
-	# page accessed directly - send back to archives page
-	redirect('archive.php');
+if (!extension_loaded('zip')) {
+	exit('PHP zip extension is not installed.');
 }
 
-exit;
+$filename = GSBACKUPSPATH . 'zip/' . date('YmdHis') . '.zip';
+$zip = new ZipArchive();
+if ($zip->open($filename, ZipArchive::CREATE) !== TRUE) {
+	exit("Cannot open <$filename>\n");
+}
+
+$dir = GSROOTPATH; // Adjust the directory you want to backup
+
+// List of files and folders to exclude
+$exclude = [
+	'admin',
+	'backups',
+	'index.php',
+	'robots.txt',
+	'sitemap.xml',
+];
+
+// Prepend root path to each exclusion
+$exclude = array_map(function($path) use ($dir) {
+	return realpath($dir . '/' . $path);
+}, $exclude);
+
+// Function to check if a file or folder should be excluded
+function shouldExclude($filePath, $exclude) {
+	foreach ($exclude as $excludedPath) {
+		if (strpos(realpath($filePath), $excludedPath) === 0) {
+			return true;
+		}
+	}
+	return false;
+}
+
+addFolderToZip($dir, $zip, '', $exclude);
+
+$zip->close();
+redirect('archive.php?done');
+
+function addFolderToZip($dir, $zipArchive, $zipdir = '', $exclude = []) {
+	if (is_dir($dir)) {
+		if ($dh = opendir($dir)) {
+			// Add empty directory
+			if (!empty($zipdir)) {
+				$zipArchive->addEmptyDir($zipdir);
+			}
+
+			while (($file = readdir($dh)) !== false) {
+				if ($file === '.' || $file === '..') {
+					continue;
+				}
+				$filePath = $dir . '/' . $file;
+				if (shouldExclude($filePath, $exclude)) {
+					continue;
+				}
+				if (!is_file($filePath)) {
+					// Recursive call
+					addFolderToZip($filePath, $zipArchive, $zipdir . $file . '/', $exclude);
+				} else {
+					$zipArchive->addFile($filePath, $zipdir . $file);
+				}
+			}
+			closedir($dh);
+		}
+	}
+}
+?>
