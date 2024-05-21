@@ -422,6 +422,7 @@ $i18n = [
  * For: plugins.php
 */
 "PLUGINS_MANAGEMENT"		=>  "Установленные плагины",
+"PLUGINS_MANAGEMENT_INFO"	=> "Для корректной работы некоторых плагинов требуются дополнительные скрипты js/css.",
 "PLUGINS_INSTALLED" 		=>  "(кол-во плагинов)",
 "PLUGIN_DISABLED"       	=> "Плагин отключен",
 "SHOW_PLUGINS"			=>  "Каталог плагинов",

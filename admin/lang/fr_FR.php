@@ -420,6 +420,7 @@ $i18n = [
      * For: plugins.php
     */
   , 'PLUGINS_MANAGEMENT' => "Gestion des Plugins (Extensions)"
+    "PLUGINS_MANAGEMENT_INFO"	=> "Certains plugins peuvent nécessiter des scripts js/css supplémentaires pour fonctionner correctement.",
   , 'PLUGINS_INSTALLED' => "Plugins install&eacute;s"
   , 'PLUGIN_DISABLED' => "Plugin désactivé"
   , 'SHOW_PLUGINS' => "Plugi<em>n</em>s Install&eacute;s"

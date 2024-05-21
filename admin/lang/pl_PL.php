@@ -422,6 +422,7 @@ $i18n = [
      * For: plugins.php
     */
 "PLUGINS_MANAGEMENT"	=> "Zainstalowane wtyczki",
+"PLUGINS_MANAGEMENT_INFO"	=> "Niektóre wtyczki wymagają do prawidłowego działania dodatkowych skryptów js/css.",
 "PLUGINS_INSTALLED" 	=> "wtyczek zainstalowanych",
 "PLUGIN_DISABLED"   => "Wyłączona ⛔",
 "SHOW_PLUGINS"		  	=> "Zarządzanie w<em>t</em>yczkami",
