@@ -74,8 +74,8 @@ register_script('scrolltofixed', $GS_script_assets['scrolltofixed']['local']['ur
 /**
  * Queue our scripts and styles for the backend
  */
-queue_script('jquery', GSBACK);
-queue_script('jquery-ui', GSBACK);
+#queue_script('jquery', GSBACK);
+#queue_script('jquery-ui', GSBACK);
 queue_script('simplelightbox', GSBACK);
 
 queue_style('simplelightbox-css',GSBACK);
