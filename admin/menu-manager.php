@@ -77,20 +77,43 @@ get_template('header', cl($SITENAME).' &raquo; '.i18n_r('PAGE_MANAGEMENT').' &ra
 				}
 			?>
 			
+			<!-- Sortable.js -->
+			<script src="<?php echo $SITEURL;?>admin/template/js/Sortable.min.js"></script>
+
+			<!-- Skrypt JavaScript -->
 			<script>
-				$("#menu-order").sortable({
-					cursor: 'move',
-					placeholder: "placeholder-menu",
-					update: function() {
-						var order = '';
-						$('#menu-order li').each(function(index) {
-							var cat = $(this).attr('rel');
-							order = order+','+cat;
-						});
-						$('[name=menuOrder]').val(order);
-					}
+				document.addEventListener('DOMContentLoaded', function () {
+					var menuOrder = document.getElementById('menu-order');
+
+					// Utwórz instancję Sortable.js dla menu-order
+					new Sortable(menuOrder, {
+						animation: 150,
+						ghostClass: 'sortable-ghost',
+						onEnd: function () {
+							var order = '';
+							var menuItems = menuOrder.getElementsByTagName('li');
+							for (var i = 0; i < menuItems.length; i++) {
+								var cat = menuItems[i].getAttribute('rel');
+								order = order + ',' + cat;
+							}
+							document.querySelector('[name="menuOrder"]').value = order;
+						}
+					});
+
+					// Wyłącz możliwość zaznaczania tekstu w menu-order
+					disableTextSelection(menuOrder);
 				});
-				$("#menu-order").disableSelection();
+
+				// Funkcja do wyłączania możliwości zaznaczania tekstu
+				function disableTextSelection(element) {
+					if (typeof element.onselectstart != 'undefined') { // IE
+						element.onselectstart = function () { return false; };
+					} else if (typeof element.style.MozUserSelect != 'undefined') { // Firefox
+						element.style.MozUserSelect = 'none';
+					} else { // All others
+						element.onmousedown = function () { return false; };
+					}
+				}
 			</script>
 			
 		</div>

@@ -33,7 +33,8 @@ if(get_filename_id()!='index') exec_action('admin-pre-header');
 		if($GSSTYLE_sbfixed) queue_script('scrolltofixed', GSBACK);
 		get_scripts_backend();
 	?>
-	<script type="text/javascript" src="template/js/jquery.getsimple.js?v=<?php echo GSVERSION; ?>"></script>
+	
+	<script type="text/javascript" src="template/js/getsimple.js"></script>
 	<?php  } else { ?> 
 	<link rel="shortcut icon" href="favicon.png" type="image/x-icon" />
 	<link rel="apple-touch-icon" href="apple-touch-icon.png"/>
@@ -54,7 +55,7 @@ if(get_filename_id()!='index') exec_action('admin-pre-header');
     if( doVerCheck() ) { ?>
 	<script type="text/javascript">		
 		// check to see if core update is needed
-		jQuery(document).ready(function() { 
+		document.addEventListener('DOMContentLoaded', function() {
 			<?php 
 				$data = get_api_details();
 				if ($data) {
@@ -65,9 +66,27 @@ if(get_filename_id()!='index') exec_action('admin-pre-header');
 			?>
 				var verstatus = <?php echo $verstatus; ?>;
 				/*if(verstatus != 1) {
-					<?php if(isBeta()){ ?> $('a.support').parent('li').append('<span class="info">i</span>');
-					<?php } else { ?> $('a.support').parent('li').append('<span class="warning">!</span>'); <?php } ?>
-					$('a.support').attr('href', 'health-check.php');
+					<?php if(isBeta()){ ?> document.querySelectorAll('a.support').forEach(function(anchor) {
+    var parentLi = anchor.closest('li');
+    if (parentLi) {
+        var span = document.createElement('span');
+        span.className = 'info';
+        span.textContent = 'i';
+        parentLi.appendChild(span);
+    }
+});
+					<?php } else { ?> document.querySelectorAll('a.support').forEach(function(anchor) {
+    var parentLi = anchor.closest('li');
+    if (parentLi) {
+        var span = document.createElement('span');
+        span.className = 'warning';
+        span.textContent = '!';
+        parentLi.appendChild(span);
+    }
+}); <?php } ?>
+					document.querySelectorAll('a.support').forEach(function(anchor) {
+    anchor.setAttribute('href', 'health-check.php');
+});
 				}*/
 			<?php  }} ?>
 		});
