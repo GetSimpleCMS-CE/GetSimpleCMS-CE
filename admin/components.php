@@ -6,7 +6,7 @@
  *
  * @package GetSimple
  * @subpackage Components
- * @link http://get-simple.info/docs/what-are-components
+ * @link http://get-simple.info/wiki/components
  */
  
 # setup inclusions
@@ -109,13 +109,13 @@ if (count($componentsec) != 0) {
 		<td style="text-align:center;" >
 			<span id="' . stripslashes($component->title) . '_c" class="shortcode tpl">&#60;?php get_component("' . $component->slug . '"); ?></span>
 			<a href="javascript:;" class="copybutton">
-			<image id="copy-' . stripslashes($component->title) . '" data-clipboard-target="#' . stripslashes($component->title) . '" src=" data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAQAAABKfvVzAAAAIGNIUk0AAHomAACAhAAA+gAAAIDoAAB1MAAA6mAAADqYAAAXcJy6UTwAAAACYktHRAAAqo0jMgAAAAlwSFlzAAAAYAAAAGAA8GtCzwAAAAd0SU1FB+cFFgkEJsO3fd8AAADQSURBVDjLvZM7CsJAFEWP0SKSUlJoOi2yiDSJK3ALFindUMBSV2HAzyJEQVHxU0gqm5QWAXWSyWdAPeV9c7nzLjPwa2pS1cPHFJQ7AXMATXp8hpPSHELcvNQpR/SUpnNikpfQZk+c0mJ2dAAaEsOjaGmZYahqiKoYCooU0VSLTBJ8ztipZnS2+NkMrbxIAJr0uOYtLdJijIGNRfBOKGeFx6JaQsQgu4MC/zLc6GYe9KtIkeTHuYRc2AgTG4t+0swndQAOLDAxhMmaEUvVC3+DJ4xiLDPLiEozAAAAJXRFWHRkYXRlOmNyZWF0ZQAyMDIzLTA1LTIyVDA5OjA0OjM4KzAwOjAwa+wQugAAACV0RVh0ZGF0ZTptb2RpZnkAMjAyMy0wNS0yMlQwOTowNDozOCswMDowMBqxqAYAAAAodEVYdGRhdGU6dGltZXN0YW1wADIwMjMtMDUtMjJUMDk6MDQ6MzgrMDA6MDBNpInZAAAAAElFTkSuQmCC"></a>
+			<image id="copy-' . htmlspecialchars($component->title, ENT_QUOTES, 'UTF-8') . '" data-clipboard-target="#' . htmlspecialchars($component->title, ENT_QUOTES, 'UTF-8') . '" src=" data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAQAAABKfvVzAAAAIGNIUk0AAHomAACAhAAA+gAAAIDoAAB1MAAA6mAAADqYAAAXcJy6UTwAAAACYktHRAAAqo0jMgAAAAlwSFlzAAAAYAAAAGAA8GtCzwAAAAd0SU1FB+cFFgkEJsO3fd8AAADQSURBVDjLvZM7CsJAFEWP0SKSUlJoOi2yiDSJK3ALFindUMBSV2HAzyJEQVHxU0gqm5QWAXWSyWdAPeV9c7nzLjPwa2pS1cPHFJQ7AXMATXp8hpPSHELcvNQpR/SUpnNikpfQZk+c0mJ2dAAaEsOjaGmZYahqiKoYCooU0VSLTBJ8ztipZnS2+NkMrbxIAJr0uOYtLdJijIGNRfBOKGeFx6JaQsQgu4MC/zLc6GYe9KtIkeTHuYRc2AgTG4t+0swndQAOLDAxhMmaEUvVC3+DJ4xiLDPLiEozAAAAJXRFWHRkYXRlOmNyZWF0ZQAyMDIzLTA1LTIyVDA5OjA0OjM4KzAwOjAwa+wQugAAACV0RVh0ZGF0ZTptb2RpZnkAMjAyMy0wNS0yMlQwOTowNDozOCswMDowMBqxqAYAAAAodEVYdGRhdGU6dGltZXN0YW1wADIwMjMtMDUtMjJUMDk6MDQ6MzgrMDA6MDBNpInZAAAAAElFTkSuQmCC"></a>
 			<script>
 				document.getElementById("copy-' . stripslashes($component->title) . '").addEventListener("click", copyCodeToClipboard);
 				function copyCodeToClipboard() {
-				  const codeSnippet = document.getElementById("' .  stripslashes($component->title) . '");
+				  const codeSnippet = document.getElementById("' .  htmlspecialchars($component->title, ENT_QUOTES, 'UTF-8') . '_c");
 				  const range = document.createRange();
-				  range.selectNode(' .  stripslashes($component->title) . '_c);
+				  range.selectNode(codeSnippet);
 				  const selection = window.getSelection();
 				  selection.removeAllRanges();
 				  selection.addRange(range);
@@ -152,6 +152,10 @@ get_template('header', cl($SITENAME).' &raquo; '.i18n_r('COMPONENTS'));
 ?>
 	
 <?php include('template/include-nav.php'); ?>
+
+<script>
+const delmsg = '<?php echo i18n_r('DELETE_COMPONENT');?>';
+</script>
 
 <div class="bodycontent clearfix">
 	

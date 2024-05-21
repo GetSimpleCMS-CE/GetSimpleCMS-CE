@@ -15,8 +15,8 @@
     <div class="container">
         <hr>
         <div class="footer-grid">
-            <small><a href="https://getsimplecms-ce.github.io/">Powered by Get Simple CMS CE</a></small>
-            <small><a href="https://getsimplecms-ce.github.io/">ResponsiveCE Theme </a></small>
+            <small><a href="https://getsimple-ce.ovh/">Powered by Get Simple CMS CE</a></small>
+            <small><a href="https://getsimple-ce.ovh/themes/">ResponsiveCE Theme </a></small>
         </div>
     </div>
 </footer>
