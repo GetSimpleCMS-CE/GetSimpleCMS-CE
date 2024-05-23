@@ -422,7 +422,7 @@ $i18n = [
      * For: plugins.php
     */
 "PLUGINS_MANAGEMENT"=> "プラグイン管理",
-"PLUGINS_MANAGEMENT_INFO"	=> "一部のプラグインは、正しく機能するために追加の js/css スクリプトを必要とする場合があります。",
+"PLUGINS_MANAGEMENT_INFO"	=> "一部のプラグインは、正しく機能するために追加の js/css スクリプトを必要とする場合があります。<br>「modernScript CE」プラグインが有効になっていることを確認し、設定を確認してください。",
 "PLUGINS_INSTALLED" => "個のプラグインがインストール済みです。",
 "PLUGIN_DISABLED"   => "無効のプラグイン",
 "SHOW_PLUGINS"			=> "プラグイン一覧",

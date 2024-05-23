@@ -421,7 +421,7 @@ $i18n = [
 	 * For: plugins.php
 	 */
 	"PLUGINS_MANAGEMENT"	=> "Gestión de extensiones",
-    "PLUGINS_MANAGEMENT_INFO"	=> "Algunos complementos pueden requerir scripts js/css adicionales para funcionar correctamente.",
+    "PLUGINS_MANAGEMENT_INFO"	=> "Algunos complementos pueden requerir scripts js/css adicionales para funcionar correctamente.<br>Asegúrese de que el complemento 'modernScript CE' esté habilitado y verifique la configuración.",
 	"PLUGINS_INSTALLED" 	=> "extensiones instaladas",
 	"PLUGIN_DISABLED"   	=> "Extensión deshabilitada",
 	"SHOW_PLUGINS"			=> "Etensiones instaladas",

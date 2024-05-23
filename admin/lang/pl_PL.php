@@ -422,7 +422,7 @@ $i18n = [
      * For: plugins.php
     */
 "PLUGINS_MANAGEMENT"	=> "Zainstalowane wtyczki",
-"PLUGINS_MANAGEMENT_INFO"	=> "Niektóre wtyczki wymagają do prawidłowego działania dodatkowych skryptów js/css.",
+"PLUGINS_MANAGEMENT_INFO"	=> "Niektóre wtyczki wymagają do prawidłowego działania dodatkowych skryptów js/css.<br>Upewnij się, że wtyczka 'modernScript CE' jest włączona i sprawdź ustawienia.",
 "PLUGINS_INSTALLED" 	=> "wtyczek zainstalowanych",
 "PLUGIN_DISABLED"   => "Wyłączona ⛔",
 "SHOW_PLUGINS"		  	=> "Zarządzanie w<em>t</em>yczkami",

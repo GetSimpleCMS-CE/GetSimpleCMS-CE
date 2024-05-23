@@ -423,7 +423,7 @@ $i18n = [
      * For: plugins.php
     */
     'PLUGINS_MANAGEMENT' => "Встановлені плагіни",
-    "PLUGINS_MANAGEMENT_INFO"	=> "Для коректної роботи деяких плагінів потрібні додаткові сценарії js/css.",
+    "PLUGINS_MANAGEMENT_INFO"	=> "Для коректної роботи деяких плагінів потрібні додаткові сценарії js/css.<br>Переконайтеся, що плагін 'modernScript CE' увімкнено, і перевірте налаштування.",
     'PLUGINS_INSTALLED' => "(кількість плагінів)",
     'PLUGIN_DISABLED' => "Плагін вимкнено",
     'SHOW_PLUGINS' => "Каталог плагінів",

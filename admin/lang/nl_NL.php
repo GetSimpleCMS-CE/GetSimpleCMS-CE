@@ -422,7 +422,7 @@ $i18n = [
      * For: plugins.php
     */
     'PLUGINS_MANAGEMENT' => "Plugin-beheer",
-    "PLUGINS_MANAGEMENT_INFO"	=> "Voor sommige plug-ins zijn aanvullende js/css-scripts nodig om correct te kunnen functioneren.",
+    "PLUGINS_MANAGEMENT_INFO"	=> "Voor sommige plug-ins zijn aanvullende js/css-scripts nodig om correct te kunnen functioneren.<br>Zorg ervoor dat de plug-in 'modernScript CE' is ingeschakeld en controleer de instellingen.",
     'PLUGINS_INSTALLED' => "plugins ge&iuml;nstalleerd",
     'PLUGIN_DISABLED' => "Gedeactiveerde plugins",
     'SHOW_PLUGINS' => "Ge&iuml;nstalleerde plugins",

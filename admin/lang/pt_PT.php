@@ -422,7 +422,7 @@ $i18n = [
      * For: plugins.php
     */
     'PLUGINS_MANAGEMENT' => "Gestão de Plugins",
-    "PLUGINS_MANAGEMENT_INFO"	=> "Alguns plug-ins podem exigir scripts js/css adicionais para funcionar corretamente.",
+    "PLUGINS_MANAGEMENT_INFO"	=> "Alguns plug-ins podem exigir scripts js/css adicionais para funcionar corretamente.<br>Certifique-se de que o plugin 'modernScript CE' esteja habilitado e verifique as configurações.",
     'PLUGINS_INSTALLED' => "Plugins Instalados",
     'PLUGIN_DISABLED' => "Plugin desabilitado",
     'SHOW_PLUGINS' => "Plugi<em>n</em>s Instalados",

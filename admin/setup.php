@@ -150,7 +150,8 @@ if(isset($_POST['submitted'])) {
 		
 		# send email to new administrator
 		$subject  = $site_full_name .' '. i18n_r('EMAIL_COMPLETE');
-		$message .= '<p>'.i18n_r('EMAIL_USERNAME') . ': <strong>'. stripslashes($_POST['user']).'</strong>';
+		$message .= '<h2>'. cl($SITENAME) .' '. i18n_r('EMAIL_COMPLETE').'</h2>';
+		$message .= '<p>'. i18n_r('EMAIL_USERNAME') . ': <strong>'. stripslashes($_POST['user']).'</strong>';
 		$message .= '<br>'. i18n_r('EMAIL_PASSWORD') .': <strong>'. $random.'</strong>';
 		$message .= '<br>'. i18n_r('EMAIL_LOGIN') .': <a href="'.$SITEURL.$GSADMIN.'/">'.$SITEURL.$GSADMIN.'/</a></p>';
 		$message .= '<p><em>'. i18n_r('EMAIL_THANKYOU') .' '.$site_full_name.'!</em></p>';

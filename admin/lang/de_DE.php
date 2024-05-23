@@ -422,6 +422,7 @@ $i18n = [
      * For: plugins.php
     */
 "PLUGINS_MANAGEMENT" => "Erweiterungen-Verwaltung",
+"PLUGINS_MANAGEMENT_INFO"	=> "Einige Plugins erfordern möglicherweise zusätzliche JS/CSS-Skripte, um ordnungsgemäß zu funktionieren.<br>Stellen Sie sicher, dass das Plugin „modernScript CE“ aktiviert ist, und überprüfen Sie die Einstellungen.",
 "PLUGINS_INSTALLED"  => "Installierte Erweiterungen",
 "PLUGIN_DISABLED"    => "Deaktivierte Erweiterungen",
 "SHOW_PLUGINS"       => "Installierte <em>E</em>rweiterungen",
