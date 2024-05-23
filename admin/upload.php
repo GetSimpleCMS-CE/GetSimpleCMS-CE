@@ -75,7 +75,7 @@ if (isset($_FILES['file'])) {
 				// generate thumbnail				
 				require_once('inc/imagemanipulation.php');	
 				genStdThumb($subFolder,$base);					
-				$messages[] = i18n_r('FILE_SUCCESS_MSG').': <a href="'. $SITEURL .'data/uploads/'.$subFolder.$base.'">'. $SITEURL .'data/uploads/'.$subFolder.$base.'</a>';
+				$messages[] = i18n_r('FILE_SUCCESS_MSG').': <a href="'. $SITEURL .'data/uploads/'.$subFolder.$base.'" target="_blank">'. $SITEURL .'data/uploads/'.$subFolder.$base.'</a>';
 			} else {
 				$errors[] = $_FILES["file"]["name"][$i] .' - '.i18n_r('ERROR_UPLOAD');
 			}

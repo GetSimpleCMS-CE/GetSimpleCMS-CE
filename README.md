@@ -17,7 +17,6 @@
 <hr/>
 
 
-
 ## What is GetSimple CMS CE? :pushpin:
 GetSimple is an XML based, stand-a-alone, fully independent and lite Content Management System. To go along with its best-in-class user interface, it is loaded with features that every website needs, but with nothing it doesn't. GetSimple is truly the simplest way to manage a small-business website.
 Now supporting php7.4-8.x.
@@ -25,22 +24,13 @@ Now supporting php7.4-8.x.
 Official CE Website - https://getsimple-ce.ovh/
 The official unofficial GS update repo. Helping to bridge the gap in PHP compatibility. 
 
-## Features :pushpin:
 
-### XML Based ###
-We don't use mySQL to store our information, but instead depend the simplicity of XML. By utilizing XML, we are able stay away from introducing an extra layer of slowness and complexity associated with connecting to a mySQL database. Because GetSimple was built specifically for the small-site market, we feel this is the absolutely best option for data storage.
+## INSTALLATION: :pushpin:
 
-### Easy to Learn UI ###
-The top priority when designing our user-interface was to make it the best in it's class. We had the luxury of trying and testing all the competing management systems before designing ours, so we took the best out of each one - then refined it.
+- Extract zip file to your web host
+- Visit your domain and navigate to /admin (or your gsadmin path set in gsconfig), you will be redirected to the upgrade and install scripts
 
-### Simple Installation ###
-The total time in setting up a website took a total of 5 minutes, from starting the FTP to finishing the setup procedure.
-
-### Easy Theme Customization ###
-We have how to documents that show you how to create a custom theme. Our goal was not to bloat our software with hundreds of little-used theme functions, but to offer more than enough to allow for a fully customized theme.
-
-### Plugins & Expandability ###
-Designed to be light and agile, the base install comes to you clutter free, without dozens of extras you dont need. But of course we do have an ever growing selection of extensions ready to use and easy to install. Everything that you or your client are looking for…
+:warning: NOTE: Your site will be automatically put in maintenance mode during installs or upgrades.
 
 
 ## Whats New? :pushpin: ##
@@ -92,6 +82,22 @@ Designed to be light and agile, the base install comes to you clutter free, with
 - Changed function name do to deprecated class constructor.
 - Further 8.x compatibility from Topic with fixes ([Forum Thread](http://get-simple.info/forums/showthread.php?tid=16548))
 
+## Features :pushpin:
+
+### XML Based ###
+We don't use mySQL to store our information, but instead depend the simplicity of XML. By utilizing XML, we are able stay away from introducing an extra layer of slowness and complexity associated with connecting to a mySQL database. Because GetSimple was built specifically for the small-site market, we feel this is the absolutely best option for data storage.
+
+### Easy to Learn UI ###
+The top priority when designing our user-interface was to make it the best in it's class. We had the luxury of trying and testing all the competing management systems before designing ours, so we took the best out of each one - then refined it.
+
+### Simple Installation ###
+The total time in setting up a website took a total of 5 minutes, from starting the FTP to finishing the setup procedure.
+
+### Easy Theme Customization ###
+We have how to documents that show you how to create a custom theme. Our goal was not to bloat our software with hundreds of little-used theme functions, but to offer more than enough to allow for a fully customized theme.
+
+### Plugins & Expandability ###
+Designed to be light and agile, the base install comes to you clutter free, without dozens of extras you dont need. But of course we do have an ever growing selection of extensions ready to use and easy to install. Everything that you or your client are looking for…
 
 ## History :pushpin:
 GetSimple CMS was created in 2009 and primarily developed for the creation of smaller websites, it is also became suitable for medium to large websites thanks to the extendability of the platform via plug-ins and themes.
@@ -141,16 +147,6 @@ Javascript Enabled
 *Apache ( recommended for out of the box security using .htaccess )
 
 
-## INSTALLATION: :pushpin:
-
-Please see: http://get-simple.info/docs/installation
-
-
-## UPGRADING :pushpin:
-
-Please see: http://get-simple.info/docs/upgrading
-
-
 ## DISCLAIMER: :pushpin:
 
 While GetSimple strives to be a secure and stable application, we simply cannot 
@@ -170,11 +166,14 @@ Original Lead Developer: Shawn Alverson [ http://tablatronix.com/ ]
 
 _company logos in the icons are copyright of their respective owners_
 
+Alpine.js  
+https://alpinejs.dev/
+
 Ckeditor  
-http://ckeditor.com/
+https://ckeditor.com/
 
 marijnh/CodeMirror  
-http://codemirror.net/
+https://codemirror.net/
 
 simplelightbox  
 https://github.com/andreknieriem/simplelightbox
@@ -188,12 +187,8 @@ https://github.com/rgrove/lazyload
 enyo/dropzone  
 https://github.com/enyo/dropzone
 
-fontawesome  
-http://fontawesome.io/
-
 bigspotteddog/scrolltofixed  
 https://github.com/bigspotteddog/ScrollToFixed
 
 dropzonejs  
 http://www.dropzonejs.com/
-

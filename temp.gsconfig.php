@@ -57,7 +57,7 @@ define('GSIMAGEWIDTH', '480');
 # WYSIWYG editor language (default en)
 # define('GSEDITORLANG', 'en');
 
-# WYSIWYG toolbars (advanced, basic, advanced, island, CEbar or [custom config])
+# WYSIWYG toolbars (advanced, basic, CEbar, island or [custom config])
 define('GSEDITORTOOL', "CEbar");
 
 # WYSIWYG Editor Options
