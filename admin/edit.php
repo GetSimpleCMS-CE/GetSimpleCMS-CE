@@ -515,7 +515,7 @@ get_template('header', cl($SITENAME).' &raquo; '.i18n_r('EDIT').' '.$title);
 					
 					function autoSaveInd(){
 						document.getElementById('pagechangednotify').style.display = 'block';
-						document.getElementById('pagechangednotify').innerText = "<?php echo i18n_r('PAGE_UNSAVED'); ?>";
+						document.getElementById('pagechangednotify').innerText = "PAGE_UNSAVED";
 						document.querySelectorAll('input[type=submit]').forEach(function(element) {
 							element.style.borderColor = '#CC0000';
 						});
