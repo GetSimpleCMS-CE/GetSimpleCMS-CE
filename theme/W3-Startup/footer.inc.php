@@ -49,3 +49,5 @@
 		mySidebar.style.display = "none";
 	}
 </script>
+
+<?php get_footer(); ?> <!-- ## required in all themes ##-->
