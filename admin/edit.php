@@ -315,16 +315,16 @@ get_template('header', cl($SITENAME).' &raquo; '.i18n_r('EDIT').' '.$title);
 		<script type="text/javascript" src="template/js/ckeditor/ckeditor.js<?php echo getDef("GSCKETSTAMP",true) ? "?t=".getDef("GSCKETSTAMP") : ""; ?>"></script>
 
 			<script type="text/javascript">
-    var gscketstamp = <?php echo json_encode(getDef("GSCKETSTAMP", true)); ?>;
-    CKEDITOR.timestamp = gscketstamp || '';
-
+			<?php if(getDef("GSCKETSTAMP",true)) echo "CKEDITOR.timestamp = '".getDef("GSCKETSTAMP") . "';\n"; ?>
 			var editor = CKEDITOR.replace( 'post-content', {
 					skin : 'getsimple',
 					forcePasteAsPlainText : true,
 					language : '<?php echo $EDLANG; ?>',
 					defaultLanguage : 'en',
-        <?php if (file_exists(GSTHEMESPATH . $TEMPLATE . "/editor.css")) { ?>
-            contentsCss: '<?php echo json_encode($fullpath . 'theme/' . $TEMPLATE . '/editor.css'); ?>',
+					<?php if (file_exists(GSTHEMESPATH .$TEMPLATE."/editor.css")) { 
+						$fullpath = suggest_site_path();
+						?>
+						contentsCss: '<?php echo $fullpath; ?>theme/<?php echo $TEMPLATE; ?>/editor.css',
 					<?php } ?>
 					entities : false,
 					// uiColor : '#FFFFFF',
@@ -339,19 +339,18 @@ get_template('header', cl($SITENAME).' &raquo; '.i18n_r('EDIT').' '.$title);
 					<?php echo $options; ?>					
 			});
 
-	CKEDITOR.instances["post-content"].on("instanceReady", function(ev) {
-    var editor = ev.editor;
+			CKEDITOR.instances["post-content"].on("instanceReady", InstanceReadyEvent);
 
-    editor.document.on("keyup", function() {
-        var contentElement = document.querySelector('#editform #post-content');
-        contentElement.dispatchEvent(new Event('change'));
-        editor.resetDirty();
+			function InstanceReadyEvent(ev) {
+				_this = this;
+
+				this.document.on("keyup", function () {
+					$('#editform #post-content').trigger('change');
+					_this.resetDirty();
 				});
 
-    editor.timer = setInterval(function() {
-        trackChanges(editor);
-    }, 500);
-});
+			    this.timer = setInterval(function(){trackChanges(_this)},500);
+			}		
 
 			/**
 			 * keep track of changes for editor
@@ -360,10 +359,10 @@ get_template('header', cl($SITENAME).' &raquo; '.i18n_r('EDIT').' '.$title);
 			function trackChanges(editor) {
 				// console.log('check changes');
 				if ( editor.checkDirty() ) {
-        document.querySelector('#editform #post-content').dispatchEvent(new Event('change'));
+					$('#editform #post-content').trigger('change');
 					editor.resetDirty();			
 				}
-}
+			};
 
 			</script>
 			
@@ -377,136 +376,102 @@ get_template('header', cl($SITENAME).' &raquo; '.i18n_r('EDIT').' '.$title);
 		
 		
 		
-			<script>
+		<script type="text/javascript">
 			/* Warning for unsaved Data */
 			var yourText = null;
 			var warnme = false;
 			var pageisdirty = false;
 			
-				document.getElementById('cancel-updates').style.display = 'none';
+			$('#cancel-updates').hide();
 	
 			window.onbeforeunload = function () {
-					if (warnme || pageisdirty) {
-						return "UNSAVED_INFORMATION";
+				if (warnme || pageisdirty == true) {
+					return "<?php i18n('UNSAVED_INFORMATION'); ?>";
 				}
 			}
 			
-				document.getElementById('editform').addEventListener('submit', function(event) {
+			$('#editform').submit(function(){
 				warnme = false;
 				return checkTitle();
 			});
 
-				function checkTitle() {
-					if (document.getElementById('post-title').value.trim().length == 0) {
-						alert("CANNOT_SAVE_EMPTY");
+			checkTitle = function(){
+				if($.trim($("#post-title").val()).length == 0){
+					alert("<?php i18n('CANNOT_SAVE_EMPTY'); ?>");
 					return false;
 				}					
 			}
 
-				document.addEventListener('DOMContentLoaded', function() {
+			jQuery(document).ready(function() { 
 
 			<?php if (defined('GSAUTOSAVE') && (int)GSAUTOSAVE != 0) { /* IF AUTOSAVE IS TURNED ON via GSCONFIG.PHP */ ?>	
 
-						document.getElementById('pagechangednotify').style.display = 'none';
-						document.getElementById('autosavenotify').style.display = 'block';
-						document.getElementById('autosavenotify').innerHTML = 'Autosaving is <b>ON</b> (' + <?php echo (int)GSAUTOSAVE; ?> + ' s)';
+					$('#pagechangednotify').hide();
+					$('#autosavenotify').show();
+					$('#autosavenotify').html('Autosaving is <b>ON</b> (<?php echo (int)GSAUTOSAVE; ?> s)');   		    	
 					
 					function autoSaveIntvl(){
 						// console.log('autoSaveIntvl called, isdirty:' + pageisdirty);
-							if (pageisdirty) {
+						if(pageisdirty == true){
 							autoSave();
 							pageisdirty = false;
 						}						
 					}
 					
 					function autoSave() {
-							document.querySelectorAll('input[type=submit]').forEach(function(element) {
-								element.setAttribute('disabled', 'disabled');
-							});
+						$('input[type=submit]').attr('disabled', 'disabled');
 
-							if (typeof(editor) !== 'undefined') {
-								document.getElementById('post-content').value = CKEDITOR.instances["post-content"].getData();
-							}
+						// we are using ajax, so ckeditor wont copy data to our textarea for us, so we do it manually
+						if(typeof(editor)!='undefined'){ $('#post-content').val(CKEDITOR.instances["post-content"].getData()); }
 						
-							var dataString = new FormData(document.getElementById('editform'));
+						var dataString = $("#editform").serialize();
 						
 						// not internalionalized or using GS date format!
 						var currentTime = new Date();
 						var hours = currentTime.getHours();
 						var minutes = currentTime.getMinutes();
-							if (minutes < 10) {
-								minutes = "0" + minutes;
-							}
-							var daypart = (hours > 11) ? "PM" : "AM";
-							if (hours > 12) {
-								hours -= 12;
-							}
-
-							fetch("changedata.php", {
-									method: "POST",
-									body: dataString
-								})
-								.then(function(response) {
-									return response.text();
-								})
-								.then(function(msg) {
+						if (minutes < 10){ minutes = "0" + minutes; }
+						if(hours > 11){ daypart = "PM";	} else {	daypart = "AM";	}
+						if(hours > 12){ hours-=12; }
+						
+						$.ajax({
+							type: "POST",
+							url: "changedata.php",
+							data: dataString+'&autosave=true&submitted=true',
+							success: function(msg) {
 								if (msg.toString()=='OK') {
-										document.getElementById('autosavenotify').innerText = "AUTOSAVE_NOTIFY" + hours + ":" + minutes + " " + daypart;
-										document.getElementById('pagechangednotify').style.display = 'none';
-										document.getElementById('pagechangednotify').innerText = '';
-										document.querySelectorAll('input[type=submit]').forEach(function(element) {
-											element.removeAttribute('disabled');
-											element.style.borderColor = '#ABABAB';
-										});
+									$('#autosavenotify').text("<?php i18n('AUTOSAVE_NOTIFY'); ?> "+ hours +":"+minutes+" "+daypart);
+									$('#pagechangednotify').hide();
+									$('#pagechangednotify').text('');                    
+									$('input[type=submit]').attr('disabled', false);
+									$('input[type=submit]').css('border-color','#ABABAB');
 									warnme = false;
-										document.getElementById('cancel-updates').style.display = 'none';
-									} else {
-									pageisdirty=true;
-										document.getElementById('autosavenotify').innerText = "AUTOSAVE_FAILED";
+									$('#cancel-updates').hide();
 								}
+								else {
+									pageisdirty=true;
+									$('#autosavenotify').text("<?php i18n('AUTOSAVE_FAILED'); ?>");                
+								}
+							}
 						});	
 					}
 					
-						document.getElementById('post-title').addEventListener('change', function() {
-							document.getElementById('editform').querySelector('#post-content').dispatchEvent(new Event('change'));
-						});
-
-						var formElements = document.querySelectorAll('#editform input, #editform textarea, #editform select');
-						formElements.forEach(function(element) {
-							if (element.id !== 'post-title' && element.id !== 'post-id') {
-								element.addEventListener('change', function() {
-									pageisdirty = true;
-									warnme = true;
-									autoSaveIntvl();
-								});
-								element.addEventListener('keypress', function() {
-									pageisdirty = true;
-									warnme = true;
-									autoSaveIntvl();
-								});
-								element.addEventListener('paste', function() {
-									pageisdirty = true;
-									warnme = true;
-									autoSaveIntvl();
+					// We register title and slug changes with change() which only fires when you lose focus to prevent midchange saves.
+					$('#post-title, #post-id').change(function () {
+							$('#editform #post-content').trigger('change');
 				  });					
-								element.addEventListener('textInput', function() {
-									pageisdirty = true;
-									warnme = true;
-									autoSaveIntvl();
-								});
-								element.addEventListener('input', function() {
+					
+					// We register all other form elements to detect changes of any type by using bind
+					$('#editform input,#editform textarea,#editform select').not('#post-title').not('#post-id').bind('change keypress paste textInput input',function(){
 							pageisdirty = true;
 							warnme = true;
-									autoSaveIntvl();
+							autoSaveInd();
 					});
-							}
-						});
 				
 				setInterval(autoSaveIntvl, <?php echo (int)GSAUTOSAVE*1000; ?>);
 				
 				<?php } else { /* AUTOSAVE IS NOT TURNED ON */ ?>
-						var form = document.getElementById('editform');
-						form.addEventListener('change', function() {
+					$('#editform').bind('change keypress paste focus textInput input',function(){					
 							warnme = true;
 							pageisdirty = false;
 							autoSaveInd();
@@ -514,12 +479,10 @@ get_template('header', cl($SITENAME).' &raquo; '.i18n_r('EDIT').' '.$title);
 					<?php } ?>
 					
 					function autoSaveInd(){
-						document.getElementById('pagechangednotify').style.display = 'block';
-						document.getElementById('pagechangednotify').innerText = "PAGE_UNSAVED";
-						document.querySelectorAll('input[type=submit]').forEach(function(element) {
-							element.style.borderColor = '#CC0000';
-						});
-						document.getElementById('cancel-updates').style.display = 'block';
+							$('#pagechangednotify').show();                
+							$('#pagechangednotify').text("<?php i18n('PAGE_UNSAVED')?>");  
+							$('input[type=submit]').css('border-color','#CC0000');              
+							$('#cancel-updates').show();						
 					}
 			});
 		</script>

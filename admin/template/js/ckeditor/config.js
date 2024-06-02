@@ -174,17 +174,10 @@ CKEDITOR.on( 'dialogDefinition', function( ev )	{
 
 var menuItems;
 
-fetch("inc/ajax.php?list_pages_json=1")
-    .then(response => response.json())
-    .then(data => {
-        menuItems = data;
-        if (typeof editor !== "undefined") {
-            CKEsetupLinks(editor);
-        }
-    })
-    .catch(error => {
-        console.error('Błąd podczas pobierania danych:', error);
-    });
+$.getJSON("inc/ajax.php?list_pages_json=1", function (data){
+	menuItems = data;
+	if (typeof editor !== "undefined")  CKEsetupLinks(editor);
+});
 
 /**
  * CKEditor Add Local Page Link
@@ -307,10 +300,7 @@ var getById = CKEgetById; // alias for legacy
 CKEDITOR.on('instanceReady', function(event) {
   event.editor.on('dialogShow', function(dialogShowEvent) {
 	if(CKEDITOR.env.ie) {
-		var links = document.querySelectorAll('a[href*="void(0)"]');
-
- 		links.forEach(function(link) {
-			link.removeAttribute('href');
-		});	}
+	  $(dialogShowEvent.data._.element.$).find('a[href*="void(0)"]').removeAttr('href');
+	}
   });
 });
