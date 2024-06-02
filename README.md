@@ -35,10 +35,9 @@ The official unofficial GS update repo. Helping to bridge the gap in PHP compati
 
 ## Whats New? :pushpin: ##
 
-- New - jQuery, W3 & AlpineJS added to core (simplify plugin development)
-- New - Ability to choose modern admin css/js for plugins (modernScript plugin)
 - New - Replaced fancybox with SimpleLightbox
 - Update - Massive Admin 5.x
+- Update - Install/Upgrade/Email
 - Update - Support page
 - Update - Support>ErrorLog
 - Update - Backup>Website Archives
