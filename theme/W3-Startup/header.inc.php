@@ -16,7 +16,7 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="<?php get_theme_url(); ?>/assets/css/w3.css">
-	<link rel="stylesheet" href="<?php get_theme_url(); ?>/assets/css/font-awesome.min.css">
+	<link rel="stylesheet" href="<?php get_theme_url(); ?>/assets/css/all.min.css">
 	<style>
 		body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", sans-serif}
 
@@ -76,12 +76,12 @@
 		</p>
 	</div>
 	<div class="w3-display-bottomleft w3-text-grey w3-large" style="padding:24px 48px">
-		<i class="fa fa-facebook-official w3-hover-opacity"></i>
-		<i class="fa fa-instagram w3-hover-opacity"></i>
-		<i class="fa fa-snapchat w3-hover-opacity"></i>
-		<i class="fa fa-pinterest-p w3-hover-opacity"></i>
-		<i class="fa fa-twitter w3-hover-opacity"></i>
-		<i class="fa fa-linkedin w3-hover-opacity"></i>
+		<i class="fa-brands fa-square-facebook w3-hover-opacity"></i>
+		<i class="fa-brands fa-instagram w3-hover-opacity"></i>
+		<i class="fa-brands fa-square-snapchat w3-hover-opacity"></i>
+		<i class="fa-brands fa-pinterest-p w3-hover-opacity"></i>
+		<i class="fa-brands fa-twitter w3-hover-opacity"></i>
+		<i class="fa-brands fa-linkedin w3-hover-opacity"></i>
 	</div>
 </header>
 <?php } else{ ?>

@@ -191,7 +191,7 @@
 			<div class="w3-grey">
 				<div class="w3-container w3-dark-grey w3-center" style="width:85%">85%</div>
 			</div>
-			<p class="w3-wide"><i class="fa fa-photo w3-margin-right"></i>Photoshop</p>
+			<p class="w3-wide"><i class="fa-regular fa-image w3-margin-right"></i>Photoshop</p>
 			<div class="w3-grey">
 				<div class="w3-container w3-dark-grey w3-center" style="width:75%">75%</div>
 			</div>

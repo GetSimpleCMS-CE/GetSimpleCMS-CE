@@ -47,7 +47,7 @@ The official unofficial GS update repo. Helping to bridge the gap in PHP compati
 - Fix - Remote command execution vulnerability #1352  (https://github.com/GetSimpleCMS/GetSimpleCMS/issues/1352)
 - Fix - Cross-Site Scripting Vulnerability #1360 (https://github.com/GetSimpleCMS/GetSimpleCMS/issues/1360)
 - Other Minor php8.x compatibility improvements
-- Other minor fixes and improvements
+- Other minor cleanup, fixes and improvements
 
 ### Recent Updates: ###
 
