@@ -310,6 +310,7 @@ class MassiveAdminClass
 		$hidepages = $_POST['hidepages'];
 		$hidesupport = $_POST['hidesupport'];
 		$hidesettings = $_POST['hidesettings'];
+		$hidegssettings = $_POST['hidegssettings'];
 		$hideuser = $_POST['user'];
 
 		$json = '{
@@ -320,7 +321,8 @@ class MassiveAdminClass
 			"hideplugin":"' . $hideplugin . '",
 			"hidepages": "' . $hidepages . '",
  			"hidesupport": "' . $hidesupport . '",
-			"hidesettings": "' . $hidesettings . '"
+			"hidesettings": "' . $hidesettings . '",
+			"hidegssettings": "' . $hidegssettings . '"
 		}';
 
 		$massiveHiddenSection = GSDATAOTHERPATH . '/massiveHiddenSection/';

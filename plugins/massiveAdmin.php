@@ -22,9 +22,9 @@ if (isset($_GET['snippet'])) {
 register_plugin(
 	$thisfile, //Plugin id
 	'Massive Admin Theme', 	//Plugin name
-	'5.0.3', 		//Plugin version
+	'5.0.4', 		//Plugin version
 	'Multicolor',  //Plugin author
-	'https://multicolor.stargard.pl', //author website
+	'https://ko-fi.com/multicolorplugins', //author website
 	'Admin theme with new function', //Plugin description
 	$sett,
 	//page type - on which admin tab to display

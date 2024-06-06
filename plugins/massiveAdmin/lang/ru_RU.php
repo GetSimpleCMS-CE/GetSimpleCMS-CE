@@ -44,6 +44,7 @@ $i18n = [
 	'HIDEPLUGIN' 		=> 'Скрыть раздел "<strong>Плагины</strong>"?',
 	'HIDESUPPORT' 		=> 'Скрыть раздел "<strong>Поддержка</strong>"?',
 	'HIDESETTINGS' 		=> 'Скрыть раздел "<strong>Настройки MassiveAdmin</strong>"?',
+	'HIDEGSSETTINGS'	=> 'Скрыть разделы "<strong>Настройки страницы</strong>"?',
 	'HIDEI18NGALLERY' 	=> 'Скрыть раздел "<strong>Галерея i18n</strong>"? (если плагин установлен)',
 	'HIDEUSERS' 		=> 'Скрыть разделы для следующих пользователей:',
 

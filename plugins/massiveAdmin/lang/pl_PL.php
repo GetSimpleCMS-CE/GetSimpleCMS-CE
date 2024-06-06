@@ -44,6 +44,7 @@ $i18n = [
 	'HIDEPLUGIN'					=> 'Ukryć sekcje "<strong>Wtyczki</strong>"?',
 	'HIDESUPPORT'					=> 'Ukryć sekcje "<strong> Wsparcie</strong>"?',
 	'HIDESETTINGS'					=> 'Ukryć sekcje "<strong>Ustawienia MassiveAdmin</strong>"?',
+	'HIDEGSSETTINGS'				=> 'Ukryć sekcje "<strong>Ustawienia Strony</strong>"?',
 	'HIDEI18NGALLERY'				=> 'Ukryć sekcje "<strong>Galeria i18n</strong>"? (jeśli istnieje)',
 	'HIDEUSERS'						=> 'Ukryj sekcje dla następujących użytkowników:',
 

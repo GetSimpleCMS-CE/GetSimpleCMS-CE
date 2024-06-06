@@ -44,6 +44,7 @@ $i18n = [
 	'HIDEPLUGIN' 					=> 'Abschnitt „<strong>Plugin</strong>“ ausblenden?',
 	'HIDESUPPORT' 					=> 'Abschnitt „<strong>Support</strong>“ ausblenden?',
 	'HIDESETTINGS' 					=> 'Abschnitt „<strong>MassiveAdmin-Einstellungen</strong>“ ausblenden?',
+	'HIDEGSSETTINGS'				=> 'Die Abschnitte „<strong>Seiteneinstellungen</strong>“ ausblenden?',
 	'HIDEI18NGALLERY' 				=> 'Abschnitt „<strong>i18n-Galerie</strong>“ ausblenden? (falls vorhanden)',
 	'HIDEUSERS' 					=> 'Abschnitte für folgende Benutzer ausblenden:',
 

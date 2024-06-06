@@ -44,6 +44,7 @@ $i18n = [
 	'HIDEPLUGIN' 					=> 'De sectie "<strong>Plug-in</strong>" verbergen?',
 	'HIDESUPPORT' 					=> 'De sectie "<strong>Ondersteuning</strong>" verbergen?',
 	'HIDESETTINGS' 					=> 'De sectie "<strong>MassiveAdmin-instellingen</strong>" verbergen?',
+	'HIDEGSSETTINGS'				=> 'Vil du skjule "<strong>Sideinnstillinger</strong>"-delene?',
 	'HIDEI18NGALLERY' 				=> 'De sectie "<strong>i18n gallery</strong>" verbergen? (indien bestaat)',
 	'HIDEUSERS' 					=> 'Verberg secties voor de volgende gebruikers:',
 

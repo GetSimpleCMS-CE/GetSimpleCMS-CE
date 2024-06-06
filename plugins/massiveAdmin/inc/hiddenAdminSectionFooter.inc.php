@@ -97,4 +97,17 @@ $data = json_decode($datee);
             document.querySelector('a[href="settings.php#profile"]').remove()
         };
     };
+
+    if (document.querySelector(`body#settings`) !== null) {
+        if ("<?php if (isset($data->hidegssettings)) {
+                    echo $data->hidegssettings;
+                }; ?>" == "hide") {
+            document.querySelector('body#settings .main h3').remove()
+            document.querySelector('body#settings .main .leftsec').remove()
+            document.querySelector('body#settings .main .leftsec').remove()
+            document.querySelector('body#settings .main .rightsec').remove()
+            document.querySelector('body#settings .main .inline').remove()
+          
+        };
+    };
 </script>
