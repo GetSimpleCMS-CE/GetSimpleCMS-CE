@@ -44,7 +44,8 @@ $i18n = [
 	'HIDEPLUGIN' 					=> '<strong>プラグイン</strong>セクションを非表示にしますか?',
 	'HIDESUPPORT' 					=> '<strong>サポート</strong>セクションを非表示にしますか?',
 	'HIDESETTINGS' 					=> '<strong>MassiveAdmin 設定</strong>セクションを非表示にしますか?',
-	'HIDEI18NGALLERY' 				=> '<strong>i18n ギャラリー</strong>セクションを非表示にしますか? (存在する場合)'、
+	'HIDEGSSETTINGS'				=> '<strong>ページ設定</strong>] セクションを非表示にしますか?',
+	'HIDEI18NGALLERY' 				=> '<strong>i18n ギャラリー</strong>セクションを非表示にしますか? (存在する場合)',
 	'HIDEUSERS' 					=> '次のユーザーのセクションを非表示:',
 
 	//user manager

@@ -43,6 +43,7 @@ $i18n = [
     'HIDEPLUGIN' 					=> "Приховати розділ \"<strong>Плагіни</strong>\"?",
     'HIDESUPPORT' 					=> "Приховати розділ \"<strong>Підтримка</strong>\"?",
     'HIDESETTINGS' 					=> "Приховати розділ \"<strong>Налаштування MassiveAdmin</strong>\"?",
+    'HIDEGSSETTINGS'	            => 'Сховати розділи "<strong>Налаштування сторінки</strong>"?',
     'HIDEI18NGALLERY' 				=> "Приховати розділ \"<strong>Галерея i18n</strong>\"? (якщо плагін встановлено)",
     'HIDEUSERS' 					=> "Приховати розділ для наступних користувачів:",
 
