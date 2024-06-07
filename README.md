@@ -42,11 +42,11 @@ The official unofficial GS update repo. Helping to bridge the gap in PHP compati
 - Update - Support>ErrorLog
 - Update - Backup>Website Archives
 - Removed - Deprecated Uploadify & Jcrop
+- Removed - Outdated demo templates
 - Fix - Password Reset
 - Fix - Components copy code
 - Hotfixes - Remote command execution vulnerability #1352  (https://github.com/GetSimpleCMS/GetSimpleCMS/issues/1352)
 - Hotfixes - Cross-Site Scripting Vulnerability #1360 (https://github.com/GetSimpleCMS/GetSimpleCMS/issues/1360)
-- Other Minor php8.x compatibility improvements
 - Other minor cleanup, fixes and improvements
 
 ### Recent Updates: ###
