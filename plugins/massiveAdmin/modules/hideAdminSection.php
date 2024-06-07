@@ -118,7 +118,10 @@ if (file_exists($finaljson)) {
 		<form method="POST" data-user="<?php echo pathinfo($us)['filename']; ?>" style="width:100%;height:auto; margin-top:20px;" class="hideadminsectionform">
 
 			<div style="width:100%;padding:5px;border:solid 1px #ddd;background:var(--main-color);color:#fff;grid-column: 1/3;font-size:1.2rem;height:auto;padding:5px;">
-				<p>User: <?php echo pathinfo($us)['filename']; ?></p>
+				<p>User: <?php echo 
+				$usxml = simplexml_load_file($us);
+				echo $usxml->USR;
+				?></p>
 			</div>
 
 			<input type="hidden" name="user" value="<?php echo pathinfo($us)['filename']; ?>">
