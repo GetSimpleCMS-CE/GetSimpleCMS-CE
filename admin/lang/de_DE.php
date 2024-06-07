@@ -59,7 +59,7 @@ $i18n = [
 "VIEWPAGE_TITLE"    => "Seite anzeigen",
 "DELETEPAGE_TITLE"  => "Seite löschen",
 "PAGE_MANAGEMENT"   => "Seiten-Verwaltung",
-"TOGGLE_STATUS"     => "<em>S</em>tatus ein-/ausblenden",
+"TOGGLE_STATUS"     => "Status ein-/ausblenden",
 "TOTAL_PAGES"       => "Seiten insgesamt",
 "ALL_PAGES"         => "Seiten",
 
@@ -75,8 +75,8 @@ $i18n = [
 "NEW_PAGE"         => "Neue Seite",
 "PAGE_EDIT_MODE"   => "Seite bearbeiten",
 "CREATE_NEW_PAGE"  => "Neue Seite erstellen",
-"VIEW"             => "<em>V</em>orschau",
-"PAGE_OPTIONS"     => "<em>O</em>ptionen",
+"VIEW"             => "Vorschau",
+"PAGE_OPTIONS"     => "Optionen",
 "SLUG_URL"         => "Spezielle URL (Slug)",
 "TAG_KEYWORDS"     => "Schlüsselworte",
 "PARENT_PAGE"      => "übergeordnete Seite",
@@ -157,7 +157,7 @@ $i18n = [
 "VIEWING"          => "Anzeigen",
 "LOG_FILE"         => "Protokoll-Datei",
 "CLEAR_ALL_DATA"   => "Lösche alle Daten von",
-"CLEAR_THIS_LOG"   => "<em>D</em>iese Protokoll-Datei löschen",
+"CLEAR_THIS_LOG"   => "Diese Protokoll-Datei löschen",
 "LOG_FILE_ENTRY"   => "Eintrag in der Protokoll-Datei",
 "THIS_COMPUTER"    => "Dieser Computer",
 
@@ -165,9 +165,9 @@ $i18n = [
      * For: backup-edit.php
     */
 "BAK_MANAGEMENT" => "Sicherungen-Verwaltung",
-"ASK_CANCEL"     => "<em>a</em>bbrechen", // a ist Befehlstaste
-"ASK_RESTORE"    => "<em>w</em>iederherstellen", // w ist Befehlstaste
-"ASK_DELETE"     => "<em>l</em>öschen", // l ist Befehlstaste
+"ASK_CANCEL"     => "abbrechen", // a ist Befehlstaste
+"ASK_RESTORE"    => "Wiederherstellen", // w ist Befehlstaste
+"ASK_DELETE"     => "löschen", // l ist Befehlstaste
 "BACKUP_OF"      => "Sicherung von",
 "PAGE_TITLE"     => "Seitentitel",
 "YES"            => "Ja",
@@ -181,7 +181,7 @@ $i18n = [
 "COMPONENTS"       => "Komponenten",
 "DELETE_COMPONENT" => "Komponente löschen",
 "EDIT"             => "Bearbeiten",
-"ADD_COMPONENT"    => "Komponente <em>h</em>inzufügen", // 'a' is the accesskey identifier
+"ADD_COMPONENT"    => "Komponente hinzufügen", // 'a' is the accesskey identifier
 "SAVE_COMPONENTS"  => "Komponenten speichern",
 
 	/* 
@@ -268,7 +268,7 @@ $i18n = [
      * For: backups.php
     */
 "PAGE_BACKUPS"   => "Seiten-Sicherungen",
-"ASK_DELETE_ALL" => "<em>A</em>lle Sicherungen löschen",
+"ASK_DELETE_ALL" => "Alle Sicherungen löschen",
 "DELETE_ALL_BAK" => "Alle Sicherungen löschen?",
 "TOTAL_BACKUPS"  => "Alle Sicherungen",
 
@@ -280,7 +280,7 @@ $i18n = [
 "WEBSITE_ARCHIVES"  => "Website-Sicherungen",
 "ARCHIVE_DELETED"   => "Das Archiv wurde erfolgreich gelöscht",
 "CREATE_NEW_ARC"    => "Neue Website-Sicherung erstellen",
-"ASK_CREATE_ARC"    => "Neue Website-Sicherung jetzt <em>e</em>rstellen?",
+"ASK_CREATE_ARC"    => "Neue Website-Sicherung jetzt erstellen?",
 "CREATE_ARC_WAIT"   => "<b>Bitte warten:</b> Die Website wird gerade gesichert…",
 "DOWNLOAD_ARCHIVES" => "Sicherung herunterladen",
 "DELETE_ARCHIVE"    => "Sicherung löschen",
@@ -290,14 +290,14 @@ $i18n = [
 	 * For: include-nav.php
 	*/
 "WELCOME"      => "Willkommen",
-"TAB_PAGES"    => "<em>S</em>eiten",
-"TAB_FILES"    => "<em>D</em>ateien",
-"TAB_THEME"    => "<em>V</em>orlagen",
-"TAB_BACKUPS"  => "<em>S</em>icherungen",
-"PLUGINS_NAV"  => "Er<em>w</em>eiterungen",
-"TAB_SETTINGS" => "<em>E</em>instellungen",
-"TAB_SUPPORT"  => "<em>U</em>nterstützung",
-"TAB_LOGOUT"   => "<em>A</em>bmelden",
+"TAB_PAGES"    => "Seiten",
+"TAB_FILES"    => "Dateien",
+"TAB_THEME"    => "Vorlagen",
+"TAB_BACKUPS"  => "Sicherungen",
+"PLUGINS_NAV"  => "Erweiterungen",
+"TAB_SETTINGS" => "Einstellungen",
+"TAB_SUPPORT"  => "Unterstützung",
+"TAB_LOGOUT"   => "Abmelden",
 
     /* 
      * For: sidebar-files.php
@@ -308,38 +308,38 @@ $i18n = [
     /* 
      * For: sidebar-support.php
     */
-"SIDE_SUPPORT_LOG"   => "<em>U</em>nterstützung",
+"SIDE_SUPPORT_LOG"   => "Unterstützung",
 "SIDE_HEALTH_CHK"    => "Website-Überprüfung",
-"SIDE_DOCUMENTATION" => "<em>D</em>okumentation",
-"SIDE_VIEW_LOG"      => "<em>P</em>rotokoll anzeigen",
+"SIDE_DOCUMENTATION" => "Dokumentation",
+"SIDE_VIEW_LOG"      => "Protokoll anzeigen",
 
     /* 
      * For: sidebar-theme.php
     */
-"SIDE_VIEW_SITEMAP" => "Sitemap <em>a</em>nzeigen",
-"SIDE_GEN_SITEMAP"  => "Sitemap <em>e</em>rstellen",
-"SIDE_COMPONENTS"   => "Komponenten <em>b</em>earbeiten",
-"SIDE_EDIT_THEME"   => "<em>V</em>orlage bearbeiten",
+"SIDE_VIEW_SITEMAP" => "Sitemap anzeigen",
+"SIDE_GEN_SITEMAP"  => "Sitemap erstellen",
+"SIDE_COMPONENTS"   => "Komponenten bearbeiten",
+"SIDE_EDIT_THEME"   => "Vorlage bearbeiten",
 "SIDE_CHOOSE_THEME" => "Vorlage auswählen",
 
     /* 
      * For: sidebar-pages.php
     */
-"SIDE_CREATE_NEW" => "<em>N</em>eue Seite erstellen",
-"SIDE_VIEW_PAGES" => "Alle <em>S</em>eiten anzeigen",
+"SIDE_CREATE_NEW" => "Neue Seite erstellen",
+"SIDE_VIEW_PAGES" => "Alle Seiten anzeigen",
 
     /* 
      * For: sidebar-settings.php
     */
-"SIDE_GEN_SETTINGS" => "Allgemeine <em>E</em>instellungen",
-"SIDE_USER_PROFILE" => "<em>B</em>enutzerprofil",
+"SIDE_GEN_SETTINGS" => "Allgemeine Einstellungen",
+"SIDE_USER_PROFILE" => "Benutzerprofil",
 
     /* 
      * For: sidebar-backups.php
     */
 "SIDE_VIEW_BAK"     => "Seiten-Sicherung anzeigen",
-"SIDE_WEB_ARCHIVES" => "<em>W</em>ebsite-Sicherungen",
-"SIDE_PAGE_BAK"     => "<em>S</em>eiten-Sicherungen",
+"SIDE_WEB_ARCHIVES" => "Website-Sicherungen",
+"SIDE_PAGE_BAK"     => "Seiten-Sicherungen",
 
     /* 
      * For: error_checking.php
@@ -425,7 +425,7 @@ $i18n = [
 "PLUGINS_MANAGEMENT_INFO"	=> "Einige Plugins erfordern möglicherweise zusätzliche JS/CSS-Skripte, um ordnungsgemäß zu funktionieren.<br>Stellen Sie sicher, dass das Plugin „modernScript CE“ aktiviert ist, und überprüfen Sie die Einstellungen.",
 "PLUGINS_INSTALLED"  => "Installierte Erweiterungen",
 "PLUGIN_DISABLED"    => "Deaktivierte Erweiterungen",
-"SHOW_PLUGINS"       => "Installierte <em>E</em>rweiterungen",
+"SHOW_PLUGINS"       => "Installierte Erweiterungen",
 "PLUGIN_NAME"        => "Name",
 "PLUGIN_DESC"        => "Beschreibung",
 "PLUGIN_VER"         => "Version",
@@ -467,7 +467,7 @@ $i18n = [
 "UNSAVED_INFORMATION"   => "Wenn Sie die Seite verlassen, werden die Änderungen nicht gespeichert.",
 "BACK_TO_WEBSITE"       => "Zur Website",
 "SUPPORT_FORUM"         => "Support-Forum",
-"FILTER"                => "Filte<em>r</em>",
+"FILTER"                => "Filter",
 "UPLOADIFY_BUTTON"      => "Dateien oder Bilder hochladen…",
 "FILE_BROWSER"          => "Datei-Browser",
 "SELECT_FILE"           => "Datei auswählen",
@@ -492,8 +492,8 @@ $i18n = [
 "COPY"                 => "Kopieren",
 "CLONE_ERROR"          => "Das Kopieren der Seite <b>%s</b> schlug fehl",
 "AUTOSAVE_NOTIFY"      => "automatische Speicherung um",
-"MENU_MANAGER"         => "<em>M</em>enü-Verwaltung",
-"GET_PLUGINS_LINK"     => "Zusätzliche <em>E</em>rweiterungen herunterladen",
+"MENU_MANAGER"         => "Menü-Verwaltung",
+"GET_PLUGINS_LINK"     => "Zusätzliche Erweiterungen herunterladen",
 "SITEMAP_REFRESHED"    => "Die Sitemap wurde aktualisiert",
 "LOG_FILE_EMPTY"       => "Diese Protokolldatei ist leer",
 "SHARE"                => "Teilen",

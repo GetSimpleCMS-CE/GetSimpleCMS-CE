@@ -75,8 +75,8 @@ $i18n = [
     'NEW_PAGE' => "Nova Página",
     'PAGE_EDIT_MODE' => "Modo de Edição de Página",
     'CREATE_NEW_PAGE' => "Criar Nova Página",
-    'VIEW' => "<em>V</em>er",
-    'PAGE_OPTIONS' => "<em>O</em>pções de Página",
+    'VIEW' => "Ver",
+    'PAGE_OPTIONS' => "Opções de Página",
     'SLUG_URL' => "URL",
     'TAG_KEYWORDS' => "Etiquetas &amp; Palavras-chave",
     'PARENT_PAGE' => "Página Pai",
@@ -157,7 +157,7 @@ $i18n = [
     'VIEWING' => "A Ver",
     'LOG_FILE' => "Ficheiro de Log",
     'CLEAR_ALL_DATA' => "Limpar todos os dados de",
-    'CLEAR_THIS_LOG' => "<em>L</em>impar Este Log",
+    'CLEAR_THIS_LOG' => "Limpar Este Log",
     'LOG_FILE_ENTRY' => "ENTRADA DE FICHEIRO DE LOG",
     'THIS_COMPUTER' => "Este Computador",
 
@@ -165,9 +165,9 @@ $i18n = [
      * For: backup-edit.php
     */
     'BAK_MANAGEMENT' => "Gestão de Cópias de Segurança",
-    'ASK_CANCEL' => "<em>C</em>ancelar",
-    'ASK_RESTORE' => "<em>R</em>ecuperar",
-    'ASK_DELETE' => "<em>A</em>pagar",
+    'ASK_CANCEL' => "Cancelar",
+    'ASK_RESTORE' => "Recuperar",
+    'ASK_DELETE' => "Apagar",
     'BACKUP_OF' => "Cópia de Segurança de",
     'PAGE_TITLE' => "Título da Página",
     'YES' => "Sim",
@@ -181,7 +181,7 @@ $i18n = [
     'COMPONENTS' => "Componentes",
     'DELETE_COMPONENT' => "Apagar Componente",
 	"EDIT"					=>	"Edit",
-    'ADD_COMPONENT' => "<em>A</em>dicionar Componente",
+    'ADD_COMPONENT' => "Adicionar Componente",
     'SAVE_COMPONENTS' => "Guardar Componentes",
 
 	/* 
@@ -268,7 +268,7 @@ $i18n = [
      * For: backups.php
     */
     'PAGE_BACKUPS' => "Cópias de Segurança de Páginas",
-    'ASK_DELETE_ALL' => "<em>A</em>pagar Tudo",
+    'ASK_DELETE_ALL' => "Apagar Tudo",
     'DELETE_ALL_BAK' => "Apagar todas as cópias de segurança?",
     'TOTAL_BACKUPS' => "total de cópias de segurança",
 
@@ -280,7 +280,7 @@ $i18n = [
     'WEBSITE_ARCHIVES' => "Arquivos do Website",
     'ARCHIVE_DELETED' => "Arquivo apagado com sucesso",
     'CREATE_NEW_ARC' => "Criar um Novo Arquivo",
-    'ASK_CREATE_ARC' => "<em>C</em>iar Novo Arquivo Agora",
+    'ASK_CREATE_ARC' => "Ciar Novo Arquivo Agora",
     'CREATE_ARC_WAIT' => "<b>Espere um momento:</b> A criar o aquivo do website...",
     'DOWNLOAD_ARCHIVES' => "Download de Arquivo",
     'DELETE_ARCHIVE' => "Apagar Arquivo",
@@ -290,14 +290,14 @@ $i18n = [
 	 * For: include-nav.php
 	*/
     'WELCOME' => "Bem-vindo",
-    'TAB_PAGES' => "<em>P</em>áginas",
-    'TAB_FILES' => "<em>F</em>icheiros",
-    'TAB_THEME' => "<em>T</em>emas",
-    'TAB_BACKUPS' => "<em>C</em>ópias de Segurança",
+    'TAB_PAGES' => "Páginas",
+    'TAB_FILES' => "Ficheiros",
+    'TAB_THEME' => "Temas",
+    'TAB_BACKUPS' => "Cópias de Segurança",
     'PLUGINS_NAV' => "Plugins",
-    'TAB_SETTINGS' => "<em>D</em>efinições",
-    'TAB_SUPPORT' => "Sup<em>o</em>rte",
-    'TAB_LOGOUT' => "<em>S</em>air",
+    'TAB_SETTINGS' => "Definições",
+    'TAB_SUPPORT' => "Suporte",
+    'TAB_LOGOUT' => "Sair",
 
     /* 
      * For: sidebar-files.php
@@ -308,38 +308,38 @@ $i18n = [
     /* 
      * For: sidebar-support.php
     */
-    'SIDE_SUPPORT_LOG' => "Definições de Sup<em>o</em>rte &amp; Logs",
-    'SIDE_HEALTH_CHK' => "<em>V</em>erificação de Saúde",
-    'SIDE_DOCUMENTATION' => "<em>D</em>ocumentação",
+    'SIDE_SUPPORT_LOG' => "Definições de Suporte &amp; Logs",
+    'SIDE_HEALTH_CHK' => "Verificação de Saúde",
+    'SIDE_DOCUMENTATION' => "Documentação",
     'SIDE_VIEW_LOG' => "Ver Log",
 
     /* 
      * For: sidebar-theme.php
     */
-    'SIDE_VIEW_SITEMAP' => "<em>V</em>er Sitemap",
-    'SIDE_GEN_SITEMAP' => "<em>G</em>erar Sitemap",
-    'SIDE_COMPONENTS' => "<em>E</em>ditar Componentes",
-    'SIDE_EDIT_THEME' => "Ed<em>i</em>tar Tema",
-    'SIDE_CHOOSE_THEME' => "Escolher <em>T</em>ema",
+    'SIDE_VIEW_SITEMAP' => "Ver Sitemap",
+    'SIDE_GEN_SITEMAP' => "Gerar Sitemap",
+    'SIDE_COMPONENTS' => "Editar Componentes",
+    'SIDE_EDIT_THEME' => "Editar Tema",
+    'SIDE_CHOOSE_THEME' => "Escolher Tema",
 
     /* 
      * For: sidebar-pages.php
     */
-    'SIDE_CREATE_NEW' => "<em>C</em>iar Nova Página",
-    'SIDE_VIEW_PAGES' => "Ver Todas as <em>P</em>áginas",
+    'SIDE_CREATE_NEW' => "Ciar Nova Página",
+    'SIDE_VIEW_PAGES' => "Ver Todas as Páginas",
 
     /* 
      * For: sidebar-settings.php
     */
-    'SIDE_GEN_SETTINGS' => "Definições <em>G</em>erais",
-    'SIDE_USER_PROFILE' => "Perfil do <em>U</em>tilizador",
+    'SIDE_GEN_SETTINGS' => "Definições Gerais",
+    'SIDE_USER_PROFILE' => "Perfil do Utilizador",
 
     /* 
      * For: sidebar-backups.php
     */
     'SIDE_VIEW_BAK' => "Ver Cópia de Segurança da Página",
-    'SIDE_WEB_ARCHIVES' => "Arquivos de <em>W</em>ebsite",
-    'SIDE_PAGE_BAK' => "<em>C</em>ópia de Segurança de Páginas",
+    'SIDE_WEB_ARCHIVES' => "Arquivos de Website",
+    'SIDE_PAGE_BAK' => "Cópia de Segurança de Páginas",
 
     /* 
      * For: error_checking.php
@@ -425,7 +425,7 @@ $i18n = [
     "PLUGINS_MANAGEMENT_INFO"	=> "Alguns plug-ins podem exigir scripts js/css adicionais para funcionar corretamente.<br>Certifique-se de que o plugin 'modernScript CE' esteja habilitado e verifique as configurações.",
     'PLUGINS_INSTALLED' => "Plugins Instalados",
     'PLUGIN_DISABLED' => "Plugin desabilitado",
-    'SHOW_PLUGINS' => "Plugi<em>n</em>s Instalados",
+    'SHOW_PLUGINS' => "Plugins Instalados",
     'PLUGIN_NAME' => "Plugin",
     'PLUGIN_DESC' => "Descrição",
     'PLUGIN_VER' => "Versão",
@@ -467,7 +467,7 @@ $i18n = [
     'UNSAVED_INFORMATION' => "Está prestes a sair desta página e perderá todas as alterações por guardar.",
     'BACK_TO_WEBSITE' => "Voltar ao Website",
     'SUPPORT_FORUM' => "Fórum de suporte",
-    'FILTER' => "Filt<em>r</em>o",
+    'FILTER' => "Filtro",
     'UPLOADIFY_BUTTON' => "Carregar ficheiros e/ou imagens",
     'FILE_BROWSER' => "Navegador de ficheiros",
     'SELECT_FILE' => "Escolher ficheiro",
@@ -492,8 +492,8 @@ $i18n = [
     'COPY' => "Copiar",
     'CLONE_ERROR' => "Houve um problema ao clonar <b>%s</b>",
     'AUTOSAVE_NOTIFY' => "Página guardada automaticamente em",
-    'MENU_MANAGER' => "Gestor de <em>M</em>enus",
-    'GET_PLUGINS_LINK' => "Download <em>M</em>ais Plugins",
+    'MENU_MANAGER' => "Gestor de Menus",
+    'GET_PLUGINS_LINK' => "Download Mais Plugins",
     'SITEMAP_REFRESHED' => "O seu sitemap foi atualizado",
     'LOG_FILE_EMPTY' => "O ficheiro de log está vazio",
     'SHARE' => "Partilhar",

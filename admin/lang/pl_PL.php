@@ -59,7 +59,7 @@ $i18n = [
 "VIEWPAGE_TITLE"	  	=>	"Podgląd strony ",
 "DELETEPAGE_TITLE"		=>	"Usuń stronę ",
 "PAGE_MANAGEMENT"	  	=>	"Zarządzanie stronami",
-"TOGGLE_STATUS"	  		=>	"Stat<em>u</em>s strony w menu",
+"TOGGLE_STATUS"	  		=>	"Status strony w menu",
 "TOTAL_PAGES"	    	=>	"- stron ogółem",
 "ALL_PAGES"		    	=>	"Wszystkie strony",
 
@@ -76,7 +76,7 @@ $i18n = [
 "PAGE_EDIT_MODE"		=>	"Tryb edycji strony",
 "CREATE_NEW_PAGE"		=>	"Nowa strona",
 "VIEW"					=>	"Podgląd strony ", // 'v' is the accesskey identifier
-"PAGE_OPTIONS"			=>	"Opcje stro<em>n</em>y", // 'o' is the accesskey identifier
+"PAGE_OPTIONS"			=>	"Opcje strony", // 'o' is the accesskey identifier
 "SLUG_URL"			  	=>	"nazwa pliku/URL strony",
 "TAG_KEYWORDS"			=>	"Tagi i słowa kluczowe &lt;meta keywords&gt; ",
 "PARENT_PAGE"		  	=>	"Podstrona",
@@ -157,7 +157,7 @@ $i18n = [
 "VIEWING" 			=> 	"Podgląd",
 "LOG_FILE" 			=> 	"logów z pliku",
 "CLEAR_ALL_DATA" 	=> 	"Wyczyścić wszystkie dane z",
-"CLEAR_THIS_LOG" 	=> 	"Wy<em>c</em>zyść logi", // 'c' is the accesskey identifier
+"CLEAR_THIS_LOG" 	=> 	"Wyczyść logi", // 'c' is the accesskey identifier
 "LOG_FILE_ENTRY" 	=> 	"WPIS W LOGU",
 "THIS_COMPUTER"		=>	"Z tego komputera",
 
@@ -181,7 +181,7 @@ $i18n = [
 "COMPONENTS"		  	=>	"Komponenty",
 "DELETE_COMPONENT"		=>	"Usuń komponent",
 "EDIT"					=>	"Edytuj",
-"ADD_COMPONENT"			=>	"Dod<em>a</em>j komponent", // 'a' is the accesskey identifier
+"ADD_COMPONENT"			=>	"Dodaj komponent", // 'a' is the accesskey identifier
 "SAVE_COMPONENTS"		=>	"Zapisz komponent",
 
 /* 
@@ -308,7 +308,7 @@ $i18n = [
 /* 
  * For: sidebar-support.php
 */
-"SIDE_SUPPORT_LOG"		=>	"Wsparcie ustawień i l<em>o</em>gów",
+"SIDE_SUPPORT_LOG"		=>	"Wsparcie ustawień i logów",
 "SIDE_HEALTH_CHK"	  	=>	"Stan działania strony",
 "SIDE_DOCUMENTATION"	=>	"Dokumentacja Wiki",
 "SIDE_VIEW_LOG"			=>	"Podgląd logów",
@@ -317,8 +317,8 @@ $i18n = [
  * For: sidebar-theme.php
 */
 "SIDE_VIEW_SITEMAP"	=>	"Zobacz mapę strony",
-"SIDE_GEN_SITEMAP"	=>	"Generuj <em>m</em>apę strony",
-"SIDE_COMPONENTS"	=>	"<em>E</em>dytuj komponenty",
+"SIDE_GEN_SITEMAP"	=>	"Generuj mapę strony",
+"SIDE_COMPONENTS"	=>	"Edytuj komponenty",
 "SIDE_EDIT_THEME"	=>	"Edytuj szablon",
 "SIDE_CHOOSE_THEME"	=>	"Wybierz szablon",
 
@@ -425,7 +425,7 @@ $i18n = [
 "PLUGINS_MANAGEMENT_INFO"	=> "Niektóre wtyczki wymagają do prawidłowego działania dodatkowych skryptów js/css.<br>Upewnij się, że wtyczka 'modernScript CE' jest włączona i sprawdź ustawienia.",
 "PLUGINS_INSTALLED" 	=> "wtyczek zainstalowanych",
 "PLUGIN_DISABLED"   => "Wyłączona ⛔",
-"SHOW_PLUGINS"		  	=> "Zarządzanie w<em>t</em>yczkami",
+"SHOW_PLUGINS"		  	=> "Zarządzanie wtyczkami",
 "PLUGIN_NAME" 	  		=> "Nazwa",
 "PLUGIN_DESC" 	  		=> "Opis",
 "PLUGIN_VER" 			=> "Wersja",
@@ -492,7 +492,7 @@ $i18n = [
 "COPY" => "Kopiuj", //pages.php
 "CLONE_ERROR" => "<strong>Ostrzeżenie:</strong> Wystapił problem podczas duplikowania <strong>%s</strong>",  //pages.php
 "AUTOSAVE_NOTIFY" => 'Strona zapisana automatycznie o', //edit.php
-"MENU_MANAGER" => '<em>M</em>enedżer menu', //edit.php
+"MENU_MANAGER" => 'menedżer menu', //edit.php
 "GET_PLUGINS_LINK" => 'Pobierz dodatkowe pluginy', /*Download <em>M</em>ore Plugins',*/
 "SITEMAP_REFRESHED" => "Mapa strony została odświeżona", //edit.php
 "LOG_FILE_EMPTY" 		=> 	"Plik logu jest pusty", //log.php
