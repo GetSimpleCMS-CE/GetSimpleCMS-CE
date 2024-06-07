@@ -59,7 +59,7 @@ $i18n = [
     "VIEWPAGE_TITLE"		=>	"View Page",
     "DELETEPAGE_TITLE"		=>	"Delete Page",
     "PAGE_MANAGEMENT"		=>	"Page Management",
-    "TOGGLE_STATUS"			=>	"Toggle Stat<em>u</em>s",
+    "TOGGLE_STATUS"			=>	"Toggle Status",
     "TOTAL_PAGES"			=>	"total pages",
     "ALL_PAGES"				=>	"Pages",
 
@@ -75,8 +75,8 @@ $i18n = [
     "NEW_PAGE"				=>	"New Page",
     "PAGE_EDIT_MODE"		=>	"Edit Page",
     "CREATE_NEW_PAGE"		=>	"Add New Page",
-    "VIEW"					=>	"<em>V</em>iew",
-    "PAGE_OPTIONS"			=>	"Page Optio<em>n</em>s",
+    "VIEW"					=>	"View",
+    "PAGE_OPTIONS"			=>	"Page Options",
     "SLUG_URL"				=>	"Custom URL (Slug)",
     "TAG_KEYWORDS"			=>	"Tags &amp; Keywords",
     "PARENT_PAGE"			=>	"Page Parent",
@@ -157,7 +157,7 @@ $i18n = [
     "VIEWING" 				=> 	"Viewing",
     "LOG_FILE" 				=> 	"Log File",
     "CLEAR_ALL_DATA" 		=> 	"Clear all data from",
-    "CLEAR_THIS_LOG" 		=> 	"<em>C</em>lear This Log",
+    "CLEAR_THIS_LOG" 		=> 	"Clear This Log",
     "LOG_FILE_ENTRY" 		=> 	"LOG FILE ENTRY",
     "THIS_COMPUTER"			=>	"This Computer",
 
@@ -165,9 +165,9 @@ $i18n = [
      * For: backup-edit.php
     */
 	"BAK_MANAGEMENT"		=>	"Backup Management",
-	"ASK_CANCEL"			=>	"<em>C</em>ancel", // 'c' is the accesskey identifier
-	"ASK_RESTORE"			=>	"<em>R</em>estore", // 'r' is the accesskey identifier
-	"ASK_DELETE"			=>	"<em>D</em>elete", // 'd' is the accesskey identifier
+	"ASK_CANCEL"			=>	"Cancel", // 'c' is the accesskey identifier
+	"ASK_RESTORE"			=>	"Restore", // 'r' is the accesskey identifier
+	"ASK_DELETE"			=>	"Delete", // 'd' is the accesskey identifier
 	"BACKUP_OF"				=>	"Backup of",
 	"PAGE_TITLE"			=>	"Page Title",
 	"YES"					=>	"Yes",
@@ -181,7 +181,7 @@ $i18n = [
 	"COMPONENTS"			=>	"Components",
 	"DELETE_COMPONENT"		=>	"Delete Component",
 	"EDIT"					=>	"Edit",
-	"ADD_COMPONENT"			=>	"<em>A</em>dd Component", // 'a' is the accesskey identifier
+	"ADD_COMPONENT"			=>	"Add Component", // 'a' is the accesskey identifier
 	"SAVE_COMPONENTS"		=>	"Save Components",
 
 	/* 
@@ -268,7 +268,7 @@ $i18n = [
      * For: backups.php
     */
     "PAGE_BACKUPS"			=>	"Page Backups",
-    "ASK_DELETE_ALL"		=>	"<em>D</em>elete All",
+    "ASK_DELETE_ALL"		=>	"Delete All",
     "DELETE_ALL_BAK"		=>	"Delete all backups?",
     "TOTAL_BACKUPS"			=>	"total backups",
 
@@ -280,7 +280,7 @@ $i18n = [
     "WEBSITE_ARCHIVES"		=>	"Website Archives",
     "ARCHIVE_DELETED"		=>	"Archive deleted successfully",
     "CREATE_NEW_ARC"		=>	"Create a New Archive",
-    "ASK_CREATE_ARC"		=>	"<em>C</em>reate New Archive Now",
+    "ASK_CREATE_ARC"		=>	"Create New Archive Now",
     "CREATE_ARC_WAIT"		=>	"<b>Please Wait:</b> Creating website archive...",
     "DOWNLOAD_ARCHIVES"		=>	"Download Archive",
 	"DELETE_ARCHIVE"		=>	"Delete Archive",
@@ -290,14 +290,14 @@ $i18n = [
 	 * For: include-nav.php
 	*/
 	"WELCOME"				=>	"Welcome", // used as 'Welcome USERNAME!'
-	"TAB_PAGES"				=>	"<em>P</em>ages",
-	"TAB_FILES"				=>	"F<em>i</em>les",
-	"TAB_THEME"				=>	"<em>T</em>heme",
-	"TAB_BACKUPS"			=>	"<em>B</em>ackups",
-	"PLUGINS_NAV" 			=>  "Plu<em>g</em>ins",
-	"TAB_SETTINGS"			=>	"<em>S</em>ettings",
-    "TAB_SUPPORT"			=>	"Supp<em>o</em>rt",
-    "TAB_LOGOUT"			=>	"<em>L</em>ogout",
+	"TAB_PAGES"				=>	"Pages",
+	"TAB_FILES"				=>	"Files",
+	"TAB_THEME"				=>	"Theme",
+	"TAB_BACKUPS"			=>	"Backups",
+	"PLUGINS_NAV" 			=>  "Plugins",
+	"TAB_SETTINGS"			=>	"Settings",
+    "TAB_SUPPORT"			=>	"Support",
+    "TAB_LOGOUT"			=>	"Logout",
 
     /* 
      * For: sidebar-files.php
@@ -308,38 +308,38 @@ $i18n = [
     /* 
      * For: sidebar-support.php
     */
-    "SIDE_SUPPORT_LOG"		=>	"Supp<em>o</em>rt",
-    "SIDE_HEALTH_CHK"		=>	"Website <em>H</em>ealth Check",
+    "SIDE_SUPPORT_LOG"		=>	"Support",
+    "SIDE_HEALTH_CHK"		=>	"Website Health Check",
     "SIDE_DOCUMENTATION"	=>	"Wiki Documentation",
-    "SIDE_VIEW_LOG"			=>	"<em>V</em>iew Log",
+    "SIDE_VIEW_LOG"			=>	"View Log",
 
     /* 
      * For: sidebar-theme.php
     */
-    "SIDE_VIEW_SITEMAP"		=>	"<em>V</em>iew Sitemap",
-    "SIDE_GEN_SITEMAP"		=>	"Generate Site<em>m</em>ap",
-    "SIDE_COMPONENTS"		=>	"<em>E</em>dit Components",
-    "SIDE_EDIT_THEME"		=>	"Edit T<em>h</em>eme",
-    "SIDE_CHOOSE_THEME"		=>	"Choose <em>T</em>heme",
+    "SIDE_VIEW_SITEMAP"		=>	"View Sitemap",
+    "SIDE_GEN_SITEMAP"		=>	"Generate Sitemap",
+    "SIDE_COMPONENTS"		=>	"Edit Components",
+    "SIDE_EDIT_THEME"		=>	"Edit Theme",
+    "SIDE_CHOOSE_THEME"		=>	"Choose Theme",
 
     /* 
      * For: sidebar-pages.php
     */
-    "SIDE_CREATE_NEW"		=>	"<em>C</em>reate New Page",
-    "SIDE_VIEW_PAGES"		=>	"View All <em>P</em>ages",
+    "SIDE_CREATE_NEW"		=>	"Create New Page",
+    "SIDE_VIEW_PAGES"		=>	"View All Pages",
 
     /* 
      * For: sidebar-settings.php
     */
-    "SIDE_GEN_SETTINGS"		=>	"General <em>S</em>ettings",
-    "SIDE_USER_PROFILE"		=>	"<em>U</em>ser Profile",
+    "SIDE_GEN_SETTINGS"		=>	"General Settings",
+    "SIDE_USER_PROFILE"		=>	"User Profile",
 
     /* 
      * For: sidebar-backups.php
     */
     "SIDE_VIEW_BAK"			=>	"View Page Backup",
-    "SIDE_WEB_ARCHIVES"		=>	"<em>W</em>ebsite Archives",
-    "SIDE_PAGE_BAK"			=>	"Page <em>B</em>ackups",
+    "SIDE_WEB_ARCHIVES"		=>	"Website Archives",
+    "SIDE_PAGE_BAK"			=>	"Page Backups",
 
     /* 
      * For: error_checking.php
@@ -425,7 +425,7 @@ $i18n = [
     "PLUGINS_MANAGEMENT_INFO"	=> "Some plugins my require additional js/css scripts to function correctly.<br>Make sure 'modernScript CE' plugin is enabled and check settings.",
     "PLUGINS_INSTALLED" 	=> "plugins installed",
     "PLUGIN_DISABLED"   	=> "Disabled Plugin",
-    "SHOW_PLUGINS"			=> "Installed Plu<em>g</em>ins",
+    "SHOW_PLUGINS"			=> "Installed Plugins",
     "PLUGIN_NAME" 			=> "Plugin",
     "PLUGIN_DESC" 			=> "Description",
     "PLUGIN_VER" 				=> "Version",
@@ -467,7 +467,7 @@ $i18n = [
 	"UNSAVED_INFORMATION" 	=> "You are about to leave this page and will lose any unsaved information.", //edit.php
 	"BACK_TO_WEBSITE" 		=> "Back to Website", //index & resetpassword
 	"SUPPORT_FORUM" 		=> "Support Forum", //support.php
-	"FILTER" 				=> "Filte<em>r</em>", //pages.php
+	"FILTER" 				=> "Filter", //pages.php
 	"UPLOADIFY_BUTTON" 		=> "Upload files and/or images...", //upload.php
 	"FILE_BROWSER" 			=> "File Browser", //filebrowser.php
 	"SELECT_FILE" 			=> "Select file", //filebrowser.php
@@ -492,8 +492,8 @@ $i18n = [
 	"COPY" 					=> "Copy", //pages.php
 	"CLONE_ERROR" 			=> "There was a problem trying to clone <b>%s</b>",  //pages.php
 	"AUTOSAVE_NOTIFY" 		=> 'Page autosaved at', //edit.php
-	"MENU_MANAGER" 			=> '<em>M</em>enu Manager', //edit.php
-	"GET_PLUGINS_LINK" 		=> 'Download <em>M</em>ore Plugins',
+	"MENU_MANAGER" 			=> 'Menu Manager', //edit.php
+	"GET_PLUGINS_LINK" 		=> 'Download More Plugins',
 	"SITEMAP_REFRESHED" 	=> "Your sitemap has been refreshed", //edit.php
 	"LOG_FILE_EMPTY" 		=> 	"This log file is empty", //log.php
 	"SHARE" 				=> 	"Share", //footer.php

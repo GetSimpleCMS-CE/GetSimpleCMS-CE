@@ -75,8 +75,8 @@ $i18n = [
   , 'NEW_PAGE' => "Nouvelle Page"
   , 'PAGE_EDIT_MODE' => "&#201;dition de la page"
   , 'CREATE_NEW_PAGE' => "Créer une nouvelle page"
-  , 'VIEW' => "<em>A</em>fficher"
-  , 'PAGE_OPTIONS' => "<em>O</em>ptions"
+  , 'VIEW' => "Afficher"
+  , 'PAGE_OPTIONS' => "Options"
   , 'SLUG_URL' => "Identifiant / URL"
   , 'TAG_KEYWORDS' => "Marquages &amp; Mots-clés"
   , 'PARENT_PAGE' => "Page parente"
@@ -156,7 +156,7 @@ $i18n = [
   , 'VIEWING' => "Affichage"
   , 'LOG_FILE' => "Fichier de log"
   , 'CLEAR_ALL_DATA' => "Purger toutes les données de"
-  , 'CLEAR_THIS_LOG' => "Effa<em>c</em>er ces Logs"
+  , 'CLEAR_THIS_LOG' => "Effacer ces Logs"
   , 'LOG_FILE_ENTRY' => "Entrée de Log"
   , 'THIS_COMPUTER' => "Cet ordinateur"
 
@@ -164,9 +164,9 @@ $i18n = [
      * For: backup-edit.php
     */
   , 'BAK_MANAGEMENT' => "Gestion des sauvegardes"
-  , 'ASK_CANCEL' => "<em>A</em>nnuler"
-  , 'ASK_RESTORE' => "<em>R</em>estaurer"
-  , 'ASK_DELETE' => "<em>S</em>upprimer"
+  , 'ASK_CANCEL' => "Annuler"
+  , 'ASK_RESTORE' => "Restaurer"
+  , 'ASK_DELETE' => "Supprimer"
   , 'BACKUP_OF' => "Sauvegarde de"
   , 'PAGE_TITLE' => "Titre de la page"
   , 'YES' => "Oui"
@@ -180,7 +180,7 @@ $i18n = [
   , 'COMPONENTS' => "Composants"
   , 'DELETE_COMPONENT' => "Supprimer le composant"
   , 'EDIT' => "Edit"
-  , 'ADD_COMPONENT' => "<em>A</em>jouter un composant"
+  , 'ADD_COMPONENT' => "Ajouter un composant"
   , 'SAVE_COMPONENTS' => "Enregistrer les composants"
 
 	/* 
@@ -267,7 +267,7 @@ $i18n = [
      * For: backups.php
     */
   , 'PAGE_BACKUPS' => "Sauvegardes"
-  , 'ASK_DELETE_ALL' => "Tout <em>S</em>upprimer"
+  , 'ASK_DELETE_ALL' => "Tout Supprimer"
   , 'DELETE_ALL_BAK' => "Supprimer toutes les sauvegardes ?"
   , 'TOTAL_BACKUPS' => "sauvegardes au total"
 
@@ -279,7 +279,7 @@ $i18n = [
   , 'WEBSITE_ARCHIVES' => "Archives du site"
   , 'ARCHIVE_DELETED' => "Archive supprimée avec succès"
   , 'CREATE_NEW_ARC' => "Créer une nouvelle archive"
-  , 'ASK_CREATE_ARC' => "<em>C</em>réer une nouvelle archive"
+  , 'ASK_CREATE_ARC' => "Créer une nouvelle archive"
   , 'CREATE_ARC_WAIT' => "<b>Un instant s'il vous plaît :</b> Création de l'archive en cours..."
   , 'DOWNLOAD_ARCHIVES' => "Télécharger l'archive"
   , 'DELETE_ARCHIVE' => "Supprimer l'archive du"
@@ -289,14 +289,14 @@ $i18n = [
 	 * For: include-nav.php
 	*/
   , 'WELCOME' => "Bienvenue"
-  , 'TAB_PAGES' => "<em>P</em>ages"
-  , 'TAB_FILES' => "<em>F</em>ichiers"
+  , 'TAB_PAGES' => "Pages"
+  , 'TAB_FILES' => "Fichiers"
   , 'TAB_THEME' => "Thèmes"
-  , 'TAB_BACKUPS' => "<em>S</em>auvegardes"
-  , 'PLUGINS_NAV' => "Plu<em>g</em>ins"
-  , 'TAB_SETTINGS' => "<em>C</em>onfiguration"
-  , 'TAB_SUPPORT' => "Supp<em>o</em>rt"
-  , 'TAB_LOGOUT' => "<em>D</em>éconnexion"
+  , 'TAB_BACKUPS' => "Sauvegardes"
+  , 'PLUGINS_NAV' => "Plugins"
+  , 'TAB_SETTINGS' => "Configuration"
+  , 'TAB_SUPPORT' => "Support"
+  , 'TAB_LOGOUT' => "Déconnexion"
 
     /* 
      * For: sidebar-files.php
@@ -307,38 +307,38 @@ $i18n = [
     /* 
      * For: sidebar-support.php
     */
-  , 'SIDE_SUPPORT_LOG' => "Supp<em>o</em>rt - Paramètres &amp; Logs"
+  , 'SIDE_SUPPORT_LOG' => "Support - Paramètres &amp; Logs"
   , 'SIDE_HEALTH_CHK' => "Contr&ocirc;les de Santé du site"
-  , 'SIDE_DOCUMENTATION' => "- <em>D</em>ocumentation"
+  , 'SIDE_DOCUMENTATION' => "- Documentation"
   , 'SIDE_VIEW_LOG' => "Voir les Log"
 
     /* 
      * For: sidebar-theme.php
     */
-  , 'SIDE_VIEW_SITEMAP' => "<em>V</em>oir le Sitemap"
-  , 'SIDE_GEN_SITEMAP' => "<em>G</em>énérer le Sitemap"
-  , 'SIDE_COMPONENTS' => "<em>M</em>odifier les composants"
-  , 'SIDE_EDIT_THEME' => "Modifier le <em>t</em>hème"
-  , 'SIDE_CHOOSE_THEME' => "<em>C</em>hoisissez un thème"
+  , 'SIDE_VIEW_SITEMAP' => "Voir le Sitemap"
+  , 'SIDE_GEN_SITEMAP' => "Générer le Sitemap"
+  , 'SIDE_COMPONENTS' => "Modifier les composants"
+  , 'SIDE_EDIT_THEME' => "Modifier le thème"
+  , 'SIDE_CHOOSE_THEME' => "Choisissez un thème"
 
     /* 
      * For: sidebar-pages.php
     */
-  , 'SIDE_CREATE_NEW' => "<em>C</em>réer une nouvelle page"
-  , 'SIDE_VIEW_PAGES' => "Voir toutes les <em>p</em>ages"
+  , 'SIDE_CREATE_NEW' => "Créer une nouvelle page"
+  , 'SIDE_VIEW_PAGES' => "Voir toutes les pages"
 
     /* 
      * For: sidebar-settings.php
     */
-  , 'SIDE_GEN_SETTINGS' => "<em>P</em>aramètres généraux"
-  , 'SIDE_USER_PROFILE' => "Profil de l'<em>U</em>tilisateur"
+  , 'SIDE_GEN_SETTINGS' => "Paramètres généraux"
+  , 'SIDE_USER_PROFILE' => "Profil de l'Utilisateur"
 
     /* 
      * For: sidebar-backups.php
     */
   , 'SIDE_VIEW_BAK' => "Voir les sauvegardes de la page"
-  , 'SIDE_WEB_ARCHIVES' => "<em>A</em>rchives du site"
-  , 'SIDE_PAGE_BAK' => "<em>S</em>auvegardes de la page"
+  , 'SIDE_WEB_ARCHIVES' => "Archives du site"
+  , 'SIDE_PAGE_BAK' => "Sauvegardes de la page"
 
     /* 
      * For: error_checking.php
@@ -423,7 +423,7 @@ $i18n = [
     "PLUGINS_MANAGEMENT_INFO"	=> "Certains plugins peuvent nécessiter des scripts js/css supplémentaires pour fonctionner correctement.<br>Assurez-vous que le plugin 'modernScript CE' est activé et vérifiez les paramètres.",
   , 'PLUGINS_INSTALLED' => "Plugins install&eacute;s"
   , 'PLUGIN_DISABLED' => "Plugin désactivé"
-  , 'SHOW_PLUGINS' => "Plugi<em>n</em>s Install&eacute;s"
+  , 'SHOW_PLUGINS' => "Plugins Install&eacute;s"
   , 'PLUGIN_NAME' => "Nom"
   , 'PLUGIN_DESC' => "Description"
   , 'PLUGIN_VER' => "Version"
@@ -490,8 +490,8 @@ $i18n = [
   , 'COPY' => "Copier"
   , 'CLONE_ERROR' => "Il y a un probl&egrave;me dans la tentative de clonage <b>%s</b>"
   , 'AUTOSAVE_NOTIFY' => "Page sauvegard&eacute; automatiquement &agrave;"
-  , 'MENU_MANAGER' => "Gestionnaire de <em>M</em>enu"
-  , 'GET_PLUGINS_LINK' => "T&eacute;l&eacute;charger <em>P</em>lus de Plugins"
+  , 'MENU_MANAGER' => "Gestionnaire de Menu"
+  , 'GET_PLUGINS_LINK' => "T&eacute;l&eacute;charger Plus de Plugins"
   , 'SITEMAP_REFRESHED' => "Votre sitemap a &eacute;t&eacute; rafra&icirc;chi"
   , 'LOG_FILE_EMPTY' => "Ce fichier de log est vide"
   , 'SHARE' => "Partager"

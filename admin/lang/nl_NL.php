@@ -75,8 +75,8 @@ $i18n = [
     'NEW_PAGE' => "Nieuwe pagina",
     'PAGE_EDIT_MODE' => "Pagina-bewerkmodus",
     'CREATE_NEW_PAGE' => "Maak een nieuwe pagina",
-    'VIEW' => "<em>B</em>ekijk",
-    'PAGE_OPTIONS' => "Pagina-<em>o</em>pties",
+    'VIEW' => "Bekijk",
+    'PAGE_OPTIONS' => "Pagina-opties",
     'SLUG_URL' => "Aangepaste URL (Slug)",
     'TAG_KEYWORDS' => "Tags &amp; Sleutelwoorden",
     'PARENT_PAGE' => "Moederpagina",
@@ -157,7 +157,7 @@ $i18n = [
     'VIEWING' => "Bekijken",
     'LOG_FILE' => "Logbestand",
     'CLEAR_ALL_DATA' => "Leeg alle data van ",
-    'CLEAR_THIS_LOG' => "<em>L</em>eeg dit logbestand",
+    'CLEAR_THIS_LOG' => "Leeg dit logbestand",
     'LOG_FILE_ENTRY' => "LOGBESTAND-ITEM",
     'THIS_COMPUTER' => "Deze computer",
 
@@ -165,9 +165,9 @@ $i18n = [
      * For: backup-edit.php
     */
     'BAK_MANAGEMENT' => "Backup-beheer",
-    'ASK_CANCEL' => "<em>C</em>ancel",
-    'ASK_RESTORE' => "<em>R</em>estore",
-    'ASK_DELETE' => "<em>D</em>elete",
+    'ASK_CANCEL' => "Cancel",
+    'ASK_RESTORE' => "R<estore",
+    'ASK_DELETE' => "Delete",
     'BACKUP_OF' => "Backup van",
     'PAGE_TITLE' => "Paginatitel",
     'YES' => "Ja",
@@ -181,7 +181,7 @@ $i18n = [
     'COMPONENTS' => "Componenten",
     'DELETE_COMPONENT' => "Verwijder component",
 	"EDIT"					=>	"Edit",
-    'ADD_COMPONENT' => "<em>V</em>oeg component toe",
+    'ADD_COMPONENT' => "Voeg component toe",
     'SAVE_COMPONENTS' => "Bewaar componenten",
 
 	/* 
@@ -280,7 +280,7 @@ $i18n = [
     'WEBSITE_ARCHIVES' => "Website-archieven",
     'ARCHIVE_DELETED' => "Archief met succes verwijderd",
     'CREATE_NEW_ARC' => "Cre&euml;er een nieuw archief",
-    'ASK_CREATE_ARC' => "<em>C</em>re&euml;er nu een nieuw archief",
+    'ASK_CREATE_ARC' => "Cre&euml;er nu een nieuw archief",
     'CREATE_ARC_WAIT' => "<b>Wacht a.u.b.:</b> Website-archief wordt gecre&euml;erd ...",
     'DOWNLOAD_ARCHIVES' => "Download archief",
     'DELETE_ARCHIVE' => "Verwijder archief",
@@ -290,14 +290,14 @@ $i18n = [
 	 * For: include-nav.php
 	*/
     'WELCOME' => "Welkom",
-    'TAB_PAGES' => "<em>P</em>agina's",
-    'TAB_FILES' => "<em>B</em>estanden",
-    'TAB_THEME' => "<em>T</em>hema",
-    'TAB_BACKUPS' => "<em>B</em>ackups",
-    'PLUGINS_NAV' => "Plu<em>g</em>ins",
-    'TAB_SETTINGS' => "<em>V</em>oorkeuren",
-    'TAB_SUPPORT' => "Supp<em>o</em>rt",
-    'TAB_LOGOUT' => "<em>U</em>itloggen",
+    'TAB_PAGES' => "Pagina's",
+    'TAB_FILES' => "Bestanden",
+    'TAB_THEME' => "Thema",
+    'TAB_BACKUPS' => "Backups",
+    'PLUGINS_NAV' => "Plugins",
+    'TAB_SETTINGS' => "Voorkeuren",
+    'TAB_SUPPORT' => "Support",
+    'TAB_LOGOUT' => "Uitloggen",
 
     /* 
      * For: sidebar-files.php
@@ -308,38 +308,38 @@ $i18n = [
     /* 
      * For: sidebar-support.php
     */
-    'SIDE_SUPPORT_LOG' => "Supp<em>o</em>rt",
-    'SIDE_HEALTH_CHK' => "<em>S</em>tatuscontrole van de website",
+    'SIDE_SUPPORT_LOG' => "Support",
+    'SIDE_HEALTH_CHK' => "Statuscontrole van de website",
     'SIDE_DOCUMENTATION' => "Wiki-documentatie",
     'SIDE_VIEW_LOG' => "Bekijk logbestand",
 
     /* 
      * For: sidebar-theme.php
     */
-    'SIDE_VIEW_SITEMAP' => "<em>B</em>ekijk Sitemap",
-    'SIDE_GEN_SITEMAP' => "<em>G</em>enereer Sitemap",
-    'SIDE_COMPONENTS' => "<em>W</em>ijzig Componenten",
-    'SIDE_EDIT_THEME' => "Wijzig <em>T</em>hema",
-    'SIDE_CHOOSE_THEME' => "Kies <em>T</em>hema",
+    'SIDE_VIEW_SITEMAP' => "Bekijk Sitemap",
+    'SIDE_GEN_SITEMAP' => "Genereer Sitemap",
+    'SIDE_COMPONENTS' => "Wijzig Componenten",
+    'SIDE_EDIT_THEME' => "Wijzig Thema",
+    'SIDE_CHOOSE_THEME' => "Kies Thema",
 
     /* 
      * For: sidebar-pages.php
     */
-    'SIDE_CREATE_NEW' => "<em>C</em>re&euml;er een nieuwe pagina",
-    'SIDE_VIEW_PAGES' => "Bekijk alle <em>p</em>agina's",
+    'SIDE_CREATE_NEW' => "Cre&euml;er een nieuwe pagina",
+    'SIDE_VIEW_PAGES' => "Bekijk alle pagina's",
 
     /* 
      * For: sidebar-settings.php
     */
-    'SIDE_GEN_SETTINGS' => "Algemene <em>I</em>nstellingen",
-    'SIDE_USER_PROFILE' => "<em>G</em>ebruikersprofiel",
+    'SIDE_GEN_SETTINGS' => "Algemene Instellingen",
+    'SIDE_USER_PROFILE' => "Gebruikersprofiel",
 
     /* 
      * For: sidebar-backups.php
     */
     'SIDE_VIEW_BAK' => "Bekijk pagina-backup",
-    'SIDE_WEB_ARCHIVES' => "<em>W</em>ebsite-archieven",
-    'SIDE_PAGE_BAK' => "Pagina-<em>b</em>ackups",
+    'SIDE_WEB_ARCHIVES' => "Website-archieven",
+    'SIDE_PAGE_BAK' => "Pagina-backups",
 
     /* 
      * For: error_checking.php
@@ -492,8 +492,8 @@ $i18n = [
     'COPY' => "Kopi&euml;er",
     'CLONE_ERROR' => "Probleem bij het dupliceren van <b>%s</b>",
     'AUTOSAVE_NOTIFY' => "Pagina automatisch opgeslagen op",
-    'MENU_MANAGER' => "<em>M</em>enu-manager",
-    'GET_PLUGINS_LINK' => "Download <em>m</em>eer plugins",
+    'MENU_MANAGER' => "Menu-manager",
+    'GET_PLUGINS_LINK' => "Download meer plugins",
     'SITEMAP_REFRESHED' => "De sitemap is opnieuw aangemaakt",
     'LOG_FILE_EMPTY' => "Dit logbestand is leeg",
     'SHARE' => "Delen",
