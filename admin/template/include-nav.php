@@ -8,11 +8,11 @@
 $debugInfoUrl = 'http://get-simple.info/docs/debugging';
 
 if (cookie_check()) { 
-	echo '<ul id="pill"><li class="leftnav"><a href="logout.php" accesskey="'. find_accesskey(i18n_r('TAB_LOGOUT')).'" >'.i18n_r('TAB_LOGOUT').'</a></li>';
+	echo '<ul id="pill"><li class="leftnav"><a href="logout.php" accesskey="'. find_accesskey(i18n_r('TAB_LOGOUT')).'" title="'.i18n_r('TAB_LOGOUT').'">'.i18n_r('TAB_LOGOUT').'</a></li>';
 	if (isDebug()) {
 		echo '<li class="debug"><a href="'.$debugInfoUrl.'" target="_blank">'.i18n_r('DEBUG_MODE').'</a></li>';
 	}
-	echo '<li class="rightnav" ><a href="settings.php#profile">'.i18n_r('WELCOME').' <strong>'.$USR.'</strong>!</a></li></ul>';
+	echo '<li class="rightnav" ><a href="settings.php#profile" title="'.$USR.'">'.i18n_r('WELCOME').' <strong>'.$USR.'</strong>!</a></li></ul>';
 } 
 
 //determine page type if plugin is being shown
@@ -34,8 +34,8 @@ if (get_filename_id() == 'load') {
 	<?php exec_action('nav-tab');	?>
 	
 	<li id="nav_loaderimg" ><img class="toggle" id="loader" src="template/images/ajax.gif" alt="" /></li>
-	<li class="rightnav" ><a class="settings first" href="settings.php" accesskey="<?php echo find_accesskey(i18n_r('TAB_SETTINGS'));?>" ><?php i18n('TAB_SETTINGS');?></a></li>
-	<li class="rightnav" ><a class="support last" href="support.php" accesskey="<?php echo find_accesskey(i18n_r('TAB_SUPPORT'));?>" ><?php i18n('TAB_SUPPORT');?></a></li>
+	<li class="rightnav" ><a class="settings first" href="settings.php" accesskey="<?php echo find_accesskey(i18n_r('TAB_SETTINGS'));?>" title="<?php i18n('TAB_SETTINGS');?>"><?php i18n('TAB_SETTINGS');?></a></li>
+	<li class="rightnav" ><a class="support last" href="support.php" accesskey="<?php echo find_accesskey(i18n_r('TAB_SUPPORT'));?>" title="<?php i18n('TAB_SUPPORT');?>"><?php i18n('TAB_SUPPORT');?></a></li>
 
 </ul>
 
