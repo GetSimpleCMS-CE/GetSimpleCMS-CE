@@ -422,13 +422,13 @@ $i18n = [
      * For: plugins.php
     */
     "PLUGINS_MANAGEMENT"	=> "Plugin Management",
-    "PLUGINS_MANAGEMENT_INFO"	=> "Some plugins my require additional js/css scripts to function correctly.<br>Make sure 'modernScript CE' plugin is enabled and check settings.",
+    "PLUGINS_MANAGEMENT_INFO"	=> "Some plugins may require additional js/css scripts to function correctly.<br>Make sure 'modernScript CE' plugin is enabled and check settings.",
     "PLUGINS_INSTALLED" 	=> "plugins installed",
     "PLUGIN_DISABLED"   	=> "Disabled Plugin",
     "SHOW_PLUGINS"			=> "Installed Plugins",
     "PLUGIN_NAME" 			=> "Plugin",
     "PLUGIN_DESC" 			=> "Description",
-    "PLUGIN_VER" 				=> "Version",
+    "PLUGIN_VER" 			=> "Version",
     "PLUGIN_UPDATED"		=> "Plugin Updated",
 
 	/***********************************************************************************
