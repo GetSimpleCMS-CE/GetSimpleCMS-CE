@@ -22,7 +22,7 @@ if (isset($_GET['snippet'])) {
 register_plugin(
 	$thisfile, //Plugin id
 	'Massive Admin Theme', 	//Plugin name
-	'5.0.5', 		//Plugin version
+	'5.0.6', 		//Plugin version
 	'Multicolor',  //Plugin author
 	'https://ko-fi.com/multicolorplugins', //author website
 	'Admin theme with new function', //Plugin description

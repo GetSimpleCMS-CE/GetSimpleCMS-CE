@@ -200,6 +200,8 @@ class MassiveAdminClass
 <item><USR>' . strtolower($newposUser) . '</USR><NAME/><PWD>' . $passhash . '</PWD><EMAIL>' . $createUserEmail . '</EMAIL><HTMLEDITOR>1</HTMLEDITOR><TIMEZONE/><LANG>' . $lang . '</LANG></item>';
 		file_put_contents($newUserFile, $userinfo);
 
+		chmod($newUserFile, 0755);
+
 		echo ("<meta http-equiv='refresh' content='0'>");
 	}
 
