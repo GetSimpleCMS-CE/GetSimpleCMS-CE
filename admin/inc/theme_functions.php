@@ -362,6 +362,60 @@ function get_theme_url($echo=true) {
 }
 
 /**
+ * Get Data Uploads URL
+ *
+ * This will return the "data/uploads" URL 
+ *
+ * @since 3.3.20
+ * @uses $SITEURL
+ *
+ * @param bool $echo Optional, default is true. False will 'return' value
+ * @return string Echos or returns based on param $echo
+ */
+function get_data_uploads($filename = '', $echo = true) {
+	global $SITEURL;
+	$base_url = trim($SITEURL . "data/uploads/");
+
+	// Ensure no leading slash in the filename to avoid double slashes
+	if ($filename) {
+		$base_url .= ltrim($filename, '/');
+	}
+
+	if ($echo) {
+		echo $base_url;
+	} else {
+		return $base_url;
+	}
+}
+
+/**
+ * Get Data Thumbs URL
+ *
+ * This will return the "data/thumbs" URL 
+ *
+ * @since 3.3.20
+ * @uses $SITEURL
+ *
+ * @param bool $echo Optional, default is true. False will 'return' value
+ * @return string Echos or returns based on param $echo
+ */
+function get_data_thumbs($filename = '', $echo = true) {
+	global $SITEURL;
+	$base_url = trim($SITEURL . "data/thumbs/");
+
+	// Ensure no leading slash in the filename to avoid double slashes
+	if ($filename) {
+		$base_url .= ltrim($filename, '/');
+	}
+
+	if ($echo) {
+		echo $base_url;
+	} else {
+		return $base_url;
+	}
+}
+
+/**
  * Get Site's Name
  *
  * This will return the value set in the control panel
