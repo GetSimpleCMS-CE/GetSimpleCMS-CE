@@ -486,6 +486,17 @@ get_template('header', cl($SITENAME).' &raquo; '.i18n_r('EDIT').' '.$title);
 					}
 			});
 		</script>
+		<script>// Save with ctrl+s
+			document.addEventListener('keydown', function(e) {
+				if ((e.ctrlKey || e.metaKey) && e.key === 's') {
+					e.preventDefault();
+					var saveButton = document.querySelector('input[name="submitted"][value="<?php echo $buttonname; ?>"]');
+					if (saveButton) {
+						saveButton.click();
+					}
+				}
+			});
+		</script>
 	</div>
 	</div><!-- end maincontent -->
 	

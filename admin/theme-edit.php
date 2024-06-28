@@ -201,7 +201,16 @@ window.onload = function() {
      var hlLine = editor.setLineClass(0, "activeline");
     
      }
-     
+	// Save with ctrl+s
+	document.addEventListener('keydown', function(e) {
+		if ((e.ctrlKey || e.metaKey) && e.key === 's') {
+			e.preventDefault();
+			var saveButton = document.querySelector('input[name="submitsave"][value="<?php i18n('BTN_SAVECHANGES'); ?>"]');
+			if (saveButton) {
+				saveButton.click();
+			}
+		}
+	});
 </script>
 <?php 
 }
