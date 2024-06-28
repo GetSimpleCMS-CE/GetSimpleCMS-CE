@@ -186,4 +186,15 @@ const delmsg = '<?php echo i18n_r('DELETE_COMPONENT');?>';
 	</div>
 
 </div>
+<script>// Save with ctrl+s
+	document.addEventListener('keydown', function(e) {
+		if ((e.ctrlKey || e.metaKey) && e.key === 's') {
+			e.preventDefault();
+			var saveButton = document.querySelector('input[name="submitted"][value="<?php i18n('SAVE_COMPONENTS');?>"]');
+			if (saveButton) {
+				saveButton.click();
+			}
+		}
+	});
+</script>
 <?php get_template('footer'); ?>
