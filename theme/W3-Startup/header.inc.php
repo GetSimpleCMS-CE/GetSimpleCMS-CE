@@ -44,7 +44,7 @@
 <!-- Navbar (sit on top) -->
 <div class="w3-top">
 	<div class="w3-bar w3-white w3-card" id="myNavbar">
-		<a href="#home" class="w3-bar-item w3-button w3-wide logo"><img src="<?php get_theme_url(); ?>/assets/images/logo-square.png"><span style="padding-left:30px"><?php echo $site_full_name; ?> v<?php echo get_site_version(); ?></span></a>
+		<a href="<?php get_site_url(); ?>" class="w3-bar-item w3-button w3-wide logo"><img src="<?php get_theme_url(); ?>/assets/images/logo-square.png"><span style="padding-left:30px"><?php echo $site_full_name; ?> v<?php echo get_site_version(); ?></span></a>
 		<!-- Right-sided navbar links -->
 		<div class="w3-right w3-hide-small">
 			<?php get_custom_navigation(); ?> <!-- ## look in functions.php ##-->

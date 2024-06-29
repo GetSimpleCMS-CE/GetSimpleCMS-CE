@@ -134,8 +134,29 @@ get_template('header', cl($SITENAME).' &raquo; '.i18n_r('PLUGINS_MANAGEMENT'));
 				}
 			});
 		}
-
 		hideStatusCellsContainingWords(['massiveAdmin.php', 'modernScript.php']);
+		
+		// Function to hide Installed Plugins containing any of the specified words
+		function hideRowsBasedOnConditions(words) {
+			var rows = document.querySelectorAll('tbody tr');
+			
+			rows.forEach(function(row) {
+				var rowClass = row.classList.contains('enabled');
+				var shouldHide = false;
+				if (rowClass) {
+					for (var i = 0; i < words.length; i++) {
+						if (row.innerHTML.indexOf(words[i]) !== -1) {
+							shouldHide = true;
+							break;
+						}
+					}
+				}
+				if (shouldHide) {
+					row.style.display = 'none';
+				}
+			});
+		}
+		hideRowsBasedOnConditions(['UpgradeCE.php']);
 	</script>
 	
 	<div id="sidebar" >
