@@ -428,7 +428,7 @@ $i18n = [
     "SHOW_PLUGINS"			=> "Installed Plugins",
     "PLUGIN_NAME" 			=> "Plugin",
     "PLUGIN_DESC" 			=> "Description",
-    "PLUGIN_VER" 				=> "Version",
+    "PLUGIN_VER" 			=> "Version",
     "PLUGIN_UPDATED"		=> "Plugin Updated",
 
 	/***********************************************************************************
