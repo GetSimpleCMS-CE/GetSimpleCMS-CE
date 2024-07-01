@@ -117,22 +117,24 @@ foreach ($templates as $file){
 $theme_templates .= "</select></span>";
 
 if (!getDef('GSNOHIGHLIGHT',true)){
-	register_script('codemirror', $SITEURL.$GSADMIN.'/template/js/codemirror/lib/codemirror-compressed.js', '0.2.0', FALSE);
+	register_script('codemirror', $SITEURL.$GSADMIN.'/template/js/codemirror/codemirror.min.js', '6.65.7', FALSE);
+	register_script('codemirror-style', $SITEURL.$GSADMIN.'/template/js/codemirror/clike.min.js', '6.65.7', FALSE);
 	
-	register_style('codemirror-css',$SITEURL.$GSADMIN.'/template/js/codemirror/lib/codemirror.css','screen',FALSE);
-	register_style('codemirror-theme',$SITEURL.$GSADMIN.'/template/js/codemirror/theme/default.css','screen',FALSE);
+	register_style('codemirror-css',$SITEURL.$GSADMIN.'/template/js/codemirror/codemirror.min.css','screen',FALSE);
+	register_style('codemirror-theme',$SITEURL.$GSADMIN.'/template/js/codemirror/blackboard.min.css','screen',FALSE);
 	
 	queue_script('codemirror', GSBACK);
+	queue_script('codemirror-style', GSBACK);
 	
 	queue_style('codemirror-css', GSBACK);
 	queue_style('codemirror-theme', GSBACK);
-
 }
 
 get_template('header', cl($SITENAME).' &raquo; '.i18n_r('THEME_MANAGEMENT')); 
 ?>
 
-<?php include('template/include-nav.php');
+<?php 
+include('template/include-nav.php');
 
 if (!getDef('GSNOHIGHLIGHT',true)){
 
@@ -149,58 +151,9 @@ if (!getDef('GSNOHIGHLIGHT',true)){
 		default:
 			$mode = 'application/x-httpd-php';
 	}
-
 ?>
 
 <script>
-window.onload = function() {
-	  var foldFunc = CodeMirror.newFoldFunction(CodeMirror.braceRangeFinder);
-	  function keyEvent(cm, e) {
-	    if (e.keyCode == 81 && e.ctrlKey) {
-	      if (e.type == "keydown") {
-	        e.stop();
-	        setTimeout(function() {foldFunc(cm, cm.getCursor().line);}, 50);
-	      }
-	      return true;
-	    }
-	  }
-	  function toggleFullscreenEditing()
-	    {
-	        var editorDiv = $('.CodeMirror-scroll');
-	        if (!editorDiv.hasClass('fullscreen')) {
-	            toggleFullscreenEditing.beforeFullscreen = { height: editorDiv.height(), width: editorDiv.width() }
-	            editorDiv.addClass('fullscreen');
-	            editorDiv.height('100%');
-	            editorDiv.width('100%');
-	            editor.refresh();
-	        }
-	        else {
-	            editorDiv.removeClass('fullscreen');
-	            editorDiv.height(toggleFullscreenEditing.beforeFullscreen.height);
-	            editorDiv.width(toggleFullscreenEditing.beforeFullscreen.width);
-	            editor.refresh();
-	        }
-	    }
-      var editor = CodeMirror.fromTextArea(document.getElementById("codetext"), {
-        lineNumbers: true,
-        matchBrackets: true,
-        indentUnit: 4,
-        indentWithTabs: true,
-        enterMode: "keep",
-        mode:"<?php echo $mode; ?>",
-        tabMode: "shift",
-        theme:'default',
-    	onGutterClick: foldFunc,
-    	extraKeys: {"Ctrl-Q": function(cm){foldFunc(cm, cm.getCursor().line);},
-    				"F11": toggleFullscreenEditing, "Esc": toggleFullscreenEditing},
-        onCursorActivity: function() {
-		   	editor.setLineClass(hlLine, null);
-		   	hlLine = editor.setLineClass(editor.getCursor().line, "activeline");
-		}
-      	});
-     var hlLine = editor.setLineClass(0, "activeline");
-    
-     }
 	// Save with ctrl+s
 	document.addEventListener('keydown', function(e) {
 		if ((e.ctrlKey || e.metaKey) && e.key === 's') {
@@ -219,25 +172,43 @@ window.onload = function() {
 	
 	<div id="maincontent">
 		<div class="main">
-		<h3><?php i18n('EDIT_THEME'); ?></h3>
-		<form action="<?php myself(); ?>" method="get" accept-charset="utf-8" >
-		<p><?php echo $theme_options; ?><?php echo $theme_templates; ?>&nbsp;&nbsp;&nbsp;<input class="submit" type="submit" name="s" value="<?php i18n('EDIT'); ?>" /></p>
-		</form>
-		
-		<p><b><?php i18n('EDITING_FILE'); ?>:</b> <code><?php echo $SITEURL.'theme/'. tsl($template) .'<b>'. $template_file; ?></b></code></p>
-		<?php $content = file_get_contents(GSTHEMESPATH . tsl($template) . $template_file); ?>
-		
-		<form action="<?php myself(); ?>?t=<?php echo $template; ?>&amp;f=<?php echo $template_file; ?>" method="post" >
-			<input id="nonce" name="nonce" type="hidden" value="<?php echo get_nonce("save"); ?>" />
-			<textarea name="content" id="codetext" wrap='off' ><?php echo htmlentities($content, ENT_QUOTES, 'UTF-8'); ?></textarea>
-			<input type="hidden" value="<?php echo tsl($template) . $template_file; ?>" name="edited_file" />
-			<?php exec_action('theme-edit-extras'); ?>
-			<p id="submit_line" >
-				<span><input class="submit" type="submit" name="submitsave" value="<?php i18n('BTN_SAVECHANGES'); ?>" /></span> &nbsp;&nbsp;<?php i18n('OR'); ?>&nbsp;&nbsp; <a class="cancel" href="theme-edit.php?cancel"><?php i18n('CANCEL'); ?></a>
-			</p>
-		</form>
+			<h3><?php i18n('EDIT_THEME'); ?></h3>
+			<form action="<?php myself(); ?>" method="get" accept-charset="utf-8" >
+				<p><?php echo $theme_options; ?><?php echo $theme_templates; ?>&nbsp;&nbsp;&nbsp;<input class="submit" type="submit" name="s" value="<?php i18n('EDIT'); ?>" /></p>
+			</form>
+			
+			<p><b><?php i18n('EDITING_FILE'); ?>:</b> <code><?php echo $SITEURL.'theme/'. tsl($template) .'<b>'. $template_file; ?></b></code></p>
+			<?php $content = file_get_contents(GSTHEMESPATH . tsl($template) . $template_file); ?>
+
+			<form action="<?php myself(); ?>?t=<?php echo $template; ?>&amp;f=<?php echo $template_file; ?>" method="post" >
+				<style>.CodeMirror{height:650px;margin-left:30px}</style>
+				<input id="nonce" name="nonce" type="hidden" value="<?php echo get_nonce("save"); ?>" />
+				<textarea name="content" id="myTextarea" wrap='off' ><?php echo htmlentities($content, ENT_QUOTES, 'UTF-8'); ?></textarea>
+				<input type="hidden" value="<?php echo tsl($template) . $template_file; ?>" name="edited_file" />
+				
+				<div style="margin:20px 0">
+					<?php exec_action('theme-edit-extras'); ?>
+				</div>
+				
+				<p id="submit_line" >
+					<span><input class="submit" type="submit" name="submitsave" value="<?php i18n('BTN_SAVECHANGES'); ?>" /></span> &nbsp;&nbsp;<?php i18n('OR'); ?>&nbsp;&nbsp; <a class="cancel" href="theme-edit.php?cancel"><?php i18n('CANCEL'); ?></a>
+				</p>
+			</form>
+
+			<script>
+				var editor = CodeMirror.fromTextArea(document.querySelector('#myTextarea'), {
+					theme: "blackboard",
+					lineNumbers: true,
+					matchBrackets: true,
+					indentUnit: 4,
+					indentWithTabs: true,
+					enterMode: "keep",
+					tabMode: "shift",
+					mode: 'clike',
+					inlineDynamicImports: true
+				});
+			</script>
 		</div>
-	
 	</div>
 	
 	<div id="sidebar" >
