@@ -1,7 +1,6 @@
 /* W3.CSS 4.15 December 2020 by Jan Egil and Borge Refsnes */
 .w3-parent {}
 .w3-parent *, .w3-parent *:before, .w3-parent *:after {box-sizing: inherit;}
-
 .w3-parent html{box-sizing:border-box}*,*:before,*:after{box-sizing:inherit}
 /* Extract from normalize.css by Nicolas Gallagher and Jonathan Neal git.io/normalize */
 .w3-parent html{-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%}body{margin:0}
@@ -21,6 +20,7 @@
 .w3-parent button:-moz-focusring,[type=button]:-moz-focusring,[type=reset]:-moz-focusring,[type=submit]:-moz-focusring{outline:1px dotted ButtonText}
 .w3-parent fieldset{border:1px solid #c0c0c0;margin:0 2px;padding:.35em .625em .75em}
 .w3-parent legend{color:inherit;display:table;max-width:100%;padding:0;white-space:normal}textarea{overflow:auto}
+.w3-parent label{font-weight:400; font-size: 15px; display: inline-block;}
 .w3-parent [type=checkbox],[type=radio]{padding:0}
 .w3-parent [type=number]::-webkit-inner-spin-button,[type=number]::-webkit-outer-spin-button{height:auto}
 .w3-parent [type=search]{-webkit-appearance:textfield;outline-offset:-2px}
@@ -152,6 +152,7 @@
 .w3-transparent,.w3-hover-none:hover{background-color:transparent!important}
 .w3-hover-none:hover{box-shadow:none!important}
 /* Colors */
+.w3-gs-main,.w3-hover-gs-main:hover{color:#fff!important;background-color:var(--main-color)!important}
 .w3-amber,.w3-hover-amber:hover{color:#000!important;background-color:#ffc107!important}
 .w3-aqua,.w3-hover-aqua:hover{color:#000!important;background-color:#00ffff!important}
 .w3-blue,.w3-hover-blue:hover{color:#fff!important;background-color:#2196F3!important}
@@ -182,6 +183,7 @@
 .w3-pale-green,.w3-hover-pale-green:hover{color:#000!important;background-color:#ddffdd!important}
 .w3-pale-yellow,.w3-hover-pale-yellow:hover{color:#000!important;background-color:#ffffcc!important}
 .w3-pale-blue,.w3-hover-pale-blue:hover{color:#000!important;background-color:#ddffff!important}
+.w3-text-gs-main,.w3-hover-text-gs-main:hover{color:var(--main-color)!important}
 .w3-text-amber,.w3-hover-text-amber:hover{color:#ffc107!important}
 .w3-text-aqua,.w3-hover-text-aqua:hover{color:#00ffff!important}
 .w3-text-blue,.w3-hover-text-blue:hover{color:#2196F3!important}
@@ -208,6 +210,7 @@
 .w3-text-grey,.w3-hover-text-grey:hover,.w3-text-gray,.w3-hover-text-gray:hover{color:#757575!important}
 .w3-text-light-grey,.w3-hover-text-light-grey:hover,.w3-text-light-gray,.w3-hover-text-light-gray:hover{color:#f1f1f1!important}
 .w3-text-dark-grey,.w3-hover-text-dark-grey:hover,.w3-text-dark-gray,.w3-hover-text-dark-gray:hover{color:#3a3a3a!important}
+.w3-border-gs-main,.w3-hover-border-gs-main:hover{border-color:var(--main-color)!important}
 .w3-border-amber,.w3-hover-border-amber:hover{border-color:#ffc107!important}
 .w3-border-aqua,.w3-hover-border-aqua:hover{border-color:#00ffff!important}
 .w3-border-blue,.w3-hover-border-blue:hover{border-color:#2196F3!important}
