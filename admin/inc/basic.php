@@ -175,7 +175,7 @@ function email_template($message) {
 										<!-- copyright -->
 										<tr>
 											<td align="center" style="padding-right:5px;font-family: \'Open Sans\', Arial, sans-serif; font-size:13px; color:#7f8c8d;"> This is an automatic message. Do not reply. <br>Click <a href="https://getsimple-ce.ovh/" target="_blank">here</a> for questions. </td>
-											<td align="center" style="padding-left:5px;font-family: \'Open Sans\', Arial, sans-serif; font-size:13px; color:#7f8c8d;"> © '.date('Y').' GetSimple CE, <br>All Rights Reserved. </td>
+											<td align="center" style="padding-left:5px;font-family: \'Open Sans\', Arial, sans-serif; font-size:13px; color:#7f8c8d;"> &copy; '.date('Y').' GetSimple CE, <br>All Rights Reserved. </td>
 										</tr>
 										<!-- end copyright -->
 										<tr>
@@ -227,12 +227,18 @@ function sendmail($to,$subject,$message) {
 		else $fromemail =  'noreply@'.$_SERVER['SERVER_NAME'];
 	}
 
+	if (version_compare(phpversion(), '8.0', '>=') || substr(PHP_OS, 0, 3) == 'WIN') {
+		$eol = "\r\n";
+	} else {
+		$eol = PHP_EOL;
+	}
+
 	global $EMAIL;
-	$headers  ='"MIME-Version: 1.0' . PHP_EOL;
-	$headers .= 'Content-Type: text/html; charset=UTF-8' . PHP_EOL;
-	$headers .= 'From: '.$fromemail . PHP_EOL;
-  	$headers .= 'Reply-To: '.$fromemail . PHP_EOL;
-  	$headers .= 'Return-Path: '.$fromemail . PHP_EOL;
+	$headers  ='"MIME-Version: 1.0' . $eol;
+	$headers .= 'Content-Type: text/html; charset=UTF-8' . $eol;
+	$headers .= 'From: '.$fromemail . $eol;
+  	$headers .= 'Reply-To: '.$fromemail . $eol;
+  	$headers .= 'Return-Path: '.$fromemail . $eol;
 	
 	if( @mail($to,'=?UTF-8?B?'.base64_encode($subject).'?=',"$message",$headers) ) {
 		return 'success';
