@@ -227,12 +227,18 @@ function sendmail($to,$subject,$message) {
 		else $fromemail =  'noreply@'.$_SERVER['SERVER_NAME'];
 	}
 
+	if (version_compare(phpversion(), '8.0', '>=') || substr(PHP_OS, 0, 3) == 'WIN') {
+		$eol = "\r\n";
+	} else {
+		$eol = PHP_EOL;
+	}
+
 	global $EMAIL;
-	$headers  ='"MIME-Version: 1.0' . PHP_EOL;
-	$headers .= 'Content-Type: text/html; charset=UTF-8' . PHP_EOL;
-	$headers .= 'From: '.$fromemail . PHP_EOL;
-  	$headers .= 'Reply-To: '.$fromemail . PHP_EOL;
-  	$headers .= 'Return-Path: '.$fromemail . PHP_EOL;
+	$headers  ='"MIME-Version: 1.0' . $eol;
+	$headers .= 'Content-Type: text/html; charset=UTF-8' . $eol;
+	$headers .= 'From: '.$fromemail . $eol;
+  	$headers .= 'Reply-To: '.$fromemail . $eol;
+  	$headers .= 'Return-Path: '.$fromemail . $eol;
 	
 	if( @mail($to,'=?UTF-8?B?'.base64_encode($subject).'?=',"$message",$headers) ) {
 		return 'success';
