@@ -181,7 +181,7 @@ if (!getDef('GSNOHIGHLIGHT',true)){
 			<?php $content = file_get_contents(GSTHEMESPATH . tsl($template) . $template_file); ?>
 
 			<form action="<?php myself(); ?>?t=<?php echo $template; ?>&amp;f=<?php echo $template_file; ?>" method="post" >
-				<style>.CodeMirror{height:650px;margin-left:30px}</style>
+				<style>.CodeMirror{height:650px;margin:0 30px;font-size: 15px; }</style>
 				<input id="nonce" name="nonce" type="hidden" value="<?php echo get_nonce("save"); ?>" />
 				<textarea name="content" id="myTextarea" wrap='off' ><?php echo htmlentities($content, ENT_QUOTES, 'UTF-8'); ?></textarea>
 				<input type="hidden" value="<?php echo tsl($template) . $template_file; ?>" name="edited_file" />
@@ -202,6 +202,7 @@ if (!getDef('GSNOHIGHLIGHT',true)){
 					matchBrackets: true,
 					indentUnit: 4,
 					indentWithTabs: true,
+					lineWrapping: true,
 					enterMode: "keep",
 					tabMode: "shift",
 					mode: 'clike',
