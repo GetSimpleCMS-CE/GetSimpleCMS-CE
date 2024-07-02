@@ -175,7 +175,7 @@ function email_template($message) {
 										<!-- copyright -->
 										<tr>
 											<td align="center" style="padding-right:5px;font-family: \'Open Sans\', Arial, sans-serif; font-size:13px; color:#7f8c8d;"> This is an automatic message. Do not reply. <br>Click <a href="https://getsimple-ce.ovh/" target="_blank">here</a> for questions. </td>
-											<td align="center" style="padding-left:5px;font-family: \'Open Sans\', Arial, sans-serif; font-size:13px; color:#7f8c8d;"> © '.date('Y').' GetSimple CE, <br>All Rights Reserved. </td>
+											<td align="center" style="padding-left:5px;font-family: \'Open Sans\', Arial, sans-serif; font-size:13px; color:#7f8c8d;"> &copy; '.date('Y').' GetSimple CE, <br>All Rights Reserved. </td>
 										</tr>
 										<!-- end copyright -->
 										<tr>
