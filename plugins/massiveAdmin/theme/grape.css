@@ -32,6 +32,9 @@ html body#index div.wrapper div.bodycontent.clearfix div#maincontent div.main sv
 #sitename{-webkit-animation:tracking-in-expand .7s cubic-bezier(.215,.61,.355,1.000) .5s both;animation:tracking-in-expand .7s cubic-bezier(.215,.61,.355,1.000) .5s both}
 @-webkit-keyframes tracking-in-expand{0%{letter-spacing:-.5em;opacity:0}40%{opacity:.6}100%{opacity:1}}@keyframes tracking-in-expand{0%{letter-spacing:-.5em;opacity:0}40%{opacity:.6}100%{opacity:1}}
 
+#maincontent {padding-right: 15px;}
+.wrapper {max-width : none;width:90%;}
+
 .wrapper table tr#tr-index a {margin-left: 20px;}
 .wrapper table tr#tr-index a::before {content: url('data:image/svg+xml,%3Csvg xmlns="http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg" width="16" height="16" viewBox="0 0 24 24"%3E%3Cpath fill="%234B497B" fill-opacity="0" d="M6 8L12 3L18 8V20H6V8Z"%3E%3Canimate fill="freeze" attributeName="fill-opacity" begin="0.9s" dur="0.5s" values="0%3B1"%2F%3E%3C%2Fpath%3E%3Cg fill="none" stroke="%234B497B" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"%3E%3Cpath stroke-dasharray="21" stroke-dashoffset="21" d="M5 21H19"%3E%3Canimate fill="freeze" attributeName="stroke-dashoffset" dur="0.2s" values="21%3B0"%2F%3E%3C%2Fpath%3E%3Cpath stroke-dasharray="15" stroke-dashoffset="15" d="M5 21V8M19 21V8"%3E%3Canimate fill="freeze" attributeName="stroke-dashoffset" begin="0.2s" dur="0.2s" values="15%3B0"%2F%3E%3C%2Fpath%3E%3Cpath stroke-dasharray="26" stroke-dashoffset="26" d="M2 10L12 2L22 10"%3E%3Canimate fill="freeze" attributeName="stroke-dashoffset" begin="0.5s" dur="0.4s" values="26%3B0"%2F%3E%3C%2Fpath%3E%3C%2Fg%3E%3C%2Fsvg%3E'); position: absolute; top: 12px; border-radius: 0px; cursor: pointer; transition: all 250ms ease; display: flex; left:0;}
 .wrapper table tr#tr-index.l-0 td.secondarylink a::before {content: normal;}
@@ -126,6 +129,8 @@ html body#load div.wrapper div.bodycontent.clearfix div#maincontent div.main p b
 html body#load div.wrapper div.bodycontent.clearfix div#maincontent div.main form.settheme button{background-color:#4B497B !important; margin:20px 0 0 20px;cursor: pointer;}
 
 #pagechangednotify:not(:empty) {padding: 5px 10px !important; background-color: white; border-radius: 10px; border: dashed 2px red; box-shadow: 0px 5px 5px rgb(26, 26, 26);}
+
+input#page_submit.submit, form#navigationForm input.submit, #components input#button.submit, #theme-edit form p#submit_line span input.submit, #upload form.uploadform input.submit, #load form.settheme button{background: #4CAF50 !important; padding: 8px 16px; font-size:18px;font-weight:400}
 
 #footer{color:#4B497B;}
 #footer a:link, #footer a:visited {color:#4B497B;font-weight:600 !important;}

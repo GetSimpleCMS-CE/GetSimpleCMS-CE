@@ -241,36 +241,34 @@
 </script>
 
 <?php
+if (isset($_POST['save-rename-massive'])) {
+	$oldDirMassive = '../data/uploads/' . $_POST['rename-massive-hide'];
+	$newDirMassive = '../data/uploads/' . $_POST['rename-massive'];
 
-	if (isset($_POST['save-rename-massive'])) {
+	$afterNewDir = preg_replace('/\s+/', '-', $newDirMassive);
 
-		$oldDirMassive = '../data/uploads/' . $_POST['rename-massive-hide'];
-		$newDirMassive = '../data/uploads/' . $_POST['rename-massive'];
+	rename($oldDirMassive, $afterNewDir);
+	echo '<div class="massive-done">' . i18n_r("massiveAdmin/FILENOW") . $afterNewDir . '</div>';
 
-		$afterNewDir = preg_replace('/\s+/', '-', $newDirMassive);
+	echo ("<meta http-equiv='refresh' content='1'>");
+}
 
-		rename($oldDirMassive, $afterNewDir);
-		echo '<div class="massive-done">' . i18n_r("massiveAdmin/FILENOW") . $afterNewDir . '</div>';
+if (isset($_POST['copy-rename-massive'])) {
+	$fileIsHere = i18n_r("massiveAdmin/INFOERROR");
 
+	$oldDirMassive = '../data/uploads/' . $_POST['rename-massive-hide'];
+	$newDirMassive = '../data/uploads/' . $_POST['rename-massive'];
+
+	$afterNewDir = preg_replace('/\s+/', '-', $newDirMassive);
+
+	if (file_exists($afterNewDir) == 'true') {
+		echo '<div class="massive-error">' . $fileIsHere . '</div>';
+	} else {
+		copy($oldDirMassive, $afterNewDir);
 		echo ("<meta http-equiv='refresh' content='1'>");
+		echo '<div class="massive-done">' . i18n_r("massiveAdmin/INFOCOPY") . $afterNewDir . '</div>';
 	}
-
-	if (isset($_POST['copy-rename-massive'])) {
-		$fileIsHere = i18n_r("massiveAdmin/INFOERROR");
-
-		$oldDirMassive = '../data/uploads/' . $_POST['rename-massive-hide'];
-		$newDirMassive = '../data/uploads/' . $_POST['rename-massive'];
-
-		$afterNewDir = preg_replace('/\s+/', '-', $newDirMassive);
-
-		if (file_exists($afterNewDir) == 'true') {
-			echo '<div class="massive-error">' . $fileIsHere . '</div>';
-		} else {
-			copy($oldDirMassive, $afterNewDir);
-			echo ("<meta http-equiv='refresh' content='1'>");
-			echo '<div class="massive-done">' . i18n_r("massiveAdmin/INFOCOPY") . $afterNewDir . '</div>';
-		}
-	};
+};
 ?>
 
 <script>
@@ -279,8 +277,6 @@
 			x.innerHTML = `<div class="massive-folder-linker">
 			
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="file" style="display:inline-block;width:50px;"><path fill="#6563FF" d="M20,8.94a1.31,1.31,0,0,0-.06-.27l0-.09a1.07,1.07,0,0,0-.19-.28h0l-6-6h0a1.07,1.07,0,0,0-.28-.19l-.09,0L13.06,2H7A3,3,0,0,0,4,5V19a3,3,0,0,0,3,3H17a3,3,0,0,0,3-3V9S20,9,20,8.94ZM14,5.41,16.59,8H14ZM18,19a1,1,0,0,1-1,1H7a1,1,0,0,1-1-1V5A1,1,0,0,1,7,4h5V9a1,1,0,0,0,1,1h5Z"></path></svg>
-			
-			
 			</div>`;
 		}
 	});
@@ -358,7 +354,6 @@
 </script>
 
 <?php
-
 if (isset($_POST['deleteFileList'])) {
 	$list = $_POST['delFileList'];
 	$ar = explode(",", $list);
@@ -368,5 +363,4 @@ if (isset($_POST['deleteFileList'])) {
 		<meta http-equiv='refresh' content='1'>");
 	}
 };
-
 ?>

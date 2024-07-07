@@ -9,60 +9,61 @@ if (file_exists($filename)) {
 }
 ?>
 
-<style>
-	@import url('<?php echo $SITEURL; ?>plugins/massiveAdmin/css/massiveOption.css');
-</style>
+<link rel="stylesheet" href="<?php global $SITEURL; echo $SITEURL; ?>plugins/massiveAdmin/css/w3.css">
+<link rel="stylesheet" href="<?php global $SITEURL; echo $SITEURL; ?>plugins/massiveAdmin/css/w3-custom.css">
+<style>.w3-block, .w3-select{width:96%}</style>
 
-<div class="massiveoption">
+<div class="w3-parent w3-container"><!-- Start Plug -->
 
-	<div class="hidetitle" id="hidetitle1">
-		<h3><?php echo i18n_r('massiveAdmin/MAITENANCETITLE'); ?></h3> 
-		<svg xmlns="http://www.w3.org/2000/svg" data-name="Layer 1" viewBox="0 0 24 24" id="arrow-down" style="display:inline-block;width:20px;"><path fill="var(--main-color)" d="M17.71,11.29a1,1,0,0,0-1.42,0L13,14.59V7a1,1,0,0,0-2,0v7.59l-3.29-3.3a1,1,0,0,0-1.42,1.42l5,5a1,1,0,0,0,.33.21.94.94,0,0,0,.76,0,1,1,0,0,0,.33-.21l5-5A1,1,0,0,0,17.71,11.29Z"></path></svg>
+<h3>MassiveAdmin Settings</h3>
+<hr>
 
-	</div>
-
-	<div class="hidecontent hidecontent1">
+	<button onclick="myFunction('Tab1')" class="w3-button w3-xlarge w3-round w3-block w3-gray w3-text-white w3-left-align w3-margin-bottom"><?php echo i18n_r('massiveAdmin/MAITENANCETITLE'); ?><span class="w3-right"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24"><path fill="currentColor" fill-rule="evenodd" d="m5 8l7 8l7-8z"/></svg></span></button>
+	<div id="Tab1" class="w3-hide w3-container w3-margin-bottom">
 		<form action="#" method="post">
 			<label for="maintence"><?php echo i18n_r("massiveAdmin/MAINTENANCE_ON"); ?></label>
-			<select name="maintence" class="maintenceselect" id="">
+			<select class="maintenceselect w3-select w3-padding w3-border w3-round w3-margin-bottom" name="maintence"id="">
 				<option value="no"><?php echo i18n_r("massiveAdmin/NO") ?></option>
 				<option value="yes"><?php echo i18n_r("massiveAdmin/YES") ?></option>
 			</select>
 
 			<label for="content"><?php echo i18n_r("massiveAdmin/CONTENT_MAINTENANCE_MODE"); ?></label>
-			<textarea name="content" class="ckeditors"><?php echo $data->maintencecontent ?? ''; ?></textarea>
-			<br>
-			<input type="submit" name="save-option" style="width: 100%; padding: 10px; margin-top: 20px; background: #000 !important; color: #fff; border: none; border-radius: 5px;" value="<?php echo i18n_r("massiveAdmin/SAVEOPTION"); ?>" class="submit">
+			<textarea class="ckeditors w3-input w3-padding w3-border w3-round w3-margin-bottom" name="content"><?php echo $data->maintencecontent ?? ''; ?></textarea>
+			
+			<div class="w3-margin-top w3-center">
+				<button class="w3-btn w3-large w3-round w3-green" type="submit" name="save-option">
+					<?php echo i18n_r("massiveAdmin/SAVEOPTION"); ?>
+				</button>
+			</div>
+		</form>
 	</div>
 
-	<div class="hidetitle" id="hidetitle2">
-		<h3><?php echo i18n_r('massiveAdmin/BOOTSTRAPTITLE'); ?></h3>
-		
-		<svg xmlns="http://www.w3.org/2000/svg" data-name="Layer 1" viewBox="0 0 24 24" id="arrow-down" style="display:inline-block;width:20px;"><path fill="var(--main-color)" d="M17.71,11.29a1,1,0,0,0-1.42,0L13,14.59V7a1,1,0,0,0-2,0v7.59l-3.29-3.3a1,1,0,0,0-1.42,1.42l5,5a1,1,0,0,0,.33.21.94.94,0,0,0,.76,0,1,1,0,0,0,.33-.21l5-5A1,1,0,0,0,17.71,11.29Z"></path></svg>
+	<button onclick="myFunction('Tab2')" class="w3-button w3-xlarge w3-round w3-block w3-gray w3-text-white w3-left-align w3-margin-bottom"><?php echo i18n_r('massiveAdmin/BOOTSTRAPTITLE'); ?> <span class="w3-right"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24"><path fill="currentColor" fill-rule="evenodd" d="m5 8l7 8l7-8z"/></svg></span></button>
+	<div id="Tab2" class="w3-hide w3-container">
+		<form action="#" method="post">
+			<label for="grid"><?php echo i18n_r("massiveAdmin/TURNONBOOTSTRAPGRID"); ?></label>
+			<select class="gridselect w3-select w3-padding w3-border w3-round w3-margin-bottom" name="grid" id="">
+				<option value="no"><?php echo i18n_r("massiveAdmin/NO"); ?></option>
+				<option value="yes"><?php echo i18n_r("massiveAdmin/YES"); ?></option>
+			</select>
 
-	</div>
-
-	<div class="hidecontent hidecontent2">
-		<label for="grid" style="margin-top:10px"><?php echo i18n_r("massiveAdmin/TURNONBOOTSTRAPGRID"); ?></label>
-		<select name="grid" class="gridselect" id="">
-			<option value="no"><?php echo i18n_r("massiveAdmin/NO"); ?></option>
-			<option value="yes"><?php echo i18n_r("massiveAdmin/YES"); ?></option>
-		</select>
-
-		<label for="gridfront" style="margin-top:10px"> <?php echo i18n_r("massiveAdmin/TURNONBOOTSTRAPGRIDONTHEME"); ?></label>
-		<select name="gridfront" class="gridselectfront" id="">
-			<option value="no"><?php echo i18n_r("massiveAdmin/NO"); ?></option>
-			<option value="yes"> <?php echo i18n_r("massiveAdmin/YES"); ?></option>
-		</select>
-
-		<input type="submit" name="save-option" style="width: 100%; padding: 10px; margin-top: 20px; background: #000 !important; color: #fff; border: none; border-radius: 5px;" value="<?php echo i18n_r("massiveAdmin/SAVEOPTION"); ?>" class="submit">
+			<label for="gridfront"> <?php echo i18n_r("massiveAdmin/TURNONBOOTSTRAPGRIDONTHEME"); ?></label>
+			<select class="gridselectfront w3-select w3-padding w3-border w3-round w3-margin-bottom" name="gridfront" id="">
+				<option value="no"><?php echo i18n_r("massiveAdmin/NO"); ?></option>
+				<option value="yes"> <?php echo i18n_r("massiveAdmin/YES"); ?></option>
+			</select>
+			
+			<div class="w3-margin-top w3-center">
+				<button class="w3-btn w3-large w3-round w3-green" type="submit" name="save-option">
+					<?php echo i18n_r("massiveAdmin/SAVEOPTION"); ?>
+				</button>
+			</div>
 		</form>
 	</div>
 
 	<script type="text/javascript" src="template/js/ckeditor/ckeditor.js"></script>
 
 	<?php
-
 	global $EDTOOL;
 	global $EDOPTIONS;
 
@@ -78,7 +79,6 @@ if (file_exists($filename)) {
 	}
 	$toolbar = isset($EDTOOL) ? ",toolbar: " . trim($EDTOOL, ",") : '';
 	$options = isset($EDOPTIONS) ? ',' . trim($EDOPTIONS, ",") : '';
-
 	?>
 
 	<script>
@@ -104,29 +104,42 @@ if (file_exists($filename)) {
 
 	<script src="<?php echo $SITEURL; ?>plugins/massiveAdmin/js/massiveOption.js"></script>
 
-</div>
+	<script>
+	function myFunction(id) {
+	  var x = document.getElementById(id);
+	  if (x.className.indexOf("w3-show") == -1) {
+		x.className += " w3-show";
+		x.previousElementSibling.className = 
+		x.previousElementSibling.className.replace("w3-gray", "w3-gs-main");
+	  } else { 
+		x.className = x.className.replace(" w3-show", "");
+		x.previousElementSibling.className = 
+		x.previousElementSibling.className.replace("w3-gs-main", "w3-gray");
+	  }
+	}
+	</script>
 
-<?php
-if (file_exists($filename)) {
-	if ($data->maintence == 'yes') {
-		echo '<script>document.querySelector(".maintenceselect").value = "yes"</script></script>';
-	} else {
-		echo '<script>document.querySelector(".maintenceselect").value = "no"</script></script>';
+	<?php
+	if (file_exists($filename)) {
+		if ($data->maintence == 'yes') {
+			echo '<script>document.querySelector(".maintenceselect").value = "yes"</script></script>';
+		} else {
+			echo '<script>document.querySelector(".maintenceselect").value = "no"</script></script>';
+		};
+		if ($data->grid == 'yes') {
+			echo '<script>document.querySelector(".gridselect").value = "yes"</script></script>';
+		} else {
+			echo '<script>document.querySelector(".gridselect").value = "no"</script></script>';
+		};
+		if ($data->gridfront == 'yes') {
+			echo '<script>document.querySelector(".gridselectfront").value = "yes"</script></script>';
+		} else {
+			echo '<script>document.querySelector(".gridselectfront").value = "no"</script></script>';
+		};
 	};
-	if ($data->grid == 'yes') {
-		echo '<script>document.querySelector(".gridselect").value = "yes"</script></script>';
-	} else {
-		echo '<script>document.querySelector(".gridselect").value = "no"</script></script>';
-	};
-	if ($data->gridfront == 'yes') {
-		echo '<script>document.querySelector(".gridselectfront").value = "yes"</script></script>';
-	} else {
-		echo '<script>document.querySelector(".gridselectfront").value = "no"</script></script>';
-	};
-};
 
-if (isset($_POST['save-option'])) {
-	global $MA;
-	$MA->saveMassiveOption();
-};
-?>
+	if (isset($_POST['save-option'])) {
+		global $MA;
+		$MA->saveMassiveOption();
+	};
+	?>

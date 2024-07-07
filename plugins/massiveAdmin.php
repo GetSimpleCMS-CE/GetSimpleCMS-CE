@@ -20,15 +20,14 @@ if (isset($_GET['snippet'])) {
 
 # register plugin
 register_plugin(
-	$thisfile, //Plugin id
-	'Massive Admin Theme', 	//Plugin name
-	'5.0.6', 		//Plugin version
-	'Multicolor',  //Plugin author
+	$thisfile, 				//Plugin id
+	'Massive Admin Theme',	//Plugin name
+	'5.0.8', 				//Plugin version
+	'Multicolor',			//Plugin author
 	'https://ko-fi.com/multicolorplugins', //author website
 	'Admin theme with new function', //Plugin description
-	$sett,
-	//page type - on which admin tab to display
-	'massiveOption'  //main function (administration)
+	$sett,					//page type - on which admin tab to display
+	'massiveOption'			//main function (administration)
 );
 
 global $SITEURL;
@@ -37,13 +36,10 @@ require(GSPLUGINPATH . 'massiveAdmin/class/massiveAdmin.class.php');
 
 $MA = new MassiveAdminClass();
 
- 
-
 # new option on file browser
 add_action('file-extras', 'newOptionsMassive');
 
-function newOptionsMassive()
-{
+function newOptionsMassive(){
 	global $SITEURL;
 	include(GSPLUGINPATH . 'massiveAdmin/inc/newOptionsMassive.inc.php');
 }
@@ -59,17 +55,14 @@ if (strpos($_SERVER['REQUEST_URI'], "i18n_gallery&create") !== false) {
 	add_action('i18n_gallery-sidebar', 'massiveUploader');
 };
 
-function massiveUploader()
-{
+function massiveUploader(){
 	global $MA;
 	$MA->massiveUpload();
 }
 
 # component on pages
 add_action('pages-sidebar', 'compomassive');
-
-function compomassive()
-{
+function compomassive(){
 	global $MA;
 	$MA->compositeOnPage();
 };
@@ -78,20 +71,17 @@ function compomassive()
 $folder = GSDATAOTHERPATH . '/massiveadmin/';
 
 #themeSelector 
-
 if (file_exists(GSDATAOTHERPATH . 'massiveTheme/option.txt')) {
 	$themeChecker = file_get_contents(GSDATAOTHERPATH . 'massiveTheme/option.txt');
 } else {
 	$themeChecker = 'massive';
 }
 
-
 register_style('masivestyle', $SITEURL . 'plugins/massiveAdmin/theme/' . $themeChecker  . '.css', '5.0', 'screen');
 queue_style('masivestyle', GSBACK);
 
 add_action('footer', 'ckeStyleImplementation');
-function ckeStyleImplementation()
-{
+function ckeStyleImplementation(){
 	include(GSPLUGINPATH . 'massiveAdmin/inc/ckeStyleImplementation.inc.php');
 };
 
@@ -114,17 +104,14 @@ if (file_exists($massiveOptionFile)) {
 };
 
 # massiveHeader & Icon
-function masiveHeader()
-{
+function masiveHeader(){
 	global $MA;
 	$MA->massiveHead();
 }
 
 # codeminor fixes
 add_action('footer', 'footerCodeMirror');
-function footerCodeMirror()
-{
-
+function footerCodeMirror(){
 	if (!strpos($_SERVER['REQUEST_URI'], 'components.php')) {
 		global $MA;
 		$MA->codeMirror();
@@ -133,8 +120,7 @@ function footerCodeMirror()
 
 # maitence mode on or off check
 add_action('theme-footer', 'massivemaintence');
-function massivemaintence()
-{
+function massivemaintence(){
 	include(GSPLUGINPATH . 'massiveAdmin/inc/maintenceFront.inc.php');
 };
 
@@ -150,24 +136,16 @@ if (isset($_COOKIE['GS_ADMIN_USERNAME'])) {
 
 		add_action('theme-header', 'massivefronter');
 
-		function massivefronter()
-		{
+		function massivefronter(){
 			global $SITEURL;
 			$mtoperSettingPath = GSDATAOTHERPATH . 'massiveToperSettings/';
-
-
 			if (file_exists($mtoperSettingPath . 'turnon.txt')) {
 				$checkTurnOn = @file_get_contents($mtoperSettingPath . 'turnon.txt');
 				$style = @file_get_contents($mtoperSettingPath . 'style.txt');
-
-
-
 				if ($checkTurnOn == 'on') {
-
 					if ($style !== '') {
 						echo '<link rel="stylesheet" href="' . $SITEURL . 'plugins/massiveAdmin/toper-theme/' . $style . '.css">';
 					};
-
 					include(GSPLUGINPATH . 'massiveAdmin/inc/mToper.inc.php');
 				}
 			};
@@ -177,43 +155,26 @@ if (isset($_COOKIE['GS_ADMIN_USERNAME'])) {
 	};
 };
 
-
-
 # login plugins
 add_action('index-login', 'scriptHeader');
 
-function scriptHeader()
-{
+function scriptHeader(){
 	include(GSPLUGINPATH . 'massiveAdmin/inc/scriptHeader.inc.php');
 };
 $massiveAdminSettingsTitle = i18n_r("massiveAdmin/MASSIVEADMINSETTINGSTITLE");
 
 # plugins search admin
 add_action('footer', 'searchplugin');
-function searchplugin()
-{
+function searchplugin(){
 	global $SITEURL;
 	echo '<script src="' . $SITEURL . 'plugins/massiveAdmin/js/searchPlugin.js"></script>';
-};
-
-# new module massiveMenuExternal
-$MenuExternalTitle = i18n_r('massiveAdmin/MENUEXTERNAL');
-
-add_action('settings-sidebar', 'createSideMenu', [$thisfile, $MenuExternalTitle, 'menuext']);
-
-add_action('nav-tab', 'massiveExtNavbar');
-
-function massiveExtNavbar()
-{
-	include(GSPLUGINPATH . 'massiveAdmin/inc/menuExtNavbar.inc.php');
 };
 
 # hidden section and user manager
 $HideMassiveTitle = i18n_r('massiveAdmin/HIDEMENUTITLE');
 add_action('settings-sidebar', 'createSideMenu', [$thisfile, $HideMassiveTitle, 'hideadminsection']);
 add_action('footer', 'hideSectionfooter');
-function hideSectionfooter()
-{
+function hideSectionfooter(){
 	include(GSPLUGINPATH . 'massiveAdmin/inc/hiddenAdminSectionFooter.inc.php');
 };
 
@@ -221,22 +182,15 @@ function hideSectionfooter()
 $OwnFooterOption = i18n_r('massiveAdmin/OWNFOOTERTITLE');
 add_action('settings-sidebar', 'createSideMenu', [$thisfile, $OwnFooterOption, 'ownfooteroption']);
 add_action('footer', 'ownFooterScripts');
-
-function ownFooterScripts()
-{
+function ownFooterScripts(){
 	include(GSPLUGINPATH . 'massiveAdmin/inc/ownFooterScript.inc.php');
 };
-
 add_action('header', 'ownFooterScriptHeader');
-function ownFooterScriptHeader()
-{
+function ownFooterScriptHeader(){
 	include(GSPLUGINPATH . 'massiveAdmin/inc/ownFooterScriptHeader.inc.php');
 };
-
 add_action('index-login', 'ownFooterIndex');
-
-function ownFooterIndex()
-{
+function ownFooterIndex(){
 	include(GSPLUGINPATH . 'massiveAdmin/inc/ownFooterIndex.inc.php');
 };
 
@@ -244,39 +198,44 @@ function ownFooterIndex()
 $MassiveAdminSettingTitle = i18n_r('massiveAdmin/MASSIVEADMINSETTINGSTITLE');
 add_action('settings-sidebar', 'createSideMenu', [$thisfile, $MassiveAdminSettingTitle, 'massiveoption']);
 
+# new module massiveMenuExternal
+$MenuExternalTitle = i18n_r('massiveAdmin/MENUEXTERNAL');
+add_action('settings-sidebar', 'createSideMenu', [$thisfile, $MenuExternalTitle, 'menuext']);
+add_action('nav-tab', 'massiveExtNavbar');
+function massiveExtNavbar(){
+	include(GSPLUGINPATH . 'massiveAdmin/inc/menuExtNavbar.inc.php');
+};
+
 # create helpdesk option
 $helpTitle = i18n_r('massiveAdmin/USERHELPTITLE');
 add_action('settings-sidebar', 'createSideMenu', [$thisfile, $helpTitle, 'helpdesk']);
 $helpFile = GSDATAOTHERPATH . '/massiveHelpDesk/helpdesk.json';
-
 if (file_exists($helpFile)) {
 	$helpFileContent = file_get_contents($helpFile);
 	$HelpfileDecode = json_decode($helpFileContent);
 	$checkTrue = $HelpfileDecode->checkbox;
 	$help = i18n_r('massiveAdmin/HELP');
-
 	if ($checkTrue == 'true') {
 		add_action('nav-tab', 'createSideMenu', [$thisfile, '<i class="gg-support"></i>' . $help, 'helpfromuser']);
 	}
 }
 
 # 3.0
-$migrate = i18n_r('massiveAdmin/MIGRATETITLE');
-add_action('settings-sidebar', 'createSideMenu', [$thisfile, $migrate, 'migrate']);
-
-$GSconfig = 'GSConfig';
-add_action('settings-sidebar', 'createSideMenu', [$thisfile, $GSconfig, 'gsconfigEdit']);
-
 $frontEndSettings = i18n_r('massiveAdmin/FRONTENDTITLE');
 add_action('settings-sidebar', 'createSideMenu', [$thisfile, $frontEndSettings, 'frontendsettings']);
+
+$migrate = i18n_r('massiveAdmin/MIGRATETITLE');
+add_action('settings-sidebar', 'createSideMenu', [$thisfile, $migrate, 'migrate']);
 
 $showPassword = i18n_r('massiveAdmin/LOGINOPTIONS');
 add_action('settings-sidebar', 'createSideMenu', [$thisfile, $showPassword, 'showPassword']);
 
+$GSconfig = 'GSConfig';
+add_action('settings-sidebar', 'createSideMenu', [$thisfile, $GSconfig, 'gsconfigEdit']);
+
 add_action('index-login', 'showPass');
 
-function showPass()
-{
+function showPass(){
 	global $MA;
 	$MA->showIndexOption();
 };
@@ -284,10 +243,7 @@ function showPass()
 # snippet
 $snippet = i18n_r('massiveAdmin/SNIPPET');
 add_action('pages-sidebar', 'createSideMenu', [$thisfile, $snippet . ' 📜', 'snippet'], '');
-
-
-function get_snippet($item)
-{
+function get_snippet($item){
 	$file = GSDATAOTHERPATH . 'snippetMassive/snippet.xml';
 	$readed = simplexml_load_file($file);
 	echo htmlspecialchars_decode($readed->$item->content);
@@ -303,9 +259,7 @@ add_action('plugins-sidebar', 'createSideMenu', [$thisfile, $pluginUnistaller . 
 
 # components
 add_action('component-extras', 'compCode');
-
-function compCode()
-{
+function compCode(){
 	static $firstTime = true;
 	if ($firstTime) {
 		global $MA;
@@ -318,92 +272,59 @@ function compCode()
 $MassiveAdminThemeSelector = i18n_r('massiveAdmin/ADMINTHEMESELECTOR');
 add_action('settings-sidebar', 'createSideMenu', [$thisfile, $MassiveAdminThemeSelector, 'themeselector']);
 
-
 # redirect page to homepage bar
-
-
-
 add_action('theme-edit-extras', 'makeFileInTheme');
-
-
-function makeFileInTheme()
-{
+function makeFileInTheme(){
 	include(GSPLUGINPATH . 'massiveAdmin/modules/makeFileInTheme.php');
 };
-
-
 
 $bctitle = i18n_r('massiveAdmin/BACKUPCREATOR');
 
 add_action('backups-sidebar', 'createSideMenu',  [$thisfile, $bctitle, 'backupcreator']);
 
-
 $tctitle = i18n_r('massiveAdmin/THEMECONFIGURATORNAME');
 
 add_action('theme-sidebar', 'createSideMenu',  [$thisfile, $tctitle, 'themesettings']);
 
-
-
 # theme settings functions
 
-function mats($field)
-{
+function mats($field){
 
 	$xml = simplexml_load_file(GSDATAOTHERPATH . 'website.xml');
 
 	$activeTemplate = $xml->TEMPLATE;
 
-
 	if (file_exists(GSTHEMESPATH . $activeTemplate . '/settings.json')) {
 		$data = file_get_contents(GSTHEMESPATH . $activeTemplate . '/settings.json');
 		$filx =  json_decode($data);
-
 		if($filx->settings->$field->type !== 'wysywig'){
-		echo $filx->settings->$field->value;
+			echo $filx->settings->$field->value;
 		}else{
-		echo html_entity_decode($filx->settings->$field->value);
-		}
-
-		
+			echo html_entity_decode($filx->settings->$field->value);
+		}	
 	} else {
 		echo i18n_r('massiveAdmin/NOSETTINGSCREATED');
 	}
 };
 
-
-function r_mats($field)
-{
-
+function r_mats($field){
 	$xml = simplexml_load_file(GSDATAOTHERPATH . 'website.xml');
-
 	$activeTemplate = $xml->TEMPLATE;
-
-
 	if (file_exists(GSTHEMESPATH . $activeTemplate . '/settings.json')) {
 		$data = file_get_contents(GSTHEMESPATH . $activeTemplate . '/settings.json');
 		$filx =  json_decode($data);
-
-		
 		if($filx->settings->$field->type !== 'wysywig'){
 			return $filx->settings->$field->value;
-			}else{
+		}else{
 			return html_entity_decode($filx->settings->$field->value);
-			}
-
+		}
 	} else {
 		echo i18n_r('massiveAdmin/NOSETTINGSCREATED');
 	}
 }
 
-
-
 # all massive option  
-function massiveOption()
-{
-
-
-
-
+function massiveOption(){
 	if (isset($_GET['massiveoption'])) {
 		include(GSPLUGINPATH . 'massiveAdmin/modules/massiveOption.php');
 	} elseif (isset($_GET['helpfromuser'])) {
@@ -438,9 +359,13 @@ function massiveOption()
 		include(GSPLUGINPATH . 'massiveAdmin/modules/themesettings.php');
 	};;
 
-	echo "
-	<style>.kofitext,.kofi-button{text-decoration:none !important}</style>
-	<div style='margin:20px 0;width:100%;' class='kofi'>
-		<script type='text/javascript' src='https://storage.ko-fi.com/cdn/widget/Widget_2.js'></script><script type='text/javascript'>kofiwidget2.init('Support Me on Ko-fi', '#29abe0', 'I3I2RHQZS');kofiwidget2.draw();</script>
-	</div> ";
+	echo '
+	<hr>
+	
+	<div style="margin:20px 0;width:100%;" class="kofi">
+		<style>.kofitext,.kofi-button{text-decoration:none !important}</style>
+		<script type="text/javascript" src="https://storage.ko-fi.com/cdn/widget/Widget_2.js"></script>
+		<script type="text/javascript">kofiwidget2.init(\'Support Me on Ko-fi\', \'#29abe0\', \'I3I2RHQZS\');kofiwidget2.draw();</script>
+	</div>
+</div><!-- End Plug -->';
 };
