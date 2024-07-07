@@ -306,7 +306,7 @@ if (get_filename_id() != 'install' && get_filename_id() != 'setup' && get_filena
 		}
 	}
 
-	if(!getDef('GSDEBUGINSTALL',true)){	
+	if(!getDef('GSDEBUGINSTALL',true)){
 		# if you've made it this far, the site is already installed so remove the installation files
 		$filedeletionstatus=true;
 		if (file_exists(GSADMINPATH.'cron.php'))	{
@@ -372,35 +372,36 @@ if (get_filename_id() != 'install' && get_filename_id() != 'setup' && get_filena
 		if (!$filedeletionstatus) {
 			$error = sprintf(i18n_r('ERR_CANNOT_DELETE'), '<code>/'.$GSADMIN.'/install.php</code>, <code>/'.$GSADMIN.'/setup.php</code> or <code>/'.$GSADMIN.'/update.php</code>');
 		}
+		
 		function deleteDirectory($dir) {
 			if (!file_exists($dir)) {
 				return true;
 			}
-
 			if (!is_dir($dir)) {
 				return unlink($dir);
 			}
-
 			foreach (scandir($dir) as $item) {
 				if ($item == '.' || $item == '..') {
 					continue;
 				}
-
 				if (!deleteDirectory($dir . DIRECTORY_SEPARATOR . $item)) {
 					return false;
 				}
 			}
-
 			return rmdir($dir);
 		}
 
-		$dir = '../install_TMP';
-		if (file_exists($dir)) {
-			$filedeletionstatus = deleteDirectory($dir);
-			if ($filedeletionstatus) {
-				echo "Directory removed successfully.";
+		$dirs = ['../install_TMP', 'template/js/fancybox', 'template/js/jcrop', 'template/js/uploadify', 'template/js/codemirror/lib', 'template/js/codemirror/theme']; // Add your directories here
+		foreach ($dirs as $dir) {
+			if (file_exists($dir)) {
+				$filedeletionstatus = deleteDirectory($dir);
+				if ($filedeletionstatus) {
+					//echo "Directory '$dir' removed successfully.\\n";
+				} else {
+					//echo "Failed to remove the directory '$dir'.\\n";
+				}
 			} else {
-				echo "Failed to remove the directory.";
+				//echo "Directory '$dir' does not exist.\\n";
 			}
 		}
 
@@ -432,5 +433,7 @@ if(isset($load['plugin']) && $load['plugin']){
 	exec_action('common');
 	
 }
-if(isset($load['login']) && $load['login']){ 	include_once(GSADMININCPATH.'login_functions.php'); }
+if(isset($load['login']) && $load['login']){
+	include_once(GSADMININCPATH.'login_functions.php'); 
+}
 ?>
