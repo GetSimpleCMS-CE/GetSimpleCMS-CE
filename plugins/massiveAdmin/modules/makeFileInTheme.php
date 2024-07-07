@@ -1,4 +1,3 @@
-
 <style>
 	.makefile {
 		width: 100%;
@@ -88,21 +87,19 @@
 	document.querySelector('.themefolder').value = document.querySelector('#theme-folder').value;
 </script>
 
-<?php if (isset($_POST['makefile'])) {
-
+<?php 
+if (isset($_POST['makefile'])) {
 	if (isset($_POST['foldername'])) {
-
 		if (!file_exists(GSTHEMESPATH . $_POST['themefolder'] . '/' . $_POST['foldername'])) {
 			mkdir(GSTHEMESPATH . $_POST['themefolder'] . '/' . $_POST['foldername'], 0755);
 		};
-
 		if ($_POST['filename'] !== '') {
 			file_put_contents(GSTHEMESPATH . $_POST['themefolder'] . '/' . $_POST['foldername'] . '/' . $_POST['filename'], '');
 		};
 	} else {
 		file_put_contents(GSTHEMESPATH . $_POST['filename'], '');
 	};
-
 	echo '<div class="updated"><p>' . $_POST['filename'] . i18n_r('massiveAdmin/FILECREATED') . '</p></div>';
 	echo ("<meta http-equiv='refresh' content='2'>");
-}; ?>
+}; 
+?>

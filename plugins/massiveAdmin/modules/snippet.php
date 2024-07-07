@@ -1,70 +1,82 @@
-<h3 class="floated"><?php echo i18n_r('massiveAdmin/EDITSNIPPET'); ?></h3>
-
-<div class="edit-nav">
-	<a href="#" onclick="event.preventDefault();addNewSnippet();" id="addsnippet" accesskey="a"><?php echo i18n_r('massiveAdmin/ADDSNIPPET'); ?></a>
-	<div class="clear"></div>
-</div>
+<link rel="stylesheet" href="<?php global $SITEURL; echo $SITEURL; ?>plugins/massiveAdmin/css/w3.css">
+<link rel="stylesheet" href="<?php global $SITEURL; echo $SITEURL; ?>plugins/massiveAdmin/css/w3-custom.css">
 
 <style>
 	.copybutton { display: inline-block; position: relative; vertical-align: middle; }
 	.copybutton img { transition: transform 0.3s; width:22px; }
 	.copybutton:hover img { transform: scale(1.2); }
 	.copybutton:active img { transform: scale(0.8); }
-	.shortcode{font-size:small; background-color:#f1f1f1; padding:3px 5px; border:1px solid #B2B2B2; margin-right:5px; border-radius: 5px;}
-	.tpl{color:royalblue;}
-	.cke{color:hotpink;}
 </style>
+
+<div class="w3-parent w3-container"><!-- Start Plug -->
+
+<h3><?php echo i18n_r('massiveAdmin/EDITSNIPPET'); ?></h3>
+	
+<div class="w3-margin-top w3-right-align">
+	<button class="w3-btn w3-tiny w3-round w3-green" type="submit"  id="addsnippet" accesskey="a" onclick="event.preventDefault();addNewSnippet();"><?php echo i18n_r('massiveAdmin/ADDSNIPPET'); ?> +</button>
+</div>
+
+<hr>
 
 <form action="#" method="post">
 	<div class="snippet-list">
 
 		<?php
-			$file = GSDATAOTHERPATH . 'snippetMassive/snippet.xml';
+		$file = GSDATAOTHERPATH . 'snippetMassive/snippet.xml';
 
-			if (file_exists($file)) {
-				$readed = simplexml_load_file($file);
-			};
+		if (file_exists($file)) {
+			$readed = simplexml_load_file($file);
+		};
 		?>
 
 		<?php
-			if (file_exists($file)) {
-				$fileFolder = GSDATAOTHERPATH . 'snippetMassive/';
-				foreach ($readed as $file) {
-					$title = $file->title;
-					$content = $file->content;
-					echo '
-					<div style="display:block; position:relative; width:100%; border:solid 1px #ddd; margin-top:15px; background:#fafafa; padding:10px; box-sizing:border-box; padding-top:40px;">
-						<div style="position:absolute; top:5px; left:10px;padding-bottom:20px;height:40px;">
-							<span id="' . $title . '" class="shortcode tpl">&#60;?php get_snippet("' . $title . '");?></span>
+		if (file_exists($file)) {
+			$fileFolder = GSDATAOTHERPATH . 'snippetMassive/';
+			foreach ($readed as $file) {
+				$title = $file->title;
+				$content = $file->content;
+				echo '
+				<div class="w3-container">
+					<div class="w3-row w3-center w3-margin-bottom w3-padding-large w3-panel w3-gs-main w3-round">
+						<div class="w3-half w3-left-align">
+							<span class="shortcode tpl" id="' . $title . '">&#60;?php get_snippet("' . $title . '");?></span>
 							<a href="javascript:;" class="copybutton">
-							<image id="copy-' . $title . '" data-clipboard-target="#' . $title . '" src=" data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAQAAABKfvVzAAAAIGNIUk0AAHomAACAhAAA+gAAAIDoAAB1MAAA6mAAADqYAAAXcJy6UTwAAAACYktHRAAAqo0jMgAAAAlwSFlzAAAAYAAAAGAA8GtCzwAAAAd0SU1FB+cFFgkEJsO3fd8AAADQSURBVDjLvZM7CsJAFEWP0SKSUlJoOi2yiDSJK3ALFindUMBSV2HAzyJEQVHxU0gqm5QWAXWSyWdAPeV9c7nzLjPwa2pS1cPHFJQ7AXMATXp8hpPSHELcvNQpR/SUpnNikpfQZk+c0mJ2dAAaEsOjaGmZYahqiKoYCooU0VSLTBJ8ztipZnS2+NkMrbxIAJr0uOYtLdJijIGNRfBOKGeFx6JaQsQgu4MC/zLc6GYe9KtIkeTHuYRc2AgTG4t+0swndQAOLDAxhMmaEUvVC3+DJ4xiLDPLiEozAAAAJXRFWHRkYXRlOmNyZWF0ZQAyMDIzLTA1LTIyVDA5OjA0OjM4KzAwOjAwa+wQugAAACV0RVh0ZGF0ZTptb2RpZnkAMjAyMy0wNS0yMlQwOTowNDozOCswMDowMBqxqAYAAAAodEVYdGRhdGU6dGltZXN0YW1wADIwMjMtMDUtMjJUMDk6MDQ6MzgrMDA6MDBNpInZAAAAAElFTkSuQmCC"></a>
+								<image id="copy-' . $title . '" data-clipboard-target="#' . $title . '" src=" data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAQAAABKfvVzAAAAIGNIUk0AAHomAACAhAAA+gAAAIDoAAB1MAAA6mAAADqYAAAXcJy6UTwAAAACYktHRAAAqo0jMgAAAAlwSFlzAAAAYAAAAGAA8GtCzwAAAAd0SU1FB+cFFgkEJsO3fd8AAADQSURBVDjLvZM7CsJAFEWP0SKSUlJoOi2yiDSJK3ALFindUMBSV2HAzyJEQVHxU0gqm5QWAXWSyWdAPeV9c7nzLjPwa2pS1cPHFJQ7AXMATXp8hpPSHELcvNQpR/SUpnNikpfQZk+c0mJ2dAAaEsOjaGmZYahqiKoYCooU0VSLTBJ8ztipZnS2+NkMrbxIAJr0uOYtLdJijIGNRfBOKGeFx6JaQsQgu4MC/zLc6GYe9KtIkeTHuYRc2AgTG4t+0swndQAOLDAxhMmaEUvVC3+DJ4xiLDPLiEozAAAAJXRFWHRkYXRlOmNyZWF0ZQAyMDIzLTA1LTIyVDA5OjA0OjM4KzAwOjAwa+wQugAAACV0RVh0ZGF0ZTptb2RpZnkAMjAyMy0wNS0yMlQwOTowNDozOCswMDowMBqxqAYAAAAodEVYdGRhdGU6dGltZXN0YW1wADIwMjMtMDUtMjJUMDk6MDQ6MzgrMDA6MDBNpInZAAAAAElFTkSuQmCC">
+							</a>
 						</div>
-						<button style="border-radius:5px; position:absolute; top:5px; right:10px; background:red; color:#fff; border:none;" onclick="event.preventDefault();closeThisSnippet(this)"> ✕ </button>
-						<input type="text" required  pattern="[a-zA-Z0-9]+" style="width:100%; padding:10px; margin-bottom:10px;" placeholder="' . i18n_r('massiveAdmin/TITLESNIPPET') . '" value="' .  $title . '" name="snippetTitle[]">
-						<textarea name="content[]" class="snippet-content" id="post-content" style="width:100%;">' . $content . '</textarea>
+						
+						<div class="w3-half w3-right-align">
+							<button class="w3-bar-item w3-btn w3-red w3-round w3-right"  style="padding:0 5px; border:black solid 1px" onclick="event.preventDefault();closeThisSnippet(this)"><svg xmlns="http://www.w3.org/2000/svg" width="1.3em" height="1.3em" viewBox="0 0 24 24" id="trash"><path fill="#fff" d="M20,6H16V5a3,3,0,0,0-3-3H11A3,3,0,0,0,8,5V6H4A1,1,0,0,0,4,8H5V19a3,3,0,0,0,3,3h8a3,3,0,0,0,3-3V8h1a1,1,0,0,0,0-2ZM10,5a1,1,0,0,1,1-1h2a1,1,0,0,1,1,1V6H10Zm7,14a1,1,0,0,1-1,1H8a1,1,0,0,1-1-1V8H17Z"></path></svg></button>
+						</div>
 					</div>
 					
-					<script>
-						document.getElementById("copy-' . $title . '").addEventListener("click", copyCodeToClipboard);
-						function copyCodeToClipboard() {
-						  const codeSnippet = document.getElementById("' .  $title . '");
-						  const range = document.createRange();
-						  range.selectNode(' .  $title . ');
-						  const selection = window.getSelection();
-						  selection.removeAllRanges();
-						  selection.addRange(range);
-						  document.execCommand("copy");
-						  selection.removeAllRanges();
-						}
-					</script>
+					<input class="w3-input w3-border w3-round w3-margin-bottom" style="width:98%;" type="text" required  pattern="[a-zA-Z0-9]+" placeholder="' . i18n_r('massiveAdmin/TITLESNIPPET') . '" value="' .  $title . '" name="snippetTitle[]">
 					
-					';
-				};
+					<textarea name="content[]" class="snippet-content" id="post-content" style="width:100%;">' . $content . '</textarea>
+				
+					<hr style="margin:30px 0; border:lightgrey 1px dashed">
+				</div>
+				
+				<script>
+					document.getElementById("copy-' . $title . '").addEventListener("click", copyCodeToClipboard);
+					function copyCodeToClipboard() {
+					  const codeSnippet = document.getElementById("' .  $title . '");
+					  const range = document.createRange();
+					  range.selectNode(' .  $title . ');
+					  const selection = window.getSelection();
+					  selection.removeAllRanges();
+					  selection.addRange(range);
+					  document.execCommand("copy");
+					  selection.removeAllRanges();
+					}
+				</script>
+				';
 			};
+		};
 		?>
-
-		<div style="width:100%; margin-top:20px;" class="submit-show">
-			<input type="submit" class="submit" name="snippetSave" id="button" value="<?php echo i18n_r('massiveAdmin/SUBMITSNIPPET');?>">
+	
+		<div class="w3-margin-top w3-center">
+			<button class="w3-btn w3-large w3-round w3-green" type="submit" value="<?php echo i18n_r('massiveAdmin/SUBMITSNIPPET');?>" name="snippetSave"><?php echo i18n_r('massiveAdmin/SUBMITSNIPPET');?></button>
 		</div>
 
 	</div>
@@ -89,10 +101,14 @@
 <script>
 	function addNewSnippet() {
 		document.querySelector('.snippet-list').insertAdjacentHTML('afterBegin', `
-		<div style="display:block; position:relative; width:100%; border:solid 1px #ddd; margin-top:15px; background:#fafafa; padding:10px; box-sizing:border-box; padding-top:30px;">
+		<div class="w3-container">
 			<button style="border-radius:5px; position:absolute; top:5px; right:10px; background:red; color:#fff; border:none;" onclick="event.preventDefault();closeThisSnippet(this)"> ✕ </button>
-			<input type="text" required  pattern="[a-zA-Z0-9]+" style="width:100%; padding:10px; margin-bottom:10px;" placeholder="<?php echo i18n_r('massiveAdmin/TITLESNIPPET');?>"  name="snippetTitle[]">
+			
+			<input class="w3-input w3-border w3-round w3-margin-bottom" style="width:98%;" type="text" required  pattern="[a-zA-Z0-9]+" placeholder="<?php echo i18n_r('massiveAdmin/TITLESNIPPET');?>" name="snippetTitle[]">
+			
 			<textarea name="content[]" id="post-content" style="width:100%;"></textarea>
+				
+			<hr style="margin:50px 0;border:lightgrey 2px dashed">
 		</div>
 		`);
 
@@ -137,9 +153,11 @@
 	};
 </script>
 
-<?php if (isset($_POST['snippetSave'])) {
+<?php 
+if (isset($_POST['snippetSave'])) {
 	global $MA;
 	$MA->snippetSave();
 
 	echo ("<meta http-equiv='refresh' content='0'>");
-}; ?>
+}; 
+?>

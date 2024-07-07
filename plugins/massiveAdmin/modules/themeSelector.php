@@ -1,11 +1,45 @@
 <?php 
-	$fileOptionCheck = @file_get_contents( GSDATAOTHERPATH.'massiveTheme/option.txt');
-;?>
+$fileOptionCheck = @file_get_contents( GSDATAOTHERPATH.'massiveTheme/option.txt');
+?>
+
+<link rel="stylesheet" href="<?php global $SITEURL; echo $SITEURL; ?>plugins/massiveAdmin/css/w3.css">
+<link rel="stylesheet" href="<?php global $SITEURL; echo $SITEURL; ?>plugins/massiveAdmin/css/w3-custom.css">
+
+<div class="w3-parent w3-container"><!-- Start Plug -->
+
+<?php 
+if(isset($_POST['save'])){
+	$folder =GSDATAOTHERPATH.'massiveTheme/';
+	if(!file_exists($folder)){
+	mkdir($folder,0755);
+	}
+
+	file_put_contents($folder.'option.txt',$_POST['theme']);
+
+	echo '
+	<div class="w3-panel w3-green done-info w3-round">
+		<h4 class="w3-text-white">Success!</h4>
+		<p style="font-size:1.2em">Updating to the <b style="text-transform: uppercase;">"'.$_POST['theme'].'"</b> theme.</p>
+	</div>
+	<meta http-equiv=\'refresh\' content=\'3; url=load.php?id=massiveAdmin&themeselector\'>';
+
+	echo '
+	<script>
+		document.querySelector(`select[name="theme"]`).value = "'.$fileOptionCheck.'"
+
+		setTimeout(function(){
+			document.querySelector(".done-info").style.display="none";
+		},3000)
+	</script>';
+};
+?>
+
+<h3>Admin Theme Selector</h3>
+<hr>
 
 <form method="POST">
-	<h3>Admin Theme Selector</h3>
 
-	<select name="theme" style="width:100%;padding:10px;border:solid 1px #ddd; background:#fff;">
+	<select name="theme" class="w3-select w3-border" style="padding:10px;  width:98%">
 		<?php 
 			foreach(glob(GSPLUGINPATH.'massiveAdmin/theme/*.css') as $style){
 				$pure = pathinfo($style)['filename'];
@@ -13,29 +47,8 @@
 			};
 		?>
 	</select>
-
-	<input type="submit" class="submit" style="margin-top:20px;" name="save">
+	
+	<div class="w3-margin-top w3-center">
+		<button class="w3-btn w3-large w3-round w3-green" type="submit" name="save"><?php echo i18n_r('massiveAdmin/SAVEOPTION'); ?></button>
+	</div>
 </form>
-
-<?php 
-	if(isset($_POST['save'])){
-		$folder =GSDATAOTHERPATH.'massiveTheme/';
-		if(!file_exists($folder)){
-		mkdir($folder,0755);
-		}
-
-		file_put_contents($folder.'option.txt',$_POST['theme']);
-
-		echo '
-		<div style="width:100%;background:var(--main-color);padding:10px;border-radius:5px;color:#fff;margin-top:20px;display:block;" class="done-info">Done! You choose '.$_POST['theme'].' Theme</div>';
-
-		echo '
-		<script>
-			document.querySelector(`select[name="theme"]`).value = "'.$fileOptionCheck.'"
-
-			setTimeout(function(){
-				document.querySelector(".done-info").style.display="none";
-			},3000)
-		</script>';
-	};
-;?>

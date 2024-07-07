@@ -1,38 +1,28 @@
-<?php
-global $SITEURL;; ?>
-<style>
-	@import url('<?php echo $SITEURL; ?>plugins/massiveAdmin/css/hideAdminSection.css');
-</style>
+<?php global $SITEURL; ?>
 
-<div>
+<link rel="stylesheet" href="<?php global $SITEURL; echo $SITEURL; ?>plugins/massiveAdmin/css/w3.css">
+<link rel="stylesheet" href="<?php global $SITEURL; echo $SITEURL; ?>plugins/massiveAdmin/css/w3-custom.css">
+<style>.w3-block, .w3-select, .w3-input{width:96%}</style>
 
-	<div class="hidetitle" id="hidetitle3">
-		<h3><?php echo i18n_r("massiveAdmin/CREATENEWUSER"); ?></h3>
+<div class="w3-parent w3-container"><!-- Start Plug -->
+<h3><?php echo i18n_r("massiveAdmin/HIDEMENUTITLE"); ?></h3>
+<hr>
 
-		<svg xmlns="http://www.w3.org/2000/svg" data-name="Layer 1" viewBox="0 0 24 24" id="arrow-down" style="display:inline-block;width:20px;">
-			<path fill="var(--main-color)" d="M17.71,11.29a1,1,0,0,0-1.42,0L13,14.59V7a1,1,0,0,0-2,0v7.59l-3.29-3.3a1,1,0,0,0-1.42,1.42l5,5a1,1,0,0,0,.33.21.94.94,0,0,0,.76,0,1,1,0,0,0,.33-.21l5-5A1,1,0,0,0,17.71,11.29Z"></path>
-		</svg>
+	<button onclick="myFunction('Tab1')" class="w3-button w3-xlarge w3-round w3-block w3-gray w3-text-white w3-left-align w3-margin-bottom"><?php echo i18n_r("massiveAdmin/CREATENEWUSER"); ?><span class="w3-right"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24"><path fill="currentColor" fill-rule="evenodd" d="m5 8l7 8l7-8z"/></svg></span></button>
+	<div id="Tab1" class="w3-hide w3-container">
+		
+		<form action="" method="post" class="w3-margin-bottom" style="width:96%">
+			<label><?php echo i18n_r("massiveAdmin/USERNAMECREATE"); ?></label>
+			<input class="w3-input w3-padding w3-border w3-round w3-margin-bottom" type="text" name="createuserhidden" oninput="toLowercase(this)">
+			
+			<label><?php echo i18n_r('massiveAdmin/PASSWORDCREATE'); ?></label>
+			<input class="w3-input w3-padding w3-border w3-round w3-margin-bottom" type="password" name="createpassword">
 
-	</div>
+			<label><?php echo i18n_r('massiveAdmin/EMAILCREATE'); ?></label>
+			<input class="w3-input w3-padding w3-border w3-round w3-margin-bottom" type="e-mail" name="createuseremail">
 
-	<div class="hidecontent hidecontent3" id="hidecontent3">
-		<form action="" method="post">
-			<br>
-			<?php echo i18n_r("massiveAdmin/USERNAMECREATE"); ?>
-			<br>
-			<input type="text" name="createuserhidden" oninput="toLowercase(this)">
-			<br><br>
-			<?php echo i18n_r('massiveAdmin/PASSWORDCREATE'); ?>
-			<br>
-			<input type="password" name="createpassword">
-			<br> <br>
-			<?php echo i18n_r('massiveAdmin/EMAILCREATE'); ?>
-			<br>
-			<input type="e-mail" name="createuseremail">
-			<br> <br>
-			<?php echo i18n_r('massiveAdmin/LANGCREATE'); ?>
-			<br><br>
-			<select name="lang">
+			<label><?php echo i18n_r('massiveAdmin/LANGCREATE'); ?></label>
+			<select class="w3-select w3-padding w3-border w3-round w3-margin-bottom" name="lang">
 				<?php
 				$files = glob("../admin/lang/*.php");
 				foreach ($files as &$value) {
@@ -43,68 +33,61 @@ global $SITEURL;; ?>
 					echo ' <option value="' . $new . '">' . $new . '</option>';
 				};; ?>
 			</select>
-
-			<input type="submit" name="savecreateuser" style="width: 100%; padding: 10px; margin-top: 20px; background: #000; color: #fff; border: none; border-radius: 5px;" value="<?php echo i18n_r('massiveAdmin/CREATENEWUSER'); ?>">
+			
+			<div class="w3-margin-top w3-center">
+				<button class="w3-btn w3-large w3-round w3-green" type="submit" name="savecreateuser">
+					<?php echo i18n_r('massiveAdmin/CREATENEWUSER'); ?>
+				</button>
+			</div>
+			
 		</form>
-	</div>
-
-</div>
-
-<script>
-
-function toLowercase(input) {
-            input.value = input.value.toLowerCase();
-        }
-
-	document.querySelector('.hidecontent3').classList.add('hide');
-
-	document.querySelector('#hidetitle3').addEventListener('click', () => {
-		if (document.querySelector('.hidecontent3').classList.contains('hide') == true) {
-			document.querySelector('.hidecontent3').classList.remove('hide');
-		} else {
+		
+		<script>
+			function toLowercase(input) {
+				input.value = input.value.toLowerCase();
+			}
 			document.querySelector('.hidecontent3').classList.add('hide');
-		}
-	});
-</script>
 
-<?php
-if (isset($_COOKIE['GS_ADMIN_USERNAME'])) {
-	if (isset($_POST['savecreateuser'])) {
-		global $MA;
-		$MA->saveCreateUser();
-	};
-};; ?>
-
-<?php
-$massiveHiddenSection = GSDATAOTHERPATH . '/massiveHiddenSection/';
-$filejson = 'userhidden.json';
-$finaljson = $massiveHiddenSection . $filejson;
-$chmod_mode	= 0755;
-$folder_exists = file_exists($massiveHiddenSection) || mkdir($massiveHiddenSection, $chmod_mode);
-if (file_exists($finaljson)) {
-	$datee = file_get_contents($finaljson);
-	$data = json_decode($datee);
-};
-?>
-
-<div id="hidetitle1" class="hidetitle">
-	<h3><?php echo i18n_r('massiveAdmin/HIDSECTIONTITLE'); ?></h3>
-
-	<svg xmlns="http://www.w3.org/2000/svg" data-name="Layer 1" viewBox="0 0 24 24" id="arrow-down" style="display:inline-block;width:20px;">
-		<path fill="var(--main-color)" d="M17.71,11.29a1,1,0,0,0-1.42,0L13,14.59V7a1,1,0,0,0-2,0v7.59l-3.29-3.3a1,1,0,0,0-1.42,1.42l5,5a1,1,0,0,0,.33.21.94.94,0,0,0,.76,0,1,1,0,0,0,.33-.21l5-5A1,1,0,0,0,17.71,11.29Z"></path>
-	</svg>
-
-</div>
-
-<div id="hidecontent1" class="hidecontent hidecontent1">
-
-	<?php foreach (glob(GSUSERSPATH . '*.xml') as $us) : ?>
+			document.querySelector('#hidetitle3').addEventListener('click', () => {
+				if (document.querySelector('.hidecontent3').classList.contains('hide') == true) {
+					document.querySelector('.hidecontent3').classList.remove('hide');
+				} else {
+					document.querySelector('.hidecontent3').classList.add('hide');
+				}
+			});
+		</script>
 
 		<?php
+		if (isset($_COOKIE['GS_ADMIN_USERNAME'])) {
+			if (isset($_POST['savecreateuser'])) {
+				global $MA;
+				$MA->saveCreateUser();
+			};
+		};
+		?>
 
+		<?php
+		$massiveHiddenSection = GSDATAOTHERPATH . '/massiveHiddenSection/';
+		$filejson = 'userhidden.json';
+		$finaljson = $massiveHiddenSection . $filejson;
+		$chmod_mode	= 0755;
+		$folder_exists = file_exists($massiveHiddenSection) || mkdir($massiveHiddenSection, $chmod_mode);
+		if (file_exists($finaljson)) {
+			$datee = file_get_contents($finaljson);
+			$data = json_decode($datee);
+		};
+		?>
+		
+	</div>
+
+	<button onclick="myFunction('Tab2')" class="w3-button w3-xlarge w3-round w3-block w3-gray w3-text-white w3-left-align w3-margin-bottom"><?php echo i18n_r('massiveAdmin/HIDSECTIONTITLE'); ?> <span class="w3-right"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24"><path fill="currentColor" fill-rule="evenodd" d="m5 8l7 8l7-8z"/></svg></span></button>
+	<div id="Tab2" class="w3-hide w3-container">
+	
+		<?php foreach (glob(GSUSERSPATH . '*.xml') as $us) : ?>
+
+		<?php
 		$file =  GSDATAOTHERPATH . 'massiveHiddenSection/' . pathinfo($us)['filename'] . '.json';
 		$data = '';
-
 		if (file_exists($file)) {
 
 			$data = file_get_contents($file);
@@ -112,78 +95,79 @@ if (file_exists($finaljson)) {
 		} else {
 			$data = null;
 		};
-
 		?>
 
-		<form method="POST" data-user="<?php echo pathinfo($us)['filename']; ?>" style="width:100%;height:auto; margin-top:20px;" class="hideadminsectionform">
+		<form class="w3-margin-bottom" style="width:96%" method="POST" data-user="<?php echo pathinfo($us)['filename']; ?>">
 
-			<div style="width:100%;padding:5px;border:solid 1px #ddd;background:var(--main-color);color:#fff;grid-column: 1/3;font-size:1.2rem;height:auto;padding:5px;">
-				<p>User: <?php echo 
-				$usxml = simplexml_load_file($us);
-				echo $usxml->USR;
-				?></p>
-			</div>
+			<div class="w3-panel w3-leftbar w3-pale-blue w3-border-blue w3-padding"><h4 class="w3-margin-top">
+			User: <?php echo 
+			$usxml = simplexml_load_file($us);
+			echo $usxml->USR;
+			?></h4></div>
 
 			<input type="hidden" name="user" value="<?php echo pathinfo($us)['filename']; ?>">
 
-			<p><?php echo i18n_r('massiveAdmin/HIDEPAGES'); ?></p>
-			<select name="hidepages">
+			<label><?php echo i18n_r('massiveAdmin/HIDEPAGES'); ?></label>
+			<select class="w3-select w3-padding w3-border w3-round w3-margin-bottom" name="hidepages">
 				<option value="show"><?php echo i18n_r('massiveAdmin/SHOW'); ?></option>
 				<option value="hide"><?php echo i18n_r('massiveAdmin/HIDE'); ?></option>
 			</select>
 
-			<p><?php echo i18n_r('massiveAdmin/HIDEFILES'); ?></p>
-			<select name="hidefiles">
+			<label><?php echo i18n_r('massiveAdmin/HIDEFILES'); ?></label>
+			<select class="w3-select w3-padding w3-border w3-round w3-margin-bottom" name="hidefiles">
 				<option value="show"><?php echo i18n_r('massiveAdmin/SHOW'); ?></option>
 				<option value="hide"><?php echo i18n_r('massiveAdmin/HIDE'); ?></option>
 			</select>
 
-			<p><?php echo i18n_r('massiveAdmin/HIDETHEMES'); ?></p>
-			<select name="hidethemes">
+			<label><?php echo i18n_r('massiveAdmin/HIDETHEMES'); ?></label>
+			<select class="w3-select w3-padding w3-border w3-round w3-margin-bottom" name="hidethemes">
 				<option value="show"><?php echo i18n_r('massiveAdmin/SHOW'); ?></option>
 				<option value="hide"><?php echo i18n_r('massiveAdmin/HIDE'); ?></option>
 			</select>
 
-			<p><?php echo i18n_r('massiveAdmin/HIDEBACKUP'); ?></p>
-			<select name="hidebackup">
+			<label><?php echo i18n_r('massiveAdmin/HIDEBACKUP'); ?></label>
+			<select class="w3-select w3-padding w3-border w3-round w3-margin-bottom" name="hidebackup">
 				<option value="show"><?php echo i18n_r('massiveAdmin/SHOW'); ?></option>
 				<option value="hide"><?php echo i18n_r('massiveAdmin/HIDE'); ?></option>
 			</select>
 
-			<p><?php echo i18n_r('massiveAdmin/HIDEPLUGIN'); ?></p>
-			<select name="hideplugin">
+			<label><?php echo i18n_r('massiveAdmin/HIDEPLUGIN'); ?></label>
+			<select class="w3-select w3-padding w3-border w3-round w3-margin-bottom" name="hideplugin">
 				<option value="show"><?php echo i18n_r('massiveAdmin/SHOW'); ?></option>
 				<option value="hide"><?php echo i18n_r('massiveAdmin/HIDE'); ?></option>
 			</select>
 
-			<p><?php echo i18n_r('massiveAdmin/HIDESUPPORT'); ?></p>
-			<select name="hidesupport">
+			<label><?php echo i18n_r('massiveAdmin/HIDESUPPORT'); ?></label>
+			<select class="w3-select w3-padding w3-border w3-round w3-margin-bottom" name="hidesupport">
 				<option value="show"><?php echo i18n_r('massiveAdmin/SHOW'); ?></option>
 				<option value="hide"><?php echo i18n_r('massiveAdmin/HIDE'); ?></option>
 			</select>
 
-			<p><?php echo i18n_r('massiveAdmin/HIDESETTINGS'); ?></p>
-			<select name="hidesettings">
+			<label><?php echo i18n_r('massiveAdmin/HIDESETTINGS'); ?></label>
+			<select class="w3-select w3-padding w3-border w3-round w3-margin-bottom" name="hidesettings">
 				<option value="show"><?php echo i18n_r('massiveAdmin/SHOW'); ?></option>
 				<option value="hide"><?php echo i18n_r('massiveAdmin/HIDE'); ?></option>
 			</select>
 
-			<p><?php echo i18n_r('massiveAdmin/HIDEI18NGALLERY'); ?></p>
-			<select name="hidei18n">
+			<label><?php echo i18n_r('massiveAdmin/HIDEI18NGALLERY'); ?></label>
+			<select class="w3-select w3-padding w3-border w3-round w3-margin-bottom" name="hidei18n">
 				<option value="show"><?php echo i18n_r('massiveAdmin/SHOW'); ?></option>
 				<option value="hide"><?php echo i18n_r('massiveAdmin/HIDE'); ?></option>
 			</select>
 
-			<p> <?php echo i18n_r('massiveAdmin/HIDEGSSETTINGS'); ?></p>
-			<select name="hidegssettings">
+			<label><?php echo i18n_r('massiveAdmin/HIDEGSSETTINGS'); ?></label>
+			<select class="w3-select w3-padding w3-border w3-round w3-margin-bottom" name="hidegssettings">
 				<option value="show"><?php echo i18n_r('massiveAdmin/SHOW'); ?></option>
 				<option value="hide"><?php echo i18n_r('massiveAdmin/HIDE'); ?></option>
 			</select>
-
-			<br>
-			<br>
 			
-			<input type="submit" name="submit" value="<?php echo i18n_r('massiveAdmin/SAVEOPTION'); ?>" style="grid-column:1/3" />
+			<div class="w3-margin-top w3-center">
+				<button class="w3-btn w3-large w3-round w3-green" type="submit" name="submit">
+					<?php echo i18n_r('massiveAdmin/SAVEOPTION'); ?>
+				</button>
+			</div>
+			
+			<hr>
 
 		</form>
 
@@ -202,66 +186,37 @@ if (file_exists($finaljson)) {
 		</script>
 
 		<?php endif;?>
+		<?php endforeach; ?>
+		
+	</div>
 
-	<?php endforeach; ?>
-
-</div>
-
-<script>
-	document.querySelector('.hidecontent1').classList.add('hide');
-
-	document.querySelector('#hidetitle1').addEventListener('click', () => {
-		if (document.querySelector('.hidecontent1').classList.contains('hide') == true) {
-			document.querySelector('.hidecontent1').classList.remove('hide');
-		} else {
-			document.querySelector('.hidecontent1').classList.add('hide');
-		}
-	});
-</script>
-
-<div class="hidetitle" id="hidetitle2">
-	<h3><?php echo i18n_r('massiveAdmin/USERMANAGER'); ?></h3>
-
-	<svg xmlns="http://www.w3.org/2000/svg" data-name="Layer 1" viewBox="0 0 24 24" id="arrow-down" style="display:inline-block;width:20px;">
-		<path fill="var(--main-color)" d="M17.71,11.29a1,1,0,0,0-1.42,0L13,14.59V7a1,1,0,0,0-2,0v7.59l-3.29-3.3a1,1,0,0,0-1.42,1.42l5,5a1,1,0,0,0,.33.21.94.94,0,0,0,.76,0,1,1,0,0,0,.33-.21l5-5A1,1,0,0,0,17.71,11.29Z"></path>
-	</svg>
-
-</div>
-
-<div class="hidecontent hidecontent2">
-	<ul class="user-list">
-		<?php
-		global $MA;
-		$MA->userList();; ?>
-	</ul>
+	<button onclick="myFunction('Tab3')" class="w3-button w3-xlarge w3-round w3-block w3-gray w3-text-white w3-left-align w3-margin-bottom"><?php echo i18n_r('massiveAdmin/USERMANAGER'); ?> <span class="w3-right"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24"><path fill="currentColor" fill-rule="evenodd" d="m5 8l7 8l7-8z"/></svg></span></button>
+	<div id="Tab3" class="w3-hide w3-container">
+		<ul class="w3-ul">
+			<?php
+			global $MA;
+			$MA->userList();; ?>
+		</ul>
+	</div>
 
 	<script>
-		document.querySelector('.hidecontent2').classList.add('hide');
-
-		document.querySelector('#hidetitle2').addEventListener('click', () => {
-			if (document.querySelector('.hidecontent2').classList.contains('hide') == true) {
-				document.querySelector('.hidecontent2').classList.remove('hide');
-			} else {
-				document.querySelector('.hidecontent2').classList.add('hide');
-			}
-		});
-
-		document.body.setAttribute('data-nodelete', '<?php echo $_COOKIE['GS_ADMIN_USERNAME']; ?>');
-
-		const nodelete = document.body.getAttribute('data-nodelete');
-
-		document.querySelectorAll('.user-list li').forEach(x => {
-			const name = x.querySelector('span').innerHTML;
-			if (name === nodelete) {
-				x.querySelector('.delete-this').remove();
-			}
-		})
+		function myFunction(id) {
+		  var x = document.getElementById(id);
+		  if (x.className.indexOf("w3-show") == -1) {
+			x.className += " w3-show";
+			x.previousElementSibling.className = 
+			x.previousElementSibling.className.replace("w3-gray", "w3-gs-main");
+		  } else { 
+			x.className = x.className.replace(" w3-show", "");
+			x.previousElementSibling.className = 
+			x.previousElementSibling.className.replace("w3-gs-main", "w3-gray");
+		  }
+		}
 	</script>
-</div>
 
-<?php
-if (isset($_POST['submit'])) {
-	global $MA;
-	$MA->submitHideAdminSection();
-};
-?>
+	<?php
+	if (isset($_POST['submit'])) {
+		global $MA;
+		$MA->submitHideAdminSection();
+	};
+	?>

@@ -69,7 +69,7 @@ if (document.querySelector('#pages') !== null) {
 	document.querySelectorAll('#editpages tr').forEach(tr => {
 		if (tr.querySelector('.pagetitle') !== null) {
 			const pagetitle = tr.querySelector('.pagetitle');
-			const secondarylink = tr.querySelector('.secondarylink a').getAttribute('href');
+ 			const secondarylink = tr.querySelector('.secondarylink a').getAttribute('href');
 			pagetitle.insertAdjacentHTML('afterend', '<td class="linker">' + secondarylink + '</td>');
 		}
 	});
@@ -83,72 +83,81 @@ if (document.querySelector('#pages') !== null) {
 });
 
  document.querySelectorAll('.pagetitle span:not(.showstatus)').forEach(function(span) {
-    var tr = span.parentElement.parentElement;
+    var tr = span.closest('tr');
     var level = tr.querySelectorAll('.pagetitle span:not(.showstatus)').length;
     tr.setAttribute('rel', level);
-    tr.setAttribute('class', 'hidden l-' + level);
+    tr.classList.add('hidden', 'l-' + level);
 });
 
  document.querySelectorAll('#editpages tr.hidden').forEach(function(row) {
-    var prevRel = parseInt(row.previousElementSibling.getAttribute('rel'));
-    var currentRel = parseInt(row.getAttribute('rel'));
+    var prevRel = parseInt(row.previousElementSibling.getAttribute('rel'), 10);
+    var currentRel = parseInt(row.getAttribute('rel'), 10);
     if (prevRel < currentRel) {
-        row.previousElementSibling.querySelector('.pagetitle').insertAdjacentHTML('afterbegin', '<div class="switch"></div>');
+        row.previousElementSibling.querySelector('.pagetitle').insertAdjacentHTML('afterbegin', '<div class="switch" style="background:#fff;"></div>');
     }
 });
 
- document.querySelectorAll('.pagetitle').forEach(function(pagetitle) {
+
+document.querySelectorAll('.pagetitle').forEach(function(pagetitle) {
     pagetitle.addEventListener('click', function() {
         var tr = this.parentElement;
         var lvl = parseInt(tr.getAttribute('rel'));
         var switchDiv = this.querySelector('.switch');
+        var next = tr.nextElementSibling;
+
         if (switchDiv.classList.contains('on')) {
-            Array.from(tr.nextElementSiblings).forEach(function(next) {
-                if (next.classList.contains('l-' + lvl)) {
-                    next.classList.add('hidden');
-                    Array.from(next.querySelectorAll('.switch.on')).forEach(function(switchOn) {
-                        switchOn.classList.remove('on');
-                    });
-                }
-            });
+            while (next && next.classList.contains('l-' + lvl)) {
+                next.classList.add('hidden');
+                next.querySelectorAll('.switch.on').forEach(function(switchOn) {
+                    switchOn.classList.remove('on');
+                });
+                next = next.nextElementSibling;
+            }
         } else {
-            Array.from(tr.nextElementSiblings).forEach(function(next) {
-                if (next.classList.contains('l-' + (lvl + 1))) {
-                    next.classList.remove('hidden');
-                    next.classList.add('fadeIn');
-                }
-            });
+            while (next && next.classList.contains('l-' + (lvl + 1))) {
+                next.classList.remove('hidden');
+                next.classList.add('fadeIn');
+                next = next.nextElementSibling;
+            }
         }
         switchDiv.classList.toggle('on');
     });
 });
 
+
+// Insert SVG into .switch elements
 document.querySelectorAll('.switch').forEach(sx => {
-	sx.insertAdjacentHTML('afterbegin', `
-	<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="plus" style="display:inline-block;width:15px;height:15px;fill:var(--main-color)"><path d="M19,11H13V5a1,1,0,0,0-2,0v6H5a1,1,0,0,0,0,2h6v6a1,1,0,0,0,2,0V13h6a1,1,0,0,0,0-2Z"></path></svg>`);
+    sx.insertAdjacentHTML('afterbegin', `
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="plus" style="display:inline-block;width:15px;height:15px;fill:var(--main-color)"><path d="M19,11H13V5a1,1,0,0,0-2,0v6H5a1,1,0,0,0,0,2h6v6a1,1,0,0,0,2,0V13h6a1,1,0,0,0,0-2Z"></path></svg>`);
 });
 
-document.querySelector('#header .nav').insertAdjacentHTML('beforebegin', `<button class="rwd" >MENU  
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="bars" style="display:inline-block;width:20px;height:20px;margin-bottom:-5px;"><path fill="#fff" d="M3,8H21a1,1,0,0,0,0-2H3A1,1,0,0,0,3,8Zm18,8H3a1,1,0,0,0,0,2H21a1,1,0,0,0,0-2Zm0-5H3a1,1,0,0,0,0,2H21a1,1,0,0,0,0-2Z"></path></svg></button>`);
+// Insert menu button before #header .nav
+document.querySelector('#header .nav').insertAdjacentHTML('beforebegin', `
+<button class="rwd">MENU  
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="bars" style="display:inline-block;width:20px;height:20px;margin-bottom:-5px;"><path fill="#fff" d="M3,8H21a1,1,0,0,0,0-2H3A1,1,0,0,0,3,8Zm18,8H3a1,1,0,0,0,0,2H21a1,1,0,0,0,0-2Zm0-5H3a1,1,0,0,0,0,2H21a1,1,0,0,0,0-2Z"></path></svg>
+</button>`);
 
+
+// Toggle #header .nav display on menu button click
 document.querySelector('.rwd').addEventListener('click', () => {
-	if (document.querySelector('#header .nav').style.display == "flex") {
-		document.querySelector('#header .nav').style.display = "none";
-	} else {
-		document.querySelector('#header .nav').style.display = "flex";
-	}
+    const nav = document.querySelector('#header .nav');
+    nav.style.display = (nav.style.display === 'flex') ? 'none' : 'flex';
 });
 
+// Insert SVG into the first link in #edit .edit-nav if it exists
 if (document.querySelector('#edit .edit-nav') !== null) {
-	document.querySelector('#edit .edit-nav a:nth-child(1)').insertAdjacentHTML('beforeend', `
-	
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="search" style="display:inline-block;width:10px;fill:#fff !important;margin-left:5px"><path  d="M21.71,20.29,18,16.61A9,9,0,1,0,16.61,18l3.68,3.68a1,1,0,0,0,1.42,0A1,1,0,0,0,21.71,20.29ZM11,18a7,7,0,1,1,7-7A7,7,0,0,1,11,18Z"></path></svg>
-	`);
+    document.querySelector('#edit .edit-nav a:nth-child(1)').insertAdjacentHTML('beforeend', `
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="search" style="display:inline-block;width:10px;fill:#fff !important;margin-left:5px"><path d="M21.71,20.29,18,16.61A9,9,0,1,0,16.61,18l3.68,3.68a1,1,0,0,0,1.42,0A1,1,0,0,0,21.71,20.29ZM11,18a7,7,0,1,1,7-7A7,7,0,0,1,11,18Z"></path></svg>
+    `);
 }
 
+// Insert SVG into #header #nav_i18n_gallery a if it exists
 if (document.querySelector('#header #nav_i18n_gallery') !== null) {
-	document.querySelector('#header #nav_i18n_gallery a').insertAdjacentHTML('afterbegin', '');
-};
+    document.querySelector('#header #nav_i18n_gallery a').insertAdjacentHTML('afterbegin', `
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="gallery-icon" style="display:inline-block;width:15px;height:15px;fill:var(--main-color);"><path d="M12 2a10 10 0 100 20 10 10 0 000-20zM5 8l5 5-5 5-2-2 3-3-3-3 2-2zm12 0l-2 2 3 3-3 3 2 2 5-5-5-5z"></path></svg>
+    `);
+}
+
 
 // add uploader on screen
 
