@@ -158,6 +158,7 @@ if(isset($_POST['submitted'])) {
 		$status   = sendmail($EMAIL,$subject,$message);
 		# activate default plugins
 		change_plugin('massiveAdmin.php',true);
+		change_plugin('UpgradeCE.php',true);
 
 		# set the login cookie, then redirect user to secure panel
 		create_cookie();
