@@ -391,7 +391,7 @@ if (get_filename_id() != 'install' && get_filename_id() != 'setup' && get_filena
 			return rmdir($dir);
 		}
 
-		$dirs = ['../install_TMP', 'template/js/fancybox', 'template/js/jcrop', 'template/js/uploadify', 'template/js/codemirror/lib', 'template/js/codemirror/theme']; // Add your directories here
+		$dirs = ['../install_TMP', 'template/js/fancybox', 'template/js/uploadify', 'template/js/codemirror/lib', 'template/js/codemirror/theme']; // Add your directories here
 		foreach ($dirs as $dir) {
 			if (file_exists($dir)) {
 				$filedeletionstatus = deleteDirectory($dir);

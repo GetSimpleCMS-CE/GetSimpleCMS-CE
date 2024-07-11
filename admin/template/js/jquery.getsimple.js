@@ -11,6 +11,15 @@
 /*
  * GetSimple js file    
  */
+function updateCoords(c) {
+	$('#handw').show();
+	$('#x').val(c.x);
+	$('#y').val(c.y);
+	$('#w').val(c.w);
+	$('#h').val(c.h);
+	$('#pich').html(c.h);
+	$('#picw').html(c.w);
+};
 var Debugger = function () {}
 Debugger.log = function (message) {
 	try {
@@ -84,6 +93,12 @@ basename = function(str){
 function i18n(key){
 	return GS.i18n[key];
 }
+
+function checkCoords() {
+	if (parseInt($('#x').val())) return true;
+	alert('Please select a crop region then press submit.');
+	return false;
+};
 		 
 jQuery(document).ready(function () {
  
