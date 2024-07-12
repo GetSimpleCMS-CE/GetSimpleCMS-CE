@@ -45,7 +45,8 @@ The official unofficial GS update repo. Helping to bridge the gap in PHP compati
 - Fix - Email HTML Render
 - Fix - Password Reset
 - Fix - Components copy code
-- Removed - Deprecated Uploadify & Jcrop
+- Fix - jCrop
+- Removed - Deprecated Uploadify
 - Removed - Outdated Demo Templates & Plugins
 - Removed - Dead Files
 - Hotfixes - Remote command execution vulnerability #1352  (https://github.com/GetSimpleCMS/GetSimpleCMS/issues/1352)
