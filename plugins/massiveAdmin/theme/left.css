@@ -1,5 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Lato:wght@300;400&display=swap");
-@import url("https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css");
+ 
 
 :root {
 	--main-color: #00162a;
@@ -15,7 +14,7 @@
 
 body {
 	background: var(--secondary-color);
-	font-family: "Lato", sans-serif;
+	font-family: system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
 	font-size: 0.9rem;
 }
 
@@ -30,7 +29,7 @@ h3,
 h4,
 h5,
 h6 {
-	font-family: "Lato", sans-serif;
+	font-family: system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
 	color: var(--main-color);
 	font-style: unset;
 }
