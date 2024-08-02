@@ -36,67 +36,78 @@ $isUnixHost = (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN' ? false : true);
 if (isset($_FILES['file'])) {
 	$uploadsCount = count($_FILES['file']['name']);
 	if($uploadsCount > 0) {
-	 $errors = [];
-	 $messages = [];
-	 for ($i=0; $i < $uploadsCount; $i++) {
-		if ($_FILES["file"]["error"][$i] > 0)	{
-			$errors[] = i18n_r('ERROR_UPLOAD');
-		} else {
-
-			//set variables
-			$count = '1';
-			$file = $_FILES["file"]["name"][$i];
-
-			$extension = pathinfo($file,PATHINFO_EXTENSION);
-			if(getDef('GSUPLOADSLC',true)) $extension = lowercase($extension);
-	  		$name      = pathinfo($file,PATHINFO_FILENAME);
-			$name      = clean_img_name(to7bit($name));
-			$base      = $name . '.' . $extension;
-
-			$file_loc = $path . $base;
-
-			//prevent overwriting
-			while ( file_exists($file_loc) ) {
-				$file_loc = $path . $count.'-'. $base;
-				$base = $count.'-'. $base;
-				$count++;
-			}
-
-			//validate file
-			if (validate_safe_file($_FILES["file"]["tmp_name"][$i], $_FILES["file"]["name"][$i])) {
-				move_uploaded_file($_FILES["file"]["tmp_name"][$i], $file_loc);
-				if (defined('GSCHMOD')) {
-					chmod($file_loc, GSCHMOD);
-				} else {
-					chmod($file_loc, 0644);
-				}
-				exec_action('file-uploaded');
-
-				// generate thumbnail				
-				require_once('inc/imagemanipulation.php');	
-				genStdThumb($subFolder,$base);					
-				$messages[] = i18n_r('FILE_SUCCESS_MSG').': <a href="'. $SITEURL .'data/uploads/'.$subFolder.$base.'" target="_blank">'. $SITEURL .'data/uploads/'.$subFolder.$base.'</a>';
+		$errors = [];
+		$messages = [];
+		$fileLinks = []; // Array to hold file links
+		for ($i=0; $i < $uploadsCount; $i++) {
+			if ($_FILES["file"]["error"][$i] > 0) {
+				$errors[] = i18n_r('ERROR_UPLOAD');
 			} else {
-				$errors[] = $_FILES["file"]["name"][$i] .' - '.i18n_r('ERROR_UPLOAD');
-			}
+				// Set variables
+				$count = '1';
+				$file = $_FILES["file"]["name"][$i];
 
-			//successfull message
-			
-		}
-	 }
-	 // after uploading all files process messages
-		if(sizeof($messages) != 0) { 
-			foreach($messages as $msg) {
-				$success = $msg.'<br />';
+				$extension = pathinfo($file, PATHINFO_EXTENSION);
+				if(getDef('GSUPLOADSLC', true)) $extension = strtolower($extension);
+				$name = pathinfo($file, PATHINFO_FILENAME);
+				$name = clean_img_name(to7bit($name));
+				$base = $name . '.' . $extension;
+
+				$file_loc = $path . $base;
+
+				// Prevent overwriting
+				while (file_exists($file_loc)) {
+					$file_loc = $path . $count . '-' . $base;
+					$base = $count . '-' . $base;
+					$count++;
+				}
+
+				// Validate file
+				if (validate_safe_file($_FILES["file"]["tmp_name"][$i], $_FILES["file"]["name"][$i])) {
+					move_uploaded_file($_FILES["file"]["tmp_name"][$i], $file_loc);
+					if (defined('GSCHMOD')) {
+						chmod($file_loc, GSCHMOD);
+					} else {
+						chmod($file_loc, 0644);
+					}
+					exec_action('file-uploaded');
+
+					// Generate thumbnail
+					require_once('inc/imagemanipulation.php');	
+					genStdThumb($subFolder, $base);
+
+					// Add the file link to the array
+					$fileLinks[] = '<span class="All Images Images iimage"><a href="'. $SITEURL .'data/uploads/'.$subFolder.$base.'" rel="facybox_i">'. $SITEURL .'data/uploads/'.$subFolder.$base.'</a></span>';
+
+				} else {
+					$errors[] = $_FILES["file"]["name"][$i] . ' - ' . i18n_r('ERROR_UPLOAD');
+				}
+
 			}
 		}
-		if(sizeof($errors) != 0) {
-			foreach($errors as $msg) {
-				$error = $msg.'<br />';
+
+		// After uploading all files process messages
+		if (sizeof($messages) != 0 || sizeof($fileLinks) != 0) {
+			if (!empty($fileLinks)) {
+				$fileLinksHtml = '<ul style="margin-left:30px">';
+				foreach ($fileLinks as $link) {
+					$fileLinksHtml .= '<li>' . $link . '</li>';
+				}
+				$fileLinksHtml .= '</ul>';
+				$messages[] = i18n_r('FILE_SUCCESS_MSG') . ': ' . $fileLinksHtml;
+			}
+			foreach ($messages as $msg) {
+				$success = $msg . '<br />';
+			}
+		}
+		if (sizeof($errors) != 0) {
+			foreach ($errors as $msg) {
+				$error = $msg . '<br />';
 			}
 		}
 	}
 }
+
 // if creating new folder
 if (isset($_GET['newfolder'])) {
 	

@@ -28,7 +28,8 @@ The official unofficial GS update repo. Helping to bridge the gap in PHP compati
 ## INSTALLATION: :pushpin:
 
 - Extract zip file to your web host
-- Visit your domain and navigate to /admin (or your gsadmin path set in gsconfig), you will be redirected to the upgrade and install scripts
+- Visit your domain and navigate to /admin (or your gsadmin path set in gsconfig.php), you will be redirected to the upgrade and install scripts
+- (If you are receiving a 500 error, you may need to adjust permissions in .htaccess)
 
 :warning: NOTE: Your site will be automatically put in maintenance mode during installs or upgrades.
 
@@ -45,7 +46,8 @@ The official unofficial GS update repo. Helping to bridge the gap in PHP compati
 - Fix - Email HTML Render
 - Fix - Password Reset
 - Fix - Components copy code
-- Removed - Deprecated Uploadify & Jcrop
+- Fix - jCrop
+- Removed - Deprecated Uploadify
 - Removed - Outdated Demo Templates & Plugins
 - Removed - Dead Files
 - Hotfixes - Remote command execution vulnerability #1352  (https://github.com/GetSimpleCMS/GetSimpleCMS/issues/1352)

@@ -46,13 +46,13 @@ list($imgwidth, $imgheight, $imgtype, $imgattr) = getimagesize($src_folder .$sub
 
 if (file_exists($thumb_folder . 'thumbnail.' . $src)) {
 	list($thwidth, $thheight, $thtype, $athttr) = getimagesize($thumb_folder . 'thumbnail.'.$src);
-	$thumb_exists = ' &nbsp; | &nbsp; <a href="'.$thumb_folder_rel . 'thumbnail.'. rawurlencode($src) .'" rel="facybox_i" >'.i18n_r('CURRENT_THUMBNAIL').'</a> <code>'.$thwidth.'x'.$thheight.'</code>';
+	$thumb_exists = ' &nbsp; | &nbsp; <span class="All Images Images iimage"><a href="'.$thumb_folder_rel . 'thumbnail.'. rawurlencode($src) .'" rel="facybox_i" >'.i18n_r('CURRENT_THUMBNAIL').'</a></span> <code>'.$thwidth.'x'.$thheight.'</code>';
 }else{
 	// if thumb is missing recreate it
 	require_once('inc/imagemanipulation.php');
 	if(genStdThumb($subPath,$src)){
 		list($thwidth, $thheight, $thtype, $athttr) = getimagesize($thumb_folder . 'thumbnail.'.$src);
-		$thumb_exists = ' &nbsp; | &nbsp; <a href="'.$thumb_folder_rel . 'thumbnail.'. rawurlencode($src) .'" rel="facybox_i" >'.i18n_r('CURRENT_THUMBNAIL').'</a> <code>'.$thwidth.'x'.$thheight.'</code>';
+		$thumb_exists = ' &nbsp; | &nbsp; <span class="All Images Images iimage"><a href="'.$thumb_folder_rel . 'thumbnail.'. rawurlencode($src) .'" rel="facybox_i" >'.i18n_r('CURRENT_THUMBNAIL').'</a></span> <code>'.$thwidth.'x'.$thheight.'</code>';
 	}
 }
 
@@ -66,7 +66,7 @@ include('template/include-nav.php'); ?>
 		<div class="main">
 		<h3><?php i18n('IMG_CONTROl_PANEL');?></h3>
 	
-			<?php echo '<p><a href="'.$src_folder . $subPath .rawurlencode($src).'" rel="facybox_i" >'.i18n_r('ORIGINAL_IMG').'</a> <code>'.$imgwidth.'x'.$imgheight .'</code>'. $thumb_exists .'</p>'; ?>
+			<?php echo '<p><span class="All Images Images iimage"><a href="'.$src_folder . $subPath .rawurlencode($src).'" rel="facybox_i" >'.i18n_r('ORIGINAL_IMG').'</a></span> <code>'.$imgwidth.'x'.$imgheight .'</code>'. $thumb_exists .'</p>'; ?>
 
 			<form>
 				<select class="text" id="img-info" style="width:50%" >
@@ -91,12 +91,57 @@ include('template/include-nav.php'); ?>
 				<?php } ?>
 			</div>
 		</div>
+
+<?php
+$jcrop = !empty($thumb_exists);
+if($jcrop){ ?>
+	<div id="jcrop_open" class="main">
+	    <img src="<?php echo $src_folder . $subPath.rawurlencode($src); ?>" id="cropbox" />
+			<div id="handw" class="toggle" ><?php i18n('SELECT_DIMENTIONS'); ?><br /><span id="picw"></span> x <span id="pich"></span></div>
+	    <!-- This is the form that our event handler fills -->
+	    <form id="jcropform" action="<?php myself(); ?>?i=<?php echo rawurlencode($src); ?>&amp;path=<?php echo $subPath; ?>" method="post" onsubmit="return checkCoords();">
+	      <input type="hidden" id="x" name="x" />
+	      <input type="hidden" id="y" name="y" />
+	      <input type="hidden" id="w" name="w" />
+	      <input type="hidden" id="h" name="h" />
+	      <input type="submit" class="submit" value="<?php i18n('CREATE_THUMBNAIL');?>" /> &nbsp; <span style="color:#666;font-size:11px;"><?php i18n('CROP_INSTR_NEW');?></span>
+
+	    </form>
+	</div>
 	
+<?php } ?>
 	</div>
 	
 	<div id="sidebar" >
 		<?php include('template/sidebar-files.php'); ?>
 	</div>
+
+	<script>
+	  jQuery(document).ready(function() { 
+	    		
+			$(window).load(function(){
+				var api = $.Jcrop('#cropbox',{
+			    onChange: updateCoords,
+			    onSelect: updateCoords,
+			    boxWidth: 585, 
+			    boxHeight: 500
+			  }); 
+			  var isCtrl = false;
+				$(document).keyup(function (e) {
+					api.setOptions({ aspectRatio: 0 });
+					api.focus();
+					if(e.which == 17) isCtrl=false;
+				}).keydown(function (e) {
+					if(e.which == 17) isCtrl=true;
+					if(e.which == 66 && isCtrl == true) {
+						api.setOptions({ aspectRatio: 1 });
+						api.focus();
+					}
+				});
+			});
+		
+		});
+	</script>
 	
 </div>
 <?php get_template('footer'); ?>

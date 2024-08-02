@@ -1,9 +1,9 @@
-@import url("https://fonts.googleapis.com/css2?family=Lato:wght@300;400&display=swap");
-@import url("https://unicons.iconscout.com/release/v2.1.9/css/unicons.css");
+
 
 body {padding-top: 38px;}
 
-.m-toper{font-family:Lato,sans-serif;position:fixed;top:0;left:0;width:100%;height:38px;background:#111;z-index:999}
+.m-toper{  font-family: system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+	position:fixed;top:0;left:0;width:100%;height:38px;background:#111;z-index:999}
 .m-toper ul{display:flex;flex-direction:row;padding:20px 0}
 .m-toper ul li{list-style-type:none!important;margin:0;padding:10px 0!important}
 .massiveedit,.massivepages{padding:0!important;display:flex;list-style-type:none}
