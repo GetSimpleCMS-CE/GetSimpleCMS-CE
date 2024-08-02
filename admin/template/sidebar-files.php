@@ -30,3 +30,26 @@ $path = (isset($_GET['path'])) ? $_GET['path'] : "";
 		<input type="submit" class="submit" name="submit" value="<?php i18n('UPLOAD'); ?>" />
 	</form>
 </noscript>
+
+<!-- List selected files to be uploaded -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+	const fileInput = document.querySelector('input[type="file"]');
+	const fileListDisplay = document.createElement('div');
+	fileInput.parentNode.insertBefore(fileListDisplay, fileInput.nextSibling);
+
+	fileInput.addEventListener('change', function() {
+		fileListDisplay.innerHTML = ''; // Clear previous list
+		const fileList = fileInput.files;
+		if (fileList.length > 0) {
+			const ul = document.createElement('ol');
+			for (let i = 0; i < fileList.length; i++) {
+				const li = document.createElement('li');
+				li.textContent = fileList[i].name;
+				ul.appendChild(li);
+			}
+			fileListDisplay.appendChild(ul);
+		}
+	});
+});
+</script>
