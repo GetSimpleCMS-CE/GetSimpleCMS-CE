@@ -77,7 +77,7 @@ if (document.querySelector('#pages') !== null) {
 
 // 'Adds collapse/expand-functionality,
 
- document.querySelectorAll('#editpages tr').forEach(function(row) {
+document.querySelectorAll('#editpages tr').forEach(function(row) {
     row.setAttribute('rel', 0);
     row.classList.add('l-0');
 });
@@ -104,21 +104,21 @@ document.querySelectorAll('.pagetitle').forEach(function(pagetitle) {
         var lvl = parseInt(tr.getAttribute('rel'));
         var switchDiv = this.querySelector('.switch');
         var next = tr.nextElementSibling;
+        var isExpanded = switchDiv.classList.contains('on');
 
-        if (switchDiv.classList.contains('on')) {
-            while (next && next.classList.contains('l-' + lvl)) {
+        while (next && parseInt(next.getAttribute('rel')) > lvl) {
+            if (isExpanded) {
                 next.classList.add('hidden');
                 next.querySelectorAll('.switch.on').forEach(function(switchOn) {
                     switchOn.classList.remove('on');
                 });
-                next = next.nextElementSibling;
+            } else {
+                if (parseInt(next.getAttribute('rel')) == lvl + 1) {
+                    next.classList.remove('hidden');
+                    next.classList.add('fadeIn');
+                }
             }
-        } else {
-            while (next && next.classList.contains('l-' + (lvl + 1))) {
-                next.classList.remove('hidden');
-                next.classList.add('fadeIn');
-                next = next.nextElementSibling;
-            }
+            next = next.nextElementSibling;
         }
         switchDiv.classList.toggle('on');
     });
