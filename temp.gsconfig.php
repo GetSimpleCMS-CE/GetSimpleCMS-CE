@@ -63,8 +63,8 @@ define('GSEDITORTOOL','CEbar');
 # WYSIWYG Editor Options
 define('GSEDITOROPTIONS', '
 extraPlugins:"fontawesome5,youtube,codemirror,cmsgrid,colorbutton,oembed,simplebutton,spacingsliders",
-disableNativeSpellChecker : FALSE,
-forcePasteAsPlainText : TRUE
+disableNativeSpellChecker : false,
+forcePasteAsPlainText : true
 ');
 
 # Set email from address
