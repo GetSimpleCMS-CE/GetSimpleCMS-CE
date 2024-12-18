@@ -331,6 +331,9 @@ if (get_filename_id() != 'install' && get_filename_id() != 'setup' && get_filena
 		if (file_exists(GSADMINPATH.'setup.php'))	{
 			$filedeletionstatus = unlink(GSADMINPATH.'setup.php');
 		}
+		if (file_exists(GSADMINPATH.'share.php'))	{
+			$filedeletionstatus = unlink(GSADMINPATH.'share.php');
+		}
 		if (file_exists(GSADMINPATH.'update.php'))	{
 			$filedeletionstatus = unlink(GSADMINPATH.'update.php');
 		}
