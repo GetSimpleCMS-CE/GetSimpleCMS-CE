@@ -242,14 +242,14 @@ get_template('header', $site_full_name.' CE &raquo; '. i18n_r('INSTALLATION') );
 
 			?>
 			</table>
-			<p class="hint"><?php echo sprintf(i18n_r('REQS_MORE_INFO'), "http://get-simple.info/docs/requirements"); ?></p>
+			<p class="hint"><?php echo sprintf(i18n_r('REQS_MORE_INFO'), "https://github.com/GetSimpleCMS-CE/GetSimpleCMS-CE/wiki/Server-Requirements"); ?></p>
 			<?php if ($kill != '') { ?>
 				<p><?php i18n('KILL_CANT_CONTINUE');?> <a href="./" ><?php i18n('REFRESH');?></a></p>
 			<?php } else {?>
 			<form action="setup.php" method="post" accept-charset="utf-8" >
 				<div class="leftsec" style="width:100%">
 					<p>			
-						<?php echo $langs; ?><a href="http://get-simple.info/docs/languages" target="_blank" ><?php i18n('DOWNLOAD_LANG');?></a>
+						<?php echo $langs; ?><a href="https://github.com/GetSimpleCMS-CE/GetSimpleCMS-CE/wiki/Languages" target="_blank" ><?php i18n('DOWNLOAD_LANG');?></a>
 						<noscript><a href="install.php?lang=" id="refreshlanguage" ><?php i18n('REFRESH');?></a> &nbsp;|&nbsp;</noscript> 
 					</p>
 				</div>

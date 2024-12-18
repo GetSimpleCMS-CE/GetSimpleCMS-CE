@@ -260,7 +260,7 @@ get_template('header', cl($SITENAME).' &raquo; '.i18n_r('GENERAL_SETTINGS'));
 			</p>
 		</div>
 		<div class="rightsec">
-			<p><label for="lang" ><?php i18n('LANGUAGE');?>: <span class="right"><a href="http://get-simple.info/docs/languages" target="_blank" ><?php i18n('MORE');?></a></span></label>
+			<p><label for="lang" ><?php i18n('LANGUAGE');?>: <span class="right"><a href="https://github.com/GetSimpleCMS-CE/GetSimpleCMS-CE/wiki/Languages" target="_blank" ><?php i18n('MORE');?></a></span></label>
 			<select name="lang" id="lang" class="text">
 				<?php echo $langs; ?>
 			</select>

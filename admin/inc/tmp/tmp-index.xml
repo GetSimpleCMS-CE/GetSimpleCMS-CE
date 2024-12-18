@@ -3,12 +3,12 @@
 &lt;br /&gt;
 	Thank you for using GetSimple CMS CE. This is your homepage, so please change this text to be what you want.&lt;/p&gt;
 &lt;ul&gt;
-	&lt;li&gt;&lt;a href=\&quot;http://get-simple.info/docs/\&quot;&gt;GetSimple CMS Documentation&lt;/a&gt;
+	&lt;li&gt;&lt;a href=\&quot;https://github.com/GetSimpleCMS-CE/GetSimpleCMS-CE/wiki\&quot;&gt;GetSimple CMS Documentation&lt;/a&gt;
 		&lt;ul&gt;
-				&lt;li&gt;&lt;a href=\&quot;http://get-simple.info/docs/theme-creation\&quot;&gt;How to Create a GetSimple Theme&lt;/a&gt;&lt;/li&gt;
+				&lt;li&gt;&lt;a href=\&quot;https://github.com/GetSimpleCMS-CE/GetSimpleCMS-CE/wiki/Theme-Creation\&quot;&gt;How to Create a GetSimple Theme&lt;/a&gt;&lt;/li&gt;
 		&lt;/ul&gt;
 	&lt;/li&gt;
-	&lt;li&gt;&lt;a href=\&quot;http://get-simple.info/forums/\&quot;&gt;GetSimple Support Forums&lt;/a&gt;&lt;/li&gt;
+	&lt;li&gt;&lt;a href=\&quot;https://github.com/GetSimpleCMS-CE/GetSimpleCMS-CE/discussions\&quot;&gt;GetSimple Support Forums&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h2&gt;Header 2&lt;/h2&gt;
 &lt;p&gt;Lorem ipsum &lt;em&gt;dolor sit amet&lt;/em&gt;, &lt;strong&gt;consectetur adipiscing elit&lt;/strong&gt;. Donec &lt;code&gt;this is code&lt;/code&gt; venenatis augue. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Integer vulputate pretium augue.&lt;/p&gt;

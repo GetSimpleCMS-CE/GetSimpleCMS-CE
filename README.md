@@ -8,7 +8,7 @@
 ![PHP - v7.4-8.x](https://img.shields.io/badge/PHP-v7.4--8.x-orange)
 ![DataBase](https://img.shields.io/badge/FlatFile-purple)
 ![GitHub Release](https://img.shields.io/github/v/release/GetSimpleCMS-CE/GetSimpleCMS-CE?color=yellow)
-[![Documentation - Available](https://img.shields.io/badge/Documentation-Available-red)](http://get-simple.info/wiki/start)
+[![Documentation - Available](https://img.shields.io/badge/Documentation-Available-red)](https://github.com/GetSimpleCMS-CE/GetSimpleCMS-CE/wiki)
 [![License](https://img.shields.io/badge/License-GPL--3.0-green)](#license)
 
 </div>
@@ -133,7 +133,7 @@ It would be great if you would link back to https://getsimple-ce.ovh/ if you use
 
 ## REQUIREMENTS: :pushpin:
 
-http://get-simple.info/docs/requirements
+https://github.com/GetSimpleCMS-CE/GetSimpleCMS-CE/wiki/Server-Requirements
 
 ### Build Requirements ###
 
@@ -157,7 +157,7 @@ While GetSimple strives to be a secure and stable application, we simply cannot
 be held liable for any information loss, corruption or anything else that may 
 happen to your site while it is using the our software. If you find a bug 
 or security hole, please contact someone in the forums at 
-http://get-simple.info/forum
+https://github.com/GetSimpleCMS-CE/GetSimpleCMS-CE/discussions
 
 
 ## Credits :pushpin:

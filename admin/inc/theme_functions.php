@@ -4,7 +4,7 @@
  *
  * These functions are used within the front-end of a GetSimple installation
  *
- * @link http://get-simple.info/docs/theme-codex/
+ * @link https://github.com/GetSimpleCMS-CE/GetSimpleCMS-CE/wiki/Theme-Creation
  *
  * @package GetSimple
  * @subpackage Theme-Functions
