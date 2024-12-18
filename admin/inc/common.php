@@ -121,6 +121,7 @@ define('GSUSERSPATH', GSROOTPATH. 'data/users/');
 define('GSBACKUSERSPATH', GSROOTPATH. 'backups/users/');
 define('GSCACHEPATH', GSROOTPATH. 'data/cache/');
 define('GSAUTOSAVEPATH', GSROOTPATH. 'data/pages/autosave/');
+define('GSHOMEPATH', GSROOTPATH. '/');
 
 $reservedSlugs = [$GSADMIN, 'data', 'theme', 'plugins', 'backups'];
 
@@ -292,14 +293,14 @@ function serviceUnavailable(){
 if (get_filename_id() != 'install' && get_filename_id() != 'setup' && get_filename_id() != 'update') {
 	$fullpath = suggest_site_path();
 	
-	# if there is no SITEURL set, then it's a fresh install. Start installation process
-	# siteurl check is not good for pre 3.0 since it will be empty, so skip and run update first.
-	if ($SITEURL == '' &&  get_gs_version() >= 3.0)	{
+	// if there is no SITEURL set, then it's a fresh install. Start installation process
+	// siteurl check is not good for pre 3.0 since it will be empty, so skip and run update first.
+	if ($SITEURL == '' && version_compare(get_gs_version(), '3.0', '>=')) {
 		serviceUnavailable();
 		redirect($fullpath . $GSADMIN.'/install.php');
 	} 
 	else {	
-		# if an update file was included in the install package, redirect there first	
+		// if an update file was included in the install package, redirect there first	
 		if (file_exists(GSADMINPATH.'update.php') && !isset($_GET['updated']) && !getDef('GSDEBUGINSTALL'))	{
 			serviceUnavailable();
 			redirect($fullpath . $GSADMIN.'/update.php');
@@ -307,7 +308,7 @@ if (get_filename_id() != 'install' && get_filename_id() != 'setup' && get_filena
 	}
 
 	if(!getDef('GSDEBUGINSTALL',true)){
-		# if you've made it this far, the site is already installed so remove the installation files
+		// if you've made it this far, the site is already installed so remove the installation files
 		$filedeletionstatus=true;
 		if (file_exists(GSADMINPATH.'cron.php'))	{
 			$filedeletionstatus = unlink(GSADMINPATH.'cron.php');
@@ -339,35 +340,35 @@ if (get_filename_id() != 'install' && get_filename_id() != 'setup' && get_filena
 		if (file_exists(GSADMINPATH.'upload-uploadify.php'))	{
 			$filedeletionstatus = unlink(GSADMINPATH.'upload-uploadify.php');
 		}
-		if (file_exists(GSADMINPATH.'inc/nonce.php'))	{
-			$filedeletionstatus = unlink(GSADMINPATH.'inc/nonce.php');
+		if (file_exists(GSADMININCPATH.'nonce.php'))	{
+			$filedeletionstatus = unlink(GSADMININCPATH.'nonce.php');
 		}
-		if (file_exists(GSADMINPATH.'inc/xss.php'))	{
-			$filedeletionstatus = unlink(GSADMINPATH.'inc/xss.php');
+		if (file_exists(GSADMININCPATH.'xss.php'))	{
+			$filedeletionstatus = unlink(GSADMININCPATH.'xss.php');
 		}
-		if (file_exists(GSADMINPATH.'inc/xss.php'))	{
-			$filedeletionstatus = unlink(GSADMINPATH.'inc/ZipArchive.php');
+		if (file_exists(GSADMININCPATH.'ZipArchive.php'))	{
+			$filedeletionstatus = unlink(GSADMININCPATH.'ZipArchive.php');
 		}
-		if (file_exists('../readme.txt'))	{
-			$filedeletionstatus = unlink('../readme.txt');
+		if (file_exists(GSHOMEPATH.'readme.txt'))	{
+			$filedeletionstatus = unlink(GSHOMEPATH.'readme.txt');
 		}
-		if (file_exists('../README.md'))	{
-			$filedeletionstatus = unlink('../README.md');
+		if (file_exists(GSHOMEPATH.'README.md'))	{
+			$filedeletionstatus = unlink(GSHOMEPATH.'README.md');
 		}
-		if (file_exists('../LICENSE.txt'))	{
-			$filedeletionstatus = unlink('../LICENSE.txt');
+		if (file_exists(GSHOMEPATH.'LICENSE.txt'))	{
+			$filedeletionstatus = unlink(GSHOMEPATH.'LICENSE.txt');
 		}
-		if (file_exists('../LICENSE'))	{
-			$filedeletionstatus = unlink('../LICENSE');
+		if (file_exists(GSHOMEPATH.'LICENSE'))	{
+			$filedeletionstatus = unlink(GSHOMEPATH.'LICENSE');
 		}
-		if (file_exists('../Tmpfile.zip'))	{
-			$filedeletionstatus = unlink('../Tmpfile.zip');
+		if (file_exists(GSHOMEPATH.'Tmpfile.zip'))	{
+			$filedeletionstatus = unlink(GSHOMEPATH.'Tmpfile.zip');
 		}
-		if (file_exists('../plugins/README.md'))	{
-			$filedeletionstatus = unlink('../plugins/README.md');
+		if (file_exists(GSPLUGINPATH.'README.md'))	{
+			$filedeletionstatus = unlink(GSPLUGINPATH.'README.md');
 		}
-		if (file_exists('../theme/README.md'))	{
-			$filedeletionstatus = unlink('../theme/README.md');
+		if (file_exists(GSTHEMESPATH.'README.md'))	{
+			$filedeletionstatus = unlink(GSTHEMESPATH.'README.md');
 		}
 		if (!$filedeletionstatus) {
 			$error = sprintf(i18n_r('ERR_CANNOT_DELETE'), '<code>/'.$GSADMIN.'/install.php</code>, <code>/'.$GSADMIN.'/setup.php</code> or <code>/'.$GSADMIN.'/update.php</code>');
@@ -391,7 +392,7 @@ if (get_filename_id() != 'install' && get_filename_id() != 'setup' && get_filena
 			return rmdir($dir);
 		}
 
-		$dirs = ['../install_TMP', 'template/js/fancybox', 'template/js/uploadify', 'template/js/codemirror/lib', 'template/js/codemirror/theme']; // Add your directories here
+		$dirs = [GSHOMEPATH.'install_TMP', GSADMINPATH.'template/js/fancybox', GSADMINPATH.'template/js/uploadify', GSADMINPATH.'template/js/codemirror/lib', GSADMINPATH.'template/js/codemirror/theme']; // Add your directories here
 		foreach ($dirs as $dir) {
 			if (file_exists($dir)) {
 				$filedeletionstatus = deleteDirectory($dir);
@@ -414,7 +415,7 @@ if (get_filename_id() != 'install' && get_filename_id() != 'setup' && get_filena
  */
 include_once(GSADMININCPATH.'cookie_functions.php');
 if(isset($load['plugin']) && $load['plugin']){
-	# remove the pages.php plugin if it exists. 	
+	// remove the pages.php plugin if it exists. 	
 	if (file_exists(GSPLUGINPATH.'pages.php'))	{
 		unlink(GSPLUGINPATH.'pages.php');
 	}
@@ -426,10 +427,10 @@ if(isset($load['plugin']) && $load['plugin']){
 			include_once('api.plugin.php');
 		}
 	}
-	# include core plugin for page caching
+	// include core plugin for page caching
 	include_once('caching_functions.php');
 	
-	# main hook for common.php
+	// main hook for common.php
 	exec_action('common');
 	
 }
