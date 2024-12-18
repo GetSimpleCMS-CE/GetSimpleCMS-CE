@@ -345,7 +345,7 @@ if (get_filename_id() != 'install' && get_filename_id() != 'setup' && get_filena
 		if (file_exists(GSADMINPATH.'inc/xss.php'))	{
 			$filedeletionstatus = unlink(GSADMINPATH.'inc/xss.php');
 		}
-		if (file_exists(GSADMINPATH.'inc/xss.php'))	{
+		if (file_exists(GSADMINPATH.'inc/ZipArchive.php'))	{
 			$filedeletionstatus = unlink(GSADMINPATH.'inc/ZipArchive.php');
 		}
 		if (file_exists('../readme.txt'))	{
