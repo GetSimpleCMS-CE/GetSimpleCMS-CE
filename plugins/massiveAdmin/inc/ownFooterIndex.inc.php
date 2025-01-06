@@ -15,15 +15,19 @@ if (file_exists($thisfilew)) {
 } else {
 	$SITENAME = '';
 	$SITEURL = '';
-} ;
+};
 
 ?>
 
 <script>
-if( "<?php if(isset($data->ownlogo)){echo $data->ownlogo;};?>" =="yes"){
-    document.querySelector('.uil-user-circle').classList.add('loger');
-    document.querySelector('.loger').classList.remove('uil-user-circle','uil');
-    document.querySelector('.loger').insertAdjacentHTML('afterbegin','<img class="logo" style="max-height:100px">');
-	document.querySelector('.logo').setAttribute('src','<?php echo $SITEURL.'data/other/footerfoto/';?><?php if(isset($data->ownfootericon)){echo $data->ownfootericon;}?>');
-}
+	if ("<?php if (isset($data->ownlogo)) {
+				echo $data->ownlogo;
+			}; ?>" == "yes") {
+		<?php $footerimg = $SITEURL . 'data/other/footerFoto/' . $data->ownfootericon; ?>
+
+		document.addEventListener('DOMContentLoaded', () => {
+			document.querySelector('#user-circle').remove();
+			document.querySelector('.login').insertAdjacentHTML('beforebegin', `<img src="<?php echo $footerimg; ?>" style="width:80px;height:80px;object-fit:cover;margin:10px 0;">`);
+		})
+	}
 </script>

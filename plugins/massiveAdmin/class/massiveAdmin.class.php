@@ -101,6 +101,68 @@ class MassiveAdminClass{
 		$massiveOptionFile = GSDATAOTHERPATH . '/massiveadmin/massiveOption.json';
 		$massiveOptionFileContent = @file_get_contents($massiveOptionFile);
 		$newmassiveOptionFile = json_decode($massiveOptionFileContent);
+
+		global $USR;
+		global $SITEURL;
+		global $GSADMIN;
+		$file = GSDATAOTHERPATH . 'massiveHiddenSection/' . $USR . '.json';
+		$url = $SITEURL . ltrim($_SERVER['REQUEST_URI'], '/');
+
+		if (file_exists($file)) {
+
+			$jscheck = json_decode(file_get_contents($file), true);
+
+			if ($jscheck['hidefiles'] == 'hide' && strpos($url, $SITEURL . $GSADMIN . '/upload.php') !== false) {
+				header("HTTP/1.1 403 Forbidden");
+				echo "You don't have access to this page";
+				exit;
+			}
+
+			if ($jscheck['hidethemes'] == 'hide' && strpos($url, $SITEURL . $GSADMIN . '/theme.php') !== false || strpos($url, $SITEURL . $GSADMIN . '/theme-edit.php') !== false) {
+				header("HTTP/1.1 403 Forbidden");
+				echo "You don't have access to this page ";
+				exit;
+			}
+
+			if ($jscheck['hidei18n'] == 'hide' && strpos($url, $SITEURL . $GSADMIN . '/load.php?id=i18n_gallery') !== false) {
+				header("HTTP/1.1 403 Forbidden");
+				echo "You don't have access to this page";
+				exit;
+			}
+
+			if ($jscheck['hideplugin'] == 'hide' && strpos($url, $SITEURL . $GSADMIN . '/plugins.php') !== false) {
+				header("HTTP/1.1 403 Forbidden");
+				echo "You don't have access to this page <a href='plugins.php'>link</a>";
+				exit;
+			}
+
+			if ($jscheck['hidepages'] == 'hide' && strpos($url, $SITEURL . $GSADMIN . '/pages.php') !== false || strpos($url, $SITEURL . $GSADMIN . '/edit.php') !== false) {
+				header("HTTP/1.1 403 Forbidden");
+				echo "You don't have access to this page";
+				exit;
+			}
+
+			if ($jscheck['hidesupport'] == 'hide' && strpos($url, $SITEURL . $GSADMIN . '/support.php') !== false) {
+				header("HTTP/1.1 403 Forbidden");
+				echo "You don't have access to this page";
+				exit;
+			}
+
+
+			if ($jscheck['hidesettings'] == 'hide' && strpos($url, $SITEURL . $GSADMIN . '/load.php?id=massiveAdmin') !== false) {
+				header("HTTP/1.1 403 Forbidden");
+				echo "You don't have access to this page";
+				exit;
+			}
+
+			if ($jscheck['hidegssettings'] == 'hide' && strpos($url, $SITEURL . $GSADMIN . '/settings.php') !== false) {
+				header("HTTP/1.1 403 Forbidden");
+				echo "You don't have access to this page";
+				exit;
+			}
+
+		}
+
 	}
 
 	/* codeMirror edit */
