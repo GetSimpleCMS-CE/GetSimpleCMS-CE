@@ -71,13 +71,13 @@ DirectoryIndex index.php
 	RewriteBase **REPLACE**
 	
 	# News Manager:
-	RewriteRule ^news/tag/([^/.]+)/archive/([^/.]+)/?$ index.php?id=noticias&tag=$1&archive=$2 [L]
-	RewriteRule ^news/tag/([^/.]+)/page/([^/.]+)/?$ index.php?id=noticias&tag=$1&page=$2 [L]
-	RewriteRule ^news/tag/([^/.]+)/?$ index.php?id=noticias&tag=$1 [L]
-	RewriteRule ^news/post/([^/.]+)/?$ index.php?id=noticias&post=$1 [L]
-	RewriteRule ^news/page/([^/.]+)/?$ index.php?id=noticias&page=$1 [L]
-	RewriteRule ^news/archive/([^/.]+)/?$ index.php?id=noticias&archive=$1 [L]
-	# end News Manager
+ 	RewriteRule ^news/tag/([^/.]+)/archive/([^/.]+)/?$ index.php?id=news&tag=$1&archive=$2 [L]
+ 	RewriteRule ^news/tag/([^/.]+)/page/([^/.]+)/?$ index.php?id=news&tag=$1&page=$2 [L]
+	RewriteRule ^news/tag/([^/.]+)/?$ index.php?id=news&tag=$1 [L]
+ 	RewriteRule ^news/post/([^/.]+)/?$ index.php?id=news&post=$1 [L]
+ 	RewriteRule ^news/page/([^/.]+)/?$ index.php?id=news&page=$1 [L]
+	RewriteRule ^news/archive/([^/.]+)/?$ index.php?id=news&archive=$1 [L]
+ 	# end News Manager
 
 	RewriteCond %{REQUEST_FILENAME} !-f
 	RewriteCond %{REQUEST_FILENAME} !-d
