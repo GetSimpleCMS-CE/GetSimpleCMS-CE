@@ -23,7 +23,7 @@ if (file_exists($thisfilew)) {
 	if ("<?php if (isset($data->ownlogo)) {
 				echo $data->ownlogo;
 			}; ?>" == "yes") {
-		<?php $footerimg = $SITEURL . 'data/other/footerFoto/' . $data->ownfootericon; ?>
+		<?php $footerimg = $SITEURL . 'data/other/footerfoto/' . $data->ownfootericon; ?>
 
 		document.addEventListener('DOMContentLoaded', () => {
 			document.querySelector('#user-circle').remove();
