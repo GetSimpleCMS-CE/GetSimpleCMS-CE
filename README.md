@@ -43,6 +43,7 @@ The official unofficial GS update repo. Helping to bridge the gap in PHP compati
 - Update - Support page
 - Update - Support>ErrorLog
 - Update - Backup>Website Archives
+- Fix - Menu-Manager
 - Fix - Email HTML Render
 - Fix - Password Reset
 - Fix - Components copy code
