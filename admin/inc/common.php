@@ -307,77 +307,52 @@ if (get_filename_id() != 'install' && get_filename_id() != 'setup' && get_filena
 		}
 	}
 
-	if(!getDef('GSDEBUGINSTALL',true)){
-		// if you've made it this far, the site is already installed so remove the installation files
-		$filedeletionstatus=true;
-		if (file_exists(GSADMINPATH.'cron.php'))	{
-			$filedeletionstatus = unlink(GSADMINPATH.'cron.php');
+	if (!getDef('GSDEBUGINSTALL', true)) {
+		// If the site is already installed, remove the installation files
+		$filesToDelete = [
+			GSADMINPATH . 'cron.php',
+			GSADMINPATH . 'humans.txt',
+			GSADMINPATH . 'load-ajax.php',
+			GSADMINPATH . 'loadtab.php',
+			GSADMINPATH . 'install.php',
+			GSADMINPATH . 'option.txt',
+			GSADMINPATH . 'setup.php',
+			GSADMINPATH . 'update.php',
+			GSADMINPATH . 'uploadify-check-exists.php',
+			GSADMINPATH . 'upload-uploadify.php',
+			
+			GSADMININCPATH . 'nonce.php',
+			GSADMININCPATH . 'xss.php',
+			GSADMININCPATH . 'ZipArchive.php',
+			
+			GSHOMEPATH . 'readme.txt',
+			GSHOMEPATH . 'README.md',
+			GSHOMEPATH . 'LICENSE.txt',
+			GSHOMEPATH . 'LICENSE',
+			GSHOMEPATH . 'Tmpfile.zip',
+			
+			GSPLUGINPATH . 'README.md',
+			
+			GSTHEMESPATH . 'README.md',
+		];
+
+		$fileDeletionStatus = true;
+
+		foreach ($filesToDelete as $file) {
+			if (file_exists($file) && !unlink($file)) {
+				$fileDeletionStatus = false;
+			}
 		}
-		if (file_exists(GSADMINPATH.'humans.txt'))	{
-			$filedeletionstatus = unlink(GSADMINPATH.'humans.txt');
+
+		if (!$fileDeletionStatus) {
+			$error = sprintf(
+				i18n_r('ERR_CANNOT_DELETE'),
+				'<code>/' . $GSADMIN . '/install.php</code>, <code>/' . $GSADMIN . '/setup.php</code>, or <code>/' . $GSADMIN . '/update.php</code>'
+			);
 		}
-		if (file_exists(GSADMINPATH.'load-ajax.php'))	{
-			$filedeletionstatus = unlink(GSADMINPATH.'load-ajax.php');
-		}
-		if (file_exists(GSADMINPATH.'loadtab.php'))	{
-			$filedeletionstatus = unlink(GSADMINPATH.'loadtab.php');
-		}
-		if (file_exists(GSADMINPATH.'install.php'))	{
-			$filedeletionstatus = unlink(GSADMINPATH.'install.php');
-		}
-		if (file_exists(GSADMINPATH.'option.txt'))	{
-			$filedeletionstatus = unlink(GSADMINPATH.'option.txt');
-		}
-		if (file_exists(GSADMINPATH.'setup.php'))	{
-			$filedeletionstatus = unlink(GSADMINPATH.'setup.php');
-		}
-		if (file_exists(GSADMINPATH.'share.php'))	{
-			$filedeletionstatus = unlink(GSADMINPATH.'share.php');
-		}
-		if (file_exists(GSADMINPATH.'update.php'))	{
-			$filedeletionstatus = unlink(GSADMINPATH.'update.php');
-		}
-		if (file_exists(GSADMINPATH.'uploadify-check-exists.php'))	{
-			$filedeletionstatus = unlink(GSADMINPATH.'uploadify-check-exists.php');
-		}
-		if (file_exists(GSADMINPATH.'upload-uploadify.php'))	{
-			$filedeletionstatus = unlink(GSADMINPATH.'upload-uploadify.php');
-		}
-		if (file_exists(GSADMININCPATH.'nonce.php'))	{
-			$filedeletionstatus = unlink(GSADMININCPATH.'nonce.php');
-		}
-		if (file_exists(GSADMININCPATH.'xss.php'))	{
-			$filedeletionstatus = unlink(GSADMININCPATH.'xss.php');
-		}
-		if (file_exists(GSADMININCPATH.'ZipArchive.php'))	{
-			$filedeletionstatus = unlink(GSADMININCPATH.'ZipArchive.php');
-		}
-		if (file_exists(GSHOMEPATH.'readme.txt'))	{
-			$filedeletionstatus = unlink(GSHOMEPATH.'readme.txt');
-		}
-		if (file_exists(GSHOMEPATH.'README.md'))	{
-			$filedeletionstatus = unlink(GSHOMEPATH.'README.md');
-		}
-		if (file_exists(GSHOMEPATH.'LICENSE.txt'))	{
-			$filedeletionstatus = unlink(GSHOMEPATH.'LICENSE.txt');
-		}
-		if (file_exists(GSHOMEPATH.'LICENSE'))	{
-			$filedeletionstatus = unlink(GSHOMEPATH.'LICENSE');
-		}
-		if (file_exists(GSHOMEPATH.'Tmpfile.zip'))	{
-			$filedeletionstatus = unlink(GSHOMEPATH.'Tmpfile.zip');
-		}
-		if (file_exists(GSPLUGINPATH.'README.md'))	{
-			$filedeletionstatus = unlink(GSPLUGINPATH.'README.md');
-		}
-		if (file_exists(GSTHEMESPATH.'README.md'))	{
-			$filedeletionstatus = unlink(GSTHEMESPATH.'README.md');
-		}
-		if (!$filedeletionstatus) {
-			$error = sprintf(i18n_r('ERR_CANNOT_DELETE'), '<code>/'.$GSADMIN.'/install.php</code>, <code>/'.$GSADMIN.'/setup.php</code> or <code>/'.$GSADMIN.'/update.php</code>');
-		}
-		
-		function deleteDirectory($dir) {
+
+		function deleteDirectory($dir)
+		{
 			if (!file_exists($dir)) {
 				return true;
 			}
@@ -385,7 +360,7 @@ if (get_filename_id() != 'install' && get_filename_id() != 'setup' && get_filena
 				return unlink($dir);
 			}
 			foreach (scandir($dir) as $item) {
-				if ($item == '.' || $item == '..') {
+				if ($item === '.' || $item === '..') {
 					continue;
 				}
 				if (!deleteDirectory($dir . DIRECTORY_SEPARATOR . $item)) {
@@ -395,21 +370,22 @@ if (get_filename_id() != 'install' && get_filename_id() != 'setup' && get_filena
 			return rmdir($dir);
 		}
 
-		$dirs = [GSHOMEPATH.'install_TMP', GSADMINPATH.'template/js/fancybox', GSADMINPATH.'template/js/uploadify', GSADMINPATH.'template/js/codemirror/lib', GSADMINPATH.'template/js/codemirror/theme']; // Add your directories here
-		foreach ($dirs as $dir) {
+		$dirsToDelete = [
+			GSHOMEPATH . 'install_TMP',
+			GSADMINPATH . 'template/js/fancybox',
+			GSADMINPATH . 'template/js/uploadify',
+			GSADMINPATH . 'template/js/codemirror/lib',
+			GSADMINPATH . 'template/js/codemirror/theme',
+		];
+
+		foreach ($dirsToDelete as $dir) {
 			if (file_exists($dir)) {
-				$filedeletionstatus = deleteDirectory($dir);
-				if ($filedeletionstatus) {
-					//echo "Directory '$dir' removed successfully.\\n";
-				} else {
-					//echo "Failed to remove the directory '$dir'.\\n";
+				if (!deleteDirectory($dir)) {
+					// Handle directory deletion failure if needed
 				}
-			} else {
-				//echo "Directory '$dir' does not exist.\\n";
 			}
 		}
-
-	}	
+	}
 
 }
 
