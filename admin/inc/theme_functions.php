@@ -642,32 +642,62 @@ function split_component($sec) {
  * @param string $classPrefix Prefix that gets added to the parent and slug classnames
  * @return string 
  */	
-function get_navigation($currentpage = "",$classPrefix = "") {
 
-	$menu = '';
+// Fixed menu for many levels based on edit Menu Manager 
+function get_navigation($currentpage = "", $classPrefix = "")
+ {
+	global $pagesArray, $id;
+	if (empty($currentpage))
+		$currentpage = $id;
 
-	global $pagesArray,$id;
-	if(empty($currentpage)) $currentpage = $id;
-	
-	$pagesSorted = subval_sort($pagesArray,'menuOrder');
-	if (count($pagesSorted) != 0) { 
-		foreach ($pagesSorted as $page) {
-			$sel = ''; $classes = '';
-			$url_nav = $page['url'];
-			
-			if ($page['menuStatus'] == 'Y') { 
-				$parentClass = !empty($page['parent']) ? $classPrefix.$page['parent'] . " " : "";
-				$classes = trim( $parentClass.$classPrefix.$url_nav);
-				if ($currentpage == $url_nav) $classes .= " current active";
-				if ($page['menu'] == '') { $page['menu'] = $page['title']; }
-				if ($page['title'] == '') { $page['title'] = $page['menu']; }
-				$menu .= '<li class="'. $classes .'"><a href="'. find_url($page['url'],$page['parent']) . '" title="'. encode_quotes(cl($page['title'])) .'">'.strip_decode($page['menu']).'</a></li>'."\n";
-			}
+	// Sort page by menuOrder;
+	$pagesSorted = subval_sort($pagesArray, 'menuOrder');
+
+	// Group by parent;
+	$menuTree = [];
+	foreach ($pagesSorted as $page) {
+		if ($page['menuStatus'] == 'Y') {
+			$parent = !empty($page['parent']) ? $page['parent'] : 0;
+			$menuTree[$parent][] = $page;
 		}
-		
 	}
-	
-	echo exec_filter('menuitems',$menu);
+
+	// Now magic, build menu :D
+	function build_menu($parentId, $menuTree, $currentpage, $classPrefix)
+	{
+		if (!isset($menuTree[$parentId]))
+			return '';
+
+		$menu = "<ul>\n";
+		foreach ($menuTree[$parentId] as $page) {
+			$url_nav = $page['url'];
+			$classes = !empty($page['parent']) ? $classPrefix . $page['parent'] . " " : "";
+			$classes .= $classPrefix . $url_nav;
+			if ($currentpage == $url_nav)
+				$classes .= " current active";
+			$pageTitle = !empty($page['title']) ? $page['title'] : $page['menu'];
+			$menu .= '<li class="' . trim($classes) . '">
+            <a href="' . find_url($page['url'], $page['parent']) . '" title="' . encode_quotes(cl($pageTitle)) . '">
+            ' . strip_decode($page['menu']) . '</a>';
+
+			// add submenu if exist
+			$subMenu = build_menu($url_nav, $menuTree, $currentpage, $classPrefix);
+			if (!empty($subMenu)) {
+				$menu .= $subMenu;
+			}
+
+		$menu .= "</li>\n";
+		}
+		$menu .= "</ul>\n";
+		return $menu;
+	}
+
+	if (!empty($menuTree)) {
+		$menuHtml = build_menu(0, $menuTree, $currentpage, $classPrefix);
+		echo exec_filter('menuitems', $menuHtml);
+	} else {
+		echo "<!-- Brak elementów menu -->";
+	}
 }
 
 /**
