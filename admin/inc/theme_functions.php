@@ -643,9 +643,8 @@ function split_component($sec) {
  * @return string 
  */	
 
-// Fixed menu for many levels based on edit Menu Manager 
-function get_navigation($currentpage = "", $classPrefix = "")
- {
+// Fixed menu for multi levels based on edit Menu Manager 
+function get_navigation($currentpage = "", $classPrefix = "") {
 	global $pagesArray, $id;
 	if (empty($currentpage))
 		$currentpage = $id;
@@ -663,8 +662,7 @@ function get_navigation($currentpage = "", $classPrefix = "")
 	}
 
 	// Now magic, build menu :D
-	function build_menu($parentId, $menuTree, $currentpage, $classPrefix)
-	{
+	function build_menu($parentId, $menuTree, $currentpage, $classPrefix) {
 		if (!isset($menuTree[$parentId]))
 			return '';
 
@@ -696,7 +694,7 @@ function get_navigation($currentpage = "", $classPrefix = "")
 		$menuHtml = build_menu(0, $menuTree, $currentpage, $classPrefix);
 		echo exec_filter('menuitems', $menuHtml);
 	} else {
-		echo "<!-- Brak elementów menu -->";
+		echo "<!-- No menu items -->";
 	}
 }
 
