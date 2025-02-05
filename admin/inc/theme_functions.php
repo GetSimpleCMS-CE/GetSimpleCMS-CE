@@ -644,6 +644,46 @@ function split_component($sec) {
  */	
 
 // Fixed menu for multi levels based on edit Menu Manager 
+function build_menu($parentId, $menuTree, $currentpage, $classPrefix, $isSubmenu = false) {
+	if (!isset($menuTree[$parentId])) {
+		return '';
+	}
+
+	$menu = $isSubmenu ? "\n<ul class=\"tree\">\n" : ""; 
+	foreach ($menuTree[$parentId] as $page) {
+		$url_nav = $page['url'];
+		$classes = !empty($page['parent']) ? $classPrefix . $page['parent'] . " " : "";
+		$classes .= $classPrefix . $url_nav;
+		
+		// Check if the current page has sub-pages
+		if (isset($menuTree[$url_nav])) {
+			$classes .= " has-tree"; // Add the "dropdown" class
+		}
+
+		// Add a class for <li> elements within a submenu
+		if ($isSubmenu) {
+			$classes .= " tree-item"; // Add the "submenu-item" class
+		}
+
+		if ($currentpage == $url_nav) {
+			$classes .= " current active";
+		}
+
+		$pageTitle = !empty($page['title']) ? $page['title'] : $page['menu'];
+		$menu .= '<li class="' . trim($classes) . '"><a href="' . find_url($page['url'], $page['parent']) . '" title="' . encode_quotes(cl($pageTitle)) . '">' . strip_decode($page['menu']) . '</a>';
+
+		// Add submenu if exists
+		$subMenu = build_menu($url_nav, $menuTree, $currentpage, $classPrefix, true);
+		if (!empty($subMenu)) {
+			$menu .= $subMenu;
+		}
+
+		$menu .= "</li>\n";
+	}
+	$menu .= $isSubmenu ? "</ul>\n" : ""; 
+	return $menu;
+}
+
 function get_navigation($currentpage = "", $classPrefix = "") {
 	global $pagesArray, $id;
 	if (empty($currentpage)) {
@@ -655,49 +695,9 @@ function get_navigation($currentpage = "", $classPrefix = "") {
 	$menuTree = [];
 	foreach ($pagesSorted as $page) {
 		if ($page['menuStatus'] == 'Y') {
-		 $parent = !empty($page['parent']) ? $page['parent'] : 0;
+			$parent = !empty($page['parent']) ? $page['parent'] : 0;
 			$menuTree[$parent][] = $page;
 		}
-	}
-
-	function build_menu($parentId, $menuTree, $currentpage, $classPrefix, $isSubmenu = false) {
-		if (!isset($menuTree[$parentId])) {
-			return '';
-		}
-
-		$menu = $isSubmenu ? "\n<ul class=\"tree\">\n" : ""; 
-		foreach ($menuTree[$parentId] as $page) {
-			$url_nav = $page['url'];
-			$classes = !empty($page['parent']) ? $classPrefix . $page['parent'] . " " : "";
-			$classes .= $classPrefix . $url_nav;
-			
-			// Check if the current page has sub-pages
-			if (isset($menuTree[$url_nav])) {
-				$classes .= " has-tree"; // Add the "dropdown" class
-			}
-
-			// Add a class for <li> elements within a submenu
-			if ($isSubmenu) {
-				$classes .= " tree-item"; // Add the "submenu-item" class
-			}
-
-			if ($currentpage == $url_nav) {
-				$classes .= " current active";
-			}
-
-			$pageTitle = !empty($page['title']) ? $page['title'] : $page['menu'];
-			$menu .= '<li class="' . trim($classes) . '"><a href="' . find_url($page['url'], $page['parent']) . '" title="' . encode_quotes(cl($pageTitle)) . '">' . strip_decode($page['menu']) . '</a>';
-
-			// Add submenu if exists
-			$subMenu = build_menu($url_nav, $menuTree, $currentpage, $classPrefix, true);
-			if (!empty($subMenu)) {
-				$menu .= $subMenu;
-			}
-
-			$menu .= "</li>\n";
-		}
-		$menu .= $isSubmenu ? "</ul>\n" : ""; 
-		return $menu;
 	}
 
 	if (!empty($menuTree)) {
