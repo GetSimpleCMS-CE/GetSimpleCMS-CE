@@ -4,7 +4,7 @@
  *
  * These functions are used within the front-end of a GetSimple installation
  *
- * @link http://get-simple.info/docs/theme-codex/
+ * @link https://github.com/GetSimpleCMS-CE/GetSimpleCMS-CE/wiki/Theme-Creation
  *
  * @package GetSimple
  * @subpackage Theme-Functions
@@ -501,65 +501,65 @@ function get_site_credits($text ='Powered by ') {
  * @return array|string Type 'string' in this case will be XML 
  */
 function menu_data($id = null,$xml=false) {
-    $menu_extract = [];
+	$menu_extract = [];
 
-    global $pagesArray; 
-    $pagesSorted = subval_sort($pagesArray,'menuOrder');
-    if (count($pagesSorted) != 0) { 
-      $count = 0;
-      if (!$xml){
-        foreach ($pagesSorted as $page) {
-          $text = (string)$page['menu'];
-          $pri = (string)$page['menuOrder'];
-          $parent = (string)$page['parent'];
-          $title = (string)$page['title'];
-          $slug = (string)$page['url'];
-          $menuStatus = (string)$page['menuStatus'];
-          $private = (string)$page['private'];
+	global $pagesArray; 
+	$pagesSorted = subval_sort($pagesArray,'menuOrder');
+	if (count($pagesSorted) != 0) { 
+	  $count = 0;
+	  if (!$xml){
+		foreach ($pagesSorted as $page) {
+		  $text = (string)$page['menu'];
+		  $pri = (string)$page['menuOrder'];
+		  $parent = (string)$page['parent'];
+		  $title = (string)$page['title'];
+		  $slug = (string)$page['url'];
+		  $menuStatus = (string)$page['menuStatus'];
+		  $private = (string)$page['private'];
 					$pubDate = (string)$page['pubDate'];
-          
-          $url = find_url($slug,$parent);
-          
-          $specific = ["slug"=>$slug, "url"=>$url, "parent_slug"=>$parent, "title"=>$title, "menu_priority"=>$pri, "menu_text"=>$text, "menu_status"=>$menuStatus, "private"=>$private, "pub_date"=>$pubDate];
-          
-          if ($id == $slug) { 
-              return $specific; 
-              exit; 
-          } else {
-              $menu_extract[] = $specific;
-          }
-        }
-        return $menu_extract;
-      } else {
-        $xml = '<?xml version="1.0" encoding="UTF-8"?><channel>';    
-	        foreach ($pagesSorted as $page) {
-            $text = $page['menu'];
-            $pri = $page['menuOrder'];
-            $parent = $page['parent'];
-            $title = $page['title'];
-            $slug = $page['url'];
-            $pubDate = $page['pubDate'];
-            $menuStatus = $page['menuStatus'];
-            $private = $page['private'];
-           	
-            $url = find_url($slug,$parent);
-            
-            $xml.="<item>";
-            $xml.="<slug><![CDATA[".$slug."]]></slug>";
-            $xml.="<pubDate><![CDATA[".$pubDate."]]></pubDate>";
-            $xml.="<url><![CDATA[".$url."]]></url>";
-            $xml.="<parent><![CDATA[".$parent."]]></parent>";
-            $xml.="<title><![CDATA[".$title."]]></title>";
-            $xml.="<menuOrder><![CDATA[".$pri."]]></menuOrder>";
-            $xml.="<menu><![CDATA[".$text."]]></menu>";
-            $xml.="<menuStatus><![CDATA[".$menuStatus."]]></menuStatus>";
-            $xml.="<private><![CDATA[".$private."]]></private>";
-            $xml.="</item>";
-	        }
-	        $xml.="</channel>";
-	        return $xml;
-        }
-    }
+		  
+		  $url = find_url($slug,$parent);
+		  
+		  $specific = ["slug"=>$slug, "url"=>$url, "parent_slug"=>$parent, "title"=>$title, "menu_priority"=>$pri, "menu_text"=>$text, "menu_status"=>$menuStatus, "private"=>$private, "pub_date"=>$pubDate];
+		  
+		  if ($id == $slug) { 
+			  return $specific; 
+			  exit; 
+		  } else {
+			  $menu_extract[] = $specific;
+		  }
+		}
+		return $menu_extract;
+	  } else {
+		$xml = '<?xml version="1.0" encoding="UTF-8"?><channel>';	
+			foreach ($pagesSorted as $page) {
+			$text = $page['menu'];
+			$pri = $page['menuOrder'];
+			$parent = $page['parent'];
+			$title = $page['title'];
+			$slug = $page['url'];
+			$pubDate = $page['pubDate'];
+			$menuStatus = $page['menuStatus'];
+			$private = $page['private'];
+		   	
+			$url = find_url($slug,$parent);
+			
+			$xml.="<item>";
+			$xml.="<slug><![CDATA[".$slug."]]></slug>";
+			$xml.="<pubDate><![CDATA[".$pubDate."]]></pubDate>";
+			$xml.="<url><![CDATA[".$url."]]></url>";
+			$xml.="<parent><![CDATA[".$parent."]]></parent>";
+			$xml.="<title><![CDATA[".$title."]]></title>";
+			$xml.="<menuOrder><![CDATA[".$pri."]]></menuOrder>";
+			$xml.="<menu><![CDATA[".$text."]]></menu>";
+			$xml.="<menuStatus><![CDATA[".$menuStatus."]]></menuStatus>";
+			$xml.="<private><![CDATA[".$private."]]></private>";
+			$xml.="</item>";
+			}
+			$xml.="</channel>";
+			return $xml;
+		}
+	}
 }
 
 /**
@@ -578,28 +578,28 @@ function menu_data($id = null,$xml=false) {
  * @return string 
  */
 function get_component($id, $ret=false) {
-    global $components;
+	global $components;
 
-    // normalize id
-    $id = to7bit($id, 'UTF-8');
+	// normalize id
+	$id = to7bit($id, 'UTF-8');
 	$id = clean_url($id);
 
-    if (!$components) {
-         if (file_exists(GSDATAOTHERPATH.'components.xml')) {
-            $data = getXML(GSDATAOTHERPATH.'components.xml');
-            $components = $data->item;
-        } else {
-            $components = [];
-        }
-    }
-    if (count($components) > 0) {
-        foreach ($components as $component) {
-            if ($id == $component->slug) {
+	if (!$components) {
+		 if (file_exists(GSDATAOTHERPATH.'components.xml')) {
+			$data = getXML(GSDATAOTHERPATH.'components.xml');
+			$components = $data->item;
+		} else {
+			$components = [];
+		}
+	}
+	if (count($components) > 0) {
+		foreach ($components as $component) {
+			if ($id == $component->slug) {
 				if ($ret) return strip_decode($component->value);
-                else eval("?>" . strip_decode($component->value) . "<?php "); 
-            }
-        }
-    }
+				else eval("?>" . strip_decode($component->value) . "<?php "); 
+			}
+		}
+	}
 }
 
 // Returns component as array of lines of the component
@@ -642,32 +642,70 @@ function split_component($sec) {
  * @param string $classPrefix Prefix that gets added to the parent and slug classnames
  * @return string 
  */	
-function get_navigation($currentpage = "",$classPrefix = "") {
 
-	$menu = '';
-
-	global $pagesArray,$id;
-	if(empty($currentpage)) $currentpage = $id;
-	
-	$pagesSorted = subval_sort($pagesArray,'menuOrder');
-	if (count($pagesSorted) != 0) { 
-		foreach ($pagesSorted as $page) {
-			$sel = ''; $classes = '';
-			$url_nav = $page['url'];
-			
-			if ($page['menuStatus'] == 'Y') { 
-				$parentClass = !empty($page['parent']) ? $classPrefix.$page['parent'] . " " : "";
-				$classes = trim( $parentClass.$classPrefix.$url_nav);
-				if ($currentpage == $url_nav) $classes .= " current active";
-				if ($page['menu'] == '') { $page['menu'] = $page['title']; }
-				if ($page['title'] == '') { $page['title'] = $page['menu']; }
-				$menu .= '<li class="'. $classes .'"><a href="'. find_url($page['url'],$page['parent']) . '" title="'. encode_quotes(cl($page['title'])) .'">'.strip_decode($page['menu']).'</a></li>'."\n";
-			}
-		}
-		
+// Fixed menu for multi levels based on edit Menu Manager 
+function get_navigation($currentpage = "", $classPrefix = "") {
+	global $pagesArray, $id;
+	if (empty($currentpage)) {
+		$currentpage = $id;
 	}
-	
-	echo exec_filter('menuitems',$menu);
+
+	$pagesSorted = subval_sort($pagesArray, 'menuOrder');
+
+	$menuTree = [];
+	foreach ($pagesSorted as $page) {
+		if ($page['menuStatus'] == 'Y') {
+		 $parent = !empty($page['parent']) ? $page['parent'] : 0;
+			$menuTree[$parent][] = $page;
+		}
+	}
+
+	function build_menu($parentId, $menuTree, $currentpage, $classPrefix, $isSubmenu = false) {
+		if (!isset($menuTree[$parentId])) {
+			return '';
+		}
+
+		$menu = $isSubmenu ? "\n<ul class=\"tree\">\n" : ""; 
+		foreach ($menuTree[$parentId] as $page) {
+			$url_nav = $page['url'];
+			$classes = !empty($page['parent']) ? $classPrefix . $page['parent'] . " " : "";
+			$classes .= $classPrefix . $url_nav;
+			
+			// Check if the current page has sub-pages
+			if (isset($menuTree[$url_nav])) {
+				$classes .= " has-tree"; // Add the "dropdown" class
+			}
+
+			// Add a class for <li> elements within a submenu
+			if ($isSubmenu) {
+				$classes .= " tree-item"; // Add the "submenu-item" class
+			}
+
+			if ($currentpage == $url_nav) {
+				$classes .= " current active";
+			}
+
+			$pageTitle = !empty($page['title']) ? $page['title'] : $page['menu'];
+			$menu .= '<li class="' . trim($classes) . '"><a href="' . find_url($page['url'], $page['parent']) . '" title="' . encode_quotes(cl($pageTitle)) . '">' . strip_decode($page['menu']) . '</a>';
+
+			// Add submenu if exists
+			$subMenu = build_menu($url_nav, $menuTree, $currentpage, $classPrefix, true);
+			if (!empty($subMenu)) {
+				$menu .= $subMenu;
+			}
+
+			$menu .= "</li>\n";
+		}
+		$menu .= $isSubmenu ? "</ul>\n" : ""; 
+		return $menu;
+	}
+
+	if (!empty($menuTree)) {
+		$menuHtml = build_menu(0, $menuTree, $currentpage, $classPrefix, false);
+		echo exec_filter('menuitems', $menuHtml);
+	} else {
+		echo "<!-- No menu items -->";
+	}
 }
 
 /**
@@ -682,10 +720,10 @@ function get_navigation($currentpage = "",$classPrefix = "") {
  * @return bool
  */	
 function is_logged_in(){
-  global $USR;
-  if (isset($USR) && $USR == get_cookie('GS_ADMIN_USERNAME')) {
-    return true;
-  }
+	global $USR;
+	if (isset($USR) && $USR == get_cookie('GS_ADMIN_USERNAME')) {
+		return true;
+	}
 }	
 	
 

@@ -206,7 +206,7 @@ forcePasteAsPlainText : true<br>
 			
 			<div class="w3-opacity">
 				<p>Made with <span class="credit-icon">❤️</span> especially for "<b>'.$USR.'</b>".<br>
-				Is this plugin useful for you? <a href="https://www.paypal.com/donate/?hosted_button_id=C3FTNQ78HH8BE" target="_blank">Consider buying me a <span class="credit-icon">☕</span></a>.</p>
+				Is this plugin useful for you? <a href="https://www.paypal.com/donate/?hosted_button_id=QTTWMSSQDYB82" target="_blank">Consider buying me a <span class="credit-icon">☕</span></a>.</p>
 			</div>
 		</div><!-- End Plugin -->';
 	

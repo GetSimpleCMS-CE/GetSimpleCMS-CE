@@ -31,7 +31,7 @@ function genStdThumb($path,$name){
 			} else {
 				$chmod_value = 0755;
 			}
-			mkdir($thumbsPath, $chmod_value);
+			mkdir($thumbsPath, $chmod_value, true);
 		}
 	}
 
@@ -73,7 +73,8 @@ function genStdThumb($path,$name){
 		$thumbnailFile = $thumbsPath . "thumbnail." . $name;
 		
 	    switch(lowercase(pathinfo($targetFile)['extension'])) {
-	        case "jpg":
+			case "jpeg":
+			case "jpg":
 	            $bool2 = imagejpeg($picture,$thumbnailFile,85);
 	        break;
 	        case "png":

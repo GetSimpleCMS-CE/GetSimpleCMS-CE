@@ -6,7 +6,7 @@
  *
  * @package GetSimple
  * @subpackage Backups
- * @link http://get-simple.info/docs/restore-page-backup
+ * @link https://github.com/GetSimpleCMS-CE/GetSimpleCMS-CE/wiki/Backup
  */
  
 // Setup inclusions

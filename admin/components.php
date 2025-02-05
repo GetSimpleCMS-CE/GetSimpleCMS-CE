@@ -6,7 +6,7 @@
  *
  * @package GetSimple
  * @subpackage Components
- * @link http://get-simple.info/wiki/components
+ * @link https://github.com/GetSimpleCMS-CE/GetSimpleCMS-CE/wiki/Components
  */
  
 # setup inclusions
