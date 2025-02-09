@@ -234,7 +234,7 @@ function sendmail($to,$subject,$message) {
 	}
 
 	global $EMAIL;
-	$headers  ='"MIME-Version: 1.0' . $eol;
+	$headers  = 'MIME-Version: 1.0' . $eol;
 	$headers .= 'Content-Type: text/html; charset=UTF-8' . $eol;
 	$headers .= 'From: '.$fromemail . $eol;
   	$headers .= 'Reply-To: '.$fromemail . $eol;
