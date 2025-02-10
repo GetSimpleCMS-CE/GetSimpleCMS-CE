@@ -336,18 +336,23 @@ if (get_filename_id() != 'install' && get_filename_id() != 'setup' && get_filena
 			GSTHEMESPATH . 'README.md',
 		];
 
-		$fileDeletionStatus = true;
+		$failedDeletions = []; // Array to store files that couldn't be deleted
 
 		foreach ($filesToDelete as $file) {
 			if (file_exists($file) && !unlink($file)) {
-				$fileDeletionStatus = false;
+				$failedDeletions[] = $file; // Add the file to the failed deletions array
 			}
 		}
 
-		if (!$fileDeletionStatus) {
+		if (!empty($failedDeletions)) {
+			// Construct the error message dynamically
+			$failedFilesList = array_map(function($file) {
+				return '<code>' . basename($file) . '</code>';
+			}, $failedDeletions);
+
 			$error = sprintf(
 				i18n_r('ERR_CANNOT_DELETE'),
-				'<code>/' . $GSADMIN . '/install.php</code>, <code>/' . $GSADMIN . '/setup.php</code>, or <code>/' . $GSADMIN . '/update.php</code>'
+				implode(', ', $failedFilesList) // List of files that couldn't be deleted
 			);
 		}
 
