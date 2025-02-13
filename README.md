@@ -18,7 +18,11 @@
 
 
 ## What is GetSimple CMS CE? :pushpin:
-GetSimple is an XML based, stand-a-alone, fully independent and lite Content Management System. To go along with its best-in-class user interface, it is loaded with features that every website needs, but with nothing it doesn't. GetSimple is truly the simplest way to manage a small-business website.
+
+GetSimple CMS is a lightweight, user-friendly content management system designed for simplicity and efficiency. It is flat-file based, meaning it doesn’t require a database, making it ideal for smaller websites and quick deployments. With its intuitive interface, anyone can easily create and manage content without extensive technical knowledge. GetSimple CMS offers fast performance, robust security, and easy customization with themes and plugins. Perfect for small business websites, portfolios, and blogs, it allows users to focus on their content without the complexity of larger CMS platforms.
+
+Its intuitive interface is specifically designed for ease of use, catering to non-technical users while still offering customization options for developers. Additionally, GetSimple emphasizes minimalism and efficiency, making it an excellent choice for smaller projects like portfolios, blogs, and business websites. Unlike many larger CMS platforms, GetSimple provides all the essential features without unnecessary complexity.
+
 Now supporting php7.4-8.x.
 
 Official CE Website - https://getsimple-ce.ovh/
@@ -105,10 +109,15 @@ We have how to documents that show you how to create a custom theme. Our goal wa
 Designed to be light and agile, the base install comes to you clutter free, without dozens of extras you dont need. But of course we do have an ever growing selection of extensions ready to use and easy to install. Everything that you or your client are looking for…
 
 ## History :pushpin:
-GetSimple CMS was created in 2009 and primarily developed for the creation of smaller websites, it is also became suitable for medium to large websites thanks to the extendability of the platform via plug-ins and themes.
-Though by 2020, development had slowed considerably as the original team were no longer able to dedicate their time and resources to the project.<br/>
-Recognizing the lapse in development and support on the current official website, we've taken the initiative to breathe new life into the platform by providing the essential updates it deserves, ensuring the advancement of this vital project.<br/>
-We're driven by a shared commitment to uphold the importance of GetSimple CMS project and community. Leveraging our firsthand experience with GetSimple CMS, we understand its value as a solution.
+GetSimple CMS was created in 2009 by the US web developer Chris Cagle, who presided over the project as a senior developer. Cage claimed he created GetSimple CMS out of the need of a CMS that was "as powerful as WordPress is to use", but easier. Since then, other developers have joined the GetSimple team. An active community contributes plug-ins, translations and themes. Though by 2020, development had slowed considerably as the original team (Shawn Alverson, Mike Swan, among many others) were no longer able to dedicate their time and resources to the project.
+
+In November 2024 the official website was hacked, loosing access to vast amount of knowledge via its forum, as well as plugin, theme and language downloads.
+
+Recognizing the lapse in development and support on the current official website, since 2022 we've taken the initiative to breathe new life into the platform by providing the essential updates it deserves, ensuring the advancement of this vital project.
+
+This edition aims to introduce a range of improvements, including support for modern PHP versions, and is continuously maintained with new features that are not available in the standard version upon installation.
+
+In 2023, the website GetSimple CMS CE Website was launched to inform users about updates and serve as a platform where the latest version of this software can be downloaded.
 
 ## Team :pushpin: ##
 The following individuals generously donate their time to further developing this "Community Edition" version, please consider supporting their efforts:
@@ -121,7 +130,7 @@ Hobbies: Gaming & Programing <br/>
 ### :computer: islander / risingisland :palm_tree: ###
 Location: Spain <br/>
 Hobbies: Hiking & Design <br/>
-[![Donate](https://img.shields.io/badge/Donate-PayPal-blue.svg)](https://www.paypal.com/donate/?hosted_button_id=C3FTNQ78HH8BE)
+[![Donate](https://img.shields.io/badge/Donate-PayPal-blue.svg)](https://www.paypal.com/donate/?hosted_button_id=QTTWMSSQDYB82)
 
 
 ## LICENSE: :pushpin:
@@ -160,19 +169,9 @@ happen to your site while it is using the our software. If you find a bug
 or security hole, please contact someone in the forums at 
 https://github.com/GetSimpleCMS-CE/GetSimpleCMS-CE/discussions
 
-
-## Credits :pushpin:
-
-Founder / Creator: Chris Cagle [ https://chriscagle.me ]
-Original Lead Developer: Shawn Alverson [ http://tablatronix.com/ ]
-
-
 ## Libraries :pushpin:
 
 _company logos in the icons are copyright of their respective owners_
-
-Alpine.js  
-https://alpinejs.dev/
 
 Ckeditor  
 https://ckeditor.com/
@@ -183,7 +182,7 @@ https://codemirror.net/
 simplelightbox  
 https://github.com/andreknieriem/simplelightbox
 
-W3 Css & JS  
+W3 Css 
 https://www.w3schools.com/w3css/default.asp
 
 rgrove/lazyload  
