@@ -25,8 +25,26 @@ Its intuitive interface is specifically designed for ease of use, catering to no
 
 Now supporting php7.4-8.x.
 
-Official CE Website - https://getsimple-ce.ovh/
-The official unofficial GS update repo. Helping to bridge the gap in PHP compatibility. 
+- :globe_with_meridians: Official CE Website - https://getsimple-ce.ovh/
+- :heart: Help support the GetSimple CE CMS Project: https://gofund.me/04cdcb3d
+
+
+## Features :pushpin:
+
+### XML Based ###
+We don't use mySQL to store our information, but instead depend the simplicity of XML. By utilizing XML, we are able stay away from introducing an extra layer of slowness and complexity associated with connecting to a mySQL database. Because GetSimple was built specifically for the small-site market, we feel this is the absolutely best option for data storage.
+
+### Easy to Learn UI ###
+The top priority when designing our user-interface was to make it the best in it's class. We had the luxury of trying and testing all the competing management systems before designing ours, so we took the best out of each one - then refined it.
+
+### Simple Installation ###
+The total time in setting up a website took a total of 5 minutes, from starting the FTP to finishing the setup procedure.
+
+### Easy Theme Customization ###
+We have how to documents that show you how to create a custom theme. Our goal was not to bloat our software with hundreds of little-used theme functions, but to offer more than enough to allow for a fully customized theme.
+
+### Plugins & Expandability ###
+Designed to be light and agile, the base install comes to you clutter free, without dozens of extras you dont need. But of course we do have an ever growing selection of extensions ready to use and easy to install. Everything that you or your client are looking for…
 
 
 ## REQUIREMENTS: :pushpin:
@@ -108,22 +126,6 @@ The official unofficial GS update repo. Helping to bridge the gap in PHP compati
 - Changed function name do to deprecated class constructor.
 - Further 8.x compatibility from Topic with fixes ([Forum Thread](http://get-simple.info/forums/showthread.php?tid=16548))
 
-## Features :pushpin:
-
-### XML Based ###
-We don't use mySQL to store our information, but instead depend the simplicity of XML. By utilizing XML, we are able stay away from introducing an extra layer of slowness and complexity associated with connecting to a mySQL database. Because GetSimple was built specifically for the small-site market, we feel this is the absolutely best option for data storage.
-
-### Easy to Learn UI ###
-The top priority when designing our user-interface was to make it the best in it's class. We had the luxury of trying and testing all the competing management systems before designing ours, so we took the best out of each one - then refined it.
-
-### Simple Installation ###
-The total time in setting up a website took a total of 5 minutes, from starting the FTP to finishing the setup procedure.
-
-### Easy Theme Customization ###
-We have how to documents that show you how to create a custom theme. Our goal was not to bloat our software with hundreds of little-used theme functions, but to offer more than enough to allow for a fully customized theme.
-
-### Plugins & Expandability ###
-Designed to be light and agile, the base install comes to you clutter free, without dozens of extras you dont need. But of course we do have an ever growing selection of extensions ready to use and easy to install. Everything that you or your client are looking for…
 
 ## History :pushpin:
 GetSimple CMS was created in 2009 by the US web developer Chris Cagle, who presided over the project as a senior developer. Cage claimed he created GetSimple CMS out of the need of a CMS that was "as powerful as WordPress is to use", but easier. Since then, other developers have joined the GetSimple team. An active community contributes plug-ins, translations and themes. Though by 2020, development had slowed considerably as the original team (Shawn Alverson, Mike Swan, among many others) were no longer able to dedicate their time and resources to the project.
@@ -140,13 +142,11 @@ In 2023, the website GetSimple CMS CE Website was launched to inform users about
 The following individuals generously donate their time to further developing this "Community Edition" version, please consider supporting their efforts:
 
 ### :computer: multi / multicolor :video_game: ###
-Location: Poland <br/>
-Hobbies: Gaming & Programing <br/>
+**Multi** is a versatile freelance programmer and designer from Poland, skilled in both front-end and back-end development.
 [![Donate](https://img.shields.io/badge/Donate-PayPal-blue.svg)](https://www.paypal.com/donate/?hosted_button_id=TW6PXVCTM5A72)
 
-### :computer: islander / risingisland :palm_tree: ###
-Location: Spain <br/>
-Hobbies: Hiking & Design <br/>
+### :computer: risingisland /islander :palm_tree: ###
+**RisingIsland** is a self-employed web developer and graphic designer originally from California, who has spent the past 20 years residing in Spain.
 [![Donate](https://img.shields.io/badge/Donate-PayPal-blue.svg)](https://www.paypal.com/donate/?hosted_button_id=QTTWMSSQDYB82)
 
 
