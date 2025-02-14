@@ -29,13 +29,29 @@ Official CE Website - https://getsimple-ce.ovh/
 The official unofficial GS update repo. Helping to bridge the gap in PHP compatibility. 
 
 
+## REQUIREMENTS: :pushpin:
+
+- UNIX/Linux hosting, (Windows tested with minor limitations)
+- PHP 7.4+
+- Apache server. (LiteSpeed is exceptable, but depending on host, may have limitations. Nginx may not support working with .htaccess files).
+- SimpleXML (GS uses XML files to store data)
+- ZipArchive (Needed for making zip backups of your website.)
+- Apache mod_rewrite (Needed if you want to use FancyURLs)
+- cURL
+- GD Library (Needed in order to create thumbnails of uploaded images)
+- **No MySQL databases are required** 
+
+
 ## INSTALLATION: :pushpin:
 
 - Extract zip file to your web host
-- Visit your domain and navigate to /admin (or your gsadmin path set in gsconfig.php), you will be redirected to the upgrade and install scripts
-- (If you are receiving a 500 error, you may need to adjust permissions in .htaccess)
-
-:warning: NOTE: Your site will be automatically put in maintenance mode during installs or upgrades.
+- Visit your domain and navigate to `/admin` (or your gsadmin path set in gsconfig.php), you will be redirected to the install / upgrade script
+- Follow install prompts
+- Enjoy!
+  
+> (If you are receiving a 500 error, you may need to adjust permissions in .htaccess)
+> 
+> :warning: NOTE: Your site will be automatically put in maintenance mode during installs or upgrades.
 
 
 ## Whats New? :pushpin: ##
@@ -58,6 +74,7 @@ The official unofficial GS update repo. Helping to bridge the gap in PHP compati
 - Hotfixes - Remote command execution vulnerability #1352  (https://github.com/GetSimpleCMS/GetSimpleCMS/issues/1352)
 - Hotfixes - Cross-Site Scripting Vulnerability #1360 (https://github.com/GetSimpleCMS/GetSimpleCMS/issues/1360)
 - Other minor cleanup, fixes and improvements
+
 
 ### Recent Updates: ###
 
@@ -141,26 +158,6 @@ LICENSE.txt is located within this download's zip file.
 It would be great if you would link back to https://getsimple-ce.ovh/ if you use it.
 
 
-## REQUIREMENTS: :pushpin:
-
-https://github.com/GetSimpleCMS-CE/GetSimpleCMS-CE/wiki/Server-Requirements
-
-### Build Requirements ###
-
-Minimum of php7.4 recommended.
-
-### Module Requirements ###
-
-SimpleXML
-
-### Browser Requirements ###
-
-Javascript Enabled
-
-### Server ###
-*Apache ( recommended for out of the box security using .htaccess )
-
-
 ## DISCLAIMER: :pushpin:
 
 While GetSimple strives to be a secure and stable application, we simply cannot 
@@ -168,6 +165,7 @@ be held liable for any information loss, corruption or anything else that may
 happen to your site while it is using the our software. If you find a bug 
 or security hole, please contact someone in the forums at 
 https://github.com/GetSimpleCMS-CE/GetSimpleCMS-CE/discussions
+
 
 ## Libraries :pushpin:
 
