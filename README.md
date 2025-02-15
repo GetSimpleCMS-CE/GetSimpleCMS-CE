@@ -29,6 +29,9 @@ Now supporting php7.4-8.x.
 - :heart: Help support the GetSimple CE CMS Project: https://gofund.me/04cdcb3d
 
 
+<hr><hr>
+
+
 ## Features :pushpin:
 
 ### XML Based ###
@@ -47,6 +50,9 @@ We have how to documents that show you how to create a custom theme. Our goal wa
 Designed to be light and agile, the base install comes to you clutter free, without dozens of extras you dont need. But of course we do have an ever growing selection of extensions ready to use and easy to install. Everything that you or your client are looking for…
 
 
+<hr><hr>
+
+
 ## REQUIREMENTS: :pushpin:
 
 - UNIX/Linux hosting, (Windows tested with minor limitations)
@@ -60,6 +66,9 @@ Designed to be light and agile, the base install comes to you clutter free, with
 - **No MySQL databases are required** 
 
 
+<hr><hr>
+
+
 ## INSTALLATION: :pushpin:
 
 - Extract zip file to your web host
@@ -71,72 +80,99 @@ Designed to be light and agile, the base install comes to you clutter free, with
 > 
 > :warning: NOTE: Your site will be automatically put in maintenance mode during installs or upgrades.
 
+## Upgrade
 
-## Whats New? :pushpin: ##
+> ⚠️ GetSimple v3.3.16 or newer required.
+> 
+> Always create a backup to protect against the unexpected!
 
-- New - Replaced fancybox with SimpleLightbox
-- Update - Massive Admin 5.x
-- Update - Codemirror
-- Update - Install/Upgrade Email
-- Update - Support page
-- Update - Support>ErrorLog
-- Update - Backup>Website Archives
-- Fix - Menu-Manager
-- Fix - Email HTML Render
-- Fix - Password Reset
-- Fix - Components copy code
-- Fix - jCrop
-- Removed - Deprecated Uploadify
-- Removed - Outdated Demo Templates & Plugins
-- Removed - Dead Files
-- Hotfixes - Remote command execution vulnerability #1352  (https://github.com/GetSimpleCMS/GetSimpleCMS/issues/1352)
-- Hotfixes - Cross-Site Scripting Vulnerability #1360 (https://github.com/GetSimpleCMS/GetSimpleCMS/issues/1360)
-- Other minor cleanup, fixes and improvements
+- Overwrite existing files.
+- Update your existing `gsconfig.php` with the following:
 
+Add New:
+```
+# Login Page Default Language;
+$LANG = 'en_EN'; // es_ES, pl_PL, de_DE, uk_UK, etc.
 
-### Recent Updates: ###
+# Sort admin page list by title or menu
+define('GSSORTPAGELISTBY','menu');
+```
 
-🚀 Massive Admin 5 included by default (responsive admin + user manager + much much more...).
+Replace section:
+```
+# WYSIWYG editor height (default 500)
+# define('GSEDITORHEIGHT', '400');
 
-🌐 11 default languages included (de, es, en, fr, it, ja, nl, pl, pt, ru, uk).
+# WYSIWYG toolbars (advanced, basic or [custom config]) 
+# define('GSEDITORTOOL', 'advanced');
 
-- New gsconfig option (set login page language)
-- Massive Admin included by default (responsive admin + user manager + much much more...).
-- New Admin themes option.
-- ResponsiveCE default template (front-end starter theme).
-- New ckEditor plugins (Codemirror, YouTube, FontAwesome, etc.).
-- New Soport Page options (view errorlog & phpInfo).
-- New gsconfig option (view page tree by Title or Menu order).
-- New Copy Component code button.
+# WYSIWYG editor language (default en)
+# define('GSEDITORLANG', 'en');
 
+# WYSIWYG Editor Options
+# define('GSEDITOROPTIONS', '');
+```
+With updated:
+```
+# WYSIWYG editor height (default 500)
+# define('GSEDITORHEIGHT', '400');
 
-### Previous Updates: ###
+# WYSIWYG editor language (default en)
+# define('GSEDITORLANG', 'en');
 
-- Added support for php7.4-8.2
-- Fix deprecated Text-encoding HTML-ENTITIES for php8.2.
-- Hotfixes: form action reflection, add phar to blacklist, .htaccess
-- Fix bug in Components if none exist.
-- Fix non numeric error on gsdebug.
-- Fix vulnerability #1335 (https://github.com/GetSimpleCMS/GetSimpleCMS/issues/1335)
-- Fix error message (empty log file) #1312 (https://github.com/GetSimpleCMS/GetSimpleCMS/pull/1312)
-- Fix missing php7 extension on file_ext_blacklist #1237 (https://github.com/GetSimpleCMS/GetSimpleCMS/issues/1237)
-- Add .webp support for GetSimple CMS #1350 (https://github.com/GetSimpleCMS/GetSimpleCMS/pull/1350)
-- Add thumbnail creation on upload.
-- Update Google Fonts to local in Innovation theme (for German GDPR).
-- Changed function name do to deprecated class constructor.
-- Further 8.x compatibility from Topic with fixes ([Forum Thread](http://get-simple.info/forums/showthread.php?tid=16548))
+# WYSIWYG toolbars (advanced, basic, advanced, island, CEbar or [custom config])
+define('GSEDITORTOOL', "CEbar");
+
+# WYSIWYG Editor Options
+define('GSEDITOROPTIONS', '
+extraPlugins:"fontawesome5,youtube,codemirror,cmsgrid,colorbutton,oembed,simplebutton,spacingsliders",
+disableNativeSpellChecker : false,
+forcePasteAsPlainText : true
+');
+```
+
+<hr><hr>
 
 
-## History :pushpin:
-GetSimple CMS was created in 2009 by the US web developer Chris Cagle, who presided over the project as a senior developer. Cage claimed he created GetSimple CMS out of the need of a CMS that was "as powerful as WordPress is to use", but easier. Since then, other developers have joined the GetSimple team. An active community contributes plug-ins, translations and themes. Though by 2020, development had slowed considerably as the original team (Shawn Alverson, Mike Swan, among many others) were no longer able to dedicate their time and resources to the project.
+## What's New:
 
-In November 2024 the official website was hacked, loosing access to vast amount of knowledge via its forum, as well as plugin, theme and language downloads.
+- New: Replaced Fancybox with SimpleLightbox
 
-Recognizing the lapse in development and support on the current official website, since 2022 we've taken the initiative to breathe new life into the platform by providing the essential updates it deserves, ensuring the advancement of this vital project.
+### Updates:
 
-This edition aims to introduce a range of improvements, including support for modern PHP versions, and is continuously maintained with new features that are not available in the standard version upon installation.
+- Updated: Massive Admin 5.x
+- Updated: Codemirror
+- Updated: Install/Upgrade Email
+- Updated: Support Page
+- Updated: Support > Error Log
+- Updated: Backup > Website Archives
 
-In 2023, the website GetSimple CMS CE Website was launched to inform users about updates and serve as a platform where the latest version of this software can be downloaded.
+### Fixes:
+
+- Fixed: Menu Manager
+- Fixed: Email HTML rendering issue
+- Fixed: Password reset functionality
+- Fixed: Components copy code issue
+- Fixed: jCrop
+
+### Removals:
+
+- Removed: Deprecated Uploadify
+- Removed: Outdated demo templates & plugins
+- Removed: Unused/dead files
+
+### Security & Hotfixes:
+
+- Hotfixes: Remote command execution vulnerability #1352  (https://github.com/GetSimpleCMS/GetSimpleCMS/issues/1352)
+- Hotfixes: Cross-Site Scripting Vulnerability #1360 (https://github.com/GetSimpleCMS/GetSimpleCMS/issues/1360)
+
+### Other:
+
+- Miscellaneous cleanup, fixes, and improvements
+
+
+<hr><hr>
+
 
 ## Team :pushpin: ##
 The following individuals generously donate their time to further developing this "Community Edition" version, please consider supporting their efforts:
@@ -150,47 +186,27 @@ The following individuals generously donate their time to further developing thi
 [![Donate](https://img.shields.io/badge/Donate-PayPal-blue.svg)](https://www.paypal.com/donate/?hosted_button_id=QTTWMSSQDYB82)
 
 
+<hr><hr>
+
+
+## History :pushpin:
+GetSimple CMS was created in 2009 by the US web developer Chris Cagle, who presided over the project as a senior developer. Cage claimed he created GetSimple CMS out of the need of a CMS that was "as powerful as WordPress is to use", but easier. Since then, other developers have joined the GetSimple team. An active community contributes plug-ins, translations and themes. Though by 2020, development had slowed considerably as the original team (Shawn Alverson, Mike Swan, among many others) were no longer able to dedicate their time and resources to the project.
+
+In November 2024 the official website was hacked, loosing access to vast amount of knowledge via its forum, as well as plugin, theme and language downloads.
+
+Recognizing the lapse in development and support on the current official website, since 2022 we've taken the initiative to breathe new life into the platform by providing the essential updates it deserves, ensuring the advancement of this vital project.
+
+This edition aims to introduce a range of improvements, including support for modern PHP versions, and is continuously maintained with new features that are not available in the standard version upon installation.
+
+In 2023, the website GetSimple CMS CE Website was launched to inform users about updates and serve as a platform where the latest version of this software can be downloaded.
+
+
+<hr><hr>
+
+
 ## LICENSE: :pushpin:
 
 This software package is licensed under the GNU GENERAL PUBLIC LICENSE v3. 
 LICENSE.txt is located within this download's zip file.
 
 It would be great if you would link back to https://getsimple-ce.ovh/ if you use it.
-
-
-## DISCLAIMER: :pushpin:
-
-While GetSimple strives to be a secure and stable application, we simply cannot 
-be held liable for any information loss, corruption or anything else that may 
-happen to your site while it is using the our software. If you find a bug 
-or security hole, please contact someone in the forums at 
-https://github.com/GetSimpleCMS-CE/GetSimpleCMS-CE/discussions
-
-
-## Libraries :pushpin:
-
-_company logos in the icons are copyright of their respective owners_
-
-Ckeditor  
-https://ckeditor.com/
-
-marijnh/CodeMirror  
-https://codemirror.net/
-
-simplelightbox  
-https://github.com/andreknieriem/simplelightbox
-
-W3 Css 
-https://www.w3schools.com/w3css/default.asp
-
-rgrove/lazyload  
-https://github.com/rgrove/lazyload
-
-enyo/dropzone  
-https://github.com/enyo/dropzone
-
-bigspotteddog/scrolltofixed  
-https://github.com/bigspotteddog/ScrollToFixed
-
-dropzonejs  
-http://www.dropzonejs.com/
