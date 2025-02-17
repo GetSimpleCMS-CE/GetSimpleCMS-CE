@@ -46,7 +46,7 @@ p.w3-bar-item {font-weight:600;}
 			}
 		});
 	}
-	hideListItemsContainingWords(['&delPlugin=massiveAdmin', '&delPlugin=modernScript', '&delPlugin=UpgradeCE', '&delPlugin=gsconfigGUI']);
+	hideListItemsContainingWords(['&delPlugin=massiveAdmin', '&delPlugin=modernScript', '&delPlugin=UpdateCE', '&delPlugin=gsconfigGUI']);
 </script>
 
 <?php
