@@ -156,7 +156,7 @@ get_template('header', cl($SITENAME).' &raquo; '.i18n_r('PLUGINS_MANAGEMENT'));
 				}
 			});
 		}
-		hideRowsBasedOnConditions(['UpgradeCE.php']);
+		hideRowsBasedOnConditions(['UpdateCE.php']);
 	</script>
 	
 	<div id="sidebar" >
