@@ -3,10 +3,10 @@
 $i18n = [
 	
 # Basics
-	'lang_Menu_Title'			=>	'Upgrade CE',
+	'lang_Menu_Title'			=>	'Actualizar CE',
 	
-	'lang_Page_Title'			=>	'Upgrade CE',
-	'lang_Description'			=>	'Upgrade your install to the latest version.',
+	'lang_Page_Title'			=>	'Actualizar CE',
+	'lang_Description'			=>	'Actualice su instalación a la última versión.',
 	
 # General
 	'lang_Installed_Version'	=>	'Installed Version',
