@@ -74,7 +74,7 @@ foreach ($pagesArray as $page) {
 	if (defined('GSSORTPAGELISTBY')) {
 			$sorttype = GSSORTPAGELISTBY;
 	} else {
-		$sorttype = 'title';
+		$sorttype = 'menu';
 	}
 	
 	switch($sorttype) {
