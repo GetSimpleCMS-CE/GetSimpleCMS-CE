@@ -649,7 +649,7 @@ function build_menu($parentId, $menuTree, $currentpage, $classPrefix, $isSubmenu
 		return '';
 	}
 
-	$menu = $isSubmenu ? "\n<ul class=\"subMenu\">\n" : ""; 
+	$menu = $isSubmenu ? "\n<ul class=\" subMenu \">\n" : ""; 
 	foreach ($menuTree[$parentId] as $page) {
 		$url_nav = $page['url'];
 		$classes = !empty($page['parent']) ? $classPrefix . $page['parent'] . " " : "";
