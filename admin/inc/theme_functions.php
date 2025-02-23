@@ -649,28 +649,48 @@ function build_menu($parentId, $menuTree, $currentpage, $classPrefix, $isSubmenu
 		return '';
 	}
 
-	$menu = $isSubmenu ? "\n<ul class=\"tree\">\n" : ""; 
+	$menu = $isSubmenu ? "\n<ul class=\"subMenu\">\n" : ""; 
 	foreach ($menuTree[$parentId] as $page) {
 		$url_nav = $page['url'];
 		$classes = !empty($page['parent']) ? $classPrefix . $page['parent'] . " " : "";
 		$classes .= $classPrefix . $url_nav;
 		
 		// Check if the current page has sub-pages
-		if (isset($menuTree[$url_nav])) {
-			$classes .= " has-tree"; // Add the "dropdown" class
+		$hasSubmenu = isset($menuTree[$url_nav]);
+		if ($hasSubmenu) {
+			$classes .= " wSub "; // Add the "with-sub-pages" class to <li>
 		}
 
 		// Add a class for <li> elements within a submenu
 		if ($isSubmenu) {
-			$classes .= " tree-item"; // Add the "submenu-item" class
+			$classes .= " subItem "; // Add the "submenu-item" class to <li>
+		} else {
+			// Add a class for first-level <li> items
+			$classes .= " topL "; // Add the "top-level" class to <li>
 		}
 
 		if ($currentpage == $url_nav) {
-			$classes .= " current active";
+			$classes .= " current active "; // Add the "current active" class to <li>
 		}
 
 		$pageTitle = !empty($page['title']) ? $page['title'] : $page['menu'];
-		$menu .= '<li class="' . trim($classes) . '"><a href="' . find_url($page['url'], $page['parent']) . '" title="' . encode_quotes(cl($pageTitle)) . '">' . strip_decode($page['menu']) . '</a>';
+		
+		// Add classes to the <a> element
+		$linkClasses = [];
+		if (!$isSubmenu) {
+			$linkClasses[] = " topL-a "; // Add class to top-level <a>
+		}
+		if ($hasSubmenu) {
+			$linkClasses[] = " wSub-a "; // Add class to <a> with submenus
+		}
+		if ($isSubmenu) {
+			$linkClasses[] = " subItem-a "; // Add class to submenu <a>
+		}
+		if ($currentpage == $url_nav) {
+			$linkClasses[] = " cur-act-a "; // Add class to active <a>
+		}
+
+		$menu .= '<li class="' . trim($classes) . '"><a href="' . find_url($page['url'], $page['parent']) . '" class="' . implode(" ", $linkClasses) . '" title="' . encode_quotes(cl($pageTitle)) . '">' . strip_decode($page['menu']) . '</a>';
 
 		// Add submenu if exists
 		$subMenu = build_menu($url_nav, $menuTree, $currentpage, $classPrefix, true);
