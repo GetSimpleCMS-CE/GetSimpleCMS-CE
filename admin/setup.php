@@ -57,6 +57,9 @@ if(isset($_POST['submitted'])) {
 		# create new password
 		$random = createRandomPassword();
 		$PASSWD = passhash($random);
+
+		# Create default role for user
+		$ROLE = 'ADMIN';
 		
 		# create user xml file
 		$file = _id($USR).'.xml';
@@ -68,6 +71,7 @@ if(isset($_POST['submitted'])) {
 		$xml->addChild('HTMLEDITOR', '1');
 		$xml->addChild('TIMEZONE', $TIMEZONE);
 		$xml->addChild('LANG', $LANG);
+		$xml->addChild('ROLE', $ROLE);
 		if (! XMLsave($xml, GSUSERSPATH . $file) ) {
 			$kill = i18n_r('CHMOD_ERROR');
 		}
