@@ -77,11 +77,11 @@ forcePasteAsPlainText : true
 # define('GSEXTAPI',1);
 	
 # Set PHP locale
-# http://php.net/manual/en/function.setlocale.php
+# https://php.net/manual/en/function.setlocale.php
 # setlocale(LC_ALL,'en_US');
 
 # Set default timezone of server, accepts php timezone string
-# valid timeszones can be found here http://www.php.net/manual/en/timezones.php
+# valid timeszones can be found here https://www.php.net/manual/en/timezones.php
 # Europe/London, Australia/Sydney, Etc/GMT-8
 # define('GSTIMEZONE','America/Chicago');
 
