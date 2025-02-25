@@ -11,8 +11,8 @@ register_plugin(
 	$UpdateCE,								# ID of plugin, should be filename minus php
 	i18n_r($UpdateCE.'/lang_Menu_Title'),	# Title of plugin
 	'1.0',									# Plugin version
-	'islander',								# Plugin author
-	'https://getsimple-ce.ovh/ce-plugins/',	# Author URL
+	'CE Team',								# Plugin author
+	'https://getsimple-ce.ovh/donate',	# Author URL
 	i18n_r($UpdateCE.'/lang_Description'),	# Plugin Description
 	'support',								# Page type of plugin
 	'update_ce'							# Function that displays content
@@ -27,12 +27,7 @@ function update_ce() {
 	
 	echo '
 	<link rel="stylesheet" href="'.$SITEURL.'plugins/UpdateCE/assets/w3.css">
-	<style>
-		.wrapper #maincontent ul{margin: 10px 0 0 30px;}
-		.w3-border{border: 2px solid #fff !important;}
-		p {font-size:1.2em}
-		h3{text-shadow: none;font-weight:600!important;font-style:normal;}
-	</style>
+	<link rel="stylesheet" href="'.$SITEURL.'plugins/UpdateCE/assets/w3-custom.css">
 	
 	<div class="w3-parent w3-container"><!-- Start Plugin -->
 	
@@ -204,149 +199,147 @@ forcePasteAsPlainText : true<br>
 		echo '
 			<hr>
 			
-			<div class="w3-opacity">
-				<p>Made with <span class="credit-icon">❤️</span> especially for "<b>'.$USR.'</b>".<br>
-				Is this plugin useful for you? <a href="https://www.paypal.com/donate/?hosted_button_id=QTTWMSSQDYB82" target="_blank">Consider buying me a <span class="credit-icon">☕</span></a>.</p>
+			<div id="paypal" class="w3-opacity">
+				<p>Made with <span class="credit-icon">❤️</span> especially for "<b>'.$USR.'</b>". Is this plugin useful to you?
+				 <a href="https://getsimple-ce.ovh/donate" target="_blank" class="donateButton">Buy Us A Coffee <svg xmlns="http://www.w3.org/2000/svg" style="vertical-align:middle" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" fill-opacity="0" d="M17 14v4c0 1.66 -1.34 3 -3 3h-6c-1.66 0 -3 -1.34 -3 -3v-4Z"><animate fill="freeze" attributeName="fill-opacity" begin="0.8s" dur="0.5s" values="0;1"/></path><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path stroke-dasharray="48" stroke-dashoffset="48" d="M17 9v9c0 1.66 -1.34 3 -3 3h-6c-1.66 0 -3 -1.34 -3 -3v-9Z"><animate fill="freeze" attributeName="stroke-dashoffset" dur="0.6s" values="48;0"/></path><path stroke-dasharray="14" stroke-dashoffset="14" d="M17 9h3c0.55 0 1 0.45 1 1v3c0 0.55 -0.45 1 -1 1h-3"><animate fill="freeze" attributeName="stroke-dashoffset" begin="0.6s" dur="0.2s" values="14;0"/></path><mask id="lineMdCoffeeHalfEmptyFilledLoop0"><path stroke="#fff" d="M8 0c0 2-2 2-2 4s2 2 2 4-2 2-2 4 2 2 2 4M12 0c0 2-2 2-2 4s2 2 2 4-2 2-2 4 2 2 2 4M16 0c0 2-2 2-2 4s2 2 2 4-2 2-2 4 2 2 2 4"><animateMotion calcMode="linear" dur="3s" path="M0 0v-8" repeatCount="indefinite"/></path></mask><rect width="24" height="0" y="7" fill="currentColor" mask="url(#lineMdCoffeeHalfEmptyFilledLoop0)"><animate fill="freeze" attributeName="y" begin="0.8s" dur="0.6s" values="7;2"/><animate fill="freeze" attributeName="height" begin="0.8s" dur="0.6s" values="0;5"/></rect></g></svg></a></p>
 			</div>
 		</div><!-- End Plugin -->';
-	
 
-if (isset($_POST['download'])) {
-    $url = filter_var($_POST['url'], FILTER_VALIDATE_URL);
-    if ($url === false) {
-        echo "Invalid URL.";
-        return;
-    }
+	if (isset($_POST['download'])) {
+		$url = filter_var($_POST['url'], FILTER_VALIDATE_URL);
+		if ($url === false) {
+			echo "Invalid URL.";
+			return;
+		}
 
-    $rootPath = dirname(GSDATAPATH);
-    $tmpFile = $rootPath . "/Tmpfile.zip";
+		$rootPath = dirname(GSDATAPATH);
+		$tmpFile = $rootPath . "/Tmpfile.zip";
 
-    $fileContent = @file_get_contents($url);
-    if ($fileContent === false) {
-        echo "Failed to download file.";
-        return;
-    }
+		$fileContent = @file_get_contents($url);
+		if ($fileContent === false) {
+			echo "Failed to download file.";
+			return;
+		}
 
-    if (file_put_contents($tmpFile, $fileContent) === false) {
-        echo "Failed to save downloaded file.";
-        return;
-    }
+		if (file_put_contents($tmpFile, $fileContent) === false) {
+			echo "Failed to save downloaded file.";
+			return;
+		}
 
-    $zip = new ZipArchive;
-    if ($zip->open($tmpFile) === TRUE) {
-        $installTmp = $rootPath . "/install_TMP/";
-        if (!file_exists($installTmp)) {
-            mkdir($installTmp, 0755);
-        }
+		$zip = new ZipArchive;
+		if ($zip->open($tmpFile) === TRUE) {
+			$installTmp = $rootPath . "/install_TMP/";
+			if (!file_exists($installTmp)) {
+				mkdir($installTmp, 0755);
+			}
 
-        $zip->extractTo($installTmp);
-        $zip->close();
+			$zip->extractTo($installTmp);
+			$zip->close();
 
-        $subFolder = null;
-        // Find the top-level sub-folder
-        foreach (scandir($installTmp) as $item) {
-            if ($item !== '.' && $item !== '..') {
-                if (is_dir($installTmp . $item)) {
-                    $subFolder = $installTmp . $item . '/';
-                    break;
-                }
-            }
-        }
+			$subFolder = null;
+			// Find the top-level sub-folder
+			foreach (scandir($installTmp) as $item) {
+				if ($item !== '.' && $item !== '..') {
+					if (is_dir($installTmp . $item)) {
+						$subFolder = $installTmp . $item . '/';
+						break;
+					}
+				}
+			}
 
-        if ($subFolder) {
-            $filesCopied = true;
+			if ($subFolder) {
+				$filesCopied = true;
 
-            $directoryIterator = new RecursiveDirectoryIterator($subFolder, RecursiveDirectoryIterator::SKIP_DOTS);
-            $iterator = new RecursiveIteratorIterator($directoryIterator, RecursiveIteratorIterator::SELF_FIRST);
+				$directoryIterator = new RecursiveDirectoryIterator($subFolder, RecursiveDirectoryIterator::SKIP_DOTS);
+				$iterator = new RecursiveIteratorIterator($directoryIterator, RecursiveIteratorIterator::SELF_FIRST);
 
-            foreach ($iterator as $file) {
-                $sourcePath = $file->getPathname();
-                $relativePath = substr($sourcePath, strlen($subFolder));
-                $destinationPath = $rootPath . '/' . $relativePath;
+				foreach ($iterator as $file) {
+					$sourcePath = $file->getPathname();
+					$relativePath = substr($sourcePath, strlen($subFolder));
+					$destinationPath = $rootPath . '/' . $relativePath;
 
-                if ($file->isDir()) {
-                    if (!file_exists($destinationPath) && !mkdir($destinationPath, 0755, true)) {
-                        echo "Failed to create directory $destinationPath<br>";
-                        $filesCopied = false;
-                    }
-                } else {
-                    if (!copy($sourcePath, $destinationPath)) {
-                        $lastError = error_get_last();
-                        echo "Failed to copy $sourcePath to $destinationPath: " . $lastError['message'] . "<br>";
-                        $filesCopied = false;
-                    } else {
-                        unlink($sourcePath); // Remove the original file after copying
-                    }
-                }
-            }
+					if ($file->isDir()) {
+						if (!file_exists($destinationPath) && !mkdir($destinationPath, 0755, true)) {
+							echo "Failed to create directory $destinationPath<br>";
+							$filesCopied = false;
+						}
+					} else {
+						if (!copy($sourcePath, $destinationPath)) {
+							$lastError = error_get_last();
+							echo "Failed to copy $sourcePath to $destinationPath: " . $lastError['message'] . "<br>";
+							$filesCopied = false;
+						} else {
+							unlink($sourcePath); // Remove the original file after copying
+						}
+					}
+				}
 
-            // Cleanup
-            if (delete_directory($installTmp)) {
-                echo "Temporary directory removed successfully.<br>";
-            } else {
-                echo "Failed to remove temporary directory.<br>";
-                $lastError = error_get_last();
-                if ($lastError) {
-                    echo "Error: " . $lastError['message'] . "<br>";
-                }
-            }
+				// Cleanup
+				if (delete_directory($installTmp)) {
+					echo "Temporary directory removed successfully.<br>";
+				} else {
+					echo "Failed to remove temporary directory.<br>";
+					$lastError = error_get_last();
+					if ($lastError) {
+						echo "Error: " . $lastError['message'] . "<br>";
+					}
+				}
 
-            if (unlink($tmpFile)) {
-                echo "Temporary file removed successfully.<br>";
-            } else {
-                echo "Failed to remove temporary file.<br>";
-                $lastError = error_get_last();
-                if ($lastError) {
-                    echo "Error: " . $lastError['message'] . "<br>";
-                }
-            }
+				if (unlink($tmpFile)) {
+					echo "Temporary file removed successfully.<br>";
+				} else {
+					echo "Failed to remove temporary file.<br>";
+					$lastError = error_get_last();
+					if ($lastError) {
+						echo "Error: " . $lastError['message'] . "<br>";
+					}
+				}
 
-            if ($filesCopied) {
-                echo "Update installed successfully.";
-            } else {
-                echo "Some files could not be moved.";
-            }
-        } else {
-            echo "No sub-folder found in the extracted files.";
-        }
-    } else {
-        echo "Failed to open ZIP file.";
-    }
-}
+				if ($filesCopied) {
+					echo "Update installed successfully.";
+				} else {
+					echo "Some files could not be moved.";
+				}
+			} else {
+				echo "No sub-folder found in the extracted files.";
+			}
+		} else {
+			echo "Failed to open ZIP file.";
+		}
+	}
 
-function delete_directory($dirname) {
-    if (!is_dir($dirname)) {
-        return false;
-    }
+	function delete_directory($dirname) {
+		if (!is_dir($dirname)) {
+			return false;
+		}
 
-    $dir_handle = opendir($dirname);
-    if (!$dir_handle) {
-        return false;
-    }
+		$dir_handle = opendir($dirname);
+		if (!$dir_handle) {
+			return false;
+		}
 
-    while ($file = readdir($dir_handle)) {
-        if ($file != "." && $file != "..") {
-            $path = $dirname . "/" . $file;
-            if (is_dir($path)) {
-                delete_directory($path);
-            } else {
-                if (!unlink($path)) {
-                    $lastError = error_get_last();
-                    echo "Failed to delete file $path: " . $lastError['message'] . "<br>";
-                }
-            }
-        }
-    }
+		while ($file = readdir($dir_handle)) {
+			if ($file != "." && $file != "..") {
+				$path = $dirname . "/" . $file;
+				if (is_dir($path)) {
+					delete_directory($path);
+				} else {
+					if (!unlink($path)) {
+						$lastError = error_get_last();
+						echo "Failed to delete file $path: " . $lastError['message'] . "<br>";
+					}
+				}
+			}
+		}
 
-    closedir($dir_handle);
-    if (!rmdir($dirname)) {
-        $lastError = error_get_last();
-        echo "Failed to delete directory $dirname: " . $lastError['message'] . "<br>";
-        return false;
-    }
-    return true;
-}
-
+		closedir($dir_handle);
+		if (!rmdir($dirname)) {
+			$lastError = error_get_last();
+			echo "Failed to delete directory $dirname: " . $lastError['message'] . "<br>";
+			return false;
+		}
+		return true;
+	}
 
 };
 ?>
