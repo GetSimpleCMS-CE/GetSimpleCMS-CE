@@ -69,6 +69,47 @@ Designed to be light and agile, the base install comes to you clutter free, with
 <hr><hr>
 
 
+## What's New:
+
+- New: Replaced Fancybox with SimpleLightbox
+- New: Arabic language added
+
+### Updates:
+
+- Updated: Massive Admin 5.x
+- Updated: Codemirror
+- Updated: Install/Upgrade Email
+- Updated: Support Page
+- Updated: Support > Error Log
+- Updated: Backup > Website Archives
+
+### Fixes:
+
+- Fixed: Menu Manager
+- Fixed: Email HTML rendering issue
+- Fixed: Password reset functionality
+- Fixed: Components copy code issue
+- Fixed: jCrop
+
+### Removals:
+
+- Removed: Deprecated Uploadify
+- Removed: Outdated demo templates & plugins
+- Removed: Unused/dead files
+
+### Security & Hotfixes:
+
+- Hotfixes: Remote command execution vulnerability #1352  (https://github.com/GetSimpleCMS/GetSimpleCMS/issues/1352)
+- Hotfixes: Cross-Site Scripting Vulnerability #1360 (https://github.com/GetSimpleCMS/GetSimpleCMS/issues/1360)
+
+### Other:
+
+- Miscellaneous cleanup, fixes, and improvements
+
+
+<hr><hr>
+
+
 ## INSTALLATION: :pushpin:
 
 - Extract zip file to your web host
@@ -130,47 +171,6 @@ disableNativeSpellChecker : false,
 forcePasteAsPlainText : true
 ');
 ```
-
-<hr><hr>
-
-
-## What's New:
-
-- New: Replaced Fancybox with SimpleLightbox
-- New: Arabic language added
-
-### Updates:
-
-- Updated: Massive Admin 5.x
-- Updated: Codemirror
-- Updated: Install/Upgrade Email
-- Updated: Support Page
-- Updated: Support > Error Log
-- Updated: Backup > Website Archives
-
-### Fixes:
-
-- Fixed: Menu Manager
-- Fixed: Email HTML rendering issue
-- Fixed: Password reset functionality
-- Fixed: Components copy code issue
-- Fixed: jCrop
-
-### Removals:
-
-- Removed: Deprecated Uploadify
-- Removed: Outdated demo templates & plugins
-- Removed: Unused/dead files
-
-### Security & Hotfixes:
-
-- Hotfixes: Remote command execution vulnerability #1352  (https://github.com/GetSimpleCMS/GetSimpleCMS/issues/1352)
-- Hotfixes: Cross-Site Scripting Vulnerability #1360 (https://github.com/GetSimpleCMS/GetSimpleCMS/issues/1360)
-
-### Other:
-
-- Miscellaneous cleanup, fixes, and improvements
-
 
 <hr><hr>
 
