@@ -137,6 +137,7 @@ forcePasteAsPlainText : true
 ## What's New:
 
 - New: Replaced Fancybox with SimpleLightbox
+- New: Arabic language added
 
 ### Updates:
 
