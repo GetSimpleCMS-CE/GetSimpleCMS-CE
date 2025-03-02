@@ -49,8 +49,6 @@ if ($id) {
 		redirect('pages.php?error=' . urlencode(i18n_r('PAGE_NOTEXIST')));
 	}
 
-	// Load XML data securely
-	libxml_disable_entity_loader(true); // Disable external entity loading
 	$data_edit = getXML($path . $file);
 	$title = stripslashes($data_edit->title);
 	$pubDate = $data_edit->pubDate;
