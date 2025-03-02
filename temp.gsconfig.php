@@ -97,9 +97,6 @@ define('GSSUPPRESSERRORS',TRUE);
 # Disable check for Apache web server, default FALSE
 #define('GSNOAPACHECHECK',TRUE);
 
-# Disables update notification and version checking from old API
-define('GSNOVERCHECK',TRUE);
-
 # Disable Sitemap generation and menu items
 # define('GSNOSITEMAP',TRUE);
 
