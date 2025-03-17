@@ -68,7 +68,7 @@ forcePasteAsPlainText : true
 ');
 
 # Set email from address
-# define('GSFROMEMAIL','noreply@get-simple.info');
+# define('GSFROMEMAIL','noreply@getsimple-ce.ovh');
 
 # Autosave within edit.php. Value is the autosave interval in seconds
 # define('GSAUTOSAVE',900);
