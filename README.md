@@ -17,7 +17,7 @@
 <hr/>
 
 
-## What is GetSimple CMS CE? :pushpin:
+## What is GetSimple CMS CE? ℹ️
 
 GetSimple CMS is a lightweight, user-friendly content management system designed for simplicity and efficiency. It is flat-file based, meaning it doesn’t require a database, making it ideal for smaller websites and quick deployments. With its intuitive interface, anyone can easily create and manage content without extensive technical knowledge. GetSimple CMS offers fast performance, robust security, and easy customization with themes and plugins. Perfect for small business websites, portfolios, and blogs, it allows users to focus on their content without the complexity of larger CMS platforms.
 
@@ -32,7 +32,7 @@ Now supporting php7.4-8.x.
 <hr><hr>
 
 
-## Features :pushpin:
+## Features :bulb:
 
 ### XML Based ###
 We don't use mySQL to store our information, but instead depend the simplicity of XML. By utilizing XML, we are able stay away from introducing an extra layer of slowness and complexity associated with connecting to a mySQL database. Because GetSimple was built specifically for the small-site market, we feel this is the absolutely best option for data storage.
@@ -53,7 +53,7 @@ Designed to be light and agile, the base install comes to you clutter free, with
 <hr><hr>
 
 
-## REQUIREMENTS: :pushpin:
+## REQUIREMENTS 📋
 
 - UNIX/Linux hosting, (Windows tested with minor limitations)
 - PHP 7.4+
@@ -69,7 +69,7 @@ Designed to be light and agile, the base install comes to you clutter free, with
 <hr><hr>
 
 
-## What's New:
+## What's New ⭐
 
 - New: Replaced Fancybox with SimpleLightbox
 - New: Arabic language added
@@ -110,7 +110,7 @@ Designed to be light and agile, the base install comes to you clutter free, with
 <hr><hr>
 
 
-## INSTALLATION: :pushpin:
+## INSTALLATION: ⚙️
 
 - Extract zip file to your web host
 - Visit your domain and navigate to `/admin` (or your gsadmin path set in gsconfig.php), you will be redirected to the install / upgrade script
@@ -175,7 +175,7 @@ forcePasteAsPlainText : true
 <hr><hr>
 
 
-## Team :pushpin: ##
+## Team 💻
 The following individuals generously donate their time to further developing this "Community Edition" version, please consider supporting their efforts:
 
 ### :computer: multi / multicolor :video_game: ###
@@ -190,7 +190,7 @@ The following individuals generously donate their time to further developing thi
 <hr><hr>
 
 
-## History :pushpin:
+## History 📜
 GetSimple CMS was created in 2009 by the US web developer Chris Cagle, who presided over the project as a senior developer. Cage claimed he created GetSimple CMS out of the need of a CMS that was "as powerful as WordPress is to use", but easier. Since then, other developers have joined the GetSimple team. An active community contributes plug-ins, translations and themes. Though by 2020, development had slowed considerably as the original team (Shawn Alverson, Mike Swan, among many others) were no longer able to dedicate their time and resources to the project.
 
 In November 2024 the official website was hacked, loosing access to vast amount of knowledge via its forum, as well as plugin, theme and language downloads.
@@ -205,7 +205,7 @@ In 2023, the website GetSimple CMS CE Website was launched to inform users about
 <hr><hr>
 
 
-## LICENSE: :pushpin:
+## LICENSE :bookmark_tabs:
 
 This software package is licensed under the GNU GENERAL PUBLIC LICENSE v3. 
 LICENSE.txt is located within this download's zip file.
