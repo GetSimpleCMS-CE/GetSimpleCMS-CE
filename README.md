@@ -71,6 +71,7 @@ Designed to be light and agile, the base install comes to you clutter free, with
 
 ## What's New ⭐
 
+- New: UpdateCE plugin included. Easily update your install to the latest version.
 - New: Replaced Fancybox with SimpleLightbox
 - New: Arabic language added
 
