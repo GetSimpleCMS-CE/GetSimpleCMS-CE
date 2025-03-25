@@ -76,7 +76,7 @@ Designed to be light and agile, the base install comes to you clutter free, with
 
 ### Updates:
 
-- Updated: Massive Admin 5.x
+- Updated: Massive Admin 6.x
 - Updated: Codemirror
 - Updated: Install/Upgrade Email
 - Updated: Support Page
