@@ -587,29 +587,41 @@ class MassiveAdminClass{
 	}
 
 	// snippet save
-	public function snippetSave(){
-		$title = $_POST['snippetTitle'];
-		$content = $_POST['content'];
+	public function snippetSave() {
+		$title = $_POST['snippetTitle'] ?? null;
+		$content = $_POST['content'] ?? null;
 		$fileFolder = GSDATAOTHERPATH . 'snippetMassive/';
+		$filePath = $fileFolder . 'snippet.xml';
+		
+		// Initialize XML
 		$myXML = new SimpleXMLElement('<?xml version="1.0" encoding="UTF-8"?><snippets/>');
-
-		if ($title !== null) {
+	
+		if ($title !== null && $content !== null) {
+			// Ensure folder exists
+			if (!file_exists($fileFolder)) {
+				mkdir($fileFolder, 0755, true);
+			}
+	
 			foreach ($title as $key => $value) {
-				if (file_exists($fileFolder)) {
-					$snippet = $myXML->addChild($value);
-					$snippet->addChild('title', $value);
-					$snippet->addChild('content', htmlentities(htmlentities($content[$key])));
-					$myXML->asXML($fileFolder . 'snippet.xml');
-				} else {
-					mkdir($fileFolder, 0755);
-					$snippet = $myXML->addChild($value);
-					$snippet->addChild('title', $value);
-					$snippet->addChild('content', htmlentities(htmlentities($content[$key])));
-					$myXML->asXML($fileFolder . 'snippet.xml');
-				};
+				// Sanitize and validate title
+				$cleanTitle = preg_replace('/[^a-zA-Z0-9_-]/', '', trim($value));
+				
+				if (!empty($cleanTitle) && isset($content[$key])) {
+					$snippet = $myXML->addChild('snippet');
+					$snippet->addChild('title', $cleanTitle);
+					$snippet->addChild('content', htmlentities($content[$key], ENT_QUOTES, 'UTF-8'));
+				}
+			}
+			
+			// Save XML only if there are snippets
+			if (count($myXML->children()) > 0) {
+				$myXML->asXML($filePath);
 			}
 		} else {
-			unlink($fileFolder . 'snippet.xml');
+			// Delete file if it exists
+			if (file_exists($filePath)) {
+				unlink($filePath);
+			}
 		}
 	}
 

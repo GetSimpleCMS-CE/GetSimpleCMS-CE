@@ -10,7 +10,6 @@
 	border-bottom: none !important;
 }
 
-
 .primarylink img{
 	display: none;
 }
@@ -91,7 +90,6 @@ h6 {
 	justify-content: flex-end;
 }
 
-
 @media(min-width:768px) {
 	#header .nav {
 		margin-bottom: -2px;
@@ -102,7 +100,6 @@ h6 {
 		padding: 10px 15px;
 	}
 }
-
 
 @media (max-width: 768px) {
 	#header .toper .wrapper #pill {
@@ -235,7 +232,6 @@ h6 {
 	transition: all 250ms linear;
 	border-radius: 5px;
 }
-
 
 #sidebar .snav li a.current svg {
 	filter: invert(100%) !important
@@ -709,7 +705,6 @@ body#index,
 body#resetpassword {
 	background-color: var(--main-color);
 	/*background-image: url("https://picsum.photos/1600/900/?blur");*/
-
 	background:linear-gradient(to bottom, var(--main-color), var(--main-color-d));
 	background-size: cover;
 	background-position: center center;
@@ -1019,4 +1014,16 @@ body#resetpassword #maincontent .main {
 
 .cke {
 	color: hotpink !important;
+}
+
+.logocustom {
+	margin-left:10px;
+	  max-height: 50px;
+	  margin-bottom: 20px;
+	  display: block;
+	  object-fit: contain
+	}
+
+#plugins .edittable tr, #plugins .edittable td, #plugins .edittable th {
+	cursor: default;
 }

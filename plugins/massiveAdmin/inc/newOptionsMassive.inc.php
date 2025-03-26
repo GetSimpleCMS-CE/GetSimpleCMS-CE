@@ -16,7 +16,7 @@
 	</div>
 </div>
 
-<script src="<?php echo $SITEURL; ?>plugins/massiveAdmin/js/newOptionsMassive.js?v=2"></script>
+<script src="<?php echo $SITEURL; ?>plugins/massiveAdmin/js/newOptionsMassive.js?v=6"></script>
 
 <?php
 

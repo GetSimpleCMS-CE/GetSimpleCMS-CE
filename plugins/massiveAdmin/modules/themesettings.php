@@ -1,58 +1,62 @@
-<link rel="stylesheet" href="<?php global $SITEURL; echo $SITEURL; ?>plugins/massiveAdmin/css/w3.css">
-<link rel="stylesheet" href="<?php global $SITEURL; echo $SITEURL; ?>plugins/massiveAdmin/css/w3-custom.css">
+<link rel="stylesheet" href="<?php global $SITEURL;
+echo $SITEURL; ?>plugins/massiveAdmin/css/w3.css">
+<link rel="stylesheet" href="<?php global $SITEURL;
+echo $SITEURL; ?>plugins/massiveAdmin/css/w3-custom.css">
 <div class="w3-parent w3-container"><!-- Start Plug -->
 
-<h3><?php echo i18n_r('massiveAdmin/THEMECONFIGURATORNAME'); ?></h3>
-<hr>
+	<h3><?php echo i18n_r('massiveAdmin/THEMECONFIGURATORNAME'); ?></h3>
+	<hr>
 
-<div class="w3-panel w3-leftbar w3-pale-yellow w3-padding-large">
-	<p><?php echo i18n_r("massiveAdmin/HOWUSETHEMECONFIG");?></p>
-	<button class="w3-btn w3-gs-main w3-round w3-right showdialog" onclick="document.getElementById('id01').style.display='block'"><?php echo i18n_r("massiveAdmin/WATCHEXAMPLE");?></button>
-</div>
+	<div class="w3-panel w3-leftbar w3-pale-yellow w3-padding-large">
+		<p><?php echo i18n_r("massiveAdmin/HOWUSETHEMECONFIG"); ?></p>
+		<button class="w3-btn w3-gs-main w3-round w3-right showdialog"
+			onclick="document.getElementById('id01').style.display='block'"><?php echo i18n_r("massiveAdmin/WATCHEXAMPLE"); ?></button>
+	</div>
 
-<p class="w3-margin-bottom">
+	<p class="w3-margin-bottom">
+		<?php
+		$xml = simplexml_load_file(GSDATAOTHERPATH . 'website.xml');
+		$activeTemplate = $xml->TEMPLATE;
+		echo "Active Theme: <b>$activeTemplate</b>";
+		?>
+	</p>
+	<hr>
+
+	<h3><?php echo i18n_r("massiveAdmin/SETTINGS"); ?></h3>
+	<hr>
+
 	<?php
-	$xml = simplexml_load_file(GSDATAOTHERPATH . 'website.xml');
-	$activeTemplate = $xml->TEMPLATE;
-	echo "Active Theme: <b>$activeTemplate</b>";; 
-	?>
-</p>
-<hr>
+	if (file_exists(GSTHEMESPATH . $activeTemplate . '/settings.json')) {
+		$data = file_get_contents(GSTHEMESPATH . $activeTemplate . '/settings.json');
+		$filx = json_decode($data);
 
-<h3><?php echo i18n_r("massiveAdmin/SETTINGS");?></h3>
-<hr>
-
-<?php
-if (file_exists(GSTHEMESPATH . $activeTemplate . '/settings.json')) {
-	$data = file_get_contents(GSTHEMESPATH . $activeTemplate . '/settings.json');
-	$filx =  json_decode($data);
-
-	echo '
+		echo '
 	<form class="settheme" method="post">';
 
-	foreach ($filx->settings as $key => $loop) {
-		if ($loop->type  == 'wysywig') {
-			echo '
+		foreach ($filx->settings as $key => $loop) {
+			if ($loop->type == 'wysywig') {
+				echo '
 			<div class="w3-margin-bottom">
 				<label>' . $loop->title . ' :</label>
 				<textarea class="mbinput w3-input w3-padding w3-border w3-round w3-margin-bottom" style="width:98%; display:block; height:250px;" id="post-content" name="' . $key . '" >' . html_entity_decode($loop->value) . '</textarea>
 			</div>';
-		} elseif ($loop->type  == 'image') {
-			global $SITEURL;
+			} elseif ($loop->type == 'image') {
+				global $SITEURL;
 
-			echo '
+				echo '
 			<span class="formedit">';
-			echo '
+				echo '
 			<div class="w3-margin-bottom">
 				<label>' . $loop->title . ' :</label>
 				<div class="w3-row w3-margin-bottom">';
-			if ($loop->value !== 'undefined') {
-				echo '
+				if ($loop->value !== 'undefined') {
+					echo '
 				<div class="w3-col m2 l2 w3-center">
 					<img src="' . $loop->value . '" class="w3-border w3-padding" style="width:80px;height:80px;object-fit:cover;">
 				</div>';
-			};
-			echo '
+				}
+				;
+				echo '
 				<div class="w3-col m8 l8  w3-center">
 					<input type="text" class="mb_foto foto mbinput w3-input w3-padding w3-border w3-round w3-margin-bottom" style="margin-top:30px" name="' . $key . '"  value="' . $loop->value . '">
 				</div>
@@ -63,11 +67,11 @@ if (file_exists(GSTHEMESPATH . $activeTemplate . '/settings.json')) {
 			</div>	
 			</div>';
 
-			echo '</span>';
-		} elseif ($loop->type  == 'file') {
-			global $SITEURL;
+				echo '</span>';
+			} elseif ($loop->type == 'file') {
+				global $SITEURL;
 
-			echo '
+				echo '
 			<div class="w3-margin-bottom">
 				<span class="formedit-file">';
 				echo '
@@ -77,7 +81,7 @@ if (file_exists(GSTHEMESPATH . $activeTemplate . '/settings.json')) {
 					&nbsp;
 					</div>';
 
-					echo '
+				echo '
 					<div class="w3-col m8 l8  w3-center">
 						<input type="text" class="mb_file file mbinput w3-input w3-padding w3-border w3-round w3-margin-bottom" name="' . $key . '"  value="' . $loop->value . '" style="margin-top:30px">
 					</div>
@@ -89,220 +93,254 @@ if (file_exists(GSTHEMESPATH . $activeTemplate . '/settings.json')) {
 			</div>
 				';
 
-			echo "</span>";
-		} elseif ($loop->type  == 'textarea') {
-			echo '
+				echo "</span>";
+			} elseif ($loop->type == 'textarea') {
+				echo '
 			<div class="w3-margin-bottom">
 			<label>' . $loop->title . ' :</label>
 			
 			<textarea class="mbinput  w3-input w3-padding w3-border w3-round w3-margin-bottom" style="width:98%; height:250px;" name="' . $key . '" >' . html_entity_decode($loop->value) . '</textarea>
 			</div>';
-		} elseif ($loop->type  == 'dropdown') {
-			$ars = explode('||', $loop->options);
+			} elseif ($loop->type == 'dropdown') {
+				$ars = explode('||', $loop->options);
 
-			echo '
+				echo '
 			<div class="w3-margin-bottom">
 			<label>' . $loop->title . ' :</label>';
 
-			echo '
+				echo '
 			<select class="w3-select w3-border w3-round w3-margin-bottom ' . $key . '" name="' . $key . '" style="width:98%">';
 
-			foreach ($ars as $sel) {
-				echo '<option value="' . trim($sel) . '" >' . trim($sel)  . '</option>';
-			}
+				foreach ($ars as $sel) {
+					echo '<option value="' . trim($sel) . '" >' . trim($sel) . '</option>';
+				}
 
-			echo '</select></div>';
+				echo '</select></div>';
 
-			echo '<script>
+				echo '<script>
 				document.querySelector("select.' . str_replace(" ", "", $key) . '").value = "' . trim($loop->value) . '"; 
 			</script>';
-		} elseif ($loop->type  == 'link') {
+			} elseif ($loop->type == 'link') {
 
-			echo '
+				echo '
 			<div class="w3-margin-bottom">
 			<label>' . $loop->title . ' :</label> 
 			<select class="w3-select w3-border w3-round w3-margin-bottom ' . $key . '" name="' . $key . '" style="width:98%">';
 
-			foreach (glob(GSDATAPAGESPATH . "*.{xml}", GLOB_BRACE) as $page) {
-				$path_parts = pathinfo($page);
-				global $SITEURL;
-				echo "<option value='" . $SITEURL . $path_parts['filename'] . "'  >" . $path_parts['filename'] . "</option>";
-			};
+				foreach (glob(GSDATAPAGESPATH . "*.{xml}", GLOB_BRACE) as $page) {
+					$path_parts = pathinfo($page);
+					global $SITEURL;
+					echo "<option value='" . $SITEURL . $path_parts['filename'] . "'  >" . $path_parts['filename'] . "</option>";
+				}
+				;
 
-			echo '</select></div>';
+				echo '</select></div>';
 
-			echo '<script> document.querySelector("select.' . $key . '").value = "' . $loop->value . '"; </script>';
-		} else {
+				echo '<script> document.querySelector("select.' . $key . '").value = "' . $loop->value . '"; </script>';
+			} else {
 
-			echo '
+				echo '
 			<div class="w3-margin-bottom">
 			<label>' . $loop->title . ' :</label>
 			<input class="w3-input w3-padding w3-border w3-round w3-margin-bottom" style="width:98%" type="' . $loop->type . '" name="' . $key . '" value="' . html_entity_decode($loop->value ?? '') . '"></div>
 			';
-		}
+			}
+		};
 	};
-};
 
-echo '
+	echo '
 		<div class="w3-margin-top w3-center">
-			<button class="w3-btn w3-large w3-round w3-green" type="submit" name="ssettings">'.i18n_r('massiveAdmin/SAVEOPTION').'</button>
+			<button class="w3-btn w3-large w3-round w3-green" type="submit" name="ssettings">' . i18n_r('massiveAdmin/SAVEOPTION') . '</button>
 		</div>
 	</form>';
-?>
+	?>
 
-<?php
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['ssettings'])) {
-	foreach ($filx->settings as $key => $loop) {
-		$filx->settings->$key->value = $_POST[$key];
+	<?php
+	if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['ssettings'])) {
+		foreach ($filx->settings as $key => $loop) {
+			$filx->settings->$key->value = $_POST[$key];
+		}
+		// Zapisz zaktualizowane dane z powrotem do pliku
+		file_put_contents(GSTHEMESPATH . $activeTemplate . '/settings.json', json_encode($filx, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES));
+
+		echo ("<meta http-equiv='refresh' content='0'>");
 	}
-	// Zapisz zaktualizowane dane z powrotem do pliku
-	file_put_contents(GSTHEMESPATH . $activeTemplate . '/settings.json', json_encode($filx, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES));
+	;
+	?>
 
-	echo ("<meta http-equiv='refresh' content='0'>");
-};
-?>
+	<?php
+	global $EDTOOL;
+	global $toolbar;
+	global $options;
+	global $EDOPTIONS;
+	
+	if (isset($EDTOOL))
+		$EDTOOL = returnJsArray($EDTOOL);
+	if (isset($toolbar))
+		$toolbar = returnJsArray($toolbar); // handle plugins that corrupt this
+	else if (strpos(trim($EDTOOL), '[[') !== 0 && strpos(trim($EDTOOL), '[') === 0) {
+		$EDTOOL = "[$EDTOOL]";
+	}
 
-<script type="text/javascript" src="template/js/ckeditor/ckeditor.js?t=3.3.16"></script>
+	if (isset($toolbar) && strpos(trim($toolbar), '[[') !== 0 && strpos($toolbar, '[') === 0) {
+		$toolbar = "[$toolbar]";
+	}
+	$toolbar = isset($EDTOOL) ? ",toolbar: " . trim($EDTOOL, ",") : '';
+	$options = isset($EDOPTIONS) ? ',' . trim($EDOPTIONS, ",") : '';
+	?>
 
-<script type="text/javascript">
-	document
-		.querySelectorAll(`#post-content`)
-		.forEach(c => {
+	<script type="text/javascript" src="template/js/ckeditor/ckeditor.js?t=3.3.16"></script>
 
-			var editor = CKEDITOR.replace(c, {
-				skin: 'getsimple',
-				forcePasteAsPlainText: true,
-				language: 'en',
-				defaultLanguage: 'en',
+	<script type="text/javascript">
+		document
+			.querySelectorAll(`#post-content`)
+			.forEach(c => {
+
+				var editor = CKEDITOR.replace(c, {
+					skin: 'getsimple',
+					forcePasteAsPlainText: true,
+					language: 'en',
+					defaultLanguage: 'en',
+					<?php
+					global $TEMPLATE;
+					if (file_exists(GSTHEMESPATH . $TEMPLATE . "/editor.css")) {
+						$fullpath = suggest_site_path();
+						?>
+										contentsCss: '<?php echo $fullpath; ?>theme/<?php echo $TEMPLATE; ?>/editor.css',
+					<?php } ?>
 				entities: true,
-				// uiColor : '#FFFFFF',
-				height: '300px',
-				baseHref: '<?php global $SITEURL;
-							echo $SITEURL; ?>',
-				tabSpaces: 10,
-				filebrowserBrowseUrl: 'filebrowser.php?type=all',
-				filebrowserImageBrowseUrl: 'filebrowser.php?type=images',
-				filebrowserWindowWidth: '730',
-				filebrowserWindowHeight: '500',
-				toolbar: 'advanced'
+					// uiColor : '#FFFFFF',
+					height: '300px',
+					baseHref: '<?php global $SITEURL;
+					echo $SITEURL; ?>',
+					tabSpaces: 10,
+					filebrowserBrowseUrl: 'filebrowser.php?type=all',
+					filebrowserImageBrowseUrl: 'filebrowser.php?type=images',
+					filebrowserWindowWidth: '730',
+					filebrowserWindowHeight: '500'
+					<?php
+					echo $toolbar; ?>
+				<?php
+				echo $options; ?>
+				});
 			});
-		});
-</script>
+	</script>
 
-<script>
-	if (document.querySelector('.mb_foto') !== null) {
+	<script>
+		if (document.querySelector('.mb_foto') !== null) {
 
-		let data = 0;
+			let data = 0;
 
-		document
-			.querySelectorAll('.formedit')
-			.forEach((e, i) => {
+			document
+				.querySelectorAll('.formedit')
+				.forEach((e, i) => {
 
-				e.querySelector('.choose-image')
-					.addEventListener('click', y => {
-						y.preventDefault();
+					e.querySelector('.choose-image')
+						.addEventListener('click', y => {
+							y.preventDefault();
 
-						const url = "<?php global $SITEURL;
-										echo $SITEURL . "plugins/massiveAdmin/files/imagebrowser.php?"; ?>&func=" + e.querySelector('input[type="text"]').getAttribute('name');
+							const url = "<?php global $SITEURL;
+							echo $SITEURL . "plugins/massiveAdmin/files/imagebrowser.php?"; ?>&func=" + e.querySelector('input[type="text"]').getAttribute('name');
 
-						const win = window.open(url, "myWindow", "tolbar=no,scrollbars=no,menubar=no,width=500,height=500");
+							const win = window.open(url, "myWindow", "tolbar=no,scrollbars=no,menubar=no,width=500,height=500");
 
-						win.window.focus();
-					});
+							win.window.focus();
+						});
 
-			})
-	};
+				})
+		};
 
-	if (document.querySelector('.mb_file') !== null) {
-		let data = 0;
+		if (document.querySelector('.mb_file') !== null) {
+			let data = 0;
 
-		document
-			.querySelectorAll('.formedit-file')
-			.forEach((e, i) => {
-				e.querySelector('.choose-file')
-					.addEventListener('click', y => {
-						y.preventDefault();
-						const url = "<?php global $SITEURL;
-										echo $SITEURL . "plugins/massiveAdmin/files/filebrowser.php?"; ?>&type=all&func=" + e.querySelector('input[type="text"]').getAttribute('name');
+			document
+				.querySelectorAll('.formedit-file')
+				.forEach((e, i) => {
+					e.querySelector('.choose-file')
+						.addEventListener('click', y => {
+							y.preventDefault();
+							const url = "<?php global $SITEURL;
+							echo $SITEURL . "plugins/massiveAdmin/files/filebrowser.php?"; ?>&type=all&func=" + e.querySelector('input[type="text"]').getAttribute('name');
 
-						const win = window.open(url, "myWindow", "tolbar=no,scrollbars=no,menubar=no,width=500,height=500");
-						win.window.focus();
-					});
-			})
-	}
-</script>
+							const win = window.open(url, "myWindow", "tolbar=no,scrollbars=no,menubar=no,width=500,height=500");
+							win.window.focus();
+						});
+				})
+		}
+	</script>
 
-<!-- The Modal -->
-<div id="id01" class="w3-modal">
-	<div class="w3-modal-content">
-		<div class="w3-container">
-			<span onclick="document.getElementById('id01').style.display='none'" class="w3-button w3-red w3-xlarge w3-display-topright" style="font-size:2em">&times;</span>
+	<!-- The Modal -->
+	<div id="id01" class="w3-modal">
+		<div class="w3-modal-content">
+			<div class="w3-container">
+				<span onclick="document.getElementById('id01').style.display='none'"
+					class="w3-button w3-red w3-xlarge w3-display-topright" style="font-size:2em">&times;</span>
 
-			<h3><?php echo i18n_r("massiveAdmin/HOWCREATETITLE");?></h3>
-			<p><?php echo i18n_r("massiveAdmin/TUTORIALHOWCREATESETTINGS");?></p>
-			<hr>
+				<h3><?php echo i18n_r("massiveAdmin/HOWCREATETITLE"); ?></h3>
+				<p><?php echo i18n_r("massiveAdmin/TUTORIALHOWCREATESETTINGS"); ?></p>
+				<hr>
 
-			<div class="w3-codespan w3-padding w3-margin" style="height: 350px; overflow-y: scroll;">
-				{<br>
-				"settings": {<br><br>
-				"fieldname1": {<br>
-				"type": "text",<br>
-				"title": "field title 1",<br>
-				"value": ""<br>
-				},<br><br>
-				"fieldname2": {<br>
-				"type": "wysywig",<br>
-				"title": "field title 2",<br>
-				"value": ""<br>
-				},<br><br>
-				"fieldname3": {<br>
-				"type": "textarea",<br>
-				"title": "field title 3",<br>
-				"value": ""<br>
-				},<br><br>
-				"fieldname4": {<br>
-				"type": "color",<br>
-				"title": "field title 4",<br>
-				"value": ""<br>
-				},<br><br>
-				"fieldname5": {<br>
-				"type": "date",<br>
-				"title": "field title 5",<br>
-				"value": ""<br>
-				},<br><br>
-				"fieldname6": {<br>
-				"type": "image",<br>
-				"title": "field title 6",<br>
-				"value": ""<br>
-				},<br><br>
-				"fieldname7": {<br>
-				"type": "file",<br>
-				"title": "field title 7",<br>
-				"value": ""<br>
-				},<br><br>
-				"fieldname8": {<br>
-				"type": "link",<br>
-				"title": "field title 8",<br>
-				"value": ""<br>
-				},<br><br>
-				"fieldname9": {<br>
-				"type": "dropdown",<br>
-				"options": "Options 1 || Options 2",<br>
-				"title": "field title 9",<br>
-				"value": ""<br>
-				&nbsp; &nbsp;}<br>
-				&nbsp;}<br>
-				}<br>
+				<div class="w3-codespan w3-padding w3-margin" style="height: 350px; overflow-y: scroll;">
+					{<br>
+					"settings": {<br><br>
+					"fieldname1": {<br>
+					"type": "text",<br>
+					"title": "field title 1",<br>
+					"value": ""<br>
+					},<br><br>
+					"fieldname2": {<br>
+					"type": "wysywig",<br>
+					"title": "field title 2",<br>
+					"value": ""<br>
+					},<br><br>
+					"fieldname3": {<br>
+					"type": "textarea",<br>
+					"title": "field title 3",<br>
+					"value": ""<br>
+					},<br><br>
+					"fieldname4": {<br>
+					"type": "color",<br>
+					"title": "field title 4",<br>
+					"value": ""<br>
+					},<br><br>
+					"fieldname5": {<br>
+					"type": "date",<br>
+					"title": "field title 5",<br>
+					"value": ""<br>
+					},<br><br>
+					"fieldname6": {<br>
+					"type": "image",<br>
+					"title": "field title 6",<br>
+					"value": ""<br>
+					},<br><br>
+					"fieldname7": {<br>
+					"type": "file",<br>
+					"title": "field title 7",<br>
+					"value": ""<br>
+					},<br><br>
+					"fieldname8": {<br>
+					"type": "link",<br>
+					"title": "field title 8",<br>
+					"value": ""<br>
+					},<br><br>
+					"fieldname9": {<br>
+					"type": "dropdown",<br>
+					"options": "Options 1 || Options 2",<br>
+					"title": "field title 9",<br>
+					"value": ""<br>
+					&nbsp; &nbsp;}<br>
+					&nbsp;}<br>
+					}<br>
+				</div>
+
 			</div>
-
 		</div>
 	</div>
-</div>
 
-<?php
-if (!file_exists(GSDATAOTHERPATH . 'jsonsupportadded.txt')) {
-	$f = file_get_contents(GSADMINPATH . 'theme-edit.php');
-	$n = str_replace("['php', 'css', 'js', 'html', 'htm']", "['php', 'css', 'js', 'html', 'htm','json']", $f);
-	file_put_contents(GSDATAOTHERPATH . 'jsonsupportadded.txt', '1');
-	file_put_contents(GSADMINPATH . 'theme-edit.php', $n);
-}
+	<?php
+	if (!file_exists(GSDATAOTHERPATH . 'jsonsupportadded.txt')) {
+		$f = file_get_contents(GSADMINPATH . 'theme-edit.php');
+		$n = str_replace("['php', 'css', 'js', 'html', 'htm']", "['php', 'css', 'js', 'html', 'htm','json']", $f);
+		file_put_contents(GSDATAOTHERPATH . 'jsonsupportadded.txt', '1');
+		file_put_contents(GSADMINPATH . 'theme-edit.php', $n);
+	}

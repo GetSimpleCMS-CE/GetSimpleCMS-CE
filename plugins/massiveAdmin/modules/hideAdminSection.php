@@ -3,8 +3,14 @@
 <link rel="stylesheet" href="<?php global $SITEURL; echo $SITEURL; ?>plugins/massiveAdmin/css/w3.css">
 <link rel="stylesheet" href="<?php global $SITEURL; echo $SITEURL; ?>plugins/massiveAdmin/css/w3-custom.css">
 <style>.w3-block, .w3-select, .w3-input{width:96%}</style>
-
-<div class="w3-parent w3-container"><!-- Start Plug -->
+<style>
+	.w3-block,
+	.w3-select {
+		width: 96%;
+		box-sizing: border-box !important;
+	}
+</style>
+<div class="w3-parent w3-container" style="padding:10px;box-sizing:border-box;"><!-- Start Plug -->
 <h3><?php echo i18n_r("massiveAdmin/HIDEMENUTITLE"); ?></h3>
 <hr>
 
@@ -174,15 +180,15 @@
 		<?php 	if (file_exists($file)) :?>
 
 		<script>
-			document.querySelector('form[data-user="<?php echo pathinfo($us)['filename']; ?>"] select[name="hidepages"]').value = '<?php echo $data->hidepages ?>';
-			document.querySelector('form[data-user="<?php echo pathinfo($us)['filename']; ?>"] select[name="hidefiles"]').value = '<?php echo $data->hidefiles ?>';
-			document.querySelector('form[data-user="<?php echo pathinfo($us)['filename']; ?>"] select[name="hidethemes"]').value = '<?php echo $data->hidethemes ?>';
-			document.querySelector('form[data-user="<?php echo pathinfo($us)['filename']; ?>"] select[name="hidebackup"]').value = '<?php echo $data->hidebackup ?>';
-			document.querySelector('form[data-user="<?php echo pathinfo($us)['filename']; ?>"] select[name="hideplugin"]').value = '<?php echo $data->hideplugin ?>';
-			document.querySelector('form[data-user="<?php echo pathinfo($us)['filename']; ?>"] select[name="hidesupport"]').value = '<?php echo $data->hidesupport ?>';
-			document.querySelector('form[data-user="<?php echo pathinfo($us)['filename']; ?>"] select[name="hidesettings"]').value = '<?php echo $data->hidesettings ?>';
-			document.querySelector('form[data-user="<?php echo pathinfo($us)['filename']; ?>"] select[name="hidei18n"]').value = '<?php echo $data->hidei18n ?>';
-			document.querySelector('form[data-user="<?php echo pathinfo($us)['filename']; ?>"] select[name="hidegssettings"]').value = '<?php echo $data->hidegssettings ?>';
+			document.querySelector('form[data-user="<?php echo pathinfo($us)['filename']; ?>"] select[name="hidepages"]').value = '<?php echo @$data->hidepages ?>';
+			document.querySelector('form[data-user="<?php echo pathinfo($us)['filename']; ?>"] select[name="hidefiles"]').value = '<?php echo @$data->hidefiles ?>';
+			document.querySelector('form[data-user="<?php echo pathinfo($us)['filename']; ?>"] select[name="hidethemes"]').value = '<?php echo @$data->hidethemes ?>';
+			document.querySelector('form[data-user="<?php echo pathinfo($us)['filename']; ?>"] select[name="hidebackup"]').value = '<?php echo @$data->hidebackup ?>';
+			document.querySelector('form[data-user="<?php echo pathinfo($us)['filename']; ?>"] select[name="hideplugin"]').value = '<?php echo @$data->hideplugin ?>';
+			document.querySelector('form[data-user="<?php echo pathinfo($us)['filename']; ?>"] select[name="hidesupport"]').value = '<?php echo @$data->hidesupport ?>';
+			document.querySelector('form[data-user="<?php echo pathinfo($us)['filename']; ?>"] select[name="hidesettings"]').value = '<?php echo @$data->hidesettings ?>';
+			document.querySelector('form[data-user="<?php echo pathinfo($us)['filename']; ?>"] select[name="hidei18n"]').value = '<?php echo @$data->hidei18n ?>';
+			document.querySelector('form[data-user="<?php echo pathinfo($us)['filename']; ?>"] select[name="hidegssettings"]').value = '<?php echo @$data->hidegssettings ?>';
 		</script>
 
 		<?php endif;?>

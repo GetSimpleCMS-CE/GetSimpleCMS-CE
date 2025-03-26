@@ -22,13 +22,36 @@ if (isset($_GET['snippet'])) {
 register_plugin(
 	$thisfile, 				//Plugin id
 	'Massive Admin Theme',	//Plugin name
-	'5.0.11', 				//Plugin version
+	'6.0', 				//Plugin version
 	'Multicolor',			//Plugin author
 	'https://ko-fi.com/multicolorplugins', //author website
 	'Admin theme with new function', //Plugin description
 	$sett,					//page type - on which admin tab to display
 	'massiveOption'			//main function (administration)
 );
+
+#themeSelector 
+if (file_exists(GSDATAOTHERPATH . 'massiveTheme/option.txt')) {
+	$themeChecker = file_get_contents(GSDATAOTHERPATH . 'massiveTheme/option.txt');
+} else {
+	$themeChecker = 'massive';
+}
+
+##Script
+
+register_style('masivestyle', $SITEURL . 'plugins/massiveAdmin/theme/' . $themeChecker . '.css', rand(0, 33030), 'screen');
+queue_style('masivestyle', GSBACK);
+
+register_script('masivescript', $SITEURL . 'plugins/massiveAdmin/js/script.js', '4.0', TRUE);
+queue_script('masivescript', GSBACK);
+
+register_style('masivestyledropzone', $SITEURL . 'plugins/massiveAdmin/css/dropzone.min.css', '1.1', 'screen');
+queue_style('masivestyledropzone', GSBACK);
+
+register_script('masivescriptdropzone', $SITEURL . 'plugins/massiveAdmin/js/dropzone.min.js', '1.1', FALSE);
+queue_script('masivescriptdropzone', GSBACK);
+
+## Whole hook 
 
 global $SITEURL;
 
@@ -38,11 +61,6 @@ $MA = new MassiveAdminClass();
 
 # new option on file browser
 add_action('file-extras', 'newOptionsMassive');
-
-function newOptionsMassive(){
-	global $SITEURL;
-	include(GSPLUGINPATH . 'massiveAdmin/inc/newOptionsMassive.inc.php');
-}
 
 # massive uploader on i18n gallery
 add_action('pages-sidebar', 'massiveUploader');
@@ -55,45 +73,16 @@ if (strpos($_SERVER['REQUEST_URI'], "i18n_gallery&create") !== false) {
 	add_action('i18n_gallery-sidebar', 'massiveUploader');
 };
 
-function massiveUploader(){
-	global $MA;
-	$MA->massiveUpload();
-}
-
 # component on pages
 add_action('pages-sidebar', 'compomassive');
-function compomassive(){
-	global $MA;
-	$MA->compositeOnPage();
-};
 
 # activate massive active script and css
 $folder = GSDATAOTHERPATH . '/massiveadmin/';
 
-#themeSelector 
-if (file_exists(GSDATAOTHERPATH . 'massiveTheme/option.txt')) {
-	$themeChecker = file_get_contents(GSDATAOTHERPATH . 'massiveTheme/option.txt');
-} else {
-	$themeChecker = 'massive';
-}
-
-register_style('masivestyle', $SITEURL . 'plugins/massiveAdmin/theme/' . $themeChecker  . '.css', '5.0', 'screen');
-queue_style('masivestyle', GSBACK);
-
+#bootstrap grid added to ckeditor
 add_action('footer', 'ckeStyleImplementation');
-function ckeStyleImplementation(){
-	include(GSPLUGINPATH . 'massiveAdmin/inc/ckeStyleImplementation.inc.php');
-};
 
-register_script('masivescript', $SITEURL . 'plugins/massiveAdmin/js/script.js', '4.0', TRUE);
-queue_script('masivescript', GSBACK);
-
-register_style('masivestyledropzone', $SITEURL . 'plugins/massiveAdmin/css/dropzone.min.css', '1.1', 'screen');
-queue_style('masivestyledropzone', GSBACK);
-
-register_script('masivescriptdropzone', $SITEURL . 'plugins/massiveAdmin/js/dropzone.min.js', '1.1', FALSE);
-queue_script('masivescriptdropzone', GSBACK);
-
+#header for massive
 add_action('header', 'masiveHeader');
 
 $massiveOptionFile = GSDATAOTHERPATH . '/massiveadmin/massiveOption.json';
@@ -103,32 +92,17 @@ if (file_exists($massiveOptionFile)) {
 	$MA->massiveFile();
 };
 
-# massiveHeader & Icon
-function masiveHeader(){
-	global $MA;
-	$MA->massiveHead();
-}
-
 # codeminor fixes
 add_action('footer', 'footerCodeMirror');
-function footerCodeMirror(){
-	if (!strpos($_SERVER['REQUEST_URI'], 'components.php')) {
-		global $MA;
-		$MA->codeMirror();
-	}
-}
 
 # maitence mode on or off check
 add_action('theme-footer', 'massivemaintence');
-function massivemaintence(){
-	include(GSPLUGINPATH . 'massiveAdmin/inc/maintenceFront.inc.php');
-};
 
 # mtoper on front website
 if (isset($_COOKIE['GS_ADMIN_USERNAME'])) {
 	$cookie_user_id = _id($_COOKIE['GS_ADMIN_USERNAME']);
 	if (file_exists(GSUSERSPATH . $cookie_user_id . '.xml')) {
-		$datau = getXML(GSUSERSPATH  . $cookie_user_id . '.xml');
+		$datau = getXML(GSUSERSPATH . $cookie_user_id . '.xml');
 		$USR = stripslashes($datau->USR);
 		$HTMLEDITOR = $datau->HTMLEDITOR;
 		$TIMEZONE = $datau->TIMEZONE;
@@ -136,7 +110,8 @@ if (isset($_COOKIE['GS_ADMIN_USERNAME'])) {
 
 		add_action('theme-header', 'massivefronter');
 
-		function massivefronter(){
+		function massivefronter()
+		{
 			global $SITEURL;
 			$mtoperSettingPath = GSDATAOTHERPATH . 'massiveToperSettings/';
 			if (file_exists($mtoperSettingPath . 'turnon.txt')) {
@@ -144,8 +119,9 @@ if (isset($_COOKIE['GS_ADMIN_USERNAME'])) {
 				$style = @file_get_contents($mtoperSettingPath . 'style.txt');
 				if ($checkTurnOn == 'on') {
 					if ($style !== '') {
-						echo '<link rel="stylesheet" href="' . $SITEURL . 'plugins/massiveAdmin/toper-theme/' . $style . '.css">';
-					};
+						echo '<link rel="stylesheet" href="' . $SITEURL . 'plugins/massiveAdmin/toper-theme/' . $style . '.css?v=6">';
+					}
+					;
 					include(GSPLUGINPATH . 'massiveAdmin/inc/mToper.inc.php');
 				}
 			};
@@ -157,97 +133,41 @@ if (isset($_COOKIE['GS_ADMIN_USERNAME'])) {
 
 # login plugins
 add_action('index-login', 'scriptHeader');
-
-function scriptHeader(){
-	include(GSPLUGINPATH . 'massiveAdmin/inc/scriptHeader.inc.php');
-};
 $massiveAdminSettingsTitle = i18n_r("massiveAdmin/MASSIVEADMINSETTINGSTITLE");
 
 # plugins search admin
 add_action('footer', 'searchplugin');
-function searchplugin(){
-	global $SITEURL;
-	echo '<script src="' . $SITEURL . 'plugins/massiveAdmin/js/searchPlugin.js"></script>';
-};
 
 # hidden section and user manager
 $HideMassiveTitle = i18n_r('massiveAdmin/HIDEMENUTITLE');
-add_action('settings-sidebar', 'createSideMenu', [$thisfile, $HideMassiveTitle, 'hideadminsection']);
+add_action('settings-sidebar', 'createSideMenu', [$thisfile, $HideMassiveTitle, 'usermanager']);
 add_action('footer', 'hideSectionfooter');
-function hideSectionfooter(){
-	include(GSPLUGINPATH . 'massiveAdmin/inc/hiddenAdminSectionFooter.inc.php');
-};
 
 # Own footer option
 $OwnFooterOption = i18n_r('massiveAdmin/OWNFOOTERTITLE');
-add_action('settings-sidebar', 'createSideMenu', [$thisfile, $OwnFooterOption, 'ownfooteroption']);
+add_action('settings-sidebar', 'createSideMenu', [$thisfile, $OwnFooterOption, 'whitelabel']);
+$MenuExternalTitle = i18n_r('massiveAdmin/MENUEXTERNAL');
+add_action('nav-tab', 'massiveExtNavbar');
+
+#own footer script
 add_action('footer', 'ownFooterScripts');
-function ownFooterScripts(){
-	include(GSPLUGINPATH . 'massiveAdmin/inc/ownFooterScript.inc.php');
-};
+
+#own ooterScript on Header 
 add_action('header', 'ownFooterScriptHeader');
-function ownFooterScriptHeader(){
-	include(GSPLUGINPATH . 'massiveAdmin/inc/ownFooterScriptHeader.inc.php');
-};
+
+#ownFooter on login
 add_action('index-login', 'ownFooterIndex');
-function ownFooterIndex(){
-	include(GSPLUGINPATH . 'massiveAdmin/inc/ownFooterIndex.inc.php');
-};
 
 # create massive option
 $MassiveAdminSettingTitle = i18n_r('massiveAdmin/MASSIVEADMINSETTINGSTITLE');
 add_action('settings-sidebar', 'createSideMenu', [$thisfile, $MassiveAdminSettingTitle, 'massiveoption']);
 
-# new module massiveMenuExternal
-$MenuExternalTitle = i18n_r('massiveAdmin/MENUEXTERNAL');
-add_action('settings-sidebar', 'createSideMenu', [$thisfile, $MenuExternalTitle, 'menuext']);
-add_action('nav-tab', 'massiveExtNavbar');
-function massiveExtNavbar(){
-	include(GSPLUGINPATH . 'massiveAdmin/inc/menuExtNavbar.inc.php');
-};
-
-# create helpdesk option
-$helpTitle = i18n_r('massiveAdmin/USERHELPTITLE');
-add_action('settings-sidebar', 'createSideMenu', [$thisfile, $helpTitle, 'helpdesk']);
-$helpFile = GSDATAOTHERPATH . '/massiveHelpDesk/helpdesk.json';
-if (file_exists($helpFile)) {
-	$helpFileContent = file_get_contents($helpFile);
-	$HelpfileDecode = json_decode($helpFileContent);
-	$checkTrue = $HelpfileDecode->checkbox;
-	$help = i18n_r('massiveAdmin/HELP');
-	if ($checkTrue == 'true') {
-		add_action('nav-tab', 'createSideMenu', [$thisfile, '<i class="gg-support"></i>' . $help, 'helpfromuser']);
-	}
-}
-
-# 3.0
-$frontEndSettings = i18n_r('massiveAdmin/FRONTENDTITLE');
-add_action('settings-sidebar', 'createSideMenu', [$thisfile, $frontEndSettings, 'frontendsettings']);
-
-$migrate = i18n_r('massiveAdmin/MIGRATETITLE');
-add_action('settings-sidebar', 'createSideMenu', [$thisfile, $migrate, 'migrate']);
-
-$showPassword = i18n_r('massiveAdmin/LOGINOPTIONS');
-add_action('settings-sidebar', 'createSideMenu', [$thisfile, $showPassword, 'showPassword']);
-
-$GSconfig = 'GSConfig';
-add_action('settings-sidebar', 'createSideMenu', [$thisfile, $GSconfig, 'gsconfigEdit']);
-
+#show password checkbox add to login
 add_action('index-login', 'showPass');
-
-function showPass(){
-	global $MA;
-	$MA->showIndexOption();
-};
 
 # snippet
 $snippet = i18n_r('massiveAdmin/SNIPPET');
 add_action('pages-sidebar', 'createSideMenu', [$thisfile, $snippet . ' 📜', 'snippet'], '');
-function get_snippet($item){
-	$file = GSDATAOTHERPATH . 'snippetMassive/snippet.xml';
-	$readed = simplexml_load_file($file);
-	echo htmlspecialchars_decode($readed->$item->content);
-};
 
 # downloader
 $pluginDownloader = i18n_r('massiveAdmin/PLUGINDOWNLOADER');
@@ -259,113 +179,90 @@ add_action('plugins-sidebar', 'createSideMenu', [$thisfile, $pluginUnistaller . 
 
 # components
 add_action('component-extras', 'compCode');
-function compCode(){
-	static $firstTime = true;
-	if ($firstTime) {
-		global $MA;
-		$MA->ComponentsCodeMirror();
-		$firstTime = false;
-	};
-};
 
-# theme selector
-$MassiveAdminThemeSelector = i18n_r('massiveAdmin/ADMINTHEMESELECTOR');
-add_action('settings-sidebar', 'createSideMenu', [$thisfile, $MassiveAdminThemeSelector, 'themeselector']);
+# Make File in theme  - option removed for security reasons
 
-# redirect page to homepage bar
-add_action('theme-edit-extras', 'makeFileInTheme');
-function makeFileInTheme(){
-	include(GSPLUGINPATH . 'massiveAdmin/modules/makeFileInTheme.php');
-};
 
+# backup creator 
 $bctitle = i18n_r('massiveAdmin/BACKUPCREATOR');
-
-add_action('backups-sidebar', 'createSideMenu',  [$thisfile, $bctitle, 'backupcreator']);
-
-$tctitle = i18n_r('massiveAdmin/THEMECONFIGURATORNAME');
-
-add_action('theme-sidebar', 'createSideMenu',  [$thisfile, $tctitle, 'themesettings']);
+add_action('backups-sidebar', 'createSideMenu', [$thisfile, $bctitle, 'backupcreator']);
 
 # theme settings functions
 
-function mats($field){
+$tctitle = i18n_r('massiveAdmin/THEMECONFIGURATORNAME');
+add_action('theme-sidebar', 'createSideMenu', [$thisfile, $tctitle, 'themesettings']);
 
-	$xml = simplexml_load_file(GSDATAOTHERPATH . 'website.xml');
+#another function 
 
-	$activeTemplate = $xml->TEMPLATE;
+#backend
+require_once(GSPLUGINPATH . 'massiveAdmin/function/backendFunction.php');
 
-	if (file_exists(GSTHEMESPATH . $activeTemplate . '/settings.json')) {
-		$data = file_get_contents(GSTHEMESPATH . $activeTemplate . '/settings.json');
-		$filx =  json_decode($data);
-		if($filx->settings->$field->type !== 'wysywig'){
-			echo $filx->settings->$field->value;
-		}else{
-			echo html_entity_decode($filx->settings->$field->value);
-		}	
-	} else {
-		echo i18n_r('massiveAdmin/NOSETTINGSCREATED');
-	}
-};
-
-function r_mats($field){
-	$xml = simplexml_load_file(GSDATAOTHERPATH . 'website.xml');
-	$activeTemplate = $xml->TEMPLATE;
-	if (file_exists(GSTHEMESPATH . $activeTemplate . '/settings.json')) {
-		$data = file_get_contents(GSTHEMESPATH . $activeTemplate . '/settings.json');
-		$filx =  json_decode($data);
-		if($filx->settings->$field->type !== 'wysywig'){
-			return $filx->settings->$field->value;
-		}else{
-			return html_entity_decode($filx->settings->$field->value);
-		}
-	} else {
-		echo i18n_r('massiveAdmin/NOSETTINGSCREATED');
-	}
-}
+#-frontend
+require_once(GSPLUGINPATH . 'massiveAdmin/function/frontendFunction.php');
 
 # all massive option  
-function massiveOption(){
+function massiveOption()
+{
 	if (isset($_GET['massiveoption'])) {
 		include(GSPLUGINPATH . 'massiveAdmin/modules/massiveOption.php');
+		include(GSPLUGINPATH . 'massiveAdmin/modules/themeSelector.php');
+		include(GSPLUGINPATH . 'massiveAdmin/modules/migrate.php');
+		include(GSPLUGINPATH . 'massiveAdmin/modules/showPassword.php');
+		include(GSPLUGINPATH . 'massiveAdmin/modules/gsconfig.php');
 	} elseif (isset($_GET['helpfromuser'])) {
 		include(GSPLUGINPATH . 'massiveAdmin/modules/helpDeskInfo.php');
-	} elseif (isset($_GET['helpdesk'])) {
-		include(GSPLUGINPATH . 'massiveAdmin/modules/helpDesk.php');
-	} elseif (isset($_GET['hideadminsection'])) {
+	} elseif (isset($_GET['usermanager'])) {
 		include(GSPLUGINPATH . 'massiveAdmin/modules/hideAdminSection.php');
-	} elseif (isset($_GET['menuext'])) {
+		include(GSPLUGINPATH . 'massiveAdmin/modules/frontendSettings.php');
+		include(GSPLUGINPATH . 'massiveAdmin/modules/helpDesk.php');
+	} elseif (isset($_GET['whitelabel'])) {
 		include(GSPLUGINPATH . 'massiveAdmin/modules/menuExt.php');
-	} elseif (isset($_GET['ownfooteroption'])) {
 		include(GSPLUGINPATH . 'massiveAdmin/modules/ownFooterOptions.php');
-	} elseif (isset($_GET['migrate'])) {
-		include(GSPLUGINPATH . 'massiveAdmin/modules/migrate.php');
-	} elseif (isset($_GET['gsconfigEdit'])) {
-		include(GSPLUGINPATH . 'massiveAdmin/modules/gsconfig.php');
-	} elseif (isset($_GET['showPassword'])) {
-		include(GSPLUGINPATH . 'massiveAdmin/modules/showPassword.php');
 	} elseif (isset($_GET['snippet'])) {
 		include(GSPLUGINPATH . 'massiveAdmin/modules/snippet.php');
 	} elseif (isset($_GET['downloader'])) {
 		include(GSPLUGINPATH . 'massiveAdmin/modules/downloader.php');
 	} elseif (isset($_GET['unistaller'])) {
 		include(GSPLUGINPATH . 'massiveAdmin/modules/unistaller.php');
-	} elseif (isset($_GET['themeselector'])) {
-		include(GSPLUGINPATH . 'massiveAdmin/modules/themeSelector.php');
-	} elseif (isset($_GET['frontendsettings'])) {
-		include(GSPLUGINPATH . 'massiveAdmin/modules/frontendSettings.php');
 	} elseif (isset($_GET['backupcreator'])) {
 		include(GSPLUGINPATH . 'massiveAdmin/modules/backupCreator.php');
 	} elseif (isset($_GET['themesettings'])) {
 		include(GSPLUGINPATH . 'massiveAdmin/modules/themesettings.php');
-	};;
+	} elseif (isset($_GET['themeinputcreator'])) {
+		include(GSPLUGINPATH . 'massiveAdmin/modules/themeInputCreator.php');
+	};
 
 	echo '
 	<hr>
 	
-	<div style="margin:20px 0;width:100%;" class="kofi">
-		<style>.kofitext,.kofi-button{text-decoration:none !important}</style>
-		<script type="text/javascript" src="https://storage.ko-fi.com/cdn/widget/Widget_2.js"></script>
-		<script type="text/javascript">kofiwidget2.init(\'Support Me on Ko-fi\', \'#29abe0\', \'I3I2RHQZS\');kofiwidget2.draw();</script>
-	</div>
+	<div id="paypal" style="padding-top:10px">
+			<style>
+			.donateButton {
+				box-shadow:inset 0px 1px 0px 0px #fff6af;
+				background:linear-gradient(to bottom, #ffec64 5%, #ffab23 100%);
+				background-color:#ffec64;
+				border-radius:6px;
+				border:1px solid #ffaa22;
+				display:inline-block;
+				cursor:pointer;
+				color:#333333;
+				font-family:Arial;
+				font-size:15px;
+				font-weight:bold;
+				padding:6px 24px;
+				text-decoration:none;
+				text-shadow:0px 1px 0px #ffee66;
+			}
+			.donateButton:hover {
+				background:linear-gradient(to bottom, #ffab23 5%, #ffec64 100%);
+				background-color:#ffab23;
+			}
+			.donateButton:active {
+				position:relative;
+				top:1px;
+			}
+			</style>
+			<p><a href="https://getsimple-ce.ovh/donate" target="_blank" class="donateButton">Buy Us A Coffee <svg xmlns="http://www.w3.org/2000/svg" style="vertical-align:middle" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" fill-opacity="0" d="M17 14v4c0 1.66 -1.34 3 -3 3h-6c-1.66 0 -3 -1.34 -3 -3v-4Z"><animate fill="freeze" attributeName="fill-opacity" begin="0.8s" dur="0.5s" values="0;1"></animate></path><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path stroke-dasharray="48" stroke-dashoffset="48" d="M17 9v9c0 1.66 -1.34 3 -3 3h-6c-1.66 0 -3 -1.34 -3 -3v-9Z"><animate fill="freeze" attributeName="stroke-dashoffset" dur="0.6s" values="48;0"></animate></path><path stroke-dasharray="14" stroke-dashoffset="14" d="M17 9h3c0.55 0 1 0.45 1 1v3c0 0.55 -0.45 1 -1 1h-3"><animate fill="freeze" attributeName="stroke-dashoffset" begin="0.6s" dur="0.2s" values="14;0"></animate></path><mask id="lineMdCoffeeHalfEmptyFilledLoop0"><path stroke="#fff" d="M8 0c0 2-2 2-2 4s2 2 2 4-2 2-2 4 2 2 2 4M12 0c0 2-2 2-2 4s2 2 2 4-2 2-2 4 2 2 2 4M16 0c0 2-2 2-2 4s2 2 2 4-2 2-2 4 2 2 2 4"><animateMotion calcMode="linear" dur="3s" path="M0 0v-8" repeatCount="indefinite"></animateMotion></path></mask><rect width="24" height="0" y="7" fill="currentColor" mask="url(#lineMdCoffeeHalfEmptyFilledLoop0)"><animate fill="freeze" attributeName="y" begin="0.8s" dur="0.6s" values="7;2"></animate><animate fill="freeze" attributeName="height" begin="0.8s" dur="0.6s" values="0;5"></animate></rect></g></svg></a></p>
+		</div>
 </div><!-- End Plug -->';
 };

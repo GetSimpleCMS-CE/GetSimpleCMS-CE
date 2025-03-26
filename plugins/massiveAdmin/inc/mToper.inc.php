@@ -20,7 +20,7 @@
 
 	global $mtoperSettingPath;
 
-; ?>
+?>
 
 <div class="m-toper">
 	<div class="m-toper-container">

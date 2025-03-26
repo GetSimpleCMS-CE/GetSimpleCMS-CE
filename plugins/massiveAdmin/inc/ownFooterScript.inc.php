@@ -14,9 +14,8 @@ if (file_exists($thisfilew)) {
 } else {
 	$SITENAME = '';
 	$SITEURL = '';
-} 
-
-;?>
+};
+?>
 
 <script>
 	if("<?php if(isset($data->turnon)){echo $data->turnon;};?>" == "true"){
@@ -28,13 +27,15 @@ if (file_exists($thisfilew)) {
 	document.querySelector('.footer-left').style.marginTop = "5px";
 	document.querySelector('.footer-left').innerHTML = <?php echo date('Y');?> +` © <?php if(isset($data->ownfootername)){ echo $data->ownfootername;};?>`;
 
+	document.querySelector('#sitename a').innerHTML ='<img class="logocustom" src="<?php echo $SITEURL;?>'+'data/other/footerfoto/'+'<?php if(isset($data->ownfootericon)){echo $data->ownfootericon;};?>">';
+
 	};
+
+ 
 </script>
 
 <?php
-
 if(file_exists($filename)){
     echo $data->ownfooter;
-}
-
-;?>
+};
+?>
