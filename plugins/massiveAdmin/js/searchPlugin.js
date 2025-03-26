@@ -5,13 +5,15 @@ window.addEventListener("load", function () {
 
         document.querySelector('.highlight').insertAdjacentHTML('beforebegin', '<div class="searchoption"></div>');
 
+ 
+
         const searchdiv = document.querySelector('.searchoption');
         searchdiv.style.margin = "10px 0";
         searchdiv.insertAdjacentHTML('afterbegin', '<input type="text" class="pluginsfind" style="padding:8px;width:85%" placeholder="find plugin">');
-        searchdiv.insertAdjacentHTML('afterbegin', '<button class="plugin-on" style="cursor:pointer;background:green;color:#fff;padding:8px;margin-right:10px;border:none;border-radius:2px;">'+powerIcon+'</button>');
-        searchdiv.insertAdjacentHTML('afterbegin', '<button class="plugin-off" style="cursor:pointer;background:red;color:#fff;padding:8px;margin-right:10px;border:none;border-radius:2px;">'+powerIcon+'</button>');
-        searchdiv.insertAdjacentHTML('afterbegin', '<button class="plugin-all" style="cursor:pointer;background:grey;color:#fff;padding:8px;margin-right:10px;border:none;border-radius:2px;">'+powerIcon+'</button>');
-
+        searchdiv.insertAdjacentHTML('afterbegin', '<button title="Show Activated Plugins" class="plugin-on" style="cursor:pointer;background:green;color:#fff;padding:8px;margin-right:10px;border:none;border-radius:2px;">'+powerIcon+'</button>');
+        searchdiv.insertAdjacentHTML('afterbegin', '<button title="Show Deactivated Plugins" class="plugin-off" style="cursor:pointer;background:red;color:#fff;padding:8px;margin-right:10px;border:none;border-radius:2px;">'+powerIcon+'</button>');
+        searchdiv.insertAdjacentHTML('afterbegin', '<button title="Show All Plugins" class="plugin-all" style="cursor:pointer;background:grey;color:#fff;padding:8px;margin-right:10px;border:none;border-radius:2px;">'+powerIcon+'</button>');
+        
         document.querySelector('.plugin-all').addEventListener('click', () => {
             document.querySelectorAll('.enabled').forEach(x => {
                 x.style.display = "flex"

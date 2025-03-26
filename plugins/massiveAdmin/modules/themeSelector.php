@@ -1,12 +1,11 @@
 <?php 
 $fileOptionCheck = @file_get_contents( GSDATAOTHERPATH.'massiveTheme/option.txt');
 ?>
+ 
 
-<link rel="stylesheet" href="<?php global $SITEURL; echo $SITEURL; ?>plugins/massiveAdmin/css/w3.css">
-<link rel="stylesheet" href="<?php global $SITEURL; echo $SITEURL; ?>plugins/massiveAdmin/css/w3-custom.css">
-
-<div class="w3-parent w3-container"><!-- Start Plug -->
-
+<button onclick="myFunction('Tab4')" style="margin-top:10px" class=" w3-button w3-xlarge w3-round w3-block w3-gray w3-text-white w3-left-align w3-margin-bottom"> Admin Theme Selector <span class="w3-right"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24"><path fill="currentColor" fill-rule="evenodd" d="m5 8l7 8l7-8z"/></svg></span></button>
+	<div id="Tab4" class="w3-hide w3-container">
+ 
 <?php 
 if(isset($_POST['save'])){
 	$folder =GSDATAOTHERPATH.'massiveTheme/';
@@ -21,7 +20,7 @@ if(isset($_POST['save'])){
 		<h4 class="w3-text-white">Success!</h4>
 		<p style="font-size:1.2em">Updating to the <b style="text-transform: uppercase;">"'.$_POST['theme'].'"</b> theme.</p>
 	</div>
-	<meta http-equiv=\'refresh\' content=\'3; url=load.php?id=massiveAdmin&themeselector\'>';
+	<meta http-equiv=\'refresh\' content=\'3; url=load.php?id=massiveAdmin&massiveoption\'>';
 
 	echo '
 	<script>
@@ -33,8 +32,7 @@ if(isset($_POST['save'])){
 	</script>';
 };
 ?>
-
-<h3>Admin Theme Selector</h3>
+ 
 <hr>
 
 <form method="POST">
@@ -52,3 +50,4 @@ if(isset($_POST['save'])){
 		<button class="w3-btn w3-large w3-round w3-green" type="submit" name="save"><?php echo i18n_r('massiveAdmin/SAVEOPTION'); ?></button>
 	</div>
 </form>
+	</div>

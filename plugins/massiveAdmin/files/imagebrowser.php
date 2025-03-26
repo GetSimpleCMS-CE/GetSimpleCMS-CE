@@ -58,7 +58,7 @@ while ($file = readdir($dir_handle)) {
 		$dircount++;
 	} else {
 		$ext = @strtolower(substr($file, strrpos($file, '.') + 1));
-		if ($ext == 'jpg' || $ext == 'jpeg' || $ext == 'gif' || $ext == 'png') {
+		if ($ext == 'jpg' || $ext == 'jpeg' || $ext == 'gif' || $ext == 'webp'  || $ext == 'png') {
 			$ss = @stat($path . $file);
 			list($width, $height) = getimagesize($path . $file);
 			$filesArray[] = ['name' => $file, 'date' => @date('M j, Y', $ss['ctime']), 'size' => fSize($ss['size']), 'bytes' => $ss['size'], 'width' => $width, 'height' => $height, 'title' => @$info['title'], 'tags' => @$info['tags'], 'description' => @$info['description'], 'debug' => @$info['debug']];

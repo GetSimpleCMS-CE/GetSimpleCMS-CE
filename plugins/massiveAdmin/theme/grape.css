@@ -135,13 +135,21 @@ input#page_submit.submit, form#navigationForm input.submit, #components input#bu
 a.cancel:link {background: lightgray !important; font-weight: 600; padding: 5px 10px;}
 a.cancel:hover {background: #D94136 !important; font-weight: 600; padding: 5px 10px;}
 
-div#footer div.gslogo a img{transition: transform .2s;}
-div#footer div.gslogo a img:hover{transform: scale(1.5);}
-
 #footer{color:#4B497B;}
 #footer a:link, #footer a:visited {color:#4B497B;font-weight:600 !important;}
 
+div#footer div.gslogo a img{transition: transform .2s;}
+div#footer div.gslogo a img:hover{transform: scale(1.5);}
+
 #gsdebug {border: 1px solid #C00;}
+
+.w3-container .success {padding: 10px 15px; background-color: green; color: white; font-weight: 600; margin: 10px; border: 1px solid;}
+
+.logocustom {margin-left:10px; max-height: 50px; object-fit: contain;}
+
+#plugins .edittable tr, #plugins .edittable td, #plugins .edittable th {
+	cursor: default;
+}
 
 /* ----------------
   (\ /)

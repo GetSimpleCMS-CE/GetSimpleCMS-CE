@@ -16,4 +16,4 @@ if (file_exists($filename)) {
 <i class="gg-add "></i>
 ' . $query["name"] . '</a></li>';
     };
-};;
+};

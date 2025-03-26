@@ -1,9 +1,8 @@
 <?php global $SITEURL; ?>
 
-<link rel="stylesheet" href="<?php global $SITEURL; echo $SITEURL; ?>plugins/massiveAdmin/css/w3.css">
-<link rel="stylesheet" href="<?php global $SITEURL; echo $SITEURL; ?>plugins/massiveAdmin/css/w3-custom.css">
-
-<div class="w3-parent"><!-- Start Plug -->
+ 
+<button onclick="myFunction('Tab5')" style="margin-top:10px" class=" w3-button w3-xlarge w3-round w3-block w3-gray w3-text-white w3-left-align w3-margin-bottom"><?php echo i18n_r('massiveAdmin/MIGRATEDOMAIN'); ?> <span class="w3-right"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24"><path fill="currentColor" fill-rule="evenodd" d="m5 8l7 8l7-8z"/></svg></span></button>
+<div id="Tab5" class="w3-hide w3-container">
 
 <?php 
 if (isset($_POST['replaceMassiveUrl'])) {
@@ -34,7 +33,7 @@ if (isset($_POST['replaceMassiveUrl'])) {
 <div class="w3-row">
 
 	<div class="w3-half">
-		<h3><?php echo i18n_r('massiveAdmin/MIGRATEDOMAIN'); ?></h3>
+	 
 		<hr>
 		<form action="#" method="POST" style="width:85%">
 		
@@ -59,4 +58,5 @@ if (isset($_POST['replaceMassiveUrl'])) {
 			<button class="w3-btn w3-green w3-large w3-round w3-margin-top" type="submit" name="forceSSLturnon"><?php echo i18n_r('massiveAdmin/SAVESSL'); ?></button>
 		</form>
 	</div>
+</div>
 </div>
