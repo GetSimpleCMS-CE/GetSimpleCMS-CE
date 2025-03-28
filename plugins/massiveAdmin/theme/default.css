@@ -47,7 +47,7 @@
  	height: auto;
 }
 
-#header .toper .wrapper#pill {
+#header .toper .wrapper #pill {
  	display: flex;
  	width: auto;
  	justify-content: flex-end;
@@ -103,8 +103,8 @@
 
 .wrapper .nav li a:link,
 .wrapper .nav li a:visited,
-.wrapper#pill li a:link,
-.wrapper#pill li a:visited {
+.wrapper #pill li a:link,
+.wrapper #pill li a:visited {
  	background: none;
 }
 
@@ -229,7 +229,7 @@ td.delete a {
  	color:#fff !important;
 }
 
-.wrapper#editpages span {
+.wrapper #editpages span {
  	font-size: 10px;
 }
 
@@ -241,7 +241,7 @@ td.delete a {
  	text-decoration: none !important;
 }
 
-#edit_window input#post-title {
+#edit_window input #post-title {
  	border: solid 1px#ddd;
  	width: 100%;
  	padding-top: 5px;
@@ -262,7 +262,7 @@ td.delete a {
  	margin-right: 5px;
 }
 
- .wrapper#pill li.leftnav a {
+ .wrapper #pill li.leftnav a {
  	border: none;
 }
 
@@ -283,7 +283,7 @@ td.delete a {
  	background:#111;
 }
 
-.toper#pill {
+.toper #pill {
  	all: unset;
  	list-style-type: none;
 }
