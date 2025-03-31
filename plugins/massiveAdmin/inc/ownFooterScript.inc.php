@@ -27,11 +27,10 @@ if (file_exists($thisfilew)) {
 	document.querySelector('.footer-left').style.marginTop = "5px";
 	document.querySelector('.footer-left').innerHTML = <?php echo date('Y');?> +` © <?php if(isset($data->ownfootername)){ echo $data->ownfootername;};?>`;
 
-	document.querySelector('#sitename a').innerHTML ='<img class="logocustom" src="<?php echo $SITEURL;?>'+'data/other/footerfoto/'+'<?php if(isset($data->ownfootericon)){echo $data->ownfootericon;};?>">';
+	document.querySelector('#sitename a').innerHTML ='<img title="<?php echo cl($SITENAME); ?>" class="logocustom" src="<?php echo $SITEURL;?>'+'data/other/footerfoto/'+'<?php if(isset($data->ownfootericon)){echo $data->ownfootericon;};?>"> <span class="sitename"><?php echo cl($SITENAME); ?></span>';
 
 	};
 
- 
 </script>
 
 <?php
