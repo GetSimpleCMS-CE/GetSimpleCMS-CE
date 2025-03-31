@@ -105,6 +105,22 @@ class MassiveAdminClass{
 		$file = GSDATAOTHERPATH . 'massiveHiddenSection/' . $USR . '.json';
 		$url = $SITEURL . ltrim($_SERVER['REQUEST_URI'], '/');
 
+
+		if (!file_exists($massiveOptionFile)) {
+			mkdir(GSDATAOTHERPATH . 'massiveadmin', 0755);
+			$content = '{
+			"maintence" : "",
+			"maintencecontent" : null,
+			"grid" : "yes",
+			"gridfront" : "no"
+		}';
+
+			file_put_contents($massiveOptionFile, $content);
+		}
+		;
+
+		
+
 		if (file_exists($file) && filesize($file) > 0) {
 			$fileContent = file_get_contents($file);
 			$jscheck = json_decode($fileContent, true);
