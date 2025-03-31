@@ -1027,3 +1027,10 @@ body#resetpassword #maincontent .main {
 #plugins .edittable tr, #plugins .edittable td, #plugins .edittable th {
 	cursor: default;
 }
+
+h1#sitename img {
+	vertical-align: middle;
+	float:left;
+	padding-right:10px; 
+	margin-top:-5px;
+}
