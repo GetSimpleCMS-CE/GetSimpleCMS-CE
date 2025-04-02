@@ -134,7 +134,7 @@ get_template('header', cl($SITENAME).' &raquo; '.i18n_r('PLUGINS_MANAGEMENT'));
 				}
 			});
 		}
-		hideStatusCellsContainingWords(['massiveAdmin.php', 'modernScript.php']);
+		hideStatusCellsContainingWords(['massiveAdmin.php', 'UpdateCE.php']);
 		
 		// Function to hide Installed Plugins containing any of the specified words
 		function hideRowsBasedOnConditions(words) {
@@ -156,7 +156,7 @@ get_template('header', cl($SITENAME).' &raquo; '.i18n_r('PLUGINS_MANAGEMENT'));
 				}
 			});
 		}
-		hideRowsBasedOnConditions(['UpdateCE.php']);
+		hideRowsBasedOnConditions(['xUpdateCE.php']);
 	</script>
 	
 	<div id="sidebar" >
