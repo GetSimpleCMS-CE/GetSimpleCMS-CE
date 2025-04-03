@@ -365,6 +365,62 @@ get_template('header', cl($SITENAME) . ' &raquo; ' . i18n_r('EDIT') . ' ' . $tit
 				ckeditor_add_page_link();
 				exec_action('html-editor-init');
 				?>
+			<?php } else { ?>
+				<!-- CodeMirror implementation -->
+				<link rel="stylesheet" href="<?php echo $SITEURL . $GSADMIN; ?>/template/js/codemirror/codemirror.min.css">
+				<link rel="stylesheet" href="<?php echo $SITEURL . $GSADMIN; ?>/template/js/codemirror/blackboard.min.css">
+				
+				<script src="<?php echo $SITEURL . $GSADMIN; ?>/template/js/codemirror/codemirror.min.js"></script>
+				
+				<script src="<?php echo $SITEURL . $GSADMIN; ?>/template/js/codemirror/closetag.min.js"></script>
+				<script src="<?php echo $SITEURL . $GSADMIN; ?>/template/js/codemirror/comment.min.js"></script>
+				<script src="<?php echo $SITEURL . $GSADMIN; ?>/template/js/codemirror/css.min.js"></script>
+				<script src="<?php echo $SITEURL . $GSADMIN; ?>/template/js/codemirror/htmlmixed.min.js"></script>
+				<script src="<?php echo $SITEURL . $GSADMIN; ?>/template/js/codemirror/javascript.min.js"></script>
+				<script src="<?php echo $SITEURL . $GSADMIN; ?>/template/js/codemirror/matchbrackets.min.js"></script>
+				<script src="<?php echo $SITEURL . $GSADMIN; ?>/template/js/codemirror/php.min.js"></script>
+				<script src="<?php echo $SITEURL . $GSADMIN; ?>/template/js/codemirror/xml.min.js"></script>
+				<script src="<?php echo $SITEURL . $GSADMIN; ?>/template/js/codemirror/clike.min.js"></script>
+				
+				<script>
+				$(document).ready(function() {
+					var editor = CodeMirror.fromTextArea(document.getElementById('post-content'), {
+						theme: "blackboard",
+						lineNumbers: true,
+						matchBrackets: true,
+						indentUnit: 4,
+						indentWithTabs: true,
+						lineWrapping: true,
+						enterMode: "keep",
+						tabMode: "shift",
+						mode: 'htmlmixed',
+						inlineDynamicImports: true,
+						// Height options - choose one:
+						height: '<?php echo $EDHEIGHT; ?>', // Uses GS config
+						// height: '500px', // Fixed height
+						// height: '100%',  // Percentage of container
+						// height: '70vh',  // Viewport percentage
+						viewportMargin: Infinity // Allows editor to expand as needed
+					});
+				  
+					// Optional: Auto-resize to content
+					editor.setSize(null, 'auto');
+				  
+					// Handle change events
+					editor.on('change', function() {
+						$('#editform #post-content').trigger('change');
+						pageisdirty = true;
+						warnme = true;
+						autoSaveInd();
+					});
+				  
+					// Make sure editor content is submitted with the form
+					$('#editform').submit(function() {
+						editor.save();
+						return checkTitle();
+					});
+				});
+				</script>
 			<?php } ?>
 
 			<script type="text/javascript">
@@ -476,6 +532,7 @@ get_template('header', cl($SITENAME) . ' &raquo; ' . i18n_r('EDIT') . ' ' . $tit
 					}
 				});
 			</script>
+			
 			<script>// Save with ctrl+s
 				document.addEventListener('keydown', function (e) {
 					if ((e.ctrlKey || e.metaKey) && e.key === 's') {
