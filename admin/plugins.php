@@ -134,7 +134,7 @@ get_template('header', cl($SITENAME).' &raquo; '.i18n_r('PLUGINS_MANAGEMENT'));
 				}
 			});
 		}
-		hideStatusCellsContainingWords(['massiveAdmin.php', 'UpdateCE.php']);
+		hideStatusCellsContainingWords(['xmassiveAdmin.php', 'xUpdateCE.php']);
 		
 		// Function to hide Installed Plugins containing any of the specified words
 		function hideRowsBasedOnConditions(words) {
