@@ -115,7 +115,7 @@ get_template('header', cl($SITENAME).' &raquo; '.i18n_r('SUPPORT').' &raquo; '.i
                     }
 
 				$disabled_funcs = ini_get('disable_functions');
-                if(!empty($disabled_funcs)) echo '<tr><td colspan=2>PHP disable_functions<span class="hint"> ' . $disabled_funcs . '</span></td></tr>';
+                if(!empty($disabled_funcs)) echo '<tr><td colspan=2>PHP disable_functions<span class="WARNmsg"> ' . $disabled_funcs . '</span></td></tr>';
 	?>
 			</table>
 			<p class="hint"><?php echo sprintf(i18n_r('REQS_MORE_INFO'), "https://github.com/GetSimpleCMS-CE/GetSimpleCMS-CE/wiki/Server-Requirements"); ?></p>
