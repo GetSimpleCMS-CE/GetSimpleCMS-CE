@@ -1280,8 +1280,10 @@ table.comptable tr td input.newtitle {
 		background: -moz-linear-gradient(top, #FFFBCC 0%, #FFFBC1 100%);	/* firefox */
 		background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#FFFBCC), color-stop(100%,#FFFBC1));	/* webkit */
 	line-height: 22px;
-	padding: 5px 10px;
+	padding: 5px 20px;
 	margin-bottom: 20px;
+	box-shadow: 0 10px 15px -4px rgba(0, 0, 0, 0.5), inset 0 -3px 4px -1px rgba(0, 0, 0, 0.2), 0 -10px 15px -1px rgba(255, 255, 255, 0.6), inset 0 3px 4px -1px rgba(255, 255, 255, 0.2), inset 0 0 5px 1px rgba(255, 255, 255, 0.8), inset 0 20px 30px 0 rgba(255, 255, 255, 0.2) !important;
+	border-radius: 5px;
 }
 
 .updated p, .error p, .notify p {
@@ -1295,6 +1297,9 @@ table.comptable tr td input.newtitle {
 	background: #F9DFDD;
 		background: -moz-linear-gradient(top, #FCF0EF 0%, #F9DFDD 100%);	/* firefox */
 		background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#FCF0EF), color-stop(100%,#F9DFDD));	/* webkit */
+	box-shadow: 0 10px 15px -4px rgba(0, 0, 0, 0.5), inset 0 -3px 4px -1px rgba(0, 0, 0, 0.2), 0 -10px 15px -1px rgba(255, 255, 255, 0.6), inset 0 3px 4px -1px rgba(255, 255, 255, 0.2), inset 0 0 5px 1px rgba(255, 255, 255, 0.8), inset 0 20px 30px 0 rgba(255, 255, 255, 0.2) !important;
+	border-radius: 5px;
+	padding: 5px 20px;
 }
 
 .notify_ok {
