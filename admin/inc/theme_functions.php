@@ -673,6 +673,7 @@ function build_menu($parentId, $menuTree, $currentpage, $classPrefix, $isSubmenu
 			$classes .= " current active "; // Add the "current active" class to <li>
 		}
 
+		$menuText = !empty($page['menu']) ? $page['menu'] : (!empty($page['title']) ? $page['title'] : $url_nav);
 		$pageTitle = !empty($page['title']) ? $page['title'] : $page['menu'];
 		
 		// Add classes to the <a> element
@@ -690,7 +691,7 @@ function build_menu($parentId, $menuTree, $currentpage, $classPrefix, $isSubmenu
 			$linkClasses[] = " cur-act-a "; // Add class to active <a>
 		}
 
-		$menu .= '<li class="' . trim($classes) . '"><a href="' . find_url($page['url'], $page['parent']) . '" class="' . implode(" ", $linkClasses) . '" title="' . encode_quotes(cl($pageTitle)) . '">' . strip_decode($page['menu']) . '</a>';
+		$menu .= '<li class="' . trim($classes) . '"><a href="' . find_url($page['url'], $page['parent']) . '" class="' . implode(" ", $linkClasses) . '" title="' . encode_quotes(cl($pageTitle)) . '">' . strip_decode($menuText) . '</a>';
 
 		// Add submenu if exists
 		$subMenu = build_menu($url_nav, $menuTree, $currentpage, $classPrefix, true);
