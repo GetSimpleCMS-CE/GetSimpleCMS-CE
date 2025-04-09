@@ -75,10 +75,12 @@ Designed to be light and agile, the base install comes to you clutter free, with
 
 ### Updates:
 
-- Updated: 
+- Updated: Plugin Massive Admin v6.x
+- Updated: Plugin Update CE v1.x
 
 ### Fixes:
 
+- Fixed: French language
 - Fixed: ja_JP name change for Linux
 - Fixed: Hidden plugin
 
