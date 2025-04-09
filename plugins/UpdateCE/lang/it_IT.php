@@ -12,7 +12,7 @@ $i18n = [
 	'lang_Installed_Version'	=>	'Installed Version',
 	'lang_Note'					=>	'Note',
 	'lang_Requirement'			=>	'Minimum requirement of v3.3.16.',
-	'lang_Create_Backup'		=>	'Always create a backup to protect against the unexpected!',
+	'lang_Create_Backup'		=>	'Always create a <b><a class="w3-text-light w3-orange w3-round w3-padding" href="archive.php">Backup</a></b> to protect against the unexpected!',
 	'lang_Themes_Overwritten'	=>	'Themes <u>ResponsiveCE</u> & <u>W3-Startup</u> will be overwritten.',
 	'lang_Rename_Admin'			=>	'If you have renamed the default <b>/admin/</b> folder, this needs to be <u>reverted back before</u> applying this update. <br>After you have applied the update, you may again personalize this.',
 	

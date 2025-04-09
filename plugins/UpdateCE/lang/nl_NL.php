@@ -12,7 +12,7 @@ $i18n = [
 	'lang_Installed_Version'	=>	'Geïnstalleerde Versie',
 	'lang_Note'					=>	'Opmerking',
 	'lang_Requirement'			=>	'Minimale vereiste van v3.3.16.',
-	'lang_Create_Backup'		=>	'Maak altijd een back-up om jezelf te beschermen tegen het onverwachte!',
+	'lang_Create_Backup'		=>	'Maak altijd een <b><a class="w3-text-light w3-orange w3-round w3-padding" href="archive.php">back-up</a></b> om jezelf te beschermen tegen het onverwachte!',
 	'lang_Themes_Overwritten'	=>	'Thematische ResponsiveCE & W3-Startup zullen worden overschreven.',
 	'lang_Rename_Admin'			=>	'If you have renamed the default <b>/admin/</b> folder, this needs to be <u>reverted back before</u> applying this update. <br>After you have applied the update, you may again personalize this.',
 	
