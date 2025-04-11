@@ -30,25 +30,37 @@ get_template('header', cl($SITENAME).' &raquo; '.i18n_r('SUPPORT').' &raquo; '.i
 			<table class="highlight healthcheck">
 				<?php
 
-				# check to see if there is a core update needed
-				$data = get_api_details();
-				if ($data)	{
-					$apikey = json_decode($data);
-					$verstatus = $apikey->status;
-				}	else {
-					$verstatus = null;
-				}
-				if ($verstatus == '0') {
-					$ver = '<span class="OKmsg" ><b>'.$site_version_no.' CE</b></span>';
-				} elseif ($verstatus == '1') {
-					$ver = '<span class="OKmsg" ><b>'.$site_version_no.' CE</b></span>';
-				} elseif ($verstatus == '2') {
-					$ver = '<span class="OKmsg" ><b>'.$site_version_no.' CE</b></span>';
-				} else {
-					$ver = '<span class="OKmsg" ><b>'.$site_version_no.' CE</b></span>';
+				// check to see if there is a core update needed
+				try {
+					$db = @file_get_contents('https://getsimplecms-ce.github.io/upgrade.json');
+					if ($db !== false) {
+						$jsondb = json_decode($db);
+						$updateAvailable = false;
+						$latestVersion = '';
+						
+						foreach ($jsondb as $key => $value) {
+							if (version_compare($value->version, $site_version_no, '>')) {
+								$updateAvailable = true;
+								$latestVersion = $value->version;
+								break;
+							}
+						}
+						
+						if ($updateAvailable) {
+							$ver = '<span class="ERRmsg" ><b>'.$site_version_no.'</b><br /> '. i18n_r('UPG_NEEDED').' (<b>'.$latestVersion.'</b>)<br /><a href="https://github.com/GetSimpleCMS-CE/GetSimpleCMS-CE/releases/latest" target="_blank">'. i18n_r('DOWNLOAD').'</a></span>';
+						} else {
+							$ver = '<span class="OKmsg" ><b>'.$site_version_no.'</b><br />'. i18n_r('LATEST_VERSION').'</span>';
+						}
+					} else {
+						$ver = '<span class="WARNmsg" ><b>'.$site_version_no.'</b><br />'. i18n_r('CANNOT_CHECK').'<br /><a href="https://github.com/GetSimpleCMS-CE/GetSimpleCMS-CE/releases/latest" target="_blank">'. i18n_r('DOWNLOAD').'</a></span>';
+					}
+				} catch (Exception $e) {
+					$ver = '<span class="WARNmsg" ><b>'.$site_version_no.'</b><br />'. i18n_r('CANNOT_CHECK').'<br /><a href="https://github.com/GetSimpleCMS-CE/GetSimpleCMS-CE/releases/latest" target="_blank">'. i18n_r('DOWNLOAD').'</a></span>';
 				}
 				?>
-				<tr><td style="width:445px;" ><?php echo $site_full_name; ?> <?php i18n('VERSION');?></td><td><?php echo $ver; ?></td></tr>
+				<tr>
+					<td style="width:445px;" ><?php echo $site_full_name; ?> <?php i18n('VERSION');?></td><td><?php echo $ver; ?></td>
+				</tr>
                 <?php 
                 if(defined('GSADMIN') && GSADMIN!='admin') echo '<tr><td>GSADMIN</td><td><span class="hint">'.GSADMIN.'</span></td></tr>'; 
 
