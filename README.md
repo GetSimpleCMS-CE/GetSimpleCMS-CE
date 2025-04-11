@@ -71,7 +71,7 @@ Designed to be light and agile, the base install comes to you clutter free, with
 
 ## What's New ⭐
 
-- New: Add Codemirror to Edit page when WYSIWYG is disabled
+- New: 
 
 ### Updates:
 
@@ -83,14 +83,15 @@ Designed to be light and agile, the base install comes to you clutter free, with
 - Fixed: French language
 - Fixed: ja_JP name change for Linux
 - Fixed: Hidden plugin
+- Fixed: Auto Menu Title
 
 ### Removals:
 
-- Removed: 
+- Removed: --
 
 ### Security & Hotfixes:
 
-- Hotfixes: 
+- Hotfixes: --
 
 ### Other:
 
