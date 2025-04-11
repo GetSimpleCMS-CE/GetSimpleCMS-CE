@@ -607,34 +607,43 @@ class MassiveAdminClass{
 		$title = $_POST['snippetTitle'] ?? null;
 		$content = $_POST['content'] ?? null;
 		$fileFolder = GSDATAOTHERPATH . 'snippetMassive/';
-		$filePath = $fileFolder . 'snippet.xml';
-		
-		// Initialize XML
-		$myXML = new SimpleXMLElement('<?xml version="1.0" encoding="UTF-8"?><snippets/>');
+		$filePath = $fileFolder . 'snippet.json';
+	
+		$snippets = [];
 	
 		if ($title !== null && $content !== null) {
-			// Ensure folder exists
 			if (!file_exists($fileFolder)) {
 				mkdir($fileFolder, 0755, true);
 			}
 	
 			foreach ($title as $key => $value) {
-				// Sanitize and validate title
-				$cleanTitle = preg_replace('/[^a-zA-Z0-9_-]/', '', trim($value));
-				
+				// Sanitize title, allow Unicode letters, numbers, hyphens, underscores, spaces
+				$cleanTitle = preg_replace('/[^\p{L}0-9_ -]/u', '', trim($value));
+	
 				if (!empty($cleanTitle) && isset($content[$key])) {
-					$snippet = $myXML->addChild('snippet');
-					$snippet->addChild('title', $cleanTitle);
-					$snippet->addChild('content', htmlentities($content[$key], ENT_QUOTES, 'UTF-8'));
+					// Decode HTML entities to avoid issues like ó
+					$cleanContent = html_entity_decode($content[$key], ENT_QUOTES | ENT_HTML5, 'UTF-8');
+					$snippets[] = [
+						'title' => $cleanTitle,
+						'content' => $cleanContent
+					];
 				}
 			}
-			
-			// Save XML only if there are snippets
-			if (count($myXML->children()) > 0) {
-				$myXML->asXML($filePath);
+	
+			if (!empty($snippets)) {
+				// Encode array to JSON with proper formatting and UTF-8 handling
+				$jsonData = json_encode($snippets, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
+				if ($jsonData === false) {
+					error_log("Failed to encode JSON: " . json_last_error_msg());
+				} else {
+					if (file_put_contents($filePath, $jsonData) === false) {
+						error_log("Failed to save JSON to $filePath");
+					}
+				}
+			} else {
+				error_log("No valid snippets to save");
 			}
 		} else {
-			// Delete file if it exists
 			if (file_exists($filePath)) {
 				unlink($filePath);
 			}

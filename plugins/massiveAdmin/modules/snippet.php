@@ -40,10 +40,10 @@ echo $SITEURL; ?>plugins/massiveAdmin/css/w3-custom.css">
 		<div class="snippet-list">
 
 			<?php
-			$file = GSDATAOTHERPATH . 'snippetMassive/snippet.xml';
+			$file = GSDATAOTHERPATH . 'snippetMassive/snippet.json';
 
 			if (file_exists($file)) {
-				$readed = simplexml_load_file($file);
+				$readed = json_decode(file_get_contents($file));
 			}
 			;
 			?>
@@ -153,7 +153,7 @@ echo $SITEURL; ?>plugins/massiveAdmin/css/w3-custom.css">
 				if (file_exists(GSTHEMESPATH . $TEMPLATE . "/editor.css")) {
 					$fullpath = suggest_site_path();
 					?>
-											contentsCss: '<?php echo $fullpath; ?>theme/<?php echo $TEMPLATE; ?>/editor.css',
+												contentsCss: '<?php echo $fullpath; ?>theme/<?php echo $TEMPLATE; ?>/editor.css',
 				<?php } ?>
 			height: '250px',
 				tabSpaces: 10,
@@ -178,7 +178,7 @@ echo $SITEURL; ?>plugins/massiveAdmin/css/w3-custom.css">
 				if (file_exists(GSTHEMESPATH . $TEMPLATE . "/editor.css")) {
 					$fullpath = suggest_site_path();
 					?>
-											contentsCss: '<?php echo $fullpath; ?>theme/<?php echo $TEMPLATE; ?>/editor.css',
+												contentsCss: '<?php echo $fullpath; ?>theme/<?php echo $TEMPLATE; ?>/editor.css',
 				<?php } ?>
 			height: '250px',
 				tabSpaces: 10,
@@ -204,5 +204,6 @@ echo $SITEURL; ?>plugins/massiveAdmin/css/w3-custom.css">
 		$MA->snippetSave();
 
 		echo ("<meta http-equiv='refresh' content='0'>");
-	};
-?>
+	}
+	;
+	?>

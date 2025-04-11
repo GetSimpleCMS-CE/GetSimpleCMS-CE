@@ -4,10 +4,17 @@
 
 function get_snippet($item)
 {
-    $file = GSDATAOTHERPATH . 'snippetMassive/snippet.xml';
-    $readed = simplexml_load_file($file);
-    echo htmlspecialchars_decode($readed->$item->content);
-};
+    $file = GSDATAOTHERPATH . 'snippetMassive/snippet.json';
+    $readed = json_decode(file_get_contents($file));
+
+    foreach ($readed as $namer) {
+        if ($namer->title == $item) {
+            echo $namer->content;
+        }
+    }
+
+}
+;
 
 #themeSettings function
 function mats($field)
@@ -28,7 +35,8 @@ function mats($field)
     } else {
         echo i18n_r('massiveAdmin/NOSETTINGSCREATED');
     }
-};
+}
+;
 
 function r_mats($field)
 {
@@ -45,12 +53,14 @@ function r_mats($field)
     } else {
         echo i18n_r('massiveAdmin/NOSETTINGSCREATED');
     }
-};
+}
+;
 
 # massive Maintence on frontened
 function massivemaintence()
 {
-	include(GSPLUGINPATH . 'massiveAdmin/inc/maintenceFront.inc.php');
-};
+    include(GSPLUGINPATH . 'massiveAdmin/inc/maintenceFront.inc.php');
+}
+;
 
 ?>
