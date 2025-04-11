@@ -167,7 +167,24 @@ get_template('header', $site_full_name.' CE &raquo; '. i18n_r('INSTALLATION') );
 
 			// check to see if there is a core update needed
 			try {
-				$db = @file_get_contents('https://getsimplecms-ce.github.io/upgrade.json');
+				if (function_exists('curl_init')) {
+					$ch = curl_init();
+					curl_setopt($ch, CURLOPT_URL, 'https://getsimplecms-ce.github.io/upgrade.json');
+					curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+					curl_setopt($ch, CURLOPT_TIMEOUT, 5); // 5 second timeout
+					curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 3); // 3 second connection timeout
+					$db = curl_exec($ch);
+					curl_close($ch);
+				} else {
+					// Fall back to file_get_contents if cURL not available
+					$context = stream_context_create([
+						'http' => [
+							'timeout' => 5 // 5 second timeout
+						]
+					]);
+					$db = @file_get_contents('https://getsimplecms-ce.github.io/upgrade.json', false, $context);
+				}
+				
 				if ($db !== false) {
 					$jsondb = json_decode($db);
 					$updateAvailable = false;

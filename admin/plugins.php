@@ -43,13 +43,41 @@ if (file_exists($plugin_db_cache)) {
 	}
 }
 
-// If cache doesn't exist or is expired, fetch fresh data
+// If cache doesn't exist or is expired, fetch fresh data with timeout
 if (empty($plugin_db_data)) {
 	try {
-		$db_content = file_get_contents($plugin_db_url);
+		if (function_exists('curl_init')) {
+			$ch = curl_init();
+			curl_setopt($ch, CURLOPT_URL, $plugin_db_url);
+			curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+			curl_setopt($ch, CURLOPT_TIMEOUT, 5); // 5 second timeout
+			curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 3); // 3 second connection timeout
+			curl_setopt($ch, CURLOPT_FAILONERROR, true);
+			curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
+			$db_content = curl_exec($ch);
+			
+			if (curl_errno($ch)) {
+				debugLog("cURL error fetching plugin database: " . curl_error($ch));
+			}
+			
+			curl_close($ch);
+		} else {
+			// Fall back to file_get_contents with timeout if cURL not available
+			$context = stream_context_create([
+				'http' => [
+					'timeout' => 5 // 5 second timeout
+				]
+			]);
+			$db_content = @file_get_contents($plugin_db_url, false, $context);
+		}
+		
 		if ($db_content !== false) {
 			$plugin_db_data = json_decode($db_content, true);
-			file_put_contents($plugin_db_cache, $db_content);
+			if (json_last_error() === JSON_ERROR_NONE) {
+				file_put_contents($plugin_db_cache, $db_content);
+			} else {
+				debugLog("Invalid JSON received from plugin database");
+			}
 		}
 	} catch (Exception $e) {
 		// Silently fail - we'll just not show updates
