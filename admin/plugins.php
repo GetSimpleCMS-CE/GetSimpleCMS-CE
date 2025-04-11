@@ -96,10 +96,10 @@ foreach ($pluginfiles as $fi) {
 			$db_plugin = $plugin_db[$lower_pathName];
 			
 			// Use name from database (with icon if present)
-            $plugin_title = '<a href="'.$db_plugin['repo'].'" target="_blank">'.$db_plugin['name'].'</a>';
+			$plugin_title = '<a href="'.$db_plugin['repo'].'" target="_blank">'.$db_plugin['name'].'</a>';
 			
 			// Enhance description with info from database if available
-            if (!empty($db_plugin['info'])) {
+			if (!empty($db_plugin['info'])) {
 				$plugin_info[$pathName]['description'] = $db_plugin['info'];
 			}
 			
@@ -107,13 +107,12 @@ foreach ($pluginfiles as $fi) {
 			if (empty($plugin_info[$pathName]['author']) && !empty($db_plugin['author'])) {
 				$plugin_info[$pathName]['author'] = $db_plugin['author'];
 				$plugin_info[$pathName]['author_url'] = $db_plugin['repo'];
-            }
-            
-            // Compare versions only if plugin is enabled
-            //if ($live_plugins[$fi] == 'true' && version_compare($db_plugin['version'], $plugin_version, '>')) {
-			if (version_compare($db_plugin['version'], $plugin_version, '>')) {
-                $updatelink = '<a class="updatelink" href="'.$db_plugin['url'].'" title="'.i18n_r('UPDATE_AVAILABLE').' v'.$db_plugin['version'].'" target="_blank">'.i18n_r('UPDATE_AVAILABLE').' v'.$db_plugin['version'].'</a>';
-                $needsupdate = true;
+			}
+			
+			// Compare versions only if plugin is enabled
+			if ($live_plugins[$fi] == 'true' && version_compare($db_plugin['version'], $plugin_version, '>')) {
+				$updatelink = '<a class="updatelink" href="'.$db_plugin['url'].'" title="'.i18n_r('UPDATE_AVAILABLE').' v'.$db_plugin['version'].'" target="_blank">'.i18n_r('UPDATE_AVAILABLE').' v'.$db_plugin['version'].'</a>';
+				$needsupdate = true;
 			}
 		}
 
