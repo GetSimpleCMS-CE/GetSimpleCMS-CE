@@ -31,6 +31,20 @@ $pwd1 = $error = $success = $pwd2 = $editorchck = $prettychck = null;
 # if the flush cache command was invoked
 if (isset($_GET['flushcache'])) { 
 	delete_cache();
+	
+	// Delete additional files in cache directory
+	$additionalFiles = array(
+		'plugin_db.json',
+		'plugin-update.trigger'
+	);
+	
+	foreach ($additionalFiles as $file) {
+		$path = GSCACHEPATH . $file;
+		if (file_exists($path)) {
+			unlink($path);
+		}
+	}
+	
 	$update = 'flushcache-success';
 }
 
