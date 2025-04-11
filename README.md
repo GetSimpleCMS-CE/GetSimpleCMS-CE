@@ -71,7 +71,7 @@ Designed to be light and agile, the base install comes to you clutter free, with
 
 ## What's New ⭐
 
-- New:  Check for Update  added to Install & Health Check
+- New:  Check for Update added to Install, Health Check & Plugins
 
 ### Updates:
 
