@@ -140,26 +140,14 @@ define('GSCMTHEME','blackboard');
 
 Replace section:
 ```
-# WYSIWYG editor height (default 500)
-# define('GSEDITORHEIGHT', '400');
-
 # WYSIWYG toolbars (advanced, basic or [custom config]) 
 # define('GSEDITORTOOL', 'advanced');
-
-# WYSIWYG editor language (default en)
-# define('GSEDITORLANG', 'en');
 
 # WYSIWYG Editor Options
 # define('GSEDITOROPTIONS', '');
 ```
 With updated:
 ```
-# WYSIWYG editor height (default 500)
-# define('GSEDITORHEIGHT', '400');
-
-# WYSIWYG editor language (default en)
-# define('GSEDITORLANG', 'en');
-
 # WYSIWYG toolbars (advanced, basic, advanced, island, CEbar or [custom config])
 define('GSEDITORTOOL', "CEbar");
 
