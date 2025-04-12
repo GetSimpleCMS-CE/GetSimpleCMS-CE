@@ -67,6 +67,9 @@ disableNativeSpellChecker : false,
 forcePasteAsPlainText : true
 ');
 
+# Set CodeMirror Theme (blackboard or default)
+define('GSCMTHEME','blackboard');
+
 # Set email from address
 # define('GSFROMEMAIL','noreply@getsimple-ce.ovh');
 
