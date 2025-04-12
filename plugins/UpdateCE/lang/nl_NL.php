@@ -28,7 +28,7 @@ $i18n = [
 	
 	'lang_New_as_of'			=>	'Nieuw vanaf',
 	'lang_Plugin_MA'			=>	'De plugin "Massive Admin Theme" is inbegrepen en moet mogelijk worden geactiveerd.',
-	'lang_Update_gsConfig'		=>	'Als u bijwerkt vanaf een versie voor deze, moet u handmatig uw bestaande "gsconfig.php" bijwerken met het volgende...',
+	'lang_Update_gsConfig'		=>	'Als u bijwerkt vanaf een versie voor deze, moet u handmatig uw bestaande "<b>gsconfig.php</b>" bijwerken met het volgende...',
 	'lang_Add_New'				=>	'Voeg Nieuwe Toe',
 	'lang_Replace_section'		=>	'Vervang sectie',
 	'lang_With_updated'			=>	'Met bijgewerkte',

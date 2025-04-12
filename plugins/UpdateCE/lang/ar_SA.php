@@ -29,7 +29,7 @@ $i18n = [
 	
 	'lang_New_as_of'			=>	'جديد اعتبارًا من',
 	'lang_Plugin_MA'			=>	'الملحق "Massive Admin Theme" متضمن وقد يحتاج إلى التفعيل.',
-	'lang_Update_gsConfig'		=>	'إذا كنت تقوم بالتحديث من إصدار أقدم، فستحتاج إلى تحديث ملف "gsconfig.php" يدويًا بإضافة ما يلي...',
+	'lang_Update_gsConfig'		=>	'إذا كنت تقوم بالتحديث من إصدار أقدم، فستحتاج إلى تحديث ملف "<b>gsconfig.php</b>" يدويًا بإضافة ما يلي...',
 	'lang_Add_New'				=>	'إضافة جديد',
 	'lang_Replace_section'		=>	'استبدال القسم',
 	'lang_With_updated'			=>	'بالإصدار المحدث',

@@ -10,7 +10,7 @@ i18n_merge($UpdateCE) || i18n_merge($UpdateCE, 'en_US');
 register_plugin(
 	$UpdateCE,								# ID of plugin, should be filename minus php
 	i18n_r($UpdateCE.'/lang_Menu_Title'),	# Title of plugin
-	'1.1',									# Plugin version
+	'1.2',									# Plugin version
 	'CE Team',								# Plugin author
 	'https://getsimple-ce.ovh/donate',		# Author URL
 	i18n_r($UpdateCE.'/lang_Description'),	# Plugin Description
@@ -168,7 +168,7 @@ function update_ce() {
 		<hr>
 		
 		<div class="w3-container w3-padding" style="margin-top:50px">
-			<p class="w3-padding w3-pale-yellow"><svg xmlns="http://www.w3.org/2000/svg" style="vertical-align:middle" width="1.2em" height="1.2em" viewBox="0 0 24 24"><path fill="currentColor" d="M12 9a1 1 0 0 0-1 1v3a1 1 0 0 0 2 0v-3a1 1 0 0 0-1-1m7-7H5a3 3 0 0 0-3 3v10a3 3 0 0 0 3 3h11.59l3.7 3.71A1 1 0 0 0 21 22a.84.84 0 0 0 .38-.08A1 1 0 0 0 22 21V5a3 3 0 0 0-3-3m1 16.59l-2.29-2.3A1 1 0 0 0 17 16H5a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1ZM12 6a1 1 0 1 0 1 1a1 1 0 0 0-1-1"/></svg> '.i18n_r('UpdateCE/lang_New_as_of').' v3.3.19.1</p>
+			<h4 class=" w3-text-orange w3-padding w3-pale-yellow" style="font-weight:600"><svg xmlns="http://www.w3.org/2000/svg" style="vertical-align:middle" width="1.2em" height="1.2em" viewBox="0 0 24 24"><path fill="currentColor" d="M12 9a1 1 0 0 0-1 1v3a1 1 0 0 0 2 0v-3a1 1 0 0 0-1-1m7-7H5a3 3 0 0 0-3 3v10a3 3 0 0 0 3 3h11.59l3.7 3.71A1 1 0 0 0 21 22a.84.84 0 0 0 .38-.08A1 1 0 0 0 22 21V5a3 3 0 0 0-3-3m1 16.59l-2.29-2.3A1 1 0 0 0 17 16H5a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1ZM12 6a1 1 0 1 0 1 1a1 1 0 0 0-1-1"/></svg> '.i18n_r('UpdateCE/lang_New').' </h4>
 		
 			<ul class="w3-ul w3-hoverable w3-margin-bottom">
 				<li>
@@ -185,19 +185,16 @@ function update_ce() {
 $LANG = \'en_EN\'; // es_ES, pl_PL, de_DE, uk_UK, etc.<br><br>
 
 # Sort admin page list by title or menu<br>
-define(\'GSSORTPAGELISTBY\',\'menu\');
+define(\'GSSORTPAGELISTBY\',\'menu\');<br><br>
+
+# Set CodeMirror Theme (blackboard or default)<br>
+define(\'GSCMTHEME\',\'blackboard\');
 			</div>
 		
 			<p>'.i18n_r('UpdateCE/lang_Replace_section').':</p>
 			<div class="w3-codespan w3-padding  w3-margin-bottom">
-# WYSIWYG editor height (default 500)<br>
-# define(\'GSEDITORHEIGHT\', \'400\');<br><br>
-
 # WYSIWYG toolbars (advanced, basic or [custom config]) <br>
 # define(\'GSEDITORTOOL\', \'advanced\');<br><br>
-
-# WYSIWYG editor language (default en)<br>
-# define(\'GSEDITORLANG\', \'en\');<br><br>
 
 # WYSIWYG Editor Options<br>
 # define(\'GSEDITOROPTIONS\', \'\');
@@ -205,12 +202,6 @@ define(\'GSSORTPAGELISTBY\',\'menu\');
 		
 			<p>'.i18n_r('UpdateCE/lang_With_updated').':</p>
 			<div class="w3-codespan w3-padding  w3-margin-bottom">
-# WYSIWYG editor height (default 500)<br>
-# define(\'GSEDITORHEIGHT\', \'400\');<br><br>
-
-# WYSIWYG editor language (default en)<br>
-# define(\'GSEDITORLANG\', \'en\');<br><br>
-
 # WYSIWYG toolbars (advanced, basic, CEbar, island or [custom config])<br>
 define(\'GSEDITORTOOL\', "CEbar");<br><br>
 
@@ -228,7 +219,7 @@ forcePasteAsPlainText : true<br>
 		echo '
 			<hr>
 			
-			<div id="paypal" class="w3-opacity">
+			<div id="paypal" class="xw3-opacity">
 				<p>Made with <span class="credit-icon">❤️</span> especially for "<b>'.$USR.'</b>". Is this plugin useful to you?
 				 <a href="https://getsimple-ce.ovh/donate" target="_blank" class="donateButton">Buy Us A Coffee <svg xmlns="http://www.w3.org/2000/svg" style="vertical-align:middle" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" fill-opacity="0" d="M17 14v4c0 1.66 -1.34 3 -3 3h-6c-1.66 0 -3 -1.34 -3 -3v-4Z"><animate fill="freeze" attributeName="fill-opacity" begin="0.8s" dur="0.5s" values="0;1"/></path><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path stroke-dasharray="48" stroke-dashoffset="48" d="M17 9v9c0 1.66 -1.34 3 -3 3h-6c-1.66 0 -3 -1.34 -3 -3v-9Z"><animate fill="freeze" attributeName="stroke-dashoffset" dur="0.6s" values="48;0"/></path><path stroke-dasharray="14" stroke-dashoffset="14" d="M17 9h3c0.55 0 1 0.45 1 1v3c0 0.55 -0.45 1 -1 1h-3"><animate fill="freeze" attributeName="stroke-dashoffset" begin="0.6s" dur="0.2s" values="14;0"/></path><mask id="lineMdCoffeeHalfEmptyFilledLoop0"><path stroke="#fff" d="M8 0c0 2-2 2-2 4s2 2 2 4-2 2-2 4 2 2 2 4M12 0c0 2-2 2-2 4s2 2 2 4-2 2-2 4 2 2 2 4M16 0c0 2-2 2-2 4s2 2 2 4-2 2-2 4 2 2 2 4"><animateMotion calcMode="linear" dur="3s" path="M0 0v-8" repeatCount="indefinite"/></path></mask><rect width="24" height="0" y="7" fill="currentColor" mask="url(#lineMdCoffeeHalfEmptyFilledLoop0)"><animate fill="freeze" attributeName="y" begin="0.8s" dur="0.6s" values="7;2"/><animate fill="freeze" attributeName="height" begin="0.8s" dur="0.6s" values="0;5"/></rect></g></svg></a></p>
 			</div>

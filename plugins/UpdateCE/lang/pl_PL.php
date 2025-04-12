@@ -28,7 +28,7 @@ $i18n = [
 	
 	'lang_New_as_of'			=>	'New as of',
 	'lang_Plugin_MA'			=>	'Plugin "Massive Admin Theme" is included and may need to be activated.',
-	'lang_Update_gsConfig'		=>	'If you are updating from a version prior to this, you will need to manually update your existing "gsconfig.php" with the following...',
+	'lang_Update_gsConfig'		=>	'If you are updating from a version prior to this, you will need to manually update your existing "<b>gsconfig.php</b>" with the following...',
 	'lang_Add_New'				=>	'Add New',
 	'lang_Replace_section'		=>	'Replace section',
 	'lang_With_updated'			=>	'With updated',
