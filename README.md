@@ -124,8 +124,6 @@ Designed to be light and agile, the base install comes to you clutter free, with
 After you have applied the update, you may again personalize this.
 - Update your existing `gsconfig.php` with the following:
 
-- Update your existing `gsconfig.php` with the following:
-
 Add New:
 ```
 # Login Page Default Language;
