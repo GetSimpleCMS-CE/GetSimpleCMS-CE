@@ -261,7 +261,7 @@ if (!getDef('GSNOHIGHLIGHT', true)) {
 
 			<script>
 				var editor = CodeMirror.fromTextArea(document.querySelector('#myTextarea'), {
-					theme: "blackboard",
+					theme: "<?php echo $CMTHEME ?>",
 					lineNumbers: true,
 					matchBrackets: true,
 					indentUnit: 4,

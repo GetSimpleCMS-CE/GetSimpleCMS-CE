@@ -72,6 +72,7 @@ Designed to be light and agile, the base install comes to you clutter free, with
 ## What's New ⭐
 
 - New:  Check for Update added to Install, Health Check & Plugins
+- New:  CodeMirror Theme Setting in gsconfig.php
 
 ### Updates:
 
@@ -81,9 +82,9 @@ Designed to be light and agile, the base install comes to you clutter free, with
 ### Fixes:
 
 - Fixed: French language
-- Fixed: ja_JP name change for Linux
+- Fixed: ja_JP lang name change for Linux
 - Fixed: Hidden plugin
-- Fixed: Auto Menu Title
+- Fixed: Page Auto Menu Title
 
 ### Removals:
 

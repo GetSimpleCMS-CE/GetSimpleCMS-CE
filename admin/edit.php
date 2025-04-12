@@ -307,7 +307,16 @@ get_template('header', cl($SITENAME) . ' &raquo; ' . i18n_r('EDIT') . ' ' . $tit
 			?>
 
 			<?php if ($HTMLEDITOR != '') { ?>
+				
 				<script type="text/javascript" src="template/js/ckeditor/ckeditor.js<?php echo getDef("GSCKETSTAMP", true) ? "?t=" . getDef("GSCKETSTAMP") : ""; ?>"></script>
+				
+				<-- Start CodeMirror Theme override -->
+				<script type="text/javascript">
+				// Override CodeMirror plugin settings
+				CKEDITOR.config.codemirror = {
+					theme: '<?php echo $CMTHEME ?>' // Change from 'blackboard' to 'default' $CMTHEME
+				};
+				</script>
 
 				<script type="text/javascript">
 					<?php if (getDef("GSCKETSTAMP", true)) echo "CKEDITOR.timestamp = '" . getDef("GSCKETSTAMP") . "';\n"; ?>
@@ -385,7 +394,7 @@ get_template('header', cl($SITENAME) . ' &raquo; ' . i18n_r('EDIT') . ' ' . $tit
 				<script>
 				$(document).ready(function() {
 					var editor = CodeMirror.fromTextArea(document.getElementById('post-content'), {
-						theme: "blackboard",
+						theme: "<?php echo $CMTHEME ?>",
 						lineNumbers: true,
 						matchBrackets: true,
 						indentUnit: 4,
