@@ -121,7 +121,7 @@ Designed to be light and agile, the base install comes to you clutter free, with
 
 - Overwrite existing files.
 - If you have renamed the default `/admin/` folder, this needs to be reverted back before applying this update. After you have applied the update, you may again personalize this.
-- Versions prior to 3.3.19.1, update your existing `gsconfig.php` with the following:
+- Update your existing `gsconfig.php` with the following:
 
 Add New:
 ```
@@ -130,6 +130,9 @@ $LANG = 'en_EN'; // es_ES, pl_PL, de_DE, uk_UK, etc.
 
 # Sort admin page list by title or menu
 define('GSSORTPAGELISTBY','menu');
+
+# Set CodeMirror Theme (blackboard or default)
+define('GSCMTHEME','blackboard');
 ```
 
 Replace section:
