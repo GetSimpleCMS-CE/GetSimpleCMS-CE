@@ -28,6 +28,7 @@ echo $SITEURL; ?>plugins/massiveAdmin/css/w3-custom.css">
 		font-size: 15px;
 		width: 100%;
 		margin-top: 5px;
+		border:solid 1px #ccc;
 	}
 </style>
 
@@ -155,6 +156,8 @@ echo $SITEURL; ?>plugins/massiveAdmin/css/w3-custom.css">
 	}
 </script>
 
+<?php $CMTHEME = defined('GSCMTHEME') ? constant('GSCMTHEME') : 'blackboard'; ?>
+
 <script>
     function myFunctionWithCodemirror(tabName) {
         var x = document.getElementById(tabName);
@@ -165,7 +168,7 @@ echo $SITEURL; ?>plugins/massiveAdmin/css/w3-custom.css">
             if (!x.dataset.codemirrorInitialized) {
                 // Inicjalizacja dla ownheader
                 CodeMirror.fromTextArea(document.getElementById("ownheader"), {
-					theme: "blackboard",
+					theme: "<?php echo $CMTHEME; ?>",
 					lineNumbers: true,
 					matchBrackets: true,
 					indentUnit: 4,
@@ -179,7 +182,7 @@ echo $SITEURL; ?>plugins/massiveAdmin/css/w3-custom.css">
 
                 // Inicjalizacja dla ownfooter
                 CodeMirror.fromTextArea(document.getElementById("ownfooter"), {
-					theme: "blackboard",
+					theme: "<?php echo $CMTHEME; ?>",
 					lineNumbers: true,
 					matchBrackets: true,
 					indentUnit: 4,

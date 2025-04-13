@@ -652,6 +652,7 @@ class MassiveAdminClass{
 
 	// codemirror components
 	public function ComponentsCodeMirror(){
+		$CMTHEME = defined('GSCMTHEME') ? constant('GSCMTHEME') : 'blackboard';
 		global $SITEURL;
 		echo '
 		<script src="' . $SITEURL . 'plugins/massiveAdmin/js/codemirror.min.js"></script>
@@ -664,14 +665,14 @@ class MassiveAdminClass{
 		<script src="' . $SITEURL . 'plugins/massiveAdmin/js/htmlmixed.min.js"></script>
 		<script src="' . $SITEURL . 'plugins/massiveAdmin/js/clike.min.js"></script>
 
-		<style type="text/css">.CodeMirror {font-size: 15px; width: 100%; height: 200px;}</style>
+		<style type="text/css">.CodeMirror {font-size: 15px; width: 100%; height: 200px;border:solid 1px #ccc;}</style>
 
 		<script>
 			window.addEventListener("load",()=>{
 				if(document.querySelector("#components")) {
 					document.querySelectorAll(".compdiv textarea").forEach(x=>{
 						var editor = CodeMirror.fromTextArea(x, {
-							theme: "blackboard",
+							theme: "' . $CMTHEME . '",
 							lineNumbers: true,
 							matchBrackets: true,
 							indentUnit: 4,

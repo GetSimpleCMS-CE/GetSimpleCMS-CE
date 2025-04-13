@@ -10,6 +10,7 @@
         font-size: 15px;
         width: 100%;
         height: 500px;
+        border:solid 1px #ccc;
     }
 </style>
 
@@ -32,6 +33,8 @@
     </form>
 </div>
 
+<?php $CMTHEME = defined('GSCMTHEME') ? constant('GSCMTHEME') : 'blackboard'; ?>
+
 <script>
     var editor = null; // Globalna zmienna dla edytora
 
@@ -47,7 +50,7 @@
             if (!editor) {
                 // Pierwsza inicjalizacja
                 editor = CodeMirror.fromTextArea(document.getElementById('myTextarea'), {
-                    theme: "blackboard",
+                    theme: "<?php echo $CMTHEME; ?>",
                     lineNumbers: true,
                     matchBrackets: true,
                     indentUnit: 4,
