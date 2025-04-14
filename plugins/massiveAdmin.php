@@ -22,7 +22,7 @@ if (isset($_GET['snippet'])) {
 register_plugin(
 	$thisfile, 				//Plugin id
 	'Massive Admin Theme',	//Plugin name
-	'6.0.2 beta', 				//Plugin version
+	'6.0.2', 				//Plugin version
 	'Multicolor',			//Plugin author
 	'https://ko-fi.com/multicolorplugins', //author website
 	'Admin theme with new function', //Plugin description
@@ -178,7 +178,7 @@ $pluginUnistaller = i18n_r('massiveAdmin/UNISTALLER');
 add_action('plugins-sidebar', 'createSideMenu', [$thisfile, $pluginUnistaller . ' 🗑️', 'unistaller']);
 
 # components
-add_action('component-extras', 'compCode');
+add_action('header', 'compCode');
 
 # Make File in theme  - option removed for security reasons
 

@@ -654,7 +654,7 @@ class MassiveAdminClass{
 	public function ComponentsCodeMirror(){
 		$CMTHEME = defined('GSCMTHEME') ? constant('GSCMTHEME') : 'blackboard';
 		global $SITEURL;
-		echo '
+		$compscript = '
 		<script src="' . $SITEURL . 'plugins/massiveAdmin/js/codemirror.min.js"></script>
 		<link rel="stylesheet" href="' . $SITEURL . 'plugins/massiveAdmin/css/codemirror.min.css">
 		<link rel="stylesheet" href="' . $SITEURL . 'plugins/massiveAdmin/css/blackboard.min.css">	
@@ -688,7 +688,9 @@ class MassiveAdminClass{
 			})
 		</script>
 		';
-	}
+
+		echo $compscript;
+			}
 
 	// gsconfig edit
 	public function gsConfigEdit(){
