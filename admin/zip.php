@@ -1,5 +1,9 @@
 <?php
 
+// Enable error reporting
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
 // Setup inclusions
 $load['plugin'] = true;
 
@@ -7,14 +11,30 @@ $load['plugin'] = true;
 include('inc/common.php');
 login_cookie_check();
 
+// Increase limits for large backups
+ini_set('memory_limit', '512M');
+set_time_limit(0);
+
 if (!extension_loaded('zip')) {
 	exit('PHP zip extension is not installed.');
 }
 
-$filename = GSBACKUPSPATH . 'zip/' . date('YmdHis') . '.zip';
+// Ensure backup directory exists
+$backupDir = GSBACKUPSPATH . 'zip/';
+if (!is_dir($backupDir) && !mkdir($backupDir, 0755, true)) {
+	exit('Failed to create backup directory: ' . $backupDir);
+}
+
+// Verify backup directory is writable
+if (!is_writable($backupDir)) {
+	exit('Backup directory is not writable: ' . $backupDir);
+}
+
+$filename = $backupDir . date('YmdHis') . '.zip';
 $zip = new ZipArchive();
-if ($zip->open($filename, ZipArchive::CREATE) !== TRUE) {
-	exit("Cannot open <$filename>\n");
+$zipStatus = $zip->open($filename, ZipArchive::CREATE);
+if ($zipStatus !== TRUE) {
+	exit("Cannot open <$filename>. Error code: " . $zipStatus);
 }
 
 $dir = GSROOTPATH; // Adjust the directory you want to backup
@@ -45,8 +65,13 @@ function shouldExclude($filePath, $exclude) {
 
 addFolderToZip($dir, $zip, '', $exclude);
 
-$zip->close();
-redirect('archive.php?done');
+if (!$zip->close()) {
+	exit('Failed to close zip archive: ' . $filename);
+}
+
+// Redirect after successful backup
+header('Location: archive.php?done');
+exit;
 
 function addFolderToZip($dir, $zipArchive, $zipdir = '', $exclude = []) {
 	if (is_dir($dir)) {
