@@ -42,7 +42,7 @@
 					<hr>
 					
 					<div class="w3-row">
-						 <div class="w3-third w3-center w3-text-gs-main"><svg xmlns="http://www.w3.org/2000/svg" style="vertical-align:middle" width="1.5em" height="1.5em" viewBox="0 0 24 24"><path fill="black" d="M19 21q-.975 0-1.75-.562T16.175 19H11q-1.65 0-2.825-1.175T7 15t1.175-2.825T11 11h2q.825 0 1.413-.587T15 9t-.587-1.412T13 7H7.825q-.325.875-1.088 1.438T5 9q-1.25 0-2.125-.875T2 6t.875-2.125T5 3q.975 0 1.738.563T7.825 5H13q1.65 0 2.825 1.175T17 9t-1.175 2.825T13 13h-2q-.825 0-1.412.588T9 15t.588 1.413T11 17h5.175q.325-.875 1.088-1.437T19 15q1.25 0 2.125.875T22 18t-.875 2.125T19 21M5 7q.425 0 .713-.288T6 6t-.288-.712T5 5t-.712.288T4 6t.288.713T5 7"/></svg> <a href="' . $value->repo . '" target="_blank">' . $value->version . '</a></div>
+						 <div class="w3-third w3-center w3-text-gs-main s-tags" data-tags="' . htmlspecialchars($value->tags) . '"><svg xmlns="http://www.w3.org/2000/svg" style="vertical-align:middle" width="1.5em" height="1.5em" viewBox="0 0 24 24"><path fill="black" d="M19 21q-.975 0-1.75-.562T16.175 19H11q-1.65 0-2.825-1.175T7 15t1.175-2.825T11 11h2q.825 0 1.413-.587T15 9t-.587-1.412T13 7H7.825q-.325.875-1.088 1.438T5 9q-1.25 0-2.125-.875T2 6t.875-2.125T5 3q.975 0 1.738.563T7.825 5H13q1.65 0 2.825 1.175T17 9t-1.175 2.825T13 13h-2q-.825 0-1.412.588T9 15t.588 1.413T11 17h5.175q.325-.875 1.088-1.437T19 15q1.25 0 2.125.875T22 18t-.875 2.125T19 21M5 7q.425 0 .713-.288T6 6t-.288-.712T5 5t-.712.288T4 6t.288.713T5 7"/></svg> <a href="' . $value->repo . '" target="_blank">' . $value->version . '</a></div>
 						
 						<div class="w3-third w3-center w3-text-gs-main s-author"><svg xmlns="http://www.w3.org/2000/svg" style="vertical-align:middle" width="1.5em" height="1.5em" viewBox="0 0 24 24"><path fill="black" d="m21.7 13.35l-1 1l-2.05-2.05l1-1a.55.55 0 0 1 .77 0l1.28 1.28c.21.21.21.56 0 .77M12 18.94l6.06-6.06l2.05 2.05L14.06 21H12zM12 14c-4.42 0-8 1.79-8 4v2h6v-1.89l4-4c-.66-.08-1.33-.11-2-.11m0-10a4 4 0 0 0-4 4a4 4 0 0 0 4 4a4 4 0 0 0 4-4a4 4 0 0 0-4-4"/></svg> <b>' . $value->author . '</b></div>';
 						
@@ -80,8 +80,9 @@
 			const name = plugin.querySelector('.s-name').textContent.toLowerCase();
 			const info = plugin.querySelector('.s-info').textContent.toLowerCase();
 			const author = plugin.querySelector('.s-author').textContent.toLowerCase();
+			const tags = plugin.querySelector('.s-tags').dataset.tags.toLowerCase();
 
-			if (name.includes(query) || info.includes(query) || author.includes(query)) {
+			if (tags.includes(query) || name.includes(query) || info.includes(query) || author.includes(query)) {
 				plugin.style.display = ''; // Show the plugin
 			} else {
 				plugin.style.display = 'none'; // Hide the plugin
