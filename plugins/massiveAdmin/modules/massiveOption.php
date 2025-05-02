@@ -23,16 +23,17 @@ echo $SITEURL; ?>plugins/massiveAdmin/css/w3-custom.css">
 
 <div class="w3-parent w3-container" style="padding:10px;box-sizing:border-box !important"><!-- Start Plug -->
 
-	<h3>MassiveAdmin Settings</h3>
+	<h3><?php echo i18n_r('massiveAdmin/MASSIVEADMINSETTINGSTITLE'); ?></h3>
 	<hr>
 
 	<button onclick="myFunction('Tab1')"
-		class="w3-button w3-xlarge w3-round w3-block w3-gray w3-text-white w3-left-align w3-margin-bottom" style="box-sizing: border-box !important;"><?php echo i18n_r('massiveAdmin/MAITENANCETITLE'); ?><span
+		class="w3-button w3-xlarge w3-round w3-block w3-gray w3-text-white w3-left-align w3-margin-bottom" style="box-sizing: border-box !important;"><span
 			class="w3-right"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24">
 				<path fill="currentColor" fill-rule="evenodd" d="m5 8l7 8l7-8z" />
-			</svg></span></button>
+			</svg></span> <?php echo i18n_r('massiveAdmin/MASSIVEADMINSETTINGSTITLE'); ?></button>
 	<div id="Tab1" class="w3-hide w3-container w3-margin-bottom" style="box-sizing: border-box !important;">
 		<form action="#" method="post">
+			<h3><?php echo i18n_r('massiveAdmin/MAITENANCETITLE'); ?></h3>
 			<label for="maintence"><?php echo i18n_r("massiveAdmin/MAINTENANCE_ON"); ?></label>
 			<select class="maintenceselect w3-select w3-padding w3-border w3-round w3-margin-bottom" name="maintence"
 				id="">
@@ -45,20 +46,11 @@ echo $SITEURL; ?>plugins/massiveAdmin/css/w3-custom.css">
 				name="content"><?php echo $data->maintencecontent ?? ''; ?></textarea>
 
 			<div class="w3-margin-top w3-center">
-				<button class="w3-btn w3-large w3-round w3-green" type="submit" name="save-option">
-					<?php echo i18n_r("massiveAdmin/SAVEOPTION"); ?>
-				</button>
+	
 			</div>
-		</form>
-	</div>
+	 
 
-	<button onclick="myFunction('Tab2')"
-		class="w3-button w3-xlarge w3-round w3-block w3-gray w3-text-white w3-left-align w3-margin-bottom" style="box-sizing: border-box !important;"><?php echo i18n_r('massiveAdmin/BOOTSTRAPTITLE'); ?>
-		<span class="w3-right"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24">
-				<path fill="currentColor" fill-rule="evenodd" d="m5 8l7 8l7-8z" />
-			</svg></span></button>
-	<div id="Tab2" class="w3-hide w3-container">
-		<form action="#" method="post">
+	<h3><?php echo i18n_r('massiveAdmin/BOOTSTRAPTITLE'); ?></h3>
 			<label for="grid"><?php echo i18n_r("massiveAdmin/TURNONBOOTSTRAPGRID"); ?></label>
 			<select class="gridselect w3-select w3-padding w3-border w3-round w3-margin-bottom" name="grid" id="">
 				<option value="no"><?php echo i18n_r("massiveAdmin/NO"); ?></option>
@@ -77,8 +69,8 @@ echo $SITEURL; ?>plugins/massiveAdmin/css/w3-custom.css">
 					<?php echo i18n_r("massiveAdmin/SAVEOPTION"); ?>
 				</button>
 			</div>
-		</form>
-	</div>
+		</form></div>
+	
 
 	<script type="text/javascript" src="template/js/ckeditor/ckeditor.js"></script>
 
