@@ -78,15 +78,15 @@ get_template('header', cl($SITENAME).' &raquo; '.i18n_r('SUPPORT').' &raquo; '.i
 				<tr>
 					<td style="width:445px;" ><?php echo $site_full_name; ?> <?php i18n('VERSION');?></td><td><?php echo $ver; ?></td>
 				</tr>
-                <?php 
-                if(defined('GSADMIN') && GSADMIN!='admin') echo '<tr><td>GSADMIN</td><td><span class="hint">'.GSADMIN.'</span></td></tr>'; 
+				<?php 
+				if(defined('GSADMIN') && GSADMIN!='admin') echo '<tr><td>GSADMIN</td><td><span class="hint">'.GSADMIN.'</span></td></tr>'; 
 
-                if(defined('GSLOGINSALT') && GSLOGINSALT!='') echo '<tr><td>GSLOGINSALT</td><td><span class="hint">'. i18n_r('YES').'</span></td></tr>'; 
-                else echo '<tr><td>GSLOGINSALT</td><td><span class="hint">'. i18n_r('NO').'</span></td></tr>'; 
+				if(defined('GSLOGINSALT') && GSLOGINSALT!='') echo '<tr><td>GSLOGINSALT</td><td><span class="hint">'. i18n_r('YES').'</span></td></tr>'; 
+				else echo '<tr><td>GSLOGINSALT</td><td><span class="hint">'. i18n_r('NO').'</span></td></tr>'; 
 
-                if(defined('GSUSECUSTOMSALT') && GSUSECUSTOMSALT!='') echo '<tr><td>GSUSECUSTOMSALT</td><td><span class="hint">'. i18n_r('YES').'</span></td></tr>'; 
-				else echo '<tr><td>GSUSECUSTOMSALT</td><td><span class="hint">'. i18n_r('NO').'</span></td></tr>';                 
-                ?>
+				if(defined('GSUSECUSTOMSALT') && GSUSECUSTOMSALT!='') echo '<tr><td>GSUSECUSTOMSALT</td><td><span class="hint">'. i18n_r('YES').'</span></td></tr>'; 
+				else echo '<tr><td>GSUSECUSTOMSALT</td><td><span class="hint">'. i18n_r('NO').'</span></td></tr>';				 
+				?>
 			</table>
 
 			<h3><?php i18n('SERVER_SETUP');?></h3>
@@ -126,25 +126,31 @@ get_template('header', cl($SITENAME).' &raquo; '.i18n_r('SUPPORT').' &raquo; '.i
 						echo '<tr><td>chmod</td><td><span class="OKmsg" >chmod - '.i18n_r('OK').'</span></td></tr>';
 					}
 
-                    if (server_is_apache()) {
-                        echo '<tr><td>Apache Web Server</td><td><span class="OKmsg" >'.$_SERVER['SERVER_SOFTWARE'].' - '.i18n_r('OK').'</span></td></tr>';
-                        if ( function_exists('apache_get_modules') ) {
-                            if(! in_arrayi('mod_rewrite',apache_get_modules())) {
-                                echo '<tr><td>Apache Mod Rewrite</td><td><span class="WARNmsg" >'.i18n_r('NOT_INSTALLED').' - '.i18n_r('WARNING').'</span></td></tr>';
-                            } else {
-                                echo '<tr><td>Apache Mod Rewrite</td><td><span class="OKmsg" >'.i18n_r('INSTALLED').' - '.i18n_r('OK').'</span></td></tr>';
-                            }
-                        } else {
-                            echo '<tr><td>Apache Mod Rewrite</td><td><span class="OKmsg" >'.i18n_r('INSTALLED').' - '.i18n_r('OK').'</span></td></tr>';
-                        }
-                    } else {
-                        if (!defined('GSNOAPACHECHECK') || GSNOAPACHECHECK == false) {
-                            echo '<tr><td>Apache web server</td><td><span class="WARNmsg" >'.$_SERVER['SERVER_SOFTWARE'].' - <b>'.i18n_r('WARNING').'</b></span></td></tr>';
-                        }
-                    }
+					if (server_is_apache()) {
+						echo '<tr><td>Apache Web Server</td><td><span class="OKmsg" >'.$_SERVER['SERVER_SOFTWARE'].' - '.i18n_r('OK').'</span></td></tr>';
+						if ( function_exists('apache_get_modules') ) {
+							if(! in_arrayi('mod_rewrite',apache_get_modules())) {
+								echo '<tr><td>Apache Mod Rewrite</td><td><span class="WARNmsg" >'.i18n_r('NOT_INSTALLED').' - '.i18n_r('WARNING').'</span></td></tr>';
+							} else {
+								echo '<tr><td>Apache Mod Rewrite</td><td><span class="OKmsg" >'.i18n_r('INSTALLED').' - '.i18n_r('OK').'</span></td></tr>';
+							}
+						} else {
+							echo '<tr><td>Apache Mod Rewrite</td><td><span class="OKmsg" >'.i18n_r('INSTALLED').' - '.i18n_r('OK').'</span></td></tr>';
+						}
+					} else {
+						if (!defined('GSNOAPACHECHECK') || GSNOAPACHECHECK == false) {
+							echo '<tr><td>Apache web server</td><td><span class="WARNmsg" >'.$_SERVER['SERVER_SOFTWARE'].' - <b>'.i18n_r('WARNING').'</b></span></td></tr>';
+						}
+					}
+					
+					if (!extension_loaded('sqlite3') || !class_exists('SQLite3')) {
+						echo '<tr><td>SQLite3</td><td><span class="WARNmsg" >'.i18n_r('NOT_INSTALLED').'</span></td></tr>';
+					} else {
+						echo '<tr><td>SQLite3</td><td><span class="OKmsg" >'.i18n_r('INSTALLED').' - '.i18n_r('OK').'</span></td></tr>';
+					}
 
 				$disabled_funcs = ini_get('disable_functions');
-                if(!empty($disabled_funcs)) echo '<tr><td colspan=2>PHP disable_functions<span class="WARNmsg"> ' . $disabled_funcs . '</span></td></tr>';
+				if(!empty($disabled_funcs)) echo '<tr><td colspan=2>PHP disable_functions<span class="WARNmsg"> ' . $disabled_funcs . '</span></td></tr>';
 	?>
 			</table>
 			<p class="hint"><?php echo sprintf(i18n_r('REQS_MORE_INFO'), "https://github.com/GetSimpleCMS-CE/GetSimpleCMS-CE/wiki/Server-Requirements"); ?></p>
