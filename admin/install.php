@@ -265,6 +265,12 @@ get_template('header', $site_full_name.' CE &raquo; '. i18n_r('INSTALLATION') );
 						echo '<tr><td>Apache web server</td><td><span class="WARNmsg" >'.$_SERVER['SERVER_SOFTWARE'].' - <b>'.i18n_r('WARNING').'</b></span></td></tr>';
 					}
 				}
+				
+				if (!extension_loaded('sqlite3') || !class_exists('SQLite3')) {
+					echo '<tr><td>SQLite3</td><td><span class="WARNmsg" >'.i18n_r('NOT_INSTALLED').'</span></td></tr>';
+				} else {
+					echo '<tr><td>SQLite3</td><td><span class="OKmsg" >'.i18n_r('INSTALLED').' - '.i18n_r('OK').'</span></td></tr>';
+				}
 
 			?>
 			</table>
