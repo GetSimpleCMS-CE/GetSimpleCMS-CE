@@ -122,6 +122,7 @@ Designed to be light and agile, the base install comes to you clutter free, with
 > 
 > Always create a backup to protect against the unexpected!
 
+- Download [Update](https://github.com/GetSimpleCMS-CE/update-GetSimpleCMS-CE) package
 - Overwrite existing files.
 - If you have renamed the default `/admin/` folder, this needs to be reverted back before applying this update. 
 After you have applied the update, you may again personalize this.
