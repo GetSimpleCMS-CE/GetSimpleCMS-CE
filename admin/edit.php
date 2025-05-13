@@ -310,7 +310,7 @@ get_template('header', cl($SITENAME) . ' &raquo; ' . i18n_r('EDIT') . ' ' . $tit
 				
 				<script type="text/javascript" src="template/js/ckeditor/ckeditor.js<?php echo getDef("GSCKETSTAMP", true) ? "?t=" . getDef("GSCKETSTAMP") : ""; ?>"></script>
 				
-				<-- Start CodeMirror Theme override -->
+				<!-- Start CodeMirror Theme override -->
 				<script type="text/javascript">
 				// Override CodeMirror plugin settings
 				CKEDITOR.config.codemirror = {
