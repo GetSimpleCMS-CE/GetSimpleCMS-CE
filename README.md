@@ -81,7 +81,7 @@ Designed to be light and agile, the base install comes to you clutter free, with
 
 ### Fixes:
 
-- Fixed: --
+- Fixed: Typo in Edit Page
 
 ### Removals:
 
