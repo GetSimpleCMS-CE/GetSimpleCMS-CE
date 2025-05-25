@@ -20,6 +20,21 @@ $path 		= GSDATAOTHERPATH;
 $bakpath 	= GSBACKUPSPATH .'other/';
 $update 	= ''; $table = ''; $list='';
 
+# Security function to check for dangerous PHP
+function containsDangerousPHP($content) { 
+	$dangerousFunctions = array( 
+		'exec', 'passthru', 'shell_exec', 'system', 'popen', 'proc_open', 'pcntl_exec', 'eval', 'assert', 'create_function', 'preg_replace', 'preg_replace_callback', 'include', 'include_once', 'require', 'require_once', 'dl', 'call_user_func', 'call_user_func_array', 'ReflectionFunction', 'ob_start', 'assert_options', 'mail', 'header', 'putenv', 'ini_set', 'fopen', 'tmpfile', 'bzopen', 'gzopen', 'SplFileObject', 'chgrp', 'chmod', 'chown', 'copy', 'file_put_contents', 'lchgrp', 'lchown', 'link', 'mkdir', 'move_uploaded_file', 'rename', 'rmdir', 'symlink', 'tempnam', 'touch', 'unlink', 'file_exists', 'file_get_contents', 'file', 'fileatime', 'filectime', 'filegroup', 'fileinode', 'filemtime', 'fileowner', 'fileperms', 'filesize', 'filetype', 'glob', 'is_dir', 'is_executable', 'is_file', 'is_link', 'is_readable', 'is_uploaded_file', 'is_writable', 'linkinfo', 'lstat', 'parse_ini_file', 'pathinfo', 'readfile', 'readlink', 'realpath', 'stat', 'gzfile', 'readgzfile', 'getimagesize', 'imagecreatefromgif', 'imagecreatefromjpeg', 'imagecreatefrompng', 'imagecreatefromwbmp', 'imagecreatefromxbm', 'imagecreatefromxpm', 'ftp_get', 'ftp_nb_get', 'ftp_put', 'ftp_nb_put', 'exif_read_data', 'read_exif_data', 'exif_thumbnail', 'exif_imagetype', 'hash_file', 'hash_hmac_file', 'hash_update_file', 'md5_file', 'sha1_file', 'highlight_file', 'show_source', 'php_strip_whitespace', 'get_meta_tags', 'proc_nice', 'proc_terminate', 'proc_close', 'pfsockopen', 'fsockopen', 'apache_child_terminate', 'posix_kill', 'posix_mkfifo', 'posix_setpgid', 'posix_setsid', 'posix_setuid' 
+	);
+	
+	foreach ($dangerousFunctions as $func) {
+		if (stripos($content, $func . '(') !== false) {
+			return true;
+		}
+	}
+	
+	return false;
+}
+
 # check to see if form was submitted
 if (isset($_POST['submitted'])){
 	$value = @$_POST['val'];
@@ -28,7 +43,7 @@ if (isset($_POST['submitted'])){
 	$ids = @$_POST['id'];
 	
 	if($ids==""){
-	    $ids = [];
+		$ids = [];
 	};
 	
 	// check for csrf
@@ -39,7 +54,18 @@ if (isset($_POST['submitted'])){
 		}
 	}
 
-	# create backup file for undo           
+	// Security check for dangerous PHP in component values
+	if (is_array($value)) {
+		foreach ($value as $val) {
+			if (containsDangerousPHP($val)) {
+				die("Security violation: Dangerous PHP content detected");
+			}
+		}
+	} elseif (containsDangerousPHP($value)) {
+		die("Security violation: Dangerous PHP content detected");
+	}
+
+	# create backup file for undo	   
 	createBak($file, $path, $bakpath);
 	
 	# start creation of top of components.xml file
@@ -104,7 +130,6 @@ $count= 0;
 if (count($componentsec) != 0) {
 	foreach ($componentsec as $component) {
 		$table .= '<div class="compdiv" id="section-'.$count.'"><table class="comptable" ><tr><td><b title="'.i18n_r('DOUBLE_CLICK_EDIT').'" class="editable">'. stripslashes($component->title) .'</b></td>';
-		//$table .= '<td style="text-align:right;" ><code>&lt;?php get_component(<span class="compslugcode">\''.$component->slug.'\'</span>); ?&gt;</code></td><td class="delete" >';
 		$table .= '
 		<td style="text-align:center;" >
 			<span id="' . stripslashes($component->title) . '_c" class="shortcode tpl">&#60;?php get_component("' . $component->slug . '"); ?></span>
