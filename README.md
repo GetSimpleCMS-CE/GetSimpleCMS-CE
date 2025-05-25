@@ -89,7 +89,7 @@ Designed to be light and agile, the base install comes to you clutter free, with
 
 ### Security & Hotfixes:
 
-- Hotfixes: --
+- Hotfixes: RCE patch (reported by: @mateusz-sa)
 
 ### Other:
 
