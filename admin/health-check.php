@@ -64,7 +64,7 @@ get_template('header', cl($SITENAME).' &raquo; '.i18n_r('SUPPORT').' &raquo; '.i
 						}
 						
 						if ($updateAvailable) {
-							$ver = '<span class="ERRmsg" ><b>'.$site_version_no.'</b><br /> '. i18n_r('UPG_NEEDED').' (<b>'.$latestVersion.'</b>)<br /><a href="https://github.com/GetSimpleCMS-CE/GetSimpleCMS-CE/releases/latest" target="_blank">'. i18n_r('DOWNLOAD').'</a></span>';
+							$ver = '<span class="ERRmsg" ><b>'.$site_version_no.'</b><br /> '. i18n_r('UPG_NEEDED').' (<b>'.$latestVersion.'</b>)<br /><a href="https://github.com/GetSimpleCMS-CE/GetSimpleCMS-CE/releases/latest" target="_blank">'. i18n_r('DOWNLOAD').'</a></span> '. i18n_r('OR').' <a href="load.php?id=UpdateCE" style="text-decoration:none;font-weight:600!important;color:darkorange;">'.i18n_r('UpdateCE/lang_Update_Now').' <svg xmlns="http://www.w3.org/2000/svg" style="vertical-align:middle" width="1.2em" height="1.2em" viewBox="0 0 24 24"><rect width="24" height="24" fill="none"/><path fill="none" stroke="currentColor" stroke-width="2" d="M1.75 16.002C3.353 20.098 7.338 23 12 23c6.075 0 11-4.925 11-11m-.75-4.002C20.649 3.901 16.663 1 12 1C5.925 1 1 5.925 1 12m8 4H1v8M23 0v8h-8"/></svg></a>';
 						} else {
 							$ver = '<span class="OKmsg" ><b>'.$site_version_no.'</b><br />'. i18n_r('LATEST_VERSION').'</span>';
 						}
