@@ -77,7 +77,7 @@ Designed to be light and agile, the base install comes to you clutter free, with
 
 ### Updates:
 
-- Updated: --
+- Updated: Health Check
 
 ### Fixes:
 
