@@ -1,6 +1,4 @@
 <?php
-
-
 function get_custom_navigation($currentpage = "",$classPrefix = "") {
 
 	$menu = '';

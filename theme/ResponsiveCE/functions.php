@@ -1,6 +1,5 @@
 <?php
 
-
 /*
 Logo Config
 url logo or leave '' if you want show title on header screen
@@ -17,7 +16,6 @@ $mode = '' - auto
 
 $mode = 'light';
 
-
 /*
 you want use bootstrap grid cdn on your theme?
 $bootstrap = 'yes' - use cdn
@@ -25,7 +23,6 @@ $bootstrap = 'no' or '' - default css
 */
 
 $bootstrap = 'no';
-
 
 /*
 What you want default grid on template?

@@ -1,6 +1,4 @@
-<?php if (!defined('IN_GS')) {
-    die('you cannot load this page directly.');
-}
+<?php if (!defined('IN_GS')) { die('you cannot load this page directly.'); }
 /****************************************************
  *
  * @File: 		footer.inc.php
@@ -9,8 +7,6 @@
  *
  *****************************************************/
 ?>
-
-
 <footer class="footer">
     <div class="container">
         <hr>

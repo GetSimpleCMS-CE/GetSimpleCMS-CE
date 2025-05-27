@@ -1,3 +1,4 @@
+<?php if (!defined('IN_GS')) { die('you cannot load this page directly.'); } ?>
 <?php include('header.inc.php'); ?>
 
 <section class="content">
@@ -18,7 +19,6 @@
 					</nav>
 				</hgroup>
 
- 
 				<?php get_page_content(); ?>
 			</main>
 			<aside class="content-sidebar">

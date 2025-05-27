@@ -1,6 +1,4 @@
-<?php if (!defined('IN_GS')) {
-    die('you cannot load this page directly.');
-}
+<?php if (!defined('IN_GS')) { die('you cannot load this page directly.'); }
 /****************************************************
  *
  * @File: 		header.inc.php
@@ -9,8 +7,6 @@
  *
  *****************************************************/
 ?>
-
-
 <head>
 	<title><?php get_page_title(); ?></title>
 	<meta charset="UTF-8">

@@ -1,6 +1,4 @@
-<?php if (!defined('IN_GS')) {
-    die('you cannot load this page directly.');
-}
+<?php if (!defined('IN_GS')) { die('you cannot load this page directly.'); }
 /****************************************************
  *
  * @File: 		footer.inc.php
@@ -9,7 +7,6 @@
  *
  *****************************************************/
 ?>
-
 <!-- Footer -->
 <footer class="w3-center w3-black w3-padding-64">
 	<a href="#home" class="w3-button w3-light-grey"><i class="fa fa-arrow-up w3-margin-right"></i>To the top</a>
