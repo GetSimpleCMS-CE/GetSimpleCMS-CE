@@ -4,7 +4,7 @@
  * Spanish Language File
  *
  * Date:		2015.11.21
- * Revision:	2023.07.23
+ * Revision:	2025.05.28
  * Version:		GetSimple 3.3.19 CE
  * Traductors: 	GS Community 
  *
@@ -19,17 +19,17 @@ $i18n = [
     */
 	"PHPVER_ERROR"			=>	"<b>No es posible continuar:</b> PHP 7.4 o superior requerido, usted tiene ",
 	"SIMPLEXML_ERROR"		=>	"<b>No es posible continuar:</b> SimpleXML no instalado",
-	"CURL_WARNING"			=>	"<b>Aviso:</b> cURL no instalado",
-	"TZ_WARNING"			=>	"<b>Aviso:</b> date_default_timezone_set no ",
+	"CURL_WARNING"			=>	"<b>Aviso:</b> cURL no está instalado",
+	"TZ_WARNING"			=>	"<b>Aviso:</b> Falta date_default_timezone_set",
 	"WEBSITENAME_ERROR"		=>	"<b>Error:</b> Ha habido un problema con el título de tu sitio web.",
-	"WEBSITEURL_ERROR"		=>	"<b>Error:</b> Ha habido un problema con en elace de su sitio web.",
+	"WEBSITEURL_ERROR"		=>	"<b>Error:</b> Ha habido un problema con el elace de su sitio web.",
 	"USERNAME_ERROR"		=>	"<b>Error:</b> Usuario no establecido",
 	"EMAIL_ERROR"			=>	"<b>Error:</b> Ha habido un error con su correo electrónico.",
 	"CHMOD_ERROR"			=>	"<b>No es posible continuar:</b> No se pudo escribir al archivo de configuración. CHMOD 755 o 777 a las carpetas y subcarpetas y pruebe de nuevo <code>/data</code>, <code>/backups</code>.",
-	"EMAIL_COMPLETE"		=>	"Instalación completada",
+	"EMAIL_COMPLETE"		=>	"Instalación completa",
 	"EMAIL_USERNAME"		=>	"Su usuario es",
 	"EMAIL_PASSWORD"		=>	"Su nueva contraseña es",
-	"EMAIL_LOGIN"			=>	"Entre desde aquí",
+	"EMAIL_LOGIN"			=>	"Iniciar sesión aquí",
 	"EMAIL_THANKYOU"		=>	"Gracias por usar",
 	"NOTE_REGISTRATION"		=>	"Su información de registro se envió a",
 	"NOTE_REGERROR"			=>	"<b>Error:</b> Hubo un problema al enviar la información de registro por correo electrónico. Por favor, apunte la siguiente contraseña",
@@ -47,7 +47,7 @@ $i18n = [
 	"CONTINUE_SETUP" 		=>  "Continuar con instalación",
 	"DOWNLOAD_LANG" 		=>  "Descargar idiomas",
 	"SITE_UPDATED"			=>	"Su sitio ha sido actualizado.",
-	"SERVICE_UNAVAILABLE"	=>	"Esta página es temporalmente indisponible",
+	"SERVICE_UNAVAILABLE"	=>	"Esta página está temporalmente indisponible",
 
 	/* 
 	 * For: pages.php
@@ -78,7 +78,7 @@ $i18n = [
 	"VIEW"					=>	"Ver",
 	"PAGE_OPTIONS"			=>	"Opciones",
 	"SLUG_URL"				=>	"URL personalizada (Slug)",
-	"TAG_KEYWORDS"			=>	"Tags &amp; Palabras clave",
+	"TAG_KEYWORDS"			=>	"Tags y Palabras clave",
 	"PARENT_PAGE"			=>	"Página madre",
 	"TEMPLATE"				=>	"Plantilla de página",
 	"KEEP_PRIVATE"			=>	"Visibilidad",
@@ -92,14 +92,14 @@ $i18n = [
 	"LAST_SAVED"			=>	"Último cambio realizado por %s en",
 	"FILE_UPLOAD"			=>	"Subir archivo",
 	"OR"					=>	"o",
-	"SAVE_AND_CLOSE"		=> "Guardar &amp; Cerrar",
+	"SAVE_AND_CLOSE"		=> "Guardar y Cerrar",
 	"PAGE_UNSAVED"			=>	"Página con cambios sin guardar",
 
 	/* 
 	 * For: upload.php
 	 */
 	"ERROR_UPLOAD"			=>	"Hubo un problema al subir el archivo",
-	"FILE_SUCCESS_MSG"		=>	"Subido! Localización",
+	"FILE_SUCCESS_MSG"		=>	"Subido! Ubicación del archivo",
 	"FILE_MANAGEMENT"		=>	"Archivos",
 	"UPLOADED_FILES"		=>	"Archivos subidos",
 	"SHOW_ALL"				=>	"Mostrar todo",
@@ -164,9 +164,9 @@ $i18n = [
 	 * For: backup-edit.php
 	 */
 	"BAK_MANAGEMENT"		=>	"Gestor de copias de seguridad",
-	"ASK_CANCEL"			=>	"Cancelar", // 'c' is the accesskey identifier
-	"ASK_RESTORE"			=>	"Restaurar", // 'r' is the accesskey identifier
-	"ASK_DELETE"			=>	"Eliminar", // 'd' is the accesskey identifier
+	"ASK_CANCEL"			=>	"Cancelar", 
+	"ASK_RESTORE"			=>	"Restaurar", 
+	"ASK_DELETE"			=>	"Eliminar", 
 	"BACKUP_OF"				=>	"Copia de seguridad de",
 	"PAGE_TITLE"			=>	"Título de página",
 	"YES"					=>	"Sí",
@@ -180,7 +180,7 @@ $i18n = [
 	"COMPONENTS"			=>	"Componentes",
 	"DELETE_COMPONENT"		=>	"Eliminar componente",
 	"EDIT"					=>	"Editar",
-	"ADD_COMPONENT"			=>	"Añadir componente", // 'a' is the accesskey identifier
+	"ADD_COMPONENT"			=>	"Añadir componente", 
 	"SAVE_COMPONENTS"		=>	"Guardar componentes",
 
 	/* 
@@ -207,7 +207,7 @@ $i18n = [
 	"YOUR_NEW"				=>	"Su nueva",
 	"PASSWORD_IS"			=>	"contraseña es",
 	"ATTEMPT"				=>	"Intento",
-	"MSG_PLEASE_EMAIL"		=>	"Porvavor introduzca el usuario registrado en este sistema, y una nueva contraseña será enviada a su correo electrónico.",
+	"MSG_PLEASE_EMAIL"		=>	"Porfavor introduzca el usuario registrado en este sistema, y una nueva contraseña será enviada a su correo electrónico.",
 	"SEND_NEW_PWD"			=>	"Enviar nueva contraseña",
 
 	/* 
