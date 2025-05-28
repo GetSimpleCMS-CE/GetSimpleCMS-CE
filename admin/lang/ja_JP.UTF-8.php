@@ -17,7 +17,7 @@ $i18n = [
     /* 
      * For: install.php
     */
-"PHPVER_ERROR"			=>	"<b>継続不能:</b> PHP 5.1.3 以降が必要です。",
+"PHPVER_ERROR"			=>	"<b>継続不能:</b> PHP 7.4 以降が必要です。",
 "SIMPLEXML_ERROR"		=>	"<b>継続不能:</b> <em>SimpleXML</em> がインストールされていません",
 "CURL_WARNING"			=>	"<b>警告:</b> <em>cURL</em> インストールされていません。",
 "TZ_WARNING" => "<b>警告：</ b> <em> date_default_timezone_set </ em>がありません",

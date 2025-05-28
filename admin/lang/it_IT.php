@@ -17,7 +17,7 @@ $i18n = [
     /* 
      * For: install.php
     */
-"PHPVER_ERROR" => "<strong>Impossibile proseguire:</strong> Richiesto PHP 5.1.3 o maggiore, al momento è installato ",
+"PHPVER_ERROR" => "<strong>Impossibile proseguire:</strong> Richiesto PHP 7.4 o maggiore, al momento è installato ",
 "SIMPLEXML_ERROR" => "<strong>Impossibile proseguire:</strong> <em>SimpleXML</em> non è installato",
 "CURL_WARNING" => "<strong>Attenzione:</strong> <em>cURL</em> non è installato",
 "TZ_WARNING" => "<strong>Attenzione:</strong> <em>date_default_timezone_set</em> è mancante",
@@ -550,7 +550,7 @@ $i18n = [
 		"Ĺ"=>"l","Ľ"=>"L","Ŕ"=>"r",
 		// Polish
 		"Ą"=>"a","Ć"=>"c","Ę"=>"e",
-		"Ł"=>"L","Ń"=>"N","Ó"=>"O",
+		"Ł"=>"L","Ń"=>"n","Ó"=>"o",
 		"Ś"=>"s","Ź"=>"z","Ż"=>"z",
 		"ą"=>"a","ć"=>"c","ę"=>"e",
 		"ł"=>"l","ń"=>"n","ó"=>"o",
@@ -569,9 +569,10 @@ $i18n = [
 		"о"=>"o","п"=>"p","р"=>"r","с"=>"s","т"=>"t",
 		"у"=>"u","ф"=>"f","х"=>"h","ц"=>"c","ч"=>"ch",
 		"ш"=>"sh","щ"=>"shh","ъ"=>"","ы"=>"y","ь"=>"",
-
-		"э"=>"e","ю"=>"yu","я"=>"ya"
-	],
+		"э"=>"e","ю"=>"yu","я"=>"ya",
+		// Scandinavian
+		"æ"=>"a","Æ"=>"a","å"=>"a","Å"=>"a","ä"=>"a","Ä"=>"a","ø"=>"a","Ø"=>"a","ö"=>"o","Ö"=>"o"
+],
 
 "X" => "non tradotto",
 
