@@ -89,7 +89,7 @@ Designed to be light and agile, the base install comes to you clutter free, with
 
 ### Security & Hotfixes:
 
-- Hotfixes: RCE vulnerability (reported by: [@mateusz-sa](@mateusz-sa))
+- Hotfixes: RCE vulnerability CVE-2025-48492 (reported by: [@mateusz-sa](@mateusz-sa))
 
 ### Other:
 
