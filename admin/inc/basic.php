@@ -60,18 +60,31 @@ function clean_img_name($text)  {
  * @param string $from_enc
  * @return string 
  */
-function to7bit($text,$from_enc="UTF-8") {
+function to7bit($text, $from_enc = "UTF-8") {
 	if (function_exists('mb_encode_numericentity')) {
-		$text = mb_encode_numericentity($text ?? "",[0x80, 0x10FFFF, 0, ~0],$from_enc);
-    } else {
-		$text = htmlspecialchars_decode(utf8_decode(htmlentities($text, ENT_COMPAT, 'utf-8', false)));
+		$text = mb_encode_numericentity($text ?? "", [0x80, 0x10FFFF, 0, ~0], $from_enc);
+	} else {
+		// Replacement for the deprecated utf8_decode approach
+		if (function_exists('mb_convert_encoding')) {
+			$text = htmlspecialchars_decode(
+				mb_convert_encoding(
+					htmlentities($text, ENT_COMPAT, 'utf-8', false),
+					'ISO-8859-1',
+					'UTF-8'
+				),
+				ENT_COMPAT
+			);
+		} else {
+			// Fallback that doesn't require mbstring
+			$text = htmlspecialchars_decode(htmlentities($text, ENT_COMPAT, 'utf-8', false));
+		}
 	}
-    $text = preg_replace(
-        ['/&szlig;/', '/&(..)lig;/', 
-             '/&([aouAOU])uml;/','/&(.)[^;]*;/'],
-        ['ss', "$1", "$1".'e', "$1"],
-        $text);
-    return $text;
+	$text = preg_replace(
+		['/&szlig;/', '/&(..)lig;/', 
+		 '/&([aouAOU])uml;/','/&(.)[^;]*;/'],
+		['ss', "$1", "$1".'e', "$1"],
+		$text);
+	return $text;
 }
 
 
@@ -282,8 +295,8 @@ function subval_sort($a,$subkey, $order='asc',$natural = true) {
 
 		return $c;
 	}else {
-        return array();
-    }
+		return array();
+	}
 }
 
 /**
@@ -350,14 +363,14 @@ $microtime_start = null;
 function get_execution_time($reset=false)
 {
 	GLOBAL $microtime_start;
-    if($reset) $microtime_start = null;
+	if($reset) $microtime_start = null;
 		
-    if($microtime_start === null)
-    {
-        $microtime_start = microtime(true);
-        return 0.0; 
-    }    
-    return round(microtime(true) - $microtime_start,5); 
+	if($microtime_start === null)
+	{
+		$microtime_start = microtime(true);
+		return 0.0; 
+	}	
+	return round(microtime(true) - $microtime_start,5); 
 }
 
 /**
@@ -491,7 +504,7 @@ function tsl($path) {
  */
 if(!function_exists('in_arrayi')) {
 	function in_arrayi($needle, $haystack) {
-	    return in_array(lowercase($needle), array_map('lowercase', $haystack));
+		return in_array(lowercase($needle), array_map('lowercase', $haystack));
 	}
 }
 
@@ -530,7 +543,7 @@ function find_url($slug, $parent, $type='full') {
 		$parent = tsl($parent); 
 	}	
 
-	if ($PRETTYURLS == '1') {      
+	if ($PRETTYURLS == '1') {	  
 		if ($slug != 'index'){  
 			$url = $full . $parent . $slug . '/';
 		} else {
@@ -734,7 +747,7 @@ function i18n_merge_impl($plugin, $lang, &$globali18n) {
 	$i18n = []; // local from file
 	if(!isset($globali18n)) $globali18n = []; //global ref to $i18n
 
-	$path     = ($plugin ? GSPLUGINPATH.$plugin.'/lang/' : GSLANGPATH);
+	$path	 = ($plugin ? GSPLUGINPATH.$plugin.'/lang/' : GSLANGPATH);
 	$filename = $path.$lang.'.php';
 	$prefix   = $plugin ? $plugin.'/' : '';
 
@@ -792,7 +805,7 @@ function safe_slash_html($text) {
  *
  * @since  3.3.3
  * @param  str $str string to prepare for xml cdata
- * @return str      filtered string
+ * @return str	  filtered string
  */
 function xmlFilterChars($str){
 	$chr = getRegexUnicode();
@@ -806,23 +819,23 @@ function xmlFilterChars($str){
  *
  * @since  3.3.3
  * @param  str $id key to return from char range array
- * @return mixed     array or str if id specified of regex char strings
+ * @return mixed	 array or str if id specified of regex char strings
  */
 function getRegexUnicode($id = null){
 	$chars = [
-		'null'       => '\x{0000}',            // 0 null
-		'ht'         => '\x{0009}',            // 9 horizontal tab
-		'lf'         => '\x{000a}',            // 10 line feed
-		'vt'         => '\x{000b}',            // 11 vertical tab
-		'FF'         => '\x{000c}',            // 12 form feed
-		'cr'         => '\x{000d}',            // 13 carriage return
-		'cntrl'      => '\x{0001}-\x{0019}',   // 1-31 control codes
+		'null'	   => '\x{0000}',			// 0 null
+		'ht'		 => '\x{0009}',			// 9 horizontal tab
+		'lf'		 => '\x{000a}',			// 10 line feed
+		'vt'		 => '\x{000b}',			// 11 vertical tab
+		'FF'		 => '\x{000c}',			// 12 form feed
+		'cr'		 => '\x{000d}',			// 13 carriage return
+		'cntrl'	  => '\x{0001}-\x{0019}',   // 1-31 control codes
 		'cntrllow'   => '\x{0001}-\x{000c}',   // 1-12 low end control codes
 		'cntrlhigh'  => '\x{000e}-\x{0019}',   // 14-31 high end control codes
-		'bom'        => '\x{FEFF}',            // 65279 BOM byte order mark
-		'lower'      => '\x{0020}-\x{D7FF}',   // 32 - 55295
+		'bom'		=> '\x{FEFF}',			// 65279 BOM byte order mark
+		'lower'	  => '\x{0020}-\x{D7FF}',   // 32 - 55295
 		'surrogates' => '\x{D800}-\x{DFFF}',   // 55296 - 57343
-		'upper'      => '\x{E000}-\x{FFFD}',   // 57344 - 65533
+		'upper'	  => '\x{E000}-\x{FFFD}',   // 57344 - 65533
 		'nonchars'   => '\x{FFFE}-\x{FFFF}',   // 65534 - 65535
 		'privateb'   => '\x{10000}-\x{10FFFD}', // 65536 - 1114109
  	];
@@ -916,7 +929,7 @@ function suggest_site_path($parts=false, $protocolRelative = false) {
 	$protocol   = $protocolRelative ? '' : http_protocol().':';
 	$path_parts = pathinfo(htmlentities($_SERVER['PHP_SELF'], ENT_QUOTES));
 	$path_parts = str_replace("/".$GSADMIN, "", $path_parts['dirname']);
-	$port       = ($p=$_SERVER['SERVER_PORT'])!='80'&&$p!='443'?':'.$p:'';
+	$port	   = ($p=$_SERVER['SERVER_PORT'])!='80'&&$p!='443'?':'.$p:'';
 	
 	if($path_parts == '/') {
 		$fullpath = $protocol."//". htmlentities($_SERVER['SERVER_NAME'], ENT_QUOTES) . $port . "/";
@@ -1133,35 +1146,35 @@ function formatXmlString_legacy($xml) {
 	$xml = preg_replace('/(>)(<)(\/*)/', "$1\n$2$3", $xml);
 
 	// now indent the tags
-	$token      = strtok($xml, "\n");
-	$result     = ''; // holds formatted version as it is built
-	$pad        = 0; // initial indent
-	$matches    = []; // returns from preg_matches()
+	$token	  = strtok($xml, "\n");
+	$result	 = ''; // holds formatted version as it is built
+	$pad		= 0; // initial indent
+	$matches	= []; // returns from preg_matches()
   
 	// scan each line and adjust indent based on opening/closing tags
 	while ($token !== false) : 
 
-    // test for the various tag states
+	// test for the various tag states
 
-    // 1. open and closing tags on same line - no change
-    if (preg_match('/.+<\/\w[^>]*>$/', $token, $matches)) : 
+	// 1. open and closing tags on same line - no change
+	if (preg_match('/.+<\/\w[^>]*>$/', $token, $matches)) : 
 		$indent=0;
-    // 2. closing tag - outdent now
-    elseif (preg_match('/^<\/\w/', $token, $matches)) :
+	// 2. closing tag - outdent now
+	elseif (preg_match('/^<\/\w/', $token, $matches)) :
 		$pad--;
-    // 3. opening tag - don't pad this one, only subsequent tags
-    elseif (preg_match('/^<\w[^>]*[^\/]>.*$/', $token, $matches)) :
+	// 3. opening tag - don't pad this one, only subsequent tags
+	elseif (preg_match('/^<\w[^>]*[^\/]>.*$/', $token, $matches)) :
 		$indent=1;
-    // 4. no indentation needed
-    else :
+	// 4. no indentation needed
+	else :
 		$indent = 0; 
-    endif;
+	endif;
 
-    // pad the line with the required number of leading spaces
-    $line    = str_pad($token, strlen($token)+$pad, ' ', STR_PAD_LEFT);
-    $result .= $line . "\n"; // add to the cumulative result, with linefeed
-    $token   = strtok("\n"); // get the next token
-    $pad    += $indent; // update the pad size for subsequent lines    
+	// pad the line with the required number of leading spaces
+	$line	= str_pad($token, strlen($token)+$pad, ' ', STR_PAD_LEFT);
+	$result .= $line . "\n"; // add to the cumulative result, with linefeed
+	$token   = strtok("\n"); // get the next token
+	$pad	+= $indent; // update the pad size for subsequent lines	
 	endwhile; 
   
 	return $result;
@@ -1421,8 +1434,8 @@ function returnJsArray($var){
 		// if looks like an array string try to parse as array
 		if(strrpos($var, '[') !==false){
 			// normalize array strings
-			$var = stripslashes($var);         // remove escaped quotes
-			$var = trim(trim($var),',');       // remove trailing commas
+			$var = stripslashes($var);		 // remove escaped quotes
+			$var = trim(trim($var),',');	   // remove trailing commas
 			$var = str_replace('\'','"',$var); // replace single quotes with double (for json)
 			
 			$ary = json_decode($var);
@@ -1469,9 +1482,9 @@ function header_xframeoptions($value = null){
  * 
  * eg. strip_whitespace("Line   1\n\tLine 2\r\t\tLine 3  \r\n\t\t\tLine 4\n  "," ");
  * @since 3.3.6
- * @param  str $str     input string
+ * @param  str $str	 input string
  * @param  string $replace replacement character
- * @return str          new string
+ * @return str		  new string
  */
 function strip_whitespace($str,$replace = ' '){
 	$chars = ["\r\n", "\n", "\r", "\t"];
@@ -1482,9 +1495,9 @@ function strip_whitespace($str,$replace = ' '){
 /**
  * strip shortcodes based on pattern
  * @since  3.3.6
- * @param  str $str     input string
+ * @param  str $str	 input string
  * @param  string $pattern regex pattern to strip
- * @return str          new string
+ * @return str		  new string
  */
 function strip_content($str, $pattern = '/[({]%.*?%[})]/'){
 	if(getDef('GSCONTENTSTRIPPATTERN',true)) $pattern = getDef('GSCONTENTSTRIPPATTERN');
@@ -1495,7 +1508,7 @@ function strip_content($str, $pattern = '/[({]%.*?%[})]/'){
  * perform transliteration conversion on string
  * @since  3.3.11
  * @param  str $str string to convert
- * @return str      str after transliteration replacement array ran on it
+ * @return str	  str after transliteration replacement array ran on it
  */
 function doTransliteration($str){
 	if (getTransliteration() && is_array($translit=getTransliteration()) && count($translit)>0) {
