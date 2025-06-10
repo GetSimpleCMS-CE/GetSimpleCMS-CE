@@ -87,7 +87,6 @@ function to7bit($text, $from_enc = "UTF-8") {
 	return $text;
 }
 
-
 /**
  * Formats Email to HTML Style
  *
@@ -636,7 +635,8 @@ function redirect($url) {
 	}	
 
 	if (!headers_sent($filename, $linenum)) {
-		header('Location: '.var_out($url,"url"));
+		header('Location: ' . var_out($url, "url"), true, 303);
+		exit;
 	} else {
 		echo "<html><head><title>".i18n_r('REDIRECT')."</title></head><body>";
 		if ( !isDebug() ) {
@@ -784,18 +784,7 @@ function i18n_merge_impl($plugin, $lang, &$globali18n) {
  * @return string
  */
 function safe_slash_html($text) {
-
-/*	// PHP 8, no get_magic_quotes_gpc()
-	if (get_magic_quotes_gpc()==0) {
-		$text = addslashes(htmlspecialchars($text, ENT_QUOTES, 'UTF-8'));
-	} else {
-		$text = htmlspecialchars($text, ENT_QUOTES, 'UTF-8');
-	}
 	
-	return xmlFilterChars($text);
-	*/
-
-	// replacement
 	$text = htmlspecialchars($text, ENT_QUOTES, 'UTF-8');
 	return xmlFilterChars($text);
 }
@@ -854,19 +843,8 @@ function getRegexUnicode($id = null){
  * @return string
  */
 function safe_strip_decode($text) {
-
-/*	// PHP 8, no get_magic_quotes_gpc()
-
-	if (get_magic_quotes_gpc()==0) {
-		$text = htmlspecialchars_decode($text, ENT_QUOTES);
-	} else {
-		$text = stripslashes(htmlspecialchars_decode($text, ENT_QUOTES));
-	}
-	return $text;
-*/	
-		// replacement
-	$text = stripslashes(htmlspecialchars_decode($text, ENT_QUOTES));
 	
+	$text = stripslashes(htmlspecialchars_decode($text, ENT_QUOTES));
 	return $text;
 }
 
@@ -905,7 +883,6 @@ function pathinfo_filename($file) {
 		return $path_parts['basename'];
 	}
 }
-
 
 function getFileExtension($file){
 	return lowercase(pathinfo($file,PATHINFO_EXTENSION));
@@ -994,7 +971,6 @@ function get_themes($temp) {
 	return $templates;
 }
 
-
 /**
  * HTML Decode 
  *
@@ -1079,7 +1055,6 @@ function defined_array($constants) {
 	return $defined;
 }
 
-
 /**
  * Is Folder Empty
  *
@@ -1100,7 +1075,6 @@ function check_empty_folder($folder) {
 	}
 	return ( count ( $files ) > 0 ) ? FALSE : TRUE;
 }
-
 
 /**
  * Folder Items
@@ -1132,7 +1106,6 @@ function folder_items($folder) {
 function validate_url($u) {
 	return filter_var($u,FILTER_VALIDATE_URL);
 }
-
 
 /**
  * Format XML to Formatted String
@@ -1243,7 +1216,6 @@ function file_mime_type($file) {
 	return $mimetype;
 }
 
-
 /**
  * Check Is FrontEnd
  * 
@@ -1280,7 +1252,6 @@ function get_site_version($echo=true) {
 		return GSVERSION;
 	}
 }
-
 
 /**
  * Get GetSimple Language
@@ -1364,7 +1335,6 @@ function directoryToArray($directory, $recursive) {
 	}
 	return $array_items;
 }
-
 
 /**
  * Returns definition safely
@@ -1460,7 +1430,6 @@ function returnJsArray($var){
 	return $var;
 }
 
-
 /**
  * sends an x-frame-options heaeder
  * @since  3.4
@@ -1473,7 +1442,6 @@ function header_xframeoptions($value = null){
 	}	
 	header('X-Frame-Options: ' . $value); // FF 3.6.9+ Chrome 4.1+ IE 8+ Safari 4+ Opera 10.5+
 }
-
 
 /**
  * strip non printing white space from string
