@@ -146,7 +146,7 @@ $i18n = [
 "SETTINGS" 			=> 	"Ustawienia",
 "ERROR" 			=> 	"Błąd",
 "BTN_SAVESETTINGS" 	=> 	"Zapisz ustawienia",
-"VIEW_FAILED_LOGIN"	=> 	"Zobacz nieudane próby logowania</a></p></li></ul><br><h3>Tłumaczenie</h3><ul><li><p>Spolszczenie dla Get-Simple CMS: Wojciech Jodła - <a href=\"http://www.wujitsu.pl\" target=\"_blank\" >www.WuJitsu.pl</a></p></li></ul>",
+"VIEW_FAILED_LOGIN"	=> 	"Zobacz nieudane próby logowania",
 
 
     /* 
@@ -522,7 +522,41 @@ $i18n = [
 "API_DISCLAIMER" => "Aktywując tę opcję umożliwisz zewnętrznym aplikacjom — posiadającym kopię klucza — dostęp do danych zawartych na twojej stronie. <strong>Używaj tej opcji wyłącznie w zaufanych aplikacjach!</strong>",
 "API_REGEN_DISCLAIMER" => "Nowy klucz dostępu do API - wymaga zmiany starego klucza w zewnętrznych aplikacjach korzystających z danych na Twojej stronie.",
 "API_CONFIRM" => "Jesteś pewien?",
-
+	
+	// salt-shaker
+	"Security_Generator" 	=> 'Generator Soli/Hashu Zabezpieczeń CE',
+	"More_info" 			=> 'Więcej informacji dostępnych w',
+	"Wiki" 					=> 'Wiki',
+	"Security_Notice" 		=> 'Powiadomienie o Bezpieczeństwie',
+	"Tokens_are_never" 		=> 'Tokeny nigdy nie są wyświetlane i są usuwane natychmiast po przetworzeniu.',
+	"Password_Hash" 		=> 'Hash Hasła',
+	"Custom_Salt_Hash" 		=> 'Niestandardowy Hash Soli',
+	"Password_Hashing" 		=> 'Hashowanie Hasła',
+	"Used_to_enhance" 		=> 'Używane do zwiększenia bezpieczeństwa haseł użytkowników. Po dodaniu należy zresetować wszystkie hasła.',
+	"Password_Token" 		=> 'Token Hasła',
+	"Any_word" 				=> 'Dowolne wybrane słowo...',
+	"Random_string" 		=> 'Losowy ciąg znaków zawierający znaki i symbole...',
+	"System_Salt" 			=> 'Sól Systemowa',
+	"Generate" 				=> 'Generuj',
+	"Security_Hashing" 		=> 'Hashowanie Bezpieczeństwa',
+	"enhance_system_wide" 	=> 'Używane do zwiększenia bezpieczeństwa całego systemu, w tym:',
+	"temporary_files" 		=> 'Ciasteczka/pliki tymczasowe, reset sesji, ochrona CSRF, przesyłanie plików itp.',
+	"Input_Token" 			=> 'Token Wejściowy',
+	"Application_Salt" 		=> 'Sól Aplikacji',
+	"Generate_Hashes" 		=> 'Generuj Hashe',
+	"Password_Hash_Results" => 'Wyniki Hashowania Hasła',
+	"hidden" 				=> 'ukryty',
+	"SHA1_of_Salt" 			=> 'SHA1 Soli',
+	"Your_Hash" 			=> 'Twój Hash \'GSLOGINSALT\'',
+	"hash_copied" 			=> 'hash skopiowany!',
+	"Remain_logged" 		=> 'Pozostań zalogowany na swoim koncie administratora.',
+	"Add_hash_GSLOGINSALT" 	=> 'Dodaj nowy hash do pola \'GSLOGINSALT\' w gsconfig.php.',
+	"Update_all" 			=> 'Zaktualizuj wszystkie hasła użytkowników.',
+	"Custom_Salt" 			=> 'Wyniki Niestandardowego Hashowania Soli',
+	"SHA1_of_Application" 	=> 'SHA1 Soli Aplikacji',
+	"Your_Custome_Hash" 	=> 'Twój Hash \'GSUSECUSTOMSALT\'',
+	"Add_hash_GSUSECUSTOMSALT" 	=> 'Dodaj nowy hash do pola \'GSUSECUSTOMSALT\' w gsconfig.php.',
+	"Clear_cookies" 		=> 'Wyczyść ciasteczka.',
 
 /*
  * Default transliteration

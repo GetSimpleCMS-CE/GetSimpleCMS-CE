@@ -520,6 +520,41 @@ $i18n = [
   , 'API_DISCLAIMER' => "En activant cette API, vous permettez à une application externe qui a une copie de votre cl&eacute; d'avoir acc&egrave;s aux donn&eacute;es de votre site. <b>Ne partagez cette cl&eacute; qu'avec des applications en qui vous avez confiance.</b>"
   , 'API_REGEN_DISCLAIMER' => "Quand vous g&eacute;n&eacute;rez la clef API, vous devez renseigner cette nouvelle clef dans l'application externe qui utilise l'API afin qu'elle puisse se connecter &agrave; votre site web."
   , 'API_CONFIRM' => "ETES-VOUS SUR ?"
+	
+	// salt-shaker
+	"Security_Generator" 	=> 'Générateur de Sel/Hash de Sécurité CE',
+	"More_info" 			=> 'Plus d\'informations disponibles dans le',
+	"Wiki" 					=> 'Wiki',
+	"Security_Notice" 		=> 'Avis de Sécurité',
+	"Tokens_are_never" 		=> 'Les jetons ne sont jamais affichés et sont effacés immédiatement après le traitement.',
+	"Password_Hash" 		=> 'Hash de Mot de Passe',
+	"Custom_Salt_Hash" 		=> 'Hash de Sel Personnalisé',
+	"Password_Hashing" 		=> 'Hachage de Mot de Passe',
+	"Used_to_enhance" 		=> 'Utilisé pour améliorer la sécurité des mots de passe utilisateur. Vous devrez réinitialiser tous les mots de passe une fois ceci ajouté.',
+	"Password_Token" 		=> 'Jeton de Mot de Passe',
+	"Any_word" 				=> 'N\'importe quel mot de votre choix...',
+	"Random_string" 		=> 'Chaîne aléatoire incluant des caractères et symboles...',
+	"System_Salt" 			=> 'Sel Système',
+	"Generate" 				=> 'Générer',
+	"Security_Hashing" 		=> 'Hachage de Sécurité',
+	"enhance_system_wide" 	=> 'Utilisé pour améliorer la sécurité à l\'échelle du système, y compris:',
+	"temporary_files" 		=> 'Cookies/fichiers temporaires, réinitialisation de session, protection CSRF, téléchargements de fichiers, etc.',
+	"Input_Token" 			=> 'Jeton d\'Entrée',
+	"Application_Salt" 		=> 'Sel d\'Application',
+	"Generate_Hashes" 		=> 'Générer des Hashes',
+	"Password_Hash_Results" => 'Résultats du Hash de Mot de Passe',
+	"hidden" 				=> 'masqué',
+	"SHA1_of_Salt" 			=> 'SHA1 du Sel',
+	"Your_Hash" 			=> 'Votre Hash \'GSLOGINSALT\'',
+	"hash_copied" 			=> 'hash copié !',
+	"Remain_logged" 		=> 'Restez connecté à votre compte administrateur.',
+	"Add_hash_GSLOGINSALT" 	=> 'Ajoutez le nouveau hash à votre champ \'GSLOGINSALT\' dans gsconfig.php.',
+	"Update_all" 			=> 'Mettre à jour tous les mots de passe utilisateur.',
+	"Custom_Salt" 			=> 'Résultats du Hash de Sel Personnalisé',
+	"SHA1_of_Application" 	=> 'SHA1 du Sel d\'Application',
+	"Your_Custome_Hash" 	=> 'Votre Hash \'GSUSECUSTOMSALT\'',
+	"Add_hash_GSUSECUSTOMSALT" 	=> 'Ajoutez le nouveau hash à votre champ \'GSUSECUSTOMSALT\' dans gsconfig.php.',
+	"Clear_cookies" 		=> 'Effacer les cookies.',
 
     /*
      * Default transliteration
