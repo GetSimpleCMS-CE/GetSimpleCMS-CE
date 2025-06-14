@@ -519,7 +519,7 @@ $i18n = [
   , 'API_REGENKEY' => "R&eacute;g&eacute;n&eacute;rer la clef"
   , 'API_DISCLAIMER' => "En activant cette API, vous permettez à une application externe qui a une copie de votre cl&eacute; d'avoir acc&egrave;s aux donn&eacute;es de votre site. <b>Ne partagez cette cl&eacute; qu'avec des applications en qui vous avez confiance.</b>"
   , 'API_REGEN_DISCLAIMER' => "Quand vous g&eacute;n&eacute;rez la clef API, vous devez renseigner cette nouvelle clef dans l'application externe qui utilise l'API afin qu'elle puisse se connecter &agrave; votre site web."
-  , 'API_CONFIRM' => "ETES-VOUS SUR ?"
+  , 'API_CONFIRM' => "ETES-VOUS SUR ?",
 	
 	// salt-shaker
 	"Security_Generator" 	=> 'Générateur de Sel/Hash de Sécurité CE',
@@ -554,7 +554,7 @@ $i18n = [
 	"SHA1_of_Application" 	=> 'SHA1 du Sel d\'Application',
 	"Your_Custome_Hash" 	=> 'Votre Hash \'GSUSECUSTOMSALT\'',
 	"Add_hash_GSUSECUSTOMSALT" 	=> 'Ajoutez le nouveau hash à votre champ \'GSUSECUSTOMSALT\' dans gsconfig.php.',
-	"Clear_cookies" 		=> 'Effacer les cookies.',
+	"Clear_cookies" 		=> 'Effacer les cookies.'
 
     /*
      * Default transliteration
@@ -605,7 +605,7 @@ $i18n = [
 		"э"=>"e","ю"=>"yu","я"=>"ya",
 		// Scandinavian
 		"æ"=>"a","Æ"=>"a","å"=>"a","Å"=>"a","ä"=>"a","Ä"=>"a","ø"=>"a","Ø"=>"a","ö"=>"o","Ö"=>"o"
-],
+]
 
   , 'X' => "non traduit"
 
