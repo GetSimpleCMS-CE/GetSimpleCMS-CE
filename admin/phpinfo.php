@@ -1,8 +1,8 @@
 <?php 
 /**
- * View Log
+ * View phpInfo
  *
- * Displays the log file passed to it 
+ * Displays phpInfo 
  *
  * @package GetSimple
  * @subpackage Support
@@ -15,44 +15,12 @@ include('inc/common.php');
 // Variable Settings
 login_cookie_check();
 
-$log_name = var_out(isset($_GET['log']) ? $_GET['log'] : '');
-$log_path = GSDATAOTHERPATH.'logs/';
-
-$log_file = $log_path . 'errorlog.txt';
-
-if (!isset($log_name) || !file_exists($log_file)) {
-    $log_data = false;
-} else {
-    $log_data = true;
-}
-
 get_template('header', cl($SITENAME).' &raquo; '.i18n_r('SUPPORT').' &raquo; '.i18n_r('LOGS')); 
 ?>
 
 <?php include('template/include-nav.php'); ?>
 
 <style>
-	.log-entry {
-		padding: 10px;
-		border-top: solid 1px black;
-	}
-	.timestamp {
-		padding:10px;
-		color: green;
-		font-weight: bold;
-		text-decoration:underline;
-	}
-
-	.even {
-		background-color: #f5f5f5;
-	}
-	.odd {
-		background-color: #ffffff;
-	}
-
-	.error-line {
-		color: red;
-	}
 	.stack-trace {
 		color: orange;
 	}
