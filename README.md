@@ -73,7 +73,8 @@ Designed to be light and agile, the base install comes to you clutter free, with
 
 ### New:
 
-- New:  Danish, Norwegian and Swedish langs. added.
+- New: Danish, Norwegian and Swedish langs. added.
+- New: Salt/Hash Generator included
 
 ### Updates:
 
