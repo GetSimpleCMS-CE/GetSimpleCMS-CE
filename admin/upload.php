@@ -72,9 +72,11 @@ if (isset($_FILES['file'])) {
 					}
 					exec_action('file-uploaded');
 
-					// Generate thumbnail
-					require_once('inc/imagemanipulation.php');	
-					genStdThumb($subFolder, $base);
+					// Generate thumbnail (skip for SVG files)
+					if (strtolower($extension) !== 'svg') {
+						require_once('inc/imagemanipulation.php');	
+						genStdThumb($subFolder, $base);
+					}
 
 					// Add the file link to the array
 					$fileLinks[] = '<span class="All Images Images iimage"><a href="'. $SITEURL .'data/uploads/'.$subFolder.$base.'" rel="facybox_i">'. $SITEURL .'data/uploads/'.$subFolder.$base.'</a></span>';
@@ -121,7 +123,7 @@ if (isset($_GET['newfolder'])) {
 	
 	$newfolder = $_GET['newfolder'];
 	// check for invalid chars
-	$cleanname = clean_url(to7bit(strippath($newfolder), "UTF-8"));
+	$cleanname = clean_url(to7bit(strippath($newfolder)), "UTF-8");
 	if (file_exists($path.$cleanname) || $cleanname=='') {
 			$error = i18n_r('ERROR_FOLDER_EXISTS');
 	} else {
@@ -282,25 +284,39 @@ get_template('header', cl($SITENAME).' &raquo; '.i18n_r('FILE_MANAGEMENT'));
 			if (count((array)$filesSorted) != 0) { 			
 				foreach ((array)$filesSorted as $upload) {
 					$counter++;
-					if ($upload['type'] == i18n_r('IMAGES') .' Images') {
+					$fileExtension = strtolower(pathinfo($upload['name'], PATHINFO_EXTENSION));
+					
+					// Modified: Include SVG files as images
+					if ($upload['type'] == i18n_r('IMAGES') .' Images' || $fileExtension === 'svg') {
 						$cclass = 'iimage';
 					} else {
 						$cclass = '';
 					}
 					echo '<tr class="All '.$upload['type'].' '.$cclass.'" >';
 					echo '<td class="imgthumb" >';
-					if ($upload['type'] == i18n_r('IMAGES') .' Images') {
+					
+					// Modified: Handle SVG files differently for thumbnails
+					if ($upload['type'] == i18n_r('IMAGES') .' Images' || $fileExtension === 'svg') {
 						$gallery = 'rel=" facybox_i"';
 						$pathlink = 'image.php?i='.rawurlencode($upload['name']).'&amp;path='.$subPath;
-						$thumbLink = $urlPath.'thumbsm.'.$upload['name'];
-						$thumbLinkEncoded = $urlPath.'thumbsm.'.rawurlencode($upload['name']);
-						if (file_exists(GSTHUMBNAILPATH.$thumbLink)) {
-							$imgSrc='<img src="../data/thumbs/'. $thumbLinkEncoded .'" title="'. rawurlencode($upload['name']) .'"/>';
-						} else {
-							$imgSrc='<img src="inc/thumb.php?src='. $urlPath . rawurlencode($upload['name']) .'&amp;dest='. $thumbLinkEncoded .'&amp;f=1" />';
-						}
 						
-						echo '<a href="'. $path . rawurlencode($upload['name']) .'" title="'. rawurlencode($upload['name']) .'" rel=" facybox_i" >'.$imgSrc.'</a>';
+						// SVG thumbnail handling - use direct file path
+						if ($fileExtension === 'svg') {
+							// For SVG files, use the original file as thumbnail with fixed dimensions
+							$imgSrc = '<img src="../data/uploads/'. $urlPath . rawurlencode($upload['name']) .'" width="40" height="40" style="vertical-align:middle" title="'. rawurlencode($upload['name']) .'"/>';
+							echo '<a href="'. $path . rawurlencode($upload['name']) .'" title="'. rawurlencode($upload['name']) .'" rel=" facybox_i" >'.$imgSrc.'</a>';
+						} else {
+							// Regular image handling
+							$thumbLink = $urlPath.'thumbsm.'.$upload['name'];
+							$thumbLinkEncoded = $urlPath.'thumbsm.'.rawurlencode($upload['name']);
+							
+							if (file_exists(GSTHUMBNAILPATH.$thumbLink)) {
+								$imgSrc='<img src="../data/thumbs/'. $thumbLinkEncoded .'" title="'. rawurlencode($upload['name']) .'"/>';
+							} else {
+								$imgSrc='<img src="inc/thumb.php?src='. $urlPath . rawurlencode($upload['name']) .'&amp;dest='. $thumbLinkEncoded .'&amp;f=1" />';
+							}
+							echo '<a href="'. $path . rawurlencode($upload['name']) .'" title="'. rawurlencode($upload['name']) .'" rel=" facybox_i" >'.$imgSrc.'</a>';
+						}
 					} else {
 						$gallery = '';
 						$controlpanel = '';
@@ -373,6 +389,12 @@ get_template('header', cl($SITENAME).' &raquo; '.i18n_r('FILE_MANAGEMENT'));
  */
 function scaleImage($sourceImage, $maxWidth, $maxHeight)
 {
+    // Handle SVG files - return fixed dimensions
+    $ext = strtolower(pathinfo($sourceImage, PATHINFO_EXTENSION));
+    if ($ext === 'svg') {
+        return array($maxWidth, $maxHeight);
+    }
+    
     // Get dimensions of source image.
 	$size = getimagesize($sourceImage);
 	if (! is_array($size) ) return null;
@@ -401,5 +423,4 @@ function scaleImage($sourceImage, $maxWidth, $maxHeight)
     return $size;
 
 }
-
 ?>

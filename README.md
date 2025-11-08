@@ -73,29 +73,11 @@ Designed to be light and agile, the base install comes to you clutter free, with
 
 ### New:
 
-- New: Danish, Norwegian and Swedish langs. added.
-- New: Salt/Hash Generator included
+- New: SVG support for Uploads & Filebrowser
 
 ### Updates:
 
-- Updated: Health Check
-- Updated: Support Page
-
-### Fixes:
-
-- Fixed: Typo in Edit Page
-
-### Removals:
-
-- Removed: --
-
-### Security & Hotfixes:
-
-- Hotfixes: RCE vulnerability CVE-2025-48492 (reported by: [@mateusz-sa](@mateusz-sa))
-
-### Other:
-
-- Miscellaneous cleanup, fixes, and improvements
+- Updated: Plugin Massive Admin v6.x
 
 
 <hr><hr>

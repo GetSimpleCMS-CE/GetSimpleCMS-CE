@@ -169,13 +169,13 @@ if (hrefUrl.indexOf('?id=news_manager&') >= 0) {
 }
 
 if (hrefUrl.indexOf('i18n_gallery&create') >= 0) {
-  console.log('dziala')
-  document.querySelector('.masive-uploader').style.display = "block";
+	console.log('dziala')
+	document.querySelector('.masive-uploader').style.display = "block";
 }
 
 if (hrefUrl.indexOf('i18n_gallery&edit') >= 0) {
-  console.log('dziala')
-  document.querySelector('.masive-uploader').style.display = "block";
+	console.log('dziala')
+	document.querySelector('.masive-uploader').style.display = "block";
 }
 
 // upload support webp, svg
@@ -190,17 +190,24 @@ if (document.querySelector('#imageTable') !== null) {
 	console.log('upload screen');
 	document.querySelectorAll('#imageTable tr').forEach(x => {
 		const thumb = x.querySelector('.imgthumb');
+		const primaryLink = x.querySelector('.primarylink');
 
-		if (x.querySelector('.primarylink img') !== null) {
-			if (x.querySelector('.primarylink img').getAttribute('src').indexOf('.webp') >= 0) {
-				 thumb.innerHTML = `<a href="${x.querySelector('.primarylink img').getAttribute('src')}"
-				  rel=" facybox_i"><img src="${x.querySelector('.primarylink img').getAttribute('src')}"></a>`;
+		if (primaryLink) {
+			// Get the actual filename from the link text
+			const fileName = primaryLink.textContent.trim();
+			
+			// Handle SVG files
+			if (fileName.indexOf('.svg') >= 0) {
+				// Construct direct path to SVG file
+				const svgPath = `../data/uploads/${fileName}`;
+				thumb.innerHTML = `<a href="${svgPath}" rel=" facybox_i">
+					<img src="${svgPath}" width="40" height="40" style="vertical-align:middle"></a>`;
 			}
-
-			if (x.querySelector('.primarylink').getAttribute('href').indexOf('.svg') >= 0) {
-				thumb.innerHTML = `<a href="${x.querySelector('.primarylink').getAttribute('href')}" rel=" facybox_i">
-				<img src="${x.querySelector('.primarylink').getAttribute('href')}"></a>`;
-		   }
+			// Handle WebP files
+			else if (fileName.indexOf('.webp') >= 0) {
+				const webpPath = `../data/uploads/${fileName}`;
+				thumb.innerHTML = `<a href="${webpPath}" rel=" facybox_i"><img src="${webpPath}"></a>`;
+			}
 		}
 	})
 }

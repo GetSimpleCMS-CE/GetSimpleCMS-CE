@@ -151,22 +151,37 @@ $LANG_header = preg_replace('/(?:(?<=([a-z]{2}))).*/', '', $LANG);
 			$selectLink = 'title="'.i18n_r('SELECT_FILE').': '. htmlspecialchars($upload['name']) .'" href="javascript:void(0)" onclick="submitLink('.$CKEditorFuncNum.',\''.$fullPath.$subDir.$upload['name'].'\')"';
 
 			if ($type == 'images') {
-				if ($upload['type'] == i18n_r('IMAGES') .' Images') {
+				$fileExtension = strtolower(pathinfo($upload['name'], PATHINFO_EXTENSION));
+				
+				// Include SVG files as images
+				if ($upload['type'] == i18n_r('IMAGES') .' Images' || $fileExtension === 'svg') {
 					# get internal thumbnail to show beside link in table
 					$thumb = '<td class="imgthumb" style="display:table-cell" >';
-					$thumbLink = $urlPath.'thumbsm.'.$upload['name'];
-					if (file_exists('../data/thumbs/'.$thumbLink)) {
-						$imgSrc='<img src="../data/thumbs/'. $thumbLink .'" />';
+					
+					// Handle SVG files differently - use direct file instead of thumbnail
+					if ($fileExtension === 'svg') {
+						// For SVG files, use the original file as thumbnail with fixed dimensions
+						$imgSrc = '<img src="../data/uploads/'. $subDir . $upload['name'] .'" width="65" height="65" style="vertical-align:middle" />';
 					} else {
-						$imgSrc='<img src="inc/thumb.php?src='. $urlPath . $upload['name'] .'&amp;dest='. $thumbLink .'&amp;x=65&amp;f=1" />';
+						// Regular image handling
+						$thumbLink = $urlPath.'thumbsm.'.$upload['name'];
+						if (file_exists('../data/thumbs/'.$thumbLink)) {
+							$imgSrc='<img src="../data/thumbs/'. $thumbLink .'" />';
+						} else {
+							$imgSrc='<img src="inc/thumb.php?src='. $urlPath . $upload['name'] .'&amp;dest='. $thumbLink .'&amp;x=65&amp;f=1" />';
+						}
 					}
+					
 					$thumb .= '<a '.$selectLink.' >'.$imgSrc.'</a>';
 					$thumb .= '</td>';
 					
-					# get external thumbnail link
-					$thumbLinkExternal = 'data/thumbs/'.$urlPath.'thumbnail.'.$upload['name'];
-					if (file_exists('../'.$thumbLinkExternal)) {
-					$thumbnailLink = '<span>&nbsp;&ndash;&nbsp;&nbsp;</span><a href="javascript:void(0)" onclick="submitLink('.$CKEditorFuncNum.',\''.$sitepath.$thumbLinkExternal.'\')">'.i18n_r('THUMBNAIL').'</a>';
+					# get external thumbnail link (skip for SVG files since they use the original)
+					$thumbnailLink = '';
+					if ($fileExtension !== 'svg') {
+						$thumbLinkExternal = 'data/thumbs/'.$urlPath.'thumbnail.'.$upload['name'];
+						if (file_exists('../'.$thumbLinkExternal)) {
+							$thumbnailLink = '<span>&nbsp;&ndash;&nbsp;&nbsp;</span><a href="javascript:void(0)" onclick="submitLink('.$CKEditorFuncNum.',\''.$sitepath.$thumbLinkExternal.'\')">'.i18n_r('THUMBNAIL').'</a>';
+						}
 					}
 				}
 				else { continue; }
