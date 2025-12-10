@@ -22,6 +22,10 @@ $path    = GSDATAPAGESPATH;
 $counter = '0';
 $table   = '';
 
+// Get sort parameters
+$sortby = isset($_GET['sortby']) ? $_GET['sortby'] : 'menu';
+$sortorder = isset($_GET['sortorder']) ? $_GET['sortorder'] : 'asc';
+
 # clone attempt happening
 if ( isset($_GET['action']) && isset($_GET['id']) && $_GET['action'] == 'clone') {
 	
@@ -71,31 +75,22 @@ getPagesXmlValues(true);
 $count = 0;
 foreach ($pagesArray as $page) {
 	
-	if (defined('GSSORTPAGELISTBY')) {
-			$sorttype = GSSORTPAGELISTBY;
-	} else {
-		$sorttype = 'menu';
-	}
-	
-	switch($sorttype) {
-		case 'title':
+	if ($sortby == 'title') {
 		if ($page['parent'] != '') {
 			$parentTitle = returnPageField($page['parent'], "title");
 			$sort = $parentTitle .' '. $page['title'];		
-			$sort = $parentTitle .' '. $page['title'];
 		} else {
 			$sort = $page['title'];
 		}
-		break;
-		case 'menu':
+	} elseif ($sortby == 'date') {
+		$sort = $page['pubDate'];
+	} else {
 		if ($page['parent'] != '') {
 			$parentTitle = returnPageField($page['parent'], "menuOrder");
 			$sort = $parentTitle .' '. $page['menuOrder'];		
-			$sort = $parentTitle .' '. $page['menuOrder'];
 		} else {
 			$sort = $page['menuOrder'];
 		}
-		break;
 	}
 	
 	$page = array_merge($page, ['sort' => $sort]);
@@ -103,8 +98,12 @@ foreach ($pagesArray as $page) {
 	$count++;
 }
 
-// $pagesArray = $pagesArray_tmp;
-$pagesSorted = subval_sort($pagesArray_tmp,'sort');
+// Sort with specified order
+$pagesSorted = subval_sort($pagesArray_tmp, 'sort');
+if ($sortorder == 'desc') {
+	$pagesSorted = array_reverse($pagesSorted);
+}
+
 $table = get_pages_menu('','',0);
 
 get_template('header', cl($SITENAME).' &raquo; '.i18n_r('PAGE_MANAGEMENT')); 
@@ -128,7 +127,26 @@ get_template('header', cl($SITENAME).' &raquo; '.i18n_r('PAGE_MANAGEMENT'));
 			</div>
 			
 			<table id="editpages" class="edittable highlight paginate">
-				<tr><th><?php i18n('PAGE_TITLE'); ?></th><th style="text-align:right;" ><?php i18n('DATE'); ?></th><th></th><th></th></tr>
+				<tr>
+					<th class="sortable" data-sort="title">
+						<a href="?sortby=title&sortorder=<?php echo ($sortby == 'title' && $sortorder == 'asc') ? 'desc' : 'asc'; ?>">
+							<?php i18n('PAGE_TITLE'); ?>
+							<?php if ($sortby == 'title'): ?>
+								<span class="sort-indicator"><?php echo $sortorder == 'asc' ? '▲' : '▼'; ?></span>
+							<?php endif; ?>
+						</a>
+					</th>
+					<th class="sortable" style="text-align:right;" data-sort="date">
+						<a href="?sortby=date&sortorder=<?php echo ($sortby == 'date' && $sortorder == 'asc') ? 'desc' : 'asc'; ?>">
+							<?php i18n('DATE'); ?>
+							<?php if ($sortby == 'date'): ?>
+								<span class="sort-indicator"><?php echo $sortorder == 'asc' ? '▲' : '▼'; ?></span>
+							<?php endif; ?>
+						</a>
+					</th>
+					<th></th>
+					<th></th>
+				</tr>
 				<?php echo $table; ?>
 			</table>
 			<p><em><b><span id="pg_counter"><?php echo $count; ?></span></b> <?php i18n('TOTAL_PAGES'); ?></em></p>
@@ -141,4 +159,31 @@ get_template('header', cl($SITENAME).' &raquo; '.i18n_r('PAGE_MANAGEMENT'));
 	</div>
 
 </div>
+
+<style>
+.sortable {
+	cursor: pointer;
+	user-select: none;
+}
+.sortable a {
+	color: #222!important;
+	text-decoration: none!important;
+	display: block;
+	width: 100%;
+}
+.sortable a:hover {
+	text-decoration: underline!important;
+}
+.sort-indicator {
+	font-size: 0.8em;
+	margin-left: 5px;
+}
+#editpages tr.l-0:nth-child(1) {
+	background:#E1E1E1!important
+}
+.wrapper table.highlight {
+	text-shadow: none;
+}
+</style>
+
 <?php get_template('footer'); ?>
