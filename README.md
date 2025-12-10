@@ -74,6 +74,8 @@ Designed to be light and agile, the base install comes to you clutter free, with
 ### New:
 
 - New: SVG support for Uploads & Filebrowser
+- New: Admin Page Sorting
+- New: Update plugin from Plugins Tab
 
 ### Updates:
 
