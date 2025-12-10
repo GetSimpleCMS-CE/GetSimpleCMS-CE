@@ -27,6 +27,155 @@ if ($pluginid){
 
 // Variable settings
 login_cookie_check();
+
+// Handle plugin update via POST
+if (isset($_POST['update_plugin']) && isset($_POST['plugin_url']) && isset($_POST['plugin_file'])) {
+	
+	// Check for CSRF
+	if (!defined('GSNOCSRF') || (GSNOCSRF == FALSE)) {
+		$updateNonce = $_POST['nonce'];
+		if(!check_nonce($updateNonce, "update", "plugins.php")) {
+			die("CSRF detected!");	
+		}
+	}
+	
+	$url = $_POST['plugin_url'];
+	$pluginFile = $_POST['plugin_file'];
+	
+	try {
+		// Download the plugin zip
+		$tempZip = GSPLUGINPATH . "temp_update_" . time() . ".zip";
+		
+		// Use cURL if available, otherwise file_get_contents
+		if (function_exists('curl_init')) {
+			$ch = curl_init();
+			curl_setopt($ch, CURLOPT_URL, $url);
+			curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+			curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
+			curl_setopt($ch, CURLOPT_TIMEOUT, 30);
+			$zipContent = curl_exec($ch);
+			$httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+			curl_close($ch);
+			
+			if ($httpCode != 200 || $zipContent === false) {
+				throw new Exception('Failed to download plugin (HTTP ' . $httpCode . ')');
+			}
+		} else {
+			$zipContent = @file_get_contents($url);
+			if ($zipContent === false) {
+				throw new Exception('Failed to download plugin');
+			}
+		}
+		
+		file_put_contents($tempZip, $zipContent);
+		
+		// Extract the zip
+		$zip = new ZipArchive;
+		if ($zip->open($tempZip) === TRUE) {
+			
+			// Create temporary extraction directory
+			$tempExtractDir = GSPLUGINPATH . "temp_extract_" . time() . "/";
+			if (!file_exists($tempExtractDir)) {
+				mkdir($tempExtractDir, 0755);
+			}
+			
+			// Extract to temp directory
+			$zip->extractTo($tempExtractDir);
+			$zip->close();
+			
+			// Find the actual plugin files (they might be in a subdirectory)
+			$extracted = glob($tempExtractDir . "*");
+			
+			if (count($extracted) > 0) {
+				// If there's only one item and it's a directory, use its contents
+				if (count($extracted) == 1 && is_dir($extracted[0])) {
+					$sourceDir = $extracted[0] . "/";
+				} else {
+					$sourceDir = $tempExtractDir;
+				}
+				
+				// Recursively copy/overwrite files to plugin directory
+				function copy_plugin_files($src, $dst) {
+					$dir = opendir($src);
+					if (!file_exists($dst)) {
+						mkdir($dst, 0755, true);
+					}
+					
+					while (($file = readdir($dir)) !== false) {
+						if ($file != '.' && $file != '..') {
+							$srcPath = $src . '/' . $file;
+							$dstPath = $dst . '/' . $file;
+							
+							if (is_dir($srcPath)) {
+								copy_plugin_files($srcPath, $dstPath);
+							} else {
+								copy($srcPath, $dstPath);
+								chmod($dstPath, 0644);
+							}
+						}
+					}
+					closedir($dir);
+				}
+				
+				// Copy/overwrite files from source to plugin directory
+				copy_plugin_files($sourceDir, GSPLUGINPATH);
+			}
+			
+			// Clean up temporary files
+			function delete_temp_directory($dirname) {
+				if (!file_exists($dirname)) {
+					return true;
+				}
+				
+				if (is_dir($dirname)) {
+					$dir_handle = opendir($dirname);
+					if (!$dir_handle) {
+						return false;
+					}
+					
+					while ($file = readdir($dir_handle)) {
+						if ($file != "." && $file != "..") {
+							$path = $dirname . "/" . $file;
+							if (!is_dir($path)) {
+								unlink($path);
+							} else {
+								delete_temp_directory($path);
+							}
+						}
+					}
+					closedir($dir_handle);
+					rmdir($dirname);
+				}
+				return true;
+			}
+			
+			delete_temp_directory($tempExtractDir);
+			unlink($tempZip);
+			
+			// Success message
+			$success = sprintf(i18n_r('PLUGIN_UPDATED'), pathinfo($pluginFile, PATHINFO_FILENAME));
+			header('Location: plugins.php?upd=' . urlencode($success));
+			exit;
+			
+		} else {
+			throw new Exception('Failed to extract plugin zip');
+		}
+		
+	} catch (Exception $e) {
+		// Clean up on error
+		if (isset($tempZip) && file_exists($tempZip)) {
+			@unlink($tempZip);
+		}
+		if (isset($tempExtractDir) && file_exists($tempExtractDir)) {
+			delete_temp_directory($tempExtractDir);
+		}
+		
+		$error = 'Plugin Update Error: ' . $e->getMessage();
+		header('Location: plugins.php?error=' . urlencode($error));
+		exit;
+	}
+}
+
 $counter = 0; 
 $table = null;
 
@@ -124,7 +273,7 @@ foreach ($pluginfiles as $fi) {
 			$db_plugin = $plugin_db[$lower_pathName];
 			
 			// Use name from database (with icon if present)
-			$plugin_title = '<a href="'.$db_plugin['repo'].'" target="_blank">'.$db_plugin['name'].'</a>';
+			$plugin_title = $db_plugin['name'].'</a>';
 			
 			// Enhance description with info from database if available
 			if (!empty($db_plugin['info'])) {
@@ -139,7 +288,20 @@ foreach ($pluginfiles as $fi) {
 			
 			// Compare versions only if plugin is enabled
 			if ($live_plugins[$fi] == 'true' && version_compare($db_plugin['version'], $plugin_version, '>')) {
-				$updatelink = '<a class="updatelink" href="'.$db_plugin['url'].'" title="'.i18n_r('UPDATE_AVAILABLE').' v'.$db_plugin['version'].'" target="_blank">'.i18n_r('UPDATE_AVAILABLE').' v'.$db_plugin['version'].'</a>';
+				$updateNonce = get_nonce("update", "plugins.php");
+				
+				$updatelink = '
+				<form method="POST" action="plugins.php" style="display:inline-block;margin:0;padding:0;">
+					<input type="hidden" name="update_plugin" value="1">
+					<input type="hidden" name="plugin_url" value="'.$db_plugin['url'].'">
+					<input type="hidden" name="plugin_file" value="'.$fi.'">
+					<input type="hidden" name="nonce" value="'.$updateNonce.'">
+					<button type="submit" class="updatelink" title="'.i18n_r('UPDATE_AVAILABLE').' v'.$db_plugin['version'].'" 
+						onclick="return confirm(\' '.i18n_r('UPDATE_AVAILABLE') .' '.$db_plugin['name'].' v'.$db_plugin['version'].'?\');">
+						'.i18n_r('UPDATE_AVAILABLE'). ' v' .$db_plugin['version'].'
+					</button>
+				</form>';
+				
 				$needsupdate = true;
 			}
 		}
@@ -202,6 +364,29 @@ get_template('header', cl($SITENAME).' &raquo; '.i18n_r('PLUGINS_MANAGEMENT'));
 		padding: 5px 10px !important;
 		border-radius: 5px !important;
 	}
+	
+	button.updatelink {
+		background: #808080 !important;
+		color: #fff !important;
+		text-shadow: none !important;
+		text-decoration: none !important;
+		font-weight: 400 !important;
+		padding: 5px 10px !important;
+		border-radius: 5px !important;
+		border: none;
+		cursor: pointer;
+		font-family: inherit;
+		font-size: inherit;
+	}
+
+	button.updatelink:hover {
+		background: #666 !important;
+		transform: scale(1.02);
+	}
+
+	button.updatelink:active {
+		transform: scale(0.98);
+	}
 </style>
 
 <div class="bodycontent clearfix">
@@ -209,7 +394,6 @@ get_template('header', cl($SITENAME).' &raquo; '.i18n_r('PLUGINS_MANAGEMENT'));
 	<div id="maincontent">
 		<div class="main" >
 		<h3><?php i18n('PLUGINS_MANAGEMENT'); ?></h3>
-		<!--p style="color:#333;font-size:12px;margin-top: -15px;"><?php i18n('PLUGINS_MANAGEMENT_INFO'); ?> <a href="<?php echo $SITEURL . $GSADMIN; ?>/load.php?id=modernScript" ><svg xmlns="http://www.w3.org/2000/svg" class="link" width="1.5em" height="1.5em" viewBox="0 0 24 24"><path fill="#808080" d="M18.175 18H15q-.425 0-.712-.288T14 17t.288-.712T15 16h3.175l-.875-.875q-.275-.3-.288-.712t.288-.713t.7-.3t.7.3l2.6 2.6q.3.3.3.7t-.3.7l-2.6 2.6q-.3.3-.7.3t-.7-.3t-.288-.712t.288-.713zM8 10h6q.425 0 .713-.288T15 9t-.288-.712T14 8H8q-.425 0-.712.288T7 9t.288.713T8 10m0 4h3q.425 0 .713-.288T12 13t-.288-.712T11 12H8q-.425 0-.712.288T7 13t.288.713T8 14m-2 4l-2.15 2.15q-.25.25-.55.125T3 19.8V6q0-.825.588-1.412T5 4h12q.825 0 1.413.588T19 6v4.35q0 .3-.213.488t-.512.162q-1.275-.05-2.437.388T13.75 12.75q-.9.925-1.35 2.088t-.4 2.437q.025.3-.175.513T11.35 18z"/></svg></a></p-->
 		
 		<?php if ($counter > 0) { ?>
 			<table class="edittable highlight">
