@@ -99,10 +99,10 @@ $i18n = [
 	'SAVESSL' 						=> 'Guarde la configuración de SSL',
 
 	//plugin downloader
-	'PLUGINDOWNLOADER' 				=> 'Descargador CE Plugins',
+	'PLUGINDOWNLOADER' 				=> 'Añadir Plugins',
 	'DOWNLOADERBASED' 				=> 'Basado en el repositorio de plugins de Get Simple CMS CE.',
 	'SEARCHPLUGIN' 					=> 'Buscar Plugins...',
-	'DOWNLOAD' 						=> 'Descargar',
+	'DOWNLOAD' 						=> 'Instalar',
 
 	//login options
 	'LOGINOPTIONS' 					=> 'Opciones de Inicio de Sesión',
@@ -115,8 +115,8 @@ $i18n = [
 	'GSCONFIGTITLE' 				=> 'Editar GSCONFIG',
 	'GSCONFIGSAVE' 					=> 'Guarder GSCONFIG',
 
-	'UNISTALLER' 					=> 'Desinstalar complementos',
-	'UNISTALLQUESTION'				=> 'Quieres desinstalar',
+	'UNISTALLER' 					=> 'Eliminar Plugins',
+	'UNISTALLQUESTION'				=> '¿Seguro que quieres eliminar',
 
 	//mToper
 	"TAB_PAGES"						=> 'Páginas',

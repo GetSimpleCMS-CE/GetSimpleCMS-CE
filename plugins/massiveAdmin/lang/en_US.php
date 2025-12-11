@@ -99,14 +99,14 @@ $i18n = [
 	'SAVESSL' 						=> 'Save SSL settings',
 
 	//plugin downloader
-	'PLUGINDOWNLOADER' 				=> 'Download CE Plugins',
+	'PLUGINDOWNLOADER' 				=> 'Add Plugins',
 	'DOWNLOADERBASED' 				=> 'Based on the Get Simple CMS CE plugin repository.',
 	'SEARCHPLUGIN' 					=> 'Search plugins...',
-	'DOWNLOAD' 						=> 'Download',
+	'DOWNLOAD' 						=> 'Install',
 
 	//login options
 	'LOGINOPTIONS' 					=> 'Login Options',
-	'TURNONSHOWPASSWORDTITLE' 		=> '"Show password" button',
+	'TURNONSHOWPASSWORDTITLE' 		=> 'Show password" button',
 	'SHOWPASSWORDQUESTION' 			=> 'Enable the "Show Password" button when logging in?',
 	'REMOVEFORGETPASSWORDTITLE'		=> 'Remove "Forgot Password?"',
 	'SAVESETTINGS' 					=> 'Save Settings',
@@ -115,8 +115,8 @@ $i18n = [
 	'GSCONFIGTITLE' 				=> 'Edit GSCONFIG settings',
 	'GSCONFIGSAVE' 					=> 'Save the GSCONFIG settings',
 
-	'UNISTALLER' 					=> 'Uninstall plugins',
-	'UNISTALLQUESTION'				=> 'You want to uninstall',
+	'UNISTALLER' 					=> 'Delete Plugins',
+	'UNISTALLQUESTION'				=> 'Are you sure you want to delete',
 
 	//mToper
 	"TAB_PAGES"						=> 'Pages',
