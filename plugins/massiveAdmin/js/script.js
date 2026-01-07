@@ -188,6 +188,13 @@ document.querySelectorAll('.imgthumb').forEach((x,i)=>{
 
 if (document.querySelector('#imageTable') !== null) {
 	console.log('upload screen');
+	const urlParams = new URLSearchParams(window.location.search);
+	let pathParam = urlParams.get('path') || '';
+	
+	if (pathParam !== '') {
+		pathParam = pathParam.replace(/\/$/, '') + '/';
+	}
+
 	document.querySelectorAll('#imageTable tr').forEach(x => {
 		const thumb = x.querySelector('.imgthumb');
 		const primaryLink = x.querySelector('.primarylink');
@@ -196,20 +203,20 @@ if (document.querySelector('#imageTable') !== null) {
 			// Get the actual filename from the link text
 			const fileName = primaryLink.textContent.trim();
 			
+			const fullPath = `../data/uploads/${pathParam}${fileName}`;
+			
 			// Handle SVG files
-			if (fileName.indexOf('.svg') >= 0) {
-				// Construct direct path to SVG file
-				const svgPath = `../data/uploads/${fileName}`;
-				thumb.innerHTML = `<a href="${svgPath}" rel=" facybox_i">
-					<img src="${svgPath}" width="40" height="40" style="vertical-align:middle"></a>`;
+			if (fileName.toLowerCase().indexOf('.svg') >= 0) {
+				thumb.innerHTML = `<a href="${fullPath}" rel=" facybox_i">
+					<img src="${fullPath}" width="40" height="40" style="vertical-align:middle"></a>`;
 			}
 			// Handle WebP files
-			else if (fileName.indexOf('.webp') >= 0) {
-				const webpPath = `../data/uploads/${fileName}`;
-				thumb.innerHTML = `<a href="${webpPath}" rel=" facybox_i"><img src="${webpPath}"></a>`;
+			else if (fileName.toLowerCase().indexOf('.webp') >= 0) {
+				thumb.innerHTML = `<a href="${fullPath}" rel=" facybox_i">
+					<img src="${fullPath}" style="max-width:640px; max-height:480px; vertical-align:middle"></a>`;
 			}
 		}
-	})
+	});
 }
 
 //
