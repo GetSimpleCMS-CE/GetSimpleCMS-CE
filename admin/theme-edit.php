@@ -83,7 +83,7 @@ if (isset($_POST['submitsave'])) {
 	}
 
 	// Validate file type
-	$allowed_extensions = ['php', 'css', 'js', 'html', 'htm', 'json'];
+	$allowed_extensions = ['php', 'css', 'js', 'html', 'htm', 'json','twig'];
 	$fileExtension = pathinfo($SavedFile, PATHINFO_EXTENSION);
 	if (!in_array($fileExtension, $allowed_extensions)) {
 		die("Invalid file type!");
@@ -153,7 +153,7 @@ if (count($theme_dir_array) == 1){ $theme_options = ''; }
 $templates = directoryToArray(GSTHEMESPATH . $template . '/', true);
 sort($templates); // Sort templates alphabetically
 $theme_templates .= '<span id="themefiles"><select class="text" id="theme_files" style="width:425px;" name="f" >';
-$allowed_extensions = ['php', 'css', 'js', 'html', 'htm', 'json'];
+$allowed_extensions = ['php', 'css', 'js', 'html', 'htm', 'json','twig'];
 foreach ($templates as $file) {
 	$extension = pathinfo($file, PATHINFO_EXTENSION);
 	if (in_array($extension, $allowed_extensions)) {
