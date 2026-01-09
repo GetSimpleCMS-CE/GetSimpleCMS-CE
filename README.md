@@ -76,10 +76,15 @@ Designed to be light and agile, the base install comes to you clutter free, with
 - New: SVG support for Uploads & Filebrowser
 - New: Admin Page Sorting
 - New: Update plugin from Plugins Tab
+- New: Added Twig support to theme editor
 
 ### Updates:
 
 - Updated: Plugin Massive Admin v6.x
+
+### Updates:
+
+- Fixed: 404 handling for invalid nested URLs
 
 
 <hr><hr>
