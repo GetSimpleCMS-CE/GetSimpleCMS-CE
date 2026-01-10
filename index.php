@@ -57,13 +57,20 @@ if (isset($_GET['id'])){
 # Filter to modify page id request
 $id = exec_filter('indexid',$id);
 
-# Validate the full REQUEST_URI matches expected page structure
+# Validate the full REQUEST_URI for invalid nested URLs in 404 handling
 if (isset($pagesArray[$id])) {
 	$request_uri = $_SERVER['REQUEST_URI'];
 	
 	$is_direct_request = (strpos($request_uri, 'index.php') !== false);
 	
-	if (!$is_direct_request) {
+	$has_plugin_params = (
+		isset($_GET['post']) || 
+		isset($_GET['tag']) || 
+		isset($_GET['archive']) || 
+		isset($_GET['page'])
+	);
+	
+	if (!$is_direct_request && !$has_plugin_params) {
 		if (strpos($request_uri, '?') !== false) {
 			$request_uri = substr($request_uri, 0, strpos($request_uri, '?'));
 		}
