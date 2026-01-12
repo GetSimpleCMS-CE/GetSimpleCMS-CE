@@ -67,7 +67,9 @@ if (isset($pagesArray[$id])) {
 		isset($_GET['post']) || 
 		isset($_GET['tag']) || 
 		isset($_GET['archive']) || 
-		isset($_GET['page'])
+		isset($_GET['page']) ||
+		isset($_GET['category']) ||
+		isset($_GET['tag'])
 	);
 	
 	if (!$is_direct_request && !$has_plugin_params) {
