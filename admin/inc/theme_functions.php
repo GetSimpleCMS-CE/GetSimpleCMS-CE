@@ -53,7 +53,6 @@ function get_page_excerpt($len=200, $striphtml=true, $ellipsis = '...') {
 	echo getExcerpt($content_e, $len, $striphtml, $ellipsis);
 }
 
-
 /**
  * Get Page Meta Keywords
  *
@@ -369,6 +368,7 @@ function get_theme_url($echo=true) {
  * @since 3.3.20
  * @uses $SITEURL
  *
+ * @param string $filename Optional filename to append
  * @param bool $echo Optional, default is true. False will 'return' value
  * @return string Echos or returns based on param $echo
  */
@@ -376,7 +376,6 @@ function get_data_uploads($filename = '', $echo = true) {
 	global $SITEURL;
 	$base_url = trim($SITEURL . "data/uploads/");
 
-	// Ensure no leading slash in the filename to avoid double slashes
 	if ($filename) {
 		$base_url .= ltrim($filename, '/');
 	}
@@ -396,6 +395,7 @@ function get_data_uploads($filename = '', $echo = true) {
  * @since 3.3.20
  * @uses $SITEURL
  *
+ * @param string $filename Optional filename to append
  * @param bool $echo Optional, default is true. False will 'return' value
  * @return string Echos or returns based on param $echo
  */
@@ -403,7 +403,6 @@ function get_data_thumbs($filename = '', $echo = true) {
 	global $SITEURL;
 	$base_url = trim($SITEURL . "data/thumbs/");
 
-	// Ensure no leading slash in the filename to avoid double slashes
 	if ($filename) {
 		$base_url .= ltrim($filename, '/');
 	}
@@ -496,8 +495,8 @@ function get_site_credits($text ='Powered by ') {
  * @uses getXML
  * @uses subval_sort
  *
- * @param bool $xml Optional, default is false. 
- *				True will return value in XML format. False will return an array
+ * @param string $id Optional page slug to get specific page data
+ * @param bool $xml Optional, default is false. True will return value in XML format
  * @return array|string Type 'string' in this case will be XML 
  */
 function menu_data($id = null,$xml=false) {
@@ -574,7 +573,7 @@ function menu_data($id = null,$xml=false) {
  * @modified mvlcek 6/12/2011
  *
  * @param string $id This is the ID of the component you want to display
- *				True will return value in XML format. False will return an array
+ * @param bool $ret Optional, default is false. True will return value instead of echo
  * @return string 
  */
 function get_component($id, $ret=false) {
@@ -602,10 +601,19 @@ function get_component($id, $ret=false) {
 	}
 }
 
-// Returns component as array of lines of the component
-// 1st element is the array of lines
-// 2nd element is the first line in the component (as title, if you wish)
-// 3rd element is the rest of lines seperated by <br/>
+/**
+ * Split Component
+ *
+ * Returns component as array of lines
+ * 1st element is the array of lines
+ * 2nd element is the first line in the component (as title, if you wish)
+ * 3rd element is the rest of lines seperated by <br/>
+ *
+ * @since 1.0
+ *
+ * @param string $component Component content
+ * @return array
+ */
 function splitComponent($component) {
 	$comp  = $component;
 	$parts = $content = preg_split("/\r\n|\r|\n/", $comp, 0);
@@ -615,8 +623,17 @@ function splitComponent($component) {
 	return [$content, $title, $text];
 }
 
-// Returns component as array of lines of the component
-// usefull for creating <LI> items etc.
+/**
+ * Split Component to Array
+ *
+ * Returns component as array of lines of the component
+ * Useful for creating <LI> items etc.
+ *
+ * @since 1.0
+ *
+ * @param string $sec Component slug
+ * @return array
+ */
 function split_component($sec) {
 	$comp  = get_component($sec, true);
 	$parts = preg_split("/\r\n|\r|\n/", $comp, 0);
@@ -627,8 +644,8 @@ function split_component($sec) {
 /**
  * Get Main Navigation
  *
- * This will return unordered list of main navigation
- * This function uses the menu opitions listed within the 'Edit Page' control panel screen
+ * This will return unordered list of main navigation with multi-level support
+ * This function uses the menu options listed within the 'Edit Page' control panel screen
  *
  * @since 1.0
  * @uses GSDATAOTHERPATH
@@ -641,9 +658,7 @@ function split_component($sec) {
  * @param string $currentpage This is the ID of the current page the visitor is on
  * @param string $classPrefix Prefix that gets added to the parent and slug classnames
  * @return string 
- */	
-
-// Fixed menu for multi levels based on edit Menu Manager 
+ */ 
 function build_menu($parentId, $menuTree, $currentpage, $classPrefix, $isSubmenu = false) {
 	if (!isset($menuTree[$parentId])) {
 		return '';
@@ -730,6 +745,523 @@ function get_navigation($currentpage = "", $classPrefix = "") {
 }
 
 /**
+ * Get Breadcrumbs
+ * NEW FUNCTION - Generates breadcrumb navigation based on page hierarchy
+ *
+ * @since 3.4
+ * @uses $url
+ * @uses $parent
+ * @uses $pagesArray
+ * @uses $SITEURL
+ *
+ * @param string $separator Separator between breadcrumb items, default ' &raquo; '
+ * @param string $home_text Text for home link, default 'Home'
+ * @param bool $echo Optional, default is true. False will 'return' value
+ * @return string Echos or returns based on param $echo
+ */
+function get_breadcrumbs($separator = ' &raquo; ', $home_text = 'Home', $echo = true) {
+	global $url, $parent, $pagesArray, $SITEURL;
+
+	$breadcrumb = '<nav class="breadcrumbs" aria-label="breadcrumb">';
+	$breadcrumb .= '<a href="' . $SITEURL . '">' . $home_text . '</a>';
+
+	$trail = [];
+	$current_parent = $parent;
+
+	while (!empty($current_parent)) {
+		foreach ($pagesArray as $page) {
+			if ($page['url'] == $current_parent) {
+				$trail[] = [
+					'title' => $page['title'],
+					'url' => find_url($page['url'], $page['parent'])
+				];
+				$current_parent = $page['parent'];
+				break;
+			}
+		}
+	}
+
+	$trail = array_reverse($trail);
+	foreach ($trail as $crumb) {
+		$breadcrumb .= $separator . '<a href="' . $crumb['url'] . '">' . strip_decode($crumb['title']) . '</a>';
+	}
+
+	$breadcrumb .= $separator . '<span class="current">' . get_page_title(false) . '</span>';
+	$breadcrumb .= '</nav>';
+
+	if ($echo) {
+		echo $breadcrumb;
+	} else {
+		return $breadcrumb;
+	}
+}
+
+/**
+ * Get Sibling Pages
+ * NEW FUNCTION - Returns navigation for pages at the same level (siblings)
+ *
+ * @since 3.4
+ * @uses $url
+ * @uses $parent
+ * @uses $pagesArray
+ *
+ * @param bool $echo Optional, default is true. False will 'return' value
+ * @return string Echos or returns based on param $echo
+ */
+function get_sibling_pages($echo = true) {
+	global $url, $parent, $pagesArray;
+
+	$siblings = [];
+	foreach ($pagesArray as $page) {
+		if ($page['parent'] == $parent && $page['menuStatus'] == 'Y' && $page['private'] != 'Y') {
+			$siblings[] = $page;
+		}
+	}
+
+	$siblings = subval_sort($siblings, 'menuOrder');
+
+	$html = '<ul class="sibling-nav">';
+	foreach ($siblings as $sibling) {
+		$current_class = ($sibling['url'] == $url) ? ' class="current"' : '';
+		$html .= '<li' . $current_class . '><a href="' . find_url($sibling['url'], $sibling['parent']) . '">' . strip_decode($sibling['title']) . '</a></li>';
+	}
+	$html .= '</ul>';
+
+	if ($echo) {
+		echo $html;
+	} else {
+		return $html;
+	}
+}
+
+/**
+ * Get Adjacent Pages Navigation
+ * NEW FUNCTION - Returns Previous/Next page navigation for siblings
+ *
+ * @since 3.4
+ * @uses $url
+ * @uses $parent
+ * @uses $pagesArray
+ *
+ * @param bool $echo Optional, default is true. False will 'return' value
+ * @return string Echos or returns based on param $echo
+ */
+function get_adjacent_pages($echo = true) {
+	global $url, $parent, $pagesArray;
+
+	$siblings = [];
+	foreach ($pagesArray as $page) {
+		if ($page['parent'] == $parent && $page['menuStatus'] == 'Y' && $page['private'] != 'Y') {
+			$siblings[] = $page;
+		}
+	}
+
+	$siblings = subval_sort($siblings, 'menuOrder');
+	$current_index = null;
+
+	foreach ($siblings as $index => $sibling) {
+		if ($sibling['url'] == $url) {
+			$current_index = $index;
+			break;
+		}
+	}
+
+	$html = '<nav class="adjacent-nav">';
+
+	if ($current_index > 0) {
+		$prev = $siblings[$current_index - 1];
+		$html .= '<a href="' . find_url($prev['url'], $prev['parent']) . '" class="prev-page">&laquo; ' . strip_decode($prev['title']) . '</a>';
+	}
+
+	if ($current_index < count($siblings) - 1) {
+		$next = $siblings[$current_index + 1];
+		$html .= '<a href="' . find_url($next['url'], $next['parent']) . '" class="next-page">' . strip_decode($next['title']) . ' &raquo;</a>';
+	}
+
+	$html .= '</nav>';
+
+	if ($echo) {
+		echo $html;
+	} else {
+		return $html;
+	}
+}
+
+/**
+ * Get Child Pages
+ * NEW FUNCTION - Lists all child pages of a specified parent
+ *
+ * @since 3.4
+ * @uses $url
+ * @uses $pagesArray
+ *
+ * @param string $parent_slug Parent page slug, null uses current page
+ * @param bool $echo Optional, default is true. False will 'return' value
+ * @return string Echos or returns based on param $echo
+ */
+function get_child_pages($parent_slug = null, $echo = true) {
+	global $url, $pagesArray;
+
+	if ($parent_slug === null) {
+		$parent_slug = $url;
+	}
+
+	$children = [];
+	foreach ($pagesArray as $page) {
+		if ($page['parent'] == $parent_slug && $page['menuStatus'] == 'Y' && $page['private'] != 'Y') {
+			$children[] = $page;
+		}
+	}
+
+	if (empty($children)) {
+		return '';
+	}
+
+	$children = subval_sort($children, 'menuOrder');
+
+	$html = '<ul class="child-pages">';
+	foreach ($children as $child) {
+		$html .= '<li><a href="' . find_url($child['url'], $child['parent']) . '">' . strip_decode($child['title']) . '</a></li>';
+	}
+	$html .= '</ul>';
+
+	if ($echo) {
+		echo $html;
+	} else {
+		return $html;
+	}
+}
+
+/**
+ * Has Children
+ * NEW FUNCTION - Check if a page has child pages
+ *
+ * @since 3.4
+ * @uses $url
+ * @uses $pagesArray
+ *
+ * @param string $parent_slug Parent page slug, null uses current page
+ * @return bool
+ */
+function has_children($parent_slug = null) {
+	global $url, $pagesArray;
+
+	if ($parent_slug === null) {
+		$parent_slug = $url;
+	}
+
+	foreach ($pagesArray as $page) {
+		if ($page['parent'] == $parent_slug && $page['menuStatus'] == 'Y' && $page['private'] != 'Y') {
+			return true;
+		}
+	}
+
+	return false;
+}
+
+/**
+ * Is Page
+ * NEW FUNCTION - Check if current page matches specified slug
+ *
+ * @since 3.4
+ * @uses $url
+ *
+ * @param string $slug Page slug to check
+ * @return bool
+ */
+function is_page($slug) {
+	global $url;
+	return ($url == $slug);
+}
+
+/**
+ * Is Parent
+ * NEW FUNCTION - Check if current page has specified parent
+ *
+ * @since 3.4
+ * @uses $parent
+ *
+ * @param string $parent_slug Parent slug to check
+ * @return bool
+ */
+function is_parent($parent_slug) {
+	global $parent;
+	return ($parent == $parent_slug);
+}
+
+/**
+ * Is Homepage
+ * NEW FUNCTION - Check if current page is the homepage
+ *
+ * @since 3.4
+ * @uses $url
+ *
+ * @return bool
+ */
+function is_homepage() {
+	global $url;
+	return ($url == 'index');
+}
+
+/**
+ * Get Sitemap
+ * NEW FUNCTION - Generate hierarchical sitemap
+ *
+ * @since 3.4
+ * @uses $pagesArray
+ *
+ * @param string $parent Parent slug to start from
+ * @param int $depth Current depth level
+ * @param int $max_depth Maximum depth to display
+ * @return string HTML sitemap
+ */
+function get_sitemap($parent = '', $depth = 0, $max_depth = 3) {
+	global $pagesArray;
+
+	if ($depth > $max_depth) {
+		return '';
+	}
+
+	$pages = [];
+	foreach ($pagesArray as $page) {
+		if ($page['parent'] == $parent && $page['menuStatus'] == 'Y' && $page['private'] != 'Y') {
+			$pages[] = $page;
+		}
+	}
+
+	if (empty($pages)) {
+		return '';
+	}
+
+	$pages = subval_sort($pages, 'menuOrder');
+
+	$html = '<ul class="sitemap-level-' . $depth . '">';
+	foreach ($pages as $page) {
+		$html .= '<li><a href="' . find_url($page['url'], $page['parent']) . '">' . strip_decode($page['title']) . '</a>';
+		$html .= get_sitemap($page['url'], $depth + 1, $max_depth);
+		$html .= '</li>';
+	}
+	$html .= '</ul>';
+
+	return $html;
+}
+
+/**
+ * Theme Asset URL
+ * NEW FUNCTION - Get URL for theme asset (images, css, js, etc)
+ *
+ * @since 3.4
+ * @uses $SITEURL
+ * @uses $TEMPLATE
+ *
+ * @param string $path Asset path relative to theme folder
+ * @param bool $echo Optional, default is true. False will 'return' value
+ * @return string Echos or returns based on param $echo
+ */
+function theme_asset($path, $echo = true) {
+	global $SITEURL, $TEMPLATE;
+
+	$url = $SITEURL . 'theme/' . $TEMPLATE . '/' . ltrim($path, '/');
+
+	if ($echo) {
+		echo $url;
+	} else {
+		return $url;
+	}
+}
+
+/**
+ * Theme Image
+ * NEW FUNCTION - Output image tag for theme image
+ *
+ * @since 3.4
+ * @uses $SITEURL
+ * @uses $TEMPLATE
+ *
+ * @param string $filename Image filename
+ * @param string $alt Alt text
+ * @param string $class CSS classes
+ * @param bool $echo Optional, default is true. False will 'return' value
+ * @return string Echos or returns based on param $echo
+ */
+function theme_image($filename, $alt = '', $class = '', $echo = true) {
+	global $SITEURL, $TEMPLATE;
+
+	$src = $SITEURL . 'theme/' . $TEMPLATE . '/images/' . ltrim($filename, '/');
+	$html = '<img src="' . $src . '"';
+
+	if (!empty($alt)) {
+		$html .= ' alt="' . htmlspecialchars($alt) . '"';
+	}
+
+	if (!empty($class)) {
+		$html .= ' class="' . $class . '"';
+	}
+
+	$html .= ' />';
+
+	if ($echo) {
+		echo $html;
+	} else {
+		return $html;
+	}
+}
+
+/**
+ * Body Class
+ * NEW FUNCTION - Generate body classes based on page context
+ *
+ * @since 3.4
+ * @uses $url
+ * @uses $parent
+ * @uses $TEMPLATE
+ *
+ * @param array $additional_classes Additional classes to add
+ * @return string
+ */
+function body_class($additional_classes = []) {
+	global $url, $parent, $TEMPLATE;
+
+	$classes = [
+		'page-' . $url,
+		'template-' . $TEMPLATE
+	];
+
+	if (!empty($parent)) {
+		$classes[] = 'parent-' . $parent;
+		$classes[] = 'child-page';
+	} else {
+		$classes[] = 'top-level';
+	}
+
+	if (is_homepage()) {
+		$classes[] = 'home';
+	}
+
+	if (has_children()) {
+		$classes[] = 'has-children';
+	}
+
+	if (is_logged_in()) {
+		$classes[] = 'logged-in';
+	}
+
+	$classes = array_merge($classes, $additional_classes);
+	$classes = array_unique($classes);
+
+	echo 'class="' . implode(' ', $classes) . '"';
+}
+
+/**
+ * Get Open Graph Meta Tags
+ * NEW FUNCTION - Generate Open Graph meta tags for social sharing
+ *
+ * @since 3.4
+ * @uses $title
+ * @uses $metad
+ * @uses $content
+ * @uses $SITEURL
+ * @uses $url
+ *
+ * @return string
+ */
+function get_og_tags() {
+	global $title, $metad, $content, $SITEURL, $url;
+
+	echo '<meta property="og:type" content="website" />' . "
+";
+	echo '<meta property="og:title" content="' . encode_quotes(strip_decode($title)) . '" />' . "
+";
+
+	if (!empty($metad)) {
+		echo '<meta property="og:description" content="' . encode_quotes(strip_decode($metad)) . '" />' . "
+";
+	}
+
+	echo '<meta property="og:url" content="' . get_page_url(true) . '" />' . "
+";
+
+	// Find first image in content
+	preg_match('/<img.+src=['"]([^'"]+)['"].*>/i', $content, $match);
+	if (!empty($match[1])) {
+		echo '<meta property="og:image" content="' . $match[1] . '" />' . "
+";
+	}
+}
+
+/**
+ * Get Twitter Card Meta Tags
+ * NEW FUNCTION - Generate Twitter Card meta tags
+ *
+ * @since 3.4
+ * @uses $title
+ * @uses $metad
+ *
+ * @return string
+ */
+function get_twitter_card() {
+	global $title, $metad;
+
+	echo '<meta name="twitter:card" content="summary" />' . "
+";
+	echo '<meta name="twitter:title" content="' . encode_quotes(strip_decode($title)) . '" />' . "
+";
+
+	if (!empty($metad)) {
+		echo '<meta name="twitter:description" content="' . encode_quotes(strip_decode($metad)) . '" />' . "
+";
+	}
+}
+
+/**
+ * Is Active Class
+ * NEW FUNCTION - Helper to add active class if page matches
+ *
+ * @since 3.4
+ * @uses $url
+ *
+ * @param string $page_slug Page slug to check
+ * @param string $active_class Class name to return if active, default 'active'
+ * @param bool $echo Optional, default is true. False will 'return' value
+ * @return string Echos or returns based on param $echo
+ */
+function is_active($page_slug, $active_class = 'active', $echo = true) {
+	global $url;
+
+	$class = ($url == $page_slug) ? $active_class : '';
+
+	if ($echo) {
+		echo $class;
+	} else {
+		return $class;
+	}
+}
+
+/**
+ * Is Parent Active Class
+ * NEW FUNCTION - Helper to add active class if parent matches
+ *
+ * @since 3.4
+ * @uses $parent
+ *
+ * @param string $parent_slug Parent slug to check
+ * @param string $active_class Class name to return if active, default 'active'
+ * @param bool $echo Optional, default is true. False will 'return' value
+ * @return string Echos or returns based on param $echo
+ */
+function is_parent_active($parent_slug, $active_class = 'active', $echo = true) {
+	global $parent;
+
+	$class = ($parent == $parent_slug) ? $active_class : '';
+
+	if ($echo) {
+		echo $class;
+	} else {
+		return $class;
+	}
+}
+
+/**
  * Check if a user is logged in
  * 
  * This will return true if user is logged in
@@ -739,15 +1271,14 @@ function get_navigation($currentpage = "", $classPrefix = "") {
  * @uses $USR
  *
  * @return bool
- */	
+ */ 
 function is_logged_in(){
 	global $USR;
 	if (isset($USR) && $USR == get_cookie('GS_ADMIN_USERNAME')) {
 		return true;
 	}
+	return false;
 }	
-	
-
 	
 /**
  * @depreciated as of 2.04
