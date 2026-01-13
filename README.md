@@ -77,6 +77,7 @@ Designed to be light and agile, the base install comes to you clutter free, with
 - New: Admin Page Sorting
 - New: Update plugin from Plugins Tab
 - New: Added Twig support to theme editor
+- New: Added new theme functions [Wiki](https://github.com/GetSimpleCMS-CE/GetSimpleCMS-CE/wiki/Template-Tags#new-theme-functions-v34)
 
 ### Updates:
 
