@@ -748,7 +748,7 @@ function get_navigation($currentpage = "", $classPrefix = "") {
  * Get Breadcrumbs
  * NEW FUNCTION - Generates breadcrumb navigation based on page hierarchy
  *
- * @since 3.4
+ * @since 3.3.23
  * @uses $url
  * @uses $parent
  * @uses $pagesArray
@@ -800,7 +800,7 @@ function get_breadcrumbs($separator = ' &raquo; ', $home_text = 'Home', $echo = 
  * Get Sibling Pages
  * NEW FUNCTION - Returns navigation for pages at the same level (siblings)
  *
- * @since 3.4
+ * @since 3.3.23
  * @uses $url
  * @uses $parent
  * @uses $pagesArray
@@ -838,7 +838,7 @@ function get_sibling_pages($echo = true) {
  * Get Adjacent Pages Navigation
  * NEW FUNCTION - Returns Previous/Next page navigation for siblings
  *
- * @since 3.4
+ * @since 3.3.23
  * @uses $url
  * @uses $parent
  * @uses $pagesArray
@@ -891,7 +891,7 @@ function get_adjacent_pages($echo = true) {
  * Get Child Pages
  * NEW FUNCTION - Lists all child pages of a specified parent
  *
- * @since 3.4
+ * @since 3.3.23
  * @uses $url
  * @uses $pagesArray
  *
@@ -936,7 +936,7 @@ function get_child_pages($parent_slug = null, $echo = true) {
  * Has Children
  * NEW FUNCTION - Check if a page has child pages
  *
- * @since 3.4
+ * @since 3.3.23
  * @uses $url
  * @uses $pagesArray
  *
@@ -963,7 +963,7 @@ function has_children($parent_slug = null) {
  * Is Page
  * NEW FUNCTION - Check if current page matches specified slug
  *
- * @since 3.4
+ * @since 3.3.23
  * @uses $url
  *
  * @param string $slug Page slug to check
@@ -978,7 +978,7 @@ function is_page($slug) {
  * Is Parent
  * NEW FUNCTION - Check if current page has specified parent
  *
- * @since 3.4
+ * @since 3.3.23
  * @uses $parent
  *
  * @param string $parent_slug Parent slug to check
@@ -993,7 +993,7 @@ function is_parent($parent_slug) {
  * Is Homepage
  * NEW FUNCTION - Check if current page is the homepage
  *
- * @since 3.4
+ * @since 3.3.23
  * @uses $url
  *
  * @return bool
@@ -1007,7 +1007,7 @@ function is_homepage() {
  * Get Sitemap
  * NEW FUNCTION - Generate hierarchical sitemap
  *
- * @since 3.4
+ * @since 3.3.23
  * @uses $pagesArray
  *
  * @param string $parent Parent slug to start from
@@ -1050,7 +1050,7 @@ function get_sitemap($parent = '', $depth = 0, $max_depth = 3) {
  * Theme Asset URL
  * NEW FUNCTION - Get URL for theme asset (images, css, js, etc)
  *
- * @since 3.4
+ * @since 3.3.23
  * @uses $SITEURL
  * @uses $TEMPLATE
  *
@@ -1074,7 +1074,7 @@ function theme_asset($path, $echo = true) {
  * Theme Image
  * NEW FUNCTION - Output image tag for theme image
  *
- * @since 3.4
+ * @since 3.3.23
  * @uses $SITEURL
  * @uses $TEMPLATE
  *
@@ -1111,7 +1111,7 @@ function theme_image($filename, $alt = '', $class = '', $echo = true) {
  * Body Class
  * NEW FUNCTION - Generate body classes based on page context
  *
- * @since 3.4
+ * @since 3.3.23
  * @uses $url
  * @uses $parent
  * @uses $TEMPLATE
@@ -1156,7 +1156,7 @@ function body_class($additional_classes = []) {
  * Get Open Graph Meta Tags
  * NEW FUNCTION - Generate Open Graph meta tags for social sharing
  *
- * @since 3.4
+ * @since 3.3.23
  * @uses $title
  * @uses $metad
  * @uses $content
@@ -1182,7 +1182,8 @@ function get_og_tags() {
 ";
 
 	// Find first image in content
-	preg_match('/<img.+src=['"]([^'"]+)['"].*>/i', $content, $match);
+preg_match('/<img.+src=[\'"]([^\'"]+)[\'"].*>/i', $content, $match);
+
 	if (!empty($match[1])) {
 		echo '<meta property="og:image" content="' . $match[1] . '" />' . "
 ";
@@ -1193,7 +1194,7 @@ function get_og_tags() {
  * Get Twitter Card Meta Tags
  * NEW FUNCTION - Generate Twitter Card meta tags
  *
- * @since 3.4
+ * @since 3.3.23
  * @uses $title
  * @uses $metad
  *
@@ -1217,7 +1218,7 @@ function get_twitter_card() {
  * Is Active Class
  * NEW FUNCTION - Helper to add active class if page matches
  *
- * @since 3.4
+ * @since 3.3.23
  * @uses $url
  *
  * @param string $page_slug Page slug to check
@@ -1241,7 +1242,7 @@ function is_active($page_slug, $active_class = 'active', $echo = true) {
  * Is Parent Active Class
  * NEW FUNCTION - Helper to add active class if parent matches
  *
- * @since 3.4
+ * @since 3.3.23
  * @uses $parent
  *
  * @param string $parent_slug Parent slug to check
