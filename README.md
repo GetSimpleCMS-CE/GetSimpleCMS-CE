@@ -82,6 +82,7 @@ Designed to be light and agile, the base install comes to you clutter free, with
 ### Updates:
 
 - Updated: Plugin Massive Admin v6.x
+- Updated: View Sitemap UI
 
 ### Updates:
 
