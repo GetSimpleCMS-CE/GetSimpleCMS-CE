@@ -83,7 +83,11 @@ if (isset($pagesArray[$id])) {
 		$expected_url = rtrim($expected_url, '/');
 		
 		if ($request_uri !== $expected_url) {
-			$id = '404';
+			if (lowercase($request_uri) === lowercase($expected_url)) {
+				redirect(find_url($id, $pagesArray[$id]['parent']));
+			} else {
+				$id = '404';
+			}
 		}
 	}
 }
