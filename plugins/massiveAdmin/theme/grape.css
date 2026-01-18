@@ -104,7 +104,7 @@ html body#upload div.wrapper div.bodycontent.clearfix div#sidebar form.uploadfor
 #sidebar ul.snav li a.current{color:#fff; border:solid 2px #8C8ABA; background-color:#4B497B !important; box-shadow: 0px 7px 7px rgb(0,0,0)}
 #sidebar ul.snav li a.current:hover{color:#fff; background-color:#4B497B !important;}
 
-input[type="submit"] {background: #4B497B !important;}
+input[type="submit"] {background: #4CAF50 !important; padding: 8px 16px; font-size: 18px; font-weight: 400;}
 input.cleanthumb {background: #F00 !important;}
 input.mb_edit.mb_edit_delete {background: #F00 !important;}
 
