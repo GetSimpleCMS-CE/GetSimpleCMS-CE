@@ -759,34 +759,71 @@ function get_navigation($currentpage = "", $classPrefix = "") {
  * @param bool $echo Optional, default is true. False will 'return' value
  * @return string Echos or returns based on param $echo
  */
-function get_breadcrumbs($separator = ' &raquo; ', $home_text = 'Home', $echo = true) {
+function get_breadcrumbs($title_type = 'title', $separator = ' &raquo; ', $home_text = 'Home', $echo = true) {
 	global $url, $parent, $pagesArray, $SITEURL;
+
+	if (empty($url) || $url == 'index') {
+		return $echo ? '' : '';
+	}
 
 	$breadcrumb = '<nav class="breadcrumbs" aria-label="breadcrumb">';
 	$breadcrumb .= '<a href="' . $SITEURL . '">' . $home_text . '</a>';
 
 	$trail = [];
-	$current_parent = $parent;
-
-	while (!empty($current_parent)) {
-		foreach ($pagesArray as $page) {
-			if ($page['url'] == $current_parent) {
+	
+	if (!empty($parent)) {
+		$currentSlug = $parent;
+		
+		while (!empty($currentSlug)) {
+			$pageFound = null;
+			
+			foreach ($pagesArray as $page) {
+				if (isset($page['url']) && $page['url'] == $currentSlug) {
+					$pageFound = $page;
+					break;
+				}
+			}
+			
+			if ($pageFound) {
+				$displayTitle = '';
+				if ($title_type === 'menu' && isset($pageFound['menu']) && !empty($pageFound['menu'])) {
+					$displayTitle = $pageFound['menu'];  // Correct variable name
+				} else {
+					$displayTitle = $pageFound['title'];
+				}
+				
 				$trail[] = [
-					'title' => $page['title'],
-					'url' => find_url($page['url'], $page['parent'])
+					'title' => $displayTitle,
+					'url' => find_url($pageFound['url'], $pageFound['parent'] ?? '')
 				];
-				$current_parent = $page['parent'];
+				$currentSlug = $pageFound['parent'] ?? '';
+			} else {
 				break;
 			}
 		}
+		
+		$trail = array_reverse($trail);
 	}
 
-	$trail = array_reverse($trail);
 	foreach ($trail as $crumb) {
 		$breadcrumb .= $separator . '<a href="' . $crumb['url'] . '">' . strip_decode($crumb['title']) . '</a>';
 	}
 
-	$breadcrumb .= $separator . '<span class="current">' . get_page_title(false) . '</span>';
+	$currentTitle = '';
+	if ($title_type === 'menu') {
+		foreach ($pagesArray as $page) {
+			if (isset($page['url']) && $page['url'] == $url) {
+				$currentTitle = isset($page['menu']) && !empty($page['menu']) 
+					? $page['menu']  // Correct variable name
+					: get_page_title(false);
+				break;
+			}
+		}
+	} else {
+		$currentTitle = get_page_title(false);
+	}
+	
+	$breadcrumb .= $separator . '<span class="current">' . $currentTitle . '</span>';
 	$breadcrumb .= '</nav>';
 
 	if ($echo) {
