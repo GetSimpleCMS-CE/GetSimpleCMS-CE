@@ -84,10 +84,6 @@ Designed to be light and agile, the base install comes to you clutter free, with
 - Updated: Plugin Massive Admin v6.x
 - Updated: View Sitemap UI
 
-### Updates:
-
-- Fixed: 404 handling for invalid nested URLs
-
 
 <hr><hr>
 
