@@ -8,6 +8,7 @@
  * @subpackage FrontEnd
  */
 
+
 /* pre-common setup, load gsconfig and get GSADMIN path */
 
 	/* GSCONFIG definitions */
@@ -54,46 +55,9 @@ if (isset($_GET['id'])){
 	$id = "index";
 }
 
-# Filter to modify page id request
-$id = exec_filter('indexid',$id);
-
-# Validate the full REQUEST_URI for invalid nested URLs in 404 handling
-if (isset($pagesArray[$id])) {
-	$request_uri = $_SERVER['REQUEST_URI'];
-	
-	$is_direct_request = (strpos($request_uri, 'index.php') !== false);
-	
-	$has_plugin_params = (
-		isset($_GET['post']) || 
-		isset($_GET['tag']) || 
-		isset($_GET['archive']) || 
-		isset($_GET['page']) ||
-		isset($_GET['category']) ||
-		isset($_GET['tag'])
-	);
-	
-	if (!$is_direct_request && !$has_plugin_params) {
-		if (strpos($request_uri, '?') !== false) {
-			$request_uri = substr($request_uri, 0, strpos($request_uri, '?'));
-		}
-		
-		$request_uri = rtrim($request_uri, '/');
-		
-		$expected_url = find_url($id, $pagesArray[$id]['parent'], 'relative');
-		$expected_url = rtrim($expected_url, '/');
-		
-		if ($request_uri !== $expected_url) {
-			if (lowercase($request_uri) === lowercase($expected_url)) {
-				redirect(find_url($id, $pagesArray[$id]['parent']));
-			} else {
-				$id = '404';
-			}
-		}
-	}
-}
-
 // filter to modify page id request
 $id = exec_filter('indexid',$id);
+ // $_GET['id'] = $id; // support for plugins that are checking get?
 
 # define page, spit out 404 if it doesn't exist
 $file_404 = GSDATAOTHERPATH . '404.xml';
@@ -166,10 +130,7 @@ if ( file_exists(GSTHEMESPATH .$TEMPLATE."/functions.php") ) {
 exec_action('index-pretemplate');
 
 # include the template and template file set within theme.php and each page
-if ( (!file_exists(GSTHEMESPATH .$TEMPLATE."/".$template_file)) || ($template_file == '') ) { 
-	$template_file = "template.php"; 
-}
-
+if ( (!file_exists(GSTHEMESPATH .$TEMPLATE."/".$template_file)) || ($template_file == '') ) { $template_file = "template.php"; }
 include(GSTHEMESPATH .$TEMPLATE."/".$template_file);
 
 # call posttemplate Hook
