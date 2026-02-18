@@ -10,7 +10,7 @@ i18n_merge($UpdateCE) || i18n_merge($UpdateCE, 'en_US');
 register_plugin(
 	$UpdateCE,								# ID of plugin, should be filename minus php
 	i18n_r($UpdateCE.'/lang_Menu_Title'),	# Title of plugin
-	'1.2',									# Plugin version
+	'1.3',									# Plugin version
 	'CE Team',								# Plugin author
 	'https://getsimple-ce.ovh/donate',		# Author URL
 	i18n_r($UpdateCE.'/lang_Description'),	# Plugin Description
@@ -160,7 +160,7 @@ function update_ce() {
 			<ul class="w3-ul">
 				<li><p>'.i18n_r('UpdateCE/lang_Requirement').'</p></li>
 				<li><p>'.i18n_r('UpdateCE/lang_Create_Backup').'</p></li>
-				<li><p>'.i18n_r('UpdateCE/lang_Themes_Overwritten').'</p></li>
+				<!--li><p>'.i18n_r('UpdateCE/lang_Themes_Overwritten').'</p></li-->
 				<li><p>'.i18n_r('UpdateCE/lang_Rename_Admin').'</p></li>
 			</ul>
 		</div>
