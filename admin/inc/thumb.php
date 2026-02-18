@@ -6,63 +6,54 @@ login_cookie_check();
  * Thumbnail Image Generator
  *
  * REQUIREMENTS:
- * - PHP 4.0.6 and GD 2.0.1 or later
- * - May not work with GIFs if GD2 library installed on your server 
- * - does not support GIF functions in full
+ * - PHP 7.4+ and GD 2.0 or later
+ * - Supports GIF, JPEG, PNG, and WEBP formats
  *
  * Parameters:
- * - src - path to source image
- * - dest - path to thumb (where to save it)
- * - x - max width
- * - y - max height
- * - q - quality (applicable only to JPG, 1 to 100, 100 - best)
- * - t - thumb type. "-1" - same as source, 1 = GIF, 2 = JPG, 3 = PNG, 18 = WEBP
- * - f - save to file (1) or output to browser (0).
+ * - src - path to source image (relative to uploads folder)
+ * - dest - path to thumb (where to save it, relative to thumbs folder)
+ * - x - max width (default: 65)
+ * - y - max height (default: 130)
+ * - q - quality (1 to 100, 100 = best, default: 65)
+ * - t - thumb type: -1 = same as source, 1 = GIF, 2 = JPG, 3 = PNG, 18 = WEBP
+ * - f - save to file: 1 = save, 0 = output to browser (default: 1)
  *
  * Sample usage: 
- * 1. save thumb on server: 
- * http://www.zubrag.com/thumb.php?src=test.jpg&dest=thumb.jpg&x=100&y=50
- * 2. output thumb to browser:
- * http://www.zubrag.com/thumb.php?src=test.jpg&x=50&y=50&f=0
- *
- * @link //www.zubrag.com/scripts/
- * @version 1.3
+ * 1. Save thumb on server: 
+ *    thumb.php?src=test.jpg&dest=thumb.jpg&x=100&y=50
+ * 2. Output thumb to browser:
+ *    thumb.php?src=test.jpg&x=50&y=50&f=0
  *
  * @package GetSimple
  * @subpackage Images
+ * @version 2.0
  */ 
 
 // Below are default values (if parameter is not passed)
 
-// save to file (true) or output to browser (false)
+// Save to file (true) or output to browser (false)
 $save_to_file = true;
 
-// Quality for JPEG and PNG.
+// Quality for JPEG, PNG, and WEBP
 // 0 (worst quality, smaller file) to 100 (best quality, bigger file)
-// Note: PNG quality is only supported starting PHP 5.1.2
-$image_quality = 65;
+$image_quality = 75;
 
-// resulting image type (1 = GIF, 2 = JPG, 3 = PNG, 18 = WEBP)
-// enter code of the image type if you want override it
-// or set it to -1 to determine automatically
+// Resulting image type (1 = GIF, 2 = JPG, 3 = PNG, 18 = WEBP)
+// Set to -1 to determine automatically from source
 $image_type = -1;
 
-// maximum thumb side size
-$max_x = 65;
-$max_y = 130;
+// Maximum thumb dimensions
+$max_x = 100;
+$max_y = 150;
 
-// cut image before resizing. Set to 0 to skip this.
+// Cut image before resizing. Set to 0 to skip this.
 $cut_x = 0;
 $cut_y = 0;
 
-// Folder where source images are stored (thumbnails will be generated from these images).
-// MUST end with slash.
+// Folder where source images are stored
 $images_folder = GSDATAUPLOADPATH;
 
-// Folder to save thumbnails, full path from the root folder, MUST end with slash.
-// Only needed if you save generated thumbnails on the server.
-// Sample for windows:     c:/wwwroot/thumbs/
-// Sample for unix/linux:  /home/site.com/htdocs/thumbs/
+// Folder to save thumbnails
 $thumbs_folder = GSTHUMBNAILPATH;
 
 
@@ -72,68 +63,90 @@ $thumbs_folder = GSTHUMBNAILPATH;
 
 $to_name = '';
 
+// Parse input parameters
 if (isset($_REQUEST['f'])) {
-  $save_to_file = intval($_REQUEST['f']) == 1;
+  $save_to_file = (int)$_REQUEST['f'] === 1;
 }
 
 if (isset($_REQUEST['src'])) {
-  $from_name = str_replace('../','', urldecode($_REQUEST['src']));
-}
-else {
-  die("Source file name must be specified.");
+  // Remove any path traversal attempts and decode
+  $from_name = str_replace(['../', '..\\'], '', $_REQUEST['src']);
+} else {
+  die('Source file name must be specified.');
 }
 
 if (isset($_REQUEST['dest'])) {
-  $to_name = str_replace('../','', urldecode($_REQUEST['dest']));
-}
-else if ($save_to_file) {
-  die("Thumbnail file name must be specified.");
+  // Remove any path traversal attempts and decode
+  $to_name = str_replace(['../', '..\\'], '', $_REQUEST['dest']);
+} else if ($save_to_file) {
+  die('Thumbnail file name must be specified.');
 }
 
 if (isset($_REQUEST['q'])) {
-  $image_quality = intval($_REQUEST['q']);
+  $image_quality = max(0, min(100, (int)$_REQUEST['q'])); // Clamp between 0-100
 }
 
 if (isset($_REQUEST['t'])) {
-  $image_type = intval($_REQUEST['t']);
+  $image_type = (int)$_REQUEST['t'];
 }
 
 if (isset($_REQUEST['x'])) {
-  $max_x = intval($_REQUEST['x']);
+  $max_x = max(1, (int)$_REQUEST['x']); // At least 1 pixel
 }
 
 if (isset($_REQUEST['y'])) {
-  $max_y = intval($_REQUEST['y']);
+  $max_y = max(1, (int)$_REQUEST['y']); // At least 1 pixel
 }
 
 $path_parts = pathinfo($from_name);
 
-// travesal protection
-if(!filepath_is_safe(GSDATAUPLOADPATH.$from_name,GSDATAUPLOADPATH,true)) die('invalid src image');
-if(!path_is_safe(GSTHUMBNAILPATH.dirname($to_name),GSTHUMBNAILPATH,true)) die('invalid dest image');
-
-if (!file_exists($images_folder)) die('Images folder does not exist (update $images_folder in the script)');
-if ($save_to_file && !file_exists($thumbs_folder)) die('Thumbnails folder does not exist (update $thumbs_folder in the script)');
-
-$dirs=explode('/' ,$path_parts['dirname']);
-$folder=$thumbs_folder;
-foreach ($dirs as $dir){
-	$folder.=DIRECTORY_SEPARATOR.$dir;
-	if (!is_dir($folder)){
-		mkdir ($folder); 
-	}
+// Path traversal protection
+if (!filepath_is_safe(GSDATAUPLOADPATH . $from_name, GSDATAUPLOADPATH, true)) {
+  die('Invalid source image path');
+}
+if (!path_is_safe(GSTHUMBNAILPATH . dirname($to_name), GSTHUMBNAILPATH, true)) {
+  die('Invalid destination image path');
 }
 
-// Allocate all necessary memory for the image.
-// Special thanks to Alecos for providing the code.
-ini_set('memory_limit', '100M');
+// Check if folders exist
+if (!file_exists($images_folder)) {
+  die('Images folder does not exist (update $images_folder in the script)');
+}
+if ($save_to_file && !file_exists($thumbs_folder)) {
+  die('Thumbnails folder does not exist (update $thumbs_folder in the script)');
+}
 
-// include image processing code
+// Create subdirectories if needed
+if ($save_to_file && !empty($path_parts['dirname']) && $path_parts['dirname'] !== '.') {
+  $dirs = explode('/', $path_parts['dirname']);
+  $folder = $thumbs_folder;
+  
+  foreach ($dirs as $dir) {
+    if (empty($dir) || $dir === '.') {
+      continue;
+    }
+    
+    $folder .= DIRECTORY_SEPARATOR . $dir;
+    
+    if (!is_dir($folder)) {
+      if (!mkdir($folder, 0755, true)) {
+        die('Failed to create thumbnail directory: ' . htmlspecialchars($folder));
+      }
+    }
+  }
+}
+
+// Allocate sufficient memory for image processing
+// Increase if processing very large images
+ini_set('memory_limit', '256M');
+
+// Include image processing class
 include('image.class.php');
 
-$img = new Zubrag_image;
+// Create thumbnail generator instance
+$img = new Zubrag_image();
 
-// initialize
+// Initialize settings
 $img->max_x        = $max_x;
 $img->max_y        = $max_y;
 $img->cut_x        = $cut_x;
@@ -142,7 +155,9 @@ $img->quality      = $image_quality;
 $img->save_to_file = $save_to_file;
 $img->image_type   = $image_type;
 
-// generate thumbnail
-$img->GenerateThumbFile($images_folder . $from_name, $thumbs_folder . $to_name);
-
-?>
+// Generate thumbnail
+try {
+  $img->GenerateThumbFile($images_folder . $from_name, $thumbs_folder . $to_name);
+} catch (Exception $e) {
+  die('Thumbnail generation failed: ' . htmlspecialchars($e->getMessage()));
+}

@@ -137,7 +137,7 @@ $LANG_header = preg_replace('/(?:(?<=([a-z]{2}))).*/', '', $LANG);
 			} else {
 				$funct='';
 			}
-			echo '<img src="template/images/folder.png" width="11" /> <a href="filebrowser.php?path='.$adm.'&amp;CKEditorFuncNum='.$CKEditorFuncNum.'&amp;type='.$type.$returnlink.'&amp;'.$funct.'" title="'. $upload['name'] .'"  ><strong>'.$upload['name'].'</strong></a>';
+			echo '<a href="filebrowser.php?path='.$adm.'&amp;CKEditorFuncNum='.$CKEditorFuncNum.'&amp;type='.$type.$returnlink.'&amp;'.$funct.'" title="'. $upload['name'] .'"  ><svg xmlns="http://www.w3.org/2000/svg" style="vertical-align:middle; margin:0 10px" width="32" height="32" viewBox="0 0 48 48"><rect width="48" height="48" fill="none"/><path fill="#ffa000" d="M40 12H22l-4-4H8c-2.2 0-4 1.8-4 4v8h40v-4c0-2.2-1.8-4-4-4"/><path fill="#ffca28" d="M40 12H8c-2.2 0-4 1.8-4 4v20c0 2.2 1.8 4 4 4h32c2.2 0 4-1.8 4-4V16c0-2.2-1.8-4-4-4"/></svg> <strong>'.$upload['name'].'</strong></a>';
 			echo '</td>';
 			echo '</tr>';
 		}
@@ -145,30 +145,31 @@ $LANG_header = preg_replace('/(?:(?<=([a-z]{2}))).*/', '', $LANG);
 
 	if (count($filesSorted) != 0) { 			
 		foreach ($filesSorted as $upload) {
+			$originalName = $upload['name'];
 			$upload['name'] = rawurlencode($upload['name']);
 			$thumb = null; $thumbnailLink = null;
 			$subDir = ($subPath == '' ? '' : $subPath.'/');
-			$selectLink = 'title="'.i18n_r('SELECT_FILE').': '. htmlspecialchars($upload['name']) .'" href="javascript:void(0)" onclick="submitLink('.$CKEditorFuncNum.',\''.$fullPath.$subDir.$upload['name'].'\')"';
+			$selectLink = 'title="'.i18n_r('SELECT_FILE').': '. htmlspecialchars($originalName) .'" href="javascript:void(0)" onclick="submitLink('.$CKEditorFuncNum.',\''.$fullPath.$subDir.$upload['name'].'\')"';
 
 			if ($type == 'images') {
-				$fileExtension = strtolower(pathinfo($upload['name'], PATHINFO_EXTENSION));
+				$fileExtension = strtolower(pathinfo($originalName, PATHINFO_EXTENSION));
 				
 				// Include SVG files as images
 				if ($upload['type'] == i18n_r('IMAGES') .' Images' || $fileExtension === 'svg') {
 					# get internal thumbnail to show beside link in table
-					$thumb = '<td class="imgthumb" style="display:table-cell" >';
+					$thumb = '<td class="imgthumb" style="display:table-cell;vertical-align:middle;" >';
 					
 					// Handle SVG files differently - use direct file instead of thumbnail
 					if ($fileExtension === 'svg') {
 						// For SVG files, use the original file as thumbnail with fixed dimensions
-						$imgSrc = '<img src="../data/uploads/'. $subDir . $upload['name'] .'" width="65" height="65" style="vertical-align:middle" />';
+						$imgSrc = '<img src="../data/uploads/'. $subDir . $upload['name'] .'" width="85" height="65" style="vertical-align:middle; object-fit:cover;border-radius:3px" />';
 					} else {
 						// Regular image handling
 						$thumbLink = $urlPath.'thumbsm.'.$upload['name'];
 						if (file_exists('../data/thumbs/'.$thumbLink)) {
-							$imgSrc='<img src="../data/thumbs/'. $thumbLink .'" />';
+							$imgSrc='<img src="../data/thumbs/'. $thumbLink .'" width="85" height="65" style="object-fit:cover;border-radius:3px" />';
 						} else {
-							$imgSrc='<img src="inc/thumb.php?src='. $urlPath . $upload['name'] .'&amp;dest='. $thumbLink .'&amp;x=65&amp;f=1" />';
+							$imgSrc='<img src="inc/thumb.php?src='. $urlPath . $upload['name'] .'&amp;dest='. $thumbLink .'&amp;x=65&amp;f=1" width="85" height="65" style="object-fit:cover;border-radius:3px" />';
 						}
 					}
 					
@@ -191,17 +192,17 @@ $LANG_header = preg_replace('/(?:(?<=([a-z]{2}))).*/', '', $LANG);
 
 			echo '<tr class="All '.$upload['type'].'" >';
 			echo ($thumb=='' ? '<td style="display: none"></td>' : $thumb);
-			echo '<td><a '.$selectLink.' class="primarylink">'.htmlspecialchars($upload['name']) .'</a>'.$thumbnailLink.'</td>';
-			echo '<td style="width:80px;text-align:right;" ><span>'. $upload['size'] .'</span></td>';
+			echo '<td style="vertical-align:middle;"><a '.$selectLink.' class="primarylink">'.htmlspecialchars($originalName) .'</a>'.$thumbnailLink.'</td>';
+			echo '<td style="width:80px;text-align:right;vertical-align:middle;" ><span>'. $upload['size'] .'</span></td>';
 
 			// get the file permissions.
 			if ($isUnixHost && isDebug() && function_exists('posix_getpwuid')) {
 				$filePerms = substr(sprintf('%o', fileperms($path.$upload['name'])), -4);
 				$fileOwner = posix_getpwuid(fileowner($path.$upload['name']));
-				echo '<td style="width:70px;text-align:right;"><span>'.$fileOwner['name'].'/'.$filePerms.'</span></td>';
+				echo '<td style="width:70px;text-align:right;vertical-align:middle;"><span>'.$fileOwner['name'].'/'.$filePerms.'</span></td>';
 			}
 
-			echo '<td style="width:85px;text-align:right;" ><span>'. shtDate($upload['date']) .'</span></td>';
+			echo '<td style="width:85px;text-align:right;vertical-align:middle;" ><span>'. shtDate($upload['date']) .'</span></td>';
 			echo '</tr>';
 		}
 
