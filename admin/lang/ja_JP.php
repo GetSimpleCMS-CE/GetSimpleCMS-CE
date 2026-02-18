@@ -4,9 +4,9 @@
  * Japanese Language File
  *
  * Date:		2022-04-24
- * Revision:	2023.07.23
- * Version:		GetSimple 3.3.19 CE
- * Traductors: 	GS Community 
+ * Revision:	2026.02.14
+ * Version:		GetSimple 3.3.23 CE
+ * Translators: GS Team 
  *
  * @package GetSimple
  * @subpackage Language
@@ -14,9 +14,9 @@
 
 $i18n = [
 
-    /* 
-     * For: install.php
-    */
+	/* 
+	 * For: install.php
+	 */
 "PHPVER_ERROR"			=>	"<b>継続不能:</b> PHP 7.4 以降が必要です。",
 "SIMPLEXML_ERROR"		=>	"<b>継続不能:</b> <em>SimpleXML</em> がインストールされていません",
 "CURL_WARNING"			=>	"<b>警告:</b> <em>cURL</em> インストールされていません。",
@@ -49,9 +49,9 @@ $i18n = [
 "SITE_UPDATED"			=>	"あなたのサイトが更新されました",
 "SERVICE_UNAVAILABLE"	=>	"このページは一時的に利用できません",
 
-    /* 
-     * For: pages.php
-    */
+	/* 
+	 * For: pages.php
+	 */
 "MENUITEM_SUBTITLE"	=>	"メニューアイテム",
 "HOMEPAGE_SUBTITLE"	=>	"ホーム",
 "PRIVATE_SUBTITLE"	=>	"プライベート",
@@ -63,9 +63,9 @@ $i18n = [
 "TOTAL_PAGES"				=>	"ページ（全ページ数）",
 "ALL_PAGES"					=>	"全ページ",
 
-    /* 
-     * For: edit.php
-    */
+	/* 
+	 * For: edit.php
+	 */
 "PAGE_NOTEXIST"			=>	"リクエストされたページは存在しません",//"The requested page does not exist",
 "BTN_SAVEPAGE"			=>	"保存",//"Save Page",
 "BTN_SAVEUPDATES"		=>	"更新",//"Save Updates",
@@ -92,12 +92,12 @@ $i18n = [
 "LAST_SAVED"				=>	"最終更新日",//"Last Saved",
 "FILE_UPLOAD"				=>	"アップロード",//"File Upload",
 "OR"								=>	"or",//"or",
-    "SAVE_AND_CLOSE"		=> "Save &amp; Close",
-    "PAGE_UNSAVED"			=>	"Page has unsaved changes",
+	"SAVE_AND_CLOSE"		=> "Save &amp; Close",
+	"PAGE_UNSAVED"			=>	"Page has unsaved changes",
 
-    /* 
-     * For: upload.php
-    */
+	/* 
+	 * For: upload.php
+	 */
 "ERROR_UPLOAD"			=>	"ファイルのアップロードに問題がありました。",
     "FILE_SUCCESS_MSG"		=>	"Success! File location",
 "FILE_MANAGEMENT"		=>	"ファイル管理",//"File Management",
@@ -107,29 +107,29 @@ $i18n = [
 "DELETE_FILE"				=>	"削除",//"Delete File",
 "TOTAL_FILES"				=>	"ファイル（全ファイル数）",//"total files",
 
-    /* 
-     * For: logout.php
-    */
+	/* 
+	 * For: logout.php
+	 */
 "MSG_LOGGEDOUT"				=>	"ログアウトしました",//"Logged Out",
 
-    /* 
-     * For: index.php
-    */
+	/* 
+	 * For: index.php
+	 */
 "LOGIN"							=>	"ログイン",//"Login",
 "USERNAME"					=>	"ログイン名",//"Username",
 "PASSWORD"					=>	"パスワード",//"Password",
 "FORGOT_PWD"				=>	"パスワードをお忘れですか？",//"Forgot your password?",
 "CONTROL_PANEL"			=>	"サイト管理画面",//"Control Panel",
 
-    /* 
-     * For: navigation.php
-    */
+	/* 
+	 * For: navigation.php
+	 */
 "CURRENT_MENU" 			=> 	"現在のメニュー",//"Current Menu",
 "NO_MENU_PAGES" 		=> 	"現在メニュー登録されているものはありません",//"There are no pages that are set to appear within the main menu",
 
-    /* 
-     * For: theme-edit.php
-    */
+	/* 
+	 * For: theme-edit.php
+	 */
 "TEMPLATE_FILE" 		=> 	"テンプレートファイル <b>%s</b> は正常に更新されました",//"Template file <b>%s</b> has successfully been updated!",
 "THEME_MANAGEMENT" 	=> 	"テーマ管理",//"Theme Management",
 "EDIT_THEME" 				=> 	"テーマの編集",//"Edit Theme",
@@ -137,21 +137,20 @@ $i18n = [
 "BTN_SAVECHANGES" 	=> 	"変更を保存",//"Save Changes",
 "EDIT" 							=> 	"編集",//"Edit",
 
-    /* 
-     * For: support.php
-    */
+	/* 
+	 * For: support.php
+	 */
 "SETTINGS_UPDATED"	=> 	"あなたの設定を更新しました。",//"Your settings have been updated",
 "UNDO" 							=> 	"元に戻す",//"Undo",
 "SUPPORT" 					=> 	"サポート",//"Support",
 "SETTINGS" 					=> 	"設定",//"Settings",
 "ERROR" 						=> 	"エラー",//"Error",
 "BTN_SAVESETTINGS" 	=> 	"設定を保存",//"Save Settings",
-    "VIEW_FAILED_LOGIN"		=> 	"View Failed Login Attempts",
+	"VIEW_FAILED_LOGIN"		=> 	"View Failed Login Attempts",
 
-
-    /* 
-     * For: log.php
-    */
+	/* 
+	 * For: log.php
+	 */
 "MSG_HAS_BEEN_CLR" 	=> 	"クリアされている",//" has been cleared",
 "LOGS" 							=> 	"ログ",//"Logs",
 "VIEWING" 					=> 	"表示",//"Viewing",
@@ -161,9 +160,9 @@ $i18n = [
 "LOG_FILE_ENTRY" 		=> 	"ログファイルのエントリ",//"LOG FILE ENTRY",
 "THIS_COMPUTER"			=>	"このコンピュータ",//"This Computer",
 
-    /* 
-     * For: backup-edit.php
-    */
+	/* 
+	 * For: backup-edit.php
+	 */
 "BAK_MANAGEMENT"		=>	"バックアップ管理",//"Backup Management",
 "ASK_CANCEL"				=>	"キャンセル",//"<em>C</em>ancel", // 'c' is the accesskey identifier
 "ASK_RESTORE"				=>	"この内容に戻す",//"<em>R</em>estore", // 'r' is the accesskey identifier
@@ -177,7 +176,7 @@ $i18n = [
 
 	/* 
 	 * For: components.php
-	*/
+	 */
 "COMPONENTS"				=>	"コンポーネント",//"Components",
 "DELETE_COMPONENT"	=>	"コンポーネントの削除",//"Delete Component",
 "EDIT"							=>	"編集",//"Edit",
@@ -186,24 +185,24 @@ $i18n = [
 
 	/* 
 	 * For: sitemap.php
-	*/
+	 */
 "SITEMAP_CREATED"		=>	"サイトマップを作成しました。また,４検索エンジンへのpingを正常に実行しました。",//"Sitemap Created! We also successfully pinged 4 search engines of the update",
 "SITEMAP_ERRORPING"	=>	"サイトマップを作成しました。しかし,1つもしくは複数の検索エンジンへのpingを正常に実行できませんでした。",//"Sitemap Created, however there was an error pinging one or more of the search engines",
 "SITEMAP_ERROR"			=>	"サイトマップを作成出来ませんでした",//"Your sitemap could not be generated",
 "SITEMAP_WAIT"			=>	"<b>お待ちください:</b> サイトマップを作成しています",//"<b>Please Wait:</b> Creating website sitemap",
 
-    /* 
-     * For: theme.php
-    */
+	/* 
+	 * For: theme.php
+	 */
 "THEME_CHANGED"			=>	"テーマを変更しました。",//"Your theme has been changed successfully",
 "CHOOSE_THEME"			=>	"テーマの選択",//"Choose Your Theme",
 "ACTIVATE_THEME"		=>	"テーマを変更する",//"Activate Theme",
 "THEME_SCREENSHOT"	=>	"テーマのスクリーンショット",//"Theme Screenshot",
 "THEME_PATH"				=>	"現在のテーマのパス",//"Current theme path",
 
-    /* 
-     * For: resetpassword.php
-    */
+	/* 
+	 * For: resetpassword.php
+	 */
 "RESET_PASSWORD"		=>	"パスワードをリセットする",//"Reset Password",
 "YOUR_NEW"					=>	"あなたの新しい",//"Your new",
 "PASSWORD_IS"				=>	"パスワード",//"password is",
@@ -211,9 +210,9 @@ $i18n = [
 "MSG_PLEASE_EMAIL"	=>	"新しいパスワードを発行するには登録されているメールアドレスを入力して新規パスワード発行ボタンを押してください。",//"Please enter the email address registered on this system, and a new password will be sent to you",
 "SEND_NEW_PWD"			=>	"新規パスワード発行",//"Send New Password",
 
-    /* 
-     * For: settings.php
-    */
+	/* 
+	 * For: settings.php
+	 */
 "GENERAL_SETTINGS"	=>	"基本設定",//"General Settings",
 "WEBSITE_SETTINGS"	=>	"サイト基本設定",//"Website Settings",
 "LOCAL_TIMEZONE"		=>	"タイムゾーン",//"Local Timezone",
@@ -232,9 +231,9 @@ $i18n = [
 "FLUSHCACHE-SUCCESS"=>  "キャッシュをクリアしました。",
 "DISPLAY_NAME"			=>  "ユーザー名ではない公開用の名前",
 
-    /* 
-     * For: health-check.php
-    */
+	/* 
+	 * For: health-check.php
+	 */
 "WEB_HEALTH_CHECK"	=>	"Webサイトチェック",//"Website Health Check",
 "VERSION"						=>	"バージョン",//"Version",
 "UPG_NEEDED"				=>	"新しいバージョンがリリースされています",//"Upgrade needed to",
@@ -258,23 +257,39 @@ $i18n = [
 "DOWNLOAD"					=>	"ダウンロード",//"Download",
 "WRITABLE"					=>	"書き込み可能",//"Writable",
 "NOT_WRITABLE"			=>	"書き込み可能でありません",//"Not Writable",
+	
+	# new to 3.3.23 Enhanced Security
+	"SECURITY"				=>	"セキュリティ",
+	"HTACCESS_TEST_EXPLANATION"	=>	"このテストは、HTTP 経由でアクセスを試みることにより、機密ディレクトリが実際に保護されているかを確認します。これにより、.htaccess ファイルが正しく機能していることを保証します。",
+	"CRITICAL_SECURITY_RISK"	=>	"重大なセキュリティリスク",
+	"CANNOT_VERIFY"			=>	"確認できません",
+	"CANNOT_TEST"			=>	"テストできません",
+	"APPLICATION_LEVEL_PROTECTION"	=>	"アプリケーションレベルの保護（index.php）",
+	"DEFENSE_IN_DEPTH" 		=>	"多層防御",
+	"INDEX_PHP_EXPLANATION"	=>	"これらの保護ファイルは、.htaccess が無効になっている場合でも機能するアプリケーションレベルのセキュリティを提供します。これは不正アクセスに対する主要な防御策です。",
+	"INDEX_PHP_RECOMMENDATION"	=>	"多層防御のため、機密ディレクトリに index.php 保護ファイルを配置してください",
+	"RECOMMENDATION"		=>	"推奨事項",
+	"CRITICAL"				=>	"重大",
+	"EFFECTIVENESS"			=>	"有効性",
+	"PLACE_INDEX"			=>	"提供された index.php ファイルを次の場所に配置してください",
+	"FILES_PROVIDE"			=>	"これらのファイルは、.htaccess が機能しない場合でも多層防御を提供します。",
 
-    /* 
-     * For: footer.php
-    */
-    "POWERED_BY"			=>	"Powered by",
+	/* 
+	 * For: footer.php
+	 */
+	"POWERED_BY"			=>	"Powered by",
 
-    /* 
-     * For: backups.php
-    */
+	/* 
+	 * For: backups.php
+	 */
 "PAGE_BACKUPS"			=>	"バックアップされたページ",//"Page Backups",
 "ASK_DELETE_ALL"		=>	"全てのバックアップを削除",//"<em>D</em>elete All",
 "DELETE_ALL_BAK"		=>	"全てのバックアップを削除しますか？",//"Delete all backups?",
 "TOTAL_BACKUPS"			=>	"ページ(全バックアップページ数)",//"total backups",
 
-    /* 
-     * For: archive.php
-    */
+	/* 
+	 * For: archive.php
+	 */
 "SUCC_WEB_ARCHIVE"	=>	"Webサイトのアーカイブを作成しました。このデータを用いてサイトを復元できます。",//"Successful website archive!",
 "SUCC_WEB_ARC_DEL"	=>	"Webサイトのアーカイブ削除に成功しました。",//"Website archive successfully deleted",
 "WEBSITE_ARCHIVES"	=>	"Webサイトをアーカイブ(サイト復元に必要なデータ全て)",//"Website Archives",
@@ -288,7 +303,7 @@ $i18n = [
 
 	/* 
 	 * For: include-nav.php
-	*/
+	 */
 "WELCOME"						=>	"ようこそ",//"Welcome", // used as 'Welcome USERNAME!'
 "TAB_PAGES"					=>	"ページ",//"<em>P</em>ages",
 "TAB_FILES"					=>	"ファイル",//"<em>F</em>iles",
@@ -299,51 +314,51 @@ $i18n = [
 "TAB_SUPPORT"				=>	"サポート",//"Supp<em>o</em>rt",
 "TAB_LOGOUT"				=>	"ログアウト",//"<em>L</em>ogout",
 
-    /* 
-     * For: sidebar-files.php
-    */
+	/* 
+	 * For: sidebar-files.php
+	 */
 "BROWSE_COMPUTER"		=>	"アップロードするファイルを選択", //"Browse Your Computer",
 "UPLOAD"						=>	"アップロード", //"Upload",
 
-    /* 
-     * For: sidebar-support.php
-    */
+	/* 
+	 * For: sidebar-support.php
+	 */
 "SIDE_SUPPORT_LOG"	=>	"システムログ",//"Supp<em>o</em>rt Settings &amp; Logs",
 "SIDE_HEALTH_CHK"		=>	"サーバの状態",//"Website <em>H</em>ealth Check",
 "SIDE_DOCUMENTATION"=>	"ドキュメント",//"<em>D</em>ocumentation",
 "SIDE_VIEW_LOG"			=>	"ログ一覧",//"View Log",
 
-    /* 
-     * For: sidebar-theme.php
-    */
+	/* 
+	 * For: sidebar-theme.php
+	 */
 "SIDE_VIEW_SITEMAP"	=>	"サイトマップを表示",//"<em>V</em>iew Sitemap",
 "SIDE_GEN_SITEMAP"	=>	"サイトマップ生成",//"<em>G</em>enerate Sitemap",
 "SIDE_COMPONENTS"		=>	"コンポーネントを編集する",//"<em>E</em>dit Components",
 "SIDE_EDIT_THEME"		=>	"テーマを編集する",//"Edit <em>T</em>heme",
 "SIDE_CHOOSE_THEME"	=>	"テーマを選択する",//"Choose <em>T</em>heme",
 
-    /* 
-     * For: sidebar-pages.php
-    */
+	/* 
+	 * For: sidebar-pages.php
+	 */
 "SIDE_CREATE_NEW"		=>	"ページを新規作成",//"<em>C</em>reate New Page",
 "SIDE_VIEW_PAGES"		=>	"ページの一覧を表示",//"View All <em>P</em>ages",
 
-    /* 
-     * For: sidebar-settings.php
-    */
+	/* 
+	 * For: sidebar-settings.php
+	 */
 "SIDE_GEN_SETTINGS"	=>	"サイト基本設定",//"General <em>S</em>ettings",
 "SIDE_USER_PROFILE"	=>	"ユーザー設定",//"<em>U</em>ser Profile",
 
-    /* 
-     * For: sidebar-backups.php
-    */
+	/* 
+	 * For: sidebar-backups.php
+	 */
 "SIDE_VIEW_BAK"			=>	"ページのバックアップを表示",//"View Page Backup",
 "SIDE_WEB_ARCHIVES"	=>	"Webサイトをアーカイブ",//"<em>W</em>ebsite Archives",
 "SIDE_PAGE_BAK"			=>	"バックアップされたページ",//"Page <em>B</em>ackups",
 
-    /* 
-     * For: error_checking.php
-    */
+	/* 
+	 * For: error_checking.php
+	 */
 "ER_PWD_CHANGE"			=>	"",//"Don't forget to <a href=\"settings.php#profile\">change your password</a> from that random generated one you have now...",
 "ER_BAKUP_DELETED"	=>	"%s のためにバックアップは削除されました。",//"The backup has been deleted for %s",
 "ER_REQ_PROC_FAIL"	=>	"要求されたプロセスが失敗しました",//"The requested process failed",
@@ -361,15 +376,15 @@ $i18n = [
 "ER_COMPONENT_REST"	=>	"コンポーネントが復元されました",//"Your components have been restored",
 "ER_CANCELLED_FAIL"	=>	"このファイルへの更新はキャンセルされました",//"<b>Cancelled:</b> The update to this file has been cancelled",
 
-    /* 
-     * For: changedata.php
-    */
+	/* 
+	 * For: changedata.php
+	 */
 "CANNOT_SAVE_EMPTY"	=>	"空のページは保存できません",//"You cannot save an empty page",
 "META_DESC" 				=> "Description属性(metaタグ)",
 
 	/* 
 	 * For: template_functions.php
-	*/
+	 */
 	"FTYPE_COMPRESSED"		=>	"Compressed", //a file-type
 	"FTYPE_VECTOR"			=>	"Vector", //a file-type
 	"FTYPE_FLASH"			=>	"Flash", //a file-type
@@ -383,26 +398,26 @@ $i18n = [
 
 	/* 
 	 * For: login_functions.php
-	*/
+	 */
 "FILL_IN_REQ_FIELD"	=>	"すべての必須項目に入力",//"Please fill in all the required fields",
 "LOGIN_FAILED"			=>	"ログインに失敗しました。ログイン名とパスワードを確認してください。",//"Login failed. Please double check your Username and Password",
 
 	/* 
 	 * For: Date Format
-	*/
+	 */
 "DATE_FORMAT"									=>	"Y-m-d", //please keep short
 "DATE_AND_TIME_FORMAT"				=>	"Y-m-d H:i:s", //date and time
 
 	/* 
 	 * For: support.php
-	*/
+	 */
 "WELCOME_MSG"				=>	"GetSimpleをインストールしました。",
 "WELCOME_P"					=>	"GetSimpleは,使いやすい管理画面とシンプルなテンプレートシステムが特長。手頃なサイズのサイトを管理するのに適しており,説明書がなくても今日から使いこなせます。",
 "GETTING_STARTED"		=>	"ここから始めましょう。",
 
-    /* 
-     * For: image.php
-    */
+	/* 
+	 * For: image.php
+	 */
 "CURRENT_THUMBNAIL" => "現在のサムネイル",
 "RECREATE" => "recreate",
 "CREATE_ONE" => "作成する",
@@ -418,9 +433,9 @@ $i18n = [
 "LINK_THUMBNAIL" => "サムネイルリンク",
 "HTML_THUMB_ORIG" => "サムネイルから画像へのHTML",
 
-    /* 
-     * For: plugins.php
-    */
+	/* 
+	 * For: plugins.php
+	 */
 "PLUGINS_MANAGEMENT"=> "プラグイン管理",
 "PLUGINS_MANAGEMENT_INFO"	=> "一部のプラグインは、正しく機能するために追加の js/css スクリプトを必要とする場合があります。<br>「modernScript CE」プラグインが有効になっていることを確認し、設定を確認してください。",
 "PLUGINS_INSTALLED" => "個のプラグインがインストール済みです。",
@@ -507,10 +522,9 @@ $i18n = [
 "MENU_MANAGER_DESC" => "必要な順序になるまでメニュー項目をドラッグアンドドロップし,<strong>[メニュー順序の保存]</ strong>ボタンをクリックします。",
 "MENU_MANAGER_SUCCESS" => "新しいメニューの順序が保存されました",
 
-
-    /* 
-     * For: api related pages
-     */
+	/* 
+	 * For: api related pages
+	 */
 "API_ERR_MISSINGPARAM "=>'パラメータデータが存在しません',
 "API_ERR_BADMETHOD" =>'メソッド％sが存在しません',
 "API_ERR_AUTHFAILED" =>'認証に失敗しました',
@@ -558,10 +572,10 @@ $i18n = [
 	"Add_hash_GSUSECUSTOMSALT" 	=> '新しいハッシュをgsconfig.phpの\'GSUSECUSTOMSALT\'フィールドに追加します。',
 	"Clear_cookies" 		=> 'クッキーをクリアします。',
 
-    /*
-     * Default transliteration
-     */
-    "TRANSLITERATION" 		=> [
+	/*
+	 * Default transliteration
+	 */
+	"TRANSLITERATION" 		=> [
 		// Roman
 		'á'=>'a', 'é'=>'e', 'í'=>'i', 'ó'=>'o', 'ú'=>'u',
 		'Á'=>'a', 'É'=>'e', 'Í'=>'i', 'Ó'=>'o', 'Ú'=>'u',
@@ -585,7 +599,7 @@ $i18n = [
 		"Ĺ"=>"l","Ľ"=>"L","Ŕ"=>"r",
 		// Polish
 		"Ą"=>"a","Ć"=>"c","Ę"=>"e",
-		"Ł"=>"l","Ń"=>"n","Ó"=>"o",
+		"Ł"=>"L","Ń"=>"n","Ó"=>"o",
 		"Ś"=>"s","Ź"=>"z","Ż"=>"z",
 		"ą"=>"a","ć"=>"c","ę"=>"e",
 		"ł"=>"l","ń"=>"n","ó"=>"o",
@@ -604,8 +618,9 @@ $i18n = [
 		"о"=>"o","п"=>"p","р"=>"r","с"=>"s","т"=>"t",
 		"у"=>"u","ф"=>"f","х"=>"h","ц"=>"c","ч"=>"ch",
 		"ш"=>"sh","щ"=>"shh","ъ"=>"","ы"=>"y","ь"=>"",
-
-		"э"=>"e","ю"=>"yu","я"=>"ya"
+		"э"=>"e","ю"=>"yu","я"=>"ya",
+		// Scandinavian
+		"æ"=>"a","Æ"=>"a","å"=>"a","Å"=>"a","ä"=>"a","Ä"=>"a","ø"=>"a","Ø"=>"a","ö"=>"o","Ö"=>"o"
 	],
 
 	"X" 					=> "not translated",
@@ -613,7 +628,7 @@ $i18n = [
 	/*
 	 * Additions for 3.1
 	 */
-	"DEBUG_CONSOLE" 		=> 'デバッグコンソール',
+	"DEBUG_CONSOLE"			=>	"Debug Console",
 
 ];
 

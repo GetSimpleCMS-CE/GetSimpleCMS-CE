@@ -1,20 +1,22 @@
 <?php
 
 /**
-* Norwegian Language File
-*
-* Date:	2025.05.05
-* Revision:	2025.05.06
-* Version:	GetSimple 3.3.21 CE
-* Traductors:	Thomasgrumpy
-*
-* @package GetSimple
-* @subpackage Language
-*/
+ * Norwegian Language File
+ *
+ * Date:		2025.05.05
+ * Revision:	2026.02.14
+ * Version:		GetSimple 3.3.23 CE
+ * Translators: Thomasgrumpy, GS Team 
+ *
+ * @package GetSimple
+ * @subpackage Language
+ */
 
 $i18n = [
 
-/* For: install.php */
+	/* 
+	 * For: install.php
+	 */
 "PHPVER_ERROR"		=>	"<b>Kan ikke fortsette:</b> PHP 7.4 eller høyere er påkrevd, du har ",
 "SIMPLEXML_ERROR"	=>	"<b>Kan ikke fortsette:</b> <em>SimpleXML</em> er ikke installert",
 "CURL_WARNING"		=>	"<b>Advarsel:</b> <em>cURL</em> er ikke installert",
@@ -47,7 +49,9 @@ $i18n = [
 "SITE_UPDATED"		=>	"Nettstedet ditt er oppdatert",
 "SERVICE_UNAVAILABLE"	=>	"Denne siden er midlertidig utilgjengelig",
 
-/* For: pages.php */
+	/* 
+	 * For: pages.php
+	 */
 "MENUITEM_SUBTITLE"	=>	"menyelement",
 "HOMEPAGE_SUBTITLE"	=>	"hjemmeside",
 "PRIVATE_SUBTITLE"	=>	"privat",
@@ -59,7 +63,9 @@ $i18n = [
 "TOTAL_PAGES"		=>	"totalt antall sider",
 "ALL_PAGES"			=>	"Sider",
 
-/* For: edit.php */
+	/* 
+	 * For: edit.php
+	 */
 "PAGE_NOTEXIST"		=>	"Den forespurte siden eksisterer ikke",
 "BTN_SAVEPAGE"		=>	"Lagre side",
 "BTN_SAVEUPDATES"	=>	"Lagre oppdateringer",
@@ -89,7 +95,9 @@ $i18n = [
 "SAVE_AND_CLOSE"	=>	"Lagre og lukk",
 "PAGE_UNSAVED"		=>	"Siden har ulagrede endringer",
 
-/* For: upload.php */
+	/* 
+	 * For: upload.php
+	 */
 "ERROR_UPLOAD"	=>	"Det oppstod et problem med filopplastingen",
 "FILE_SUCCESS_MSG"	=>	"Vellykket! Filplassering",
 "FILE_MANAGEMENT"	=>	"Filadministrasjon",
@@ -99,21 +107,29 @@ $i18n = [
 "DELETE_FILE"		=>	"Slett fil",
 "TOTAL_FILES"		=>	"totalt antall filer og mapper",
 
-/* For: logout.php */
+	/* 
+	 * For: logout.php
+	 */
 "MSG_LOGGEDOUT"		=>	"Du er nå logget ut.",
 
-/* For: index.php */
+	/* 
+	 * For: index.php
+	 */
 "LOGIN"				=>	"Logg inn",
 "USERNAME"			=>	"Brukernavn",
 "PASSWORD"			=>	"Passord",
 "FORGOT_PWD"		=>	"Glemt passord?",
 "CONTROL_PANEL"		=>	"Kontrollpanelinnlogging",
 
-/* For: navigation.php */
+	/* 
+	 * For: navigation.php
+	 */
 "CURRENT_MENU"		=>	"Gjeldende meny",
 "NO_MENU_PAGES"		=>	"Det er ingen sider som er satt til å vises i hovedmenyen",
 
-/* For: theme-edit.php */
+	/* 
+	 * For: theme-edit.php
+	 */
 "TEMPLATE_FILE"		=>	"Malfilen <b>%s</b> er oppdatert!",
 "THEME_MANAGEMENT"	=>	"Temadministrasjon",
 "EDIT_THEME"		=>	"Temaredigering",
@@ -121,7 +137,9 @@ $i18n = [
 "BTN_SAVECHANGES"	=>	"Lagre endringer",
 "EDIT"				=>	"Rediger",
 
-/* For: support.php */
+	/* 
+	 * For: support.php
+	 */
 "SETTINGS_UPDATED"	=>	"Dine innstillinger er oppdatert",
 "UNDO"				=>	"Angre",
 "SUPPORT"			=>	"Support",
@@ -130,7 +148,9 @@ $i18n = [
 "BTN_SAVESETTINGS"	=>	"Lagre innstillinger",
 "VIEW_FAILED_LOGIN"	=>	"Vis mislykkede innloggingsforsøk",
 
-/* For: log.php */
+	/* 
+	 * For: log.php
+	 */
 "MSG_HAS_BEEN_CLR"	=>	" er tømt",
 "LOGS"				=>	"Logger",
 "VIEWING"			=>	"Viser",
@@ -140,7 +160,9 @@ $i18n = [
 "LOG_FILE_ENTRY"	=>	"LOGGFILOPPFØRING",
 "THIS_COMPUTER"		=>	"Denne datamaskinen",
 
-/* For: backup-edit.php */
+	/* 
+	 * For: backup-edit.php
+	 */
 "BAK_MANAGEMENT"	=>	"Sikkerhetskopieringsadministrasjon",
 "ASK_CANCEL"		=>	"Avbryt", // 'c' er snarveistasten
 "ASK_RESTORE"		=>	"Gjenopprett", // 'r' er snarveistasten
@@ -152,27 +174,35 @@ $i18n = [
 "DATE"				=>	"Dato",
 "PERMS"				=>	"Rettigheter",
 
-/* For: components.php */
+	/* 
+	 * For: components.php
+	 */
 "COMPONENTS"		=>	"Komponenter",
 "DELETE_COMPONENT"	=>	"Slett komponent",
 "EDIT"				=>	"Rediger",
 "ADD_COMPONENT"		=>	"Legg til komponent", // 'a' er snarveistasten
 "SAVE_COMPONENTS"	=>	"Lagre komponenter",
 
-/* For: sitemap.php */
+	/* 
+	 * For: sitemap.php
+	 */
 "SITEMAP_CREATED"	=>	"Sitemap opprettet! Vi har også pinget 4 søkemotorer om oppdateringen",
 "SITEMAP_ERRORPING"	=>	"Sitemap opprettet, men det oppstod en feil ved pinging av en eller flere søkemotorer",
 "SITEMAP_ERROR"		=>	"Din sitemap kunne ikke genereres",
 "SITEMAP_WAIT"		=>	"<b>Vennligst vent:</b> Oppretter nettstedets sitemap",
 
-/* For: theme.php */
+	/* 
+	 * For: theme.php
+	 */
 "THEME_CHANGED"		=>	"Ditt tema er endret",
 "CHOOSE_THEME"		=>	"Velg ditt tema",
 "ACTIVATE_THEME"	=>	"Aktiver tema",
 "THEME_SCREENSHOT"	=>	"Skjermbilde av tema",
 "THEME_PATH"		=>	"Plassering av temamappe",
 
-/* For: resetpassword.php */
+	/* 
+	 * For: resetpassword.php
+	 */
 "RESET_PASSWORD"	=>	"Tilbakestill passord",
 "YOUR_NEW"			=>	"Ditt nye",
 "PASSWORD_IS"		=>	"passord er",
@@ -180,7 +210,9 @@ $i18n = [
 "MSG_PLEASE_EMAIL"	=>	"Vennligst skriv inn brukernavnet som er registrert på dette systemet, og et nytt passord vil bli sendt til e-postadressen.",
 "SEND_NEW_PWD"		=>	"Send nytt passord",
 
-/* For: settings.php */
+	/* 
+	 * For: settings.php
+	 */
 "GENERAL_SETTINGS"	=>	"Generelle innstillinger",
 "WEBSITE_SETTINGS"	=>	"Nettstedsinnstillinger",
 "LOCAL_TIMEZONE"	=>	"Lokal tidssone",
@@ -199,7 +231,9 @@ $i18n = [
 "FLUSHCACHE-SUCCESS" =>	"Cache tømt",
 "DISPLAY_NAME"		=>	"Et navn for offentlig visning som ikke er ditt brukernavn",
 
-/* For: health-check.php */
+	/* 
+	 * For: health-check.php
+	 */
 "WEB_HEALTH_CHECK"	=>	"Tilstandssjekk for nettsted",
 "VERSION"			=>	"Versjon",
 "UPG_NEEDED"		=>	"Oppgradering anbefales",
@@ -223,17 +257,39 @@ $i18n = [
 "DOWNLOAD"			=>	"Last ned",
 "WRITABLE"			=>	"Skrivbar",
 "NOT_WRITABLE"		=>	"Ikke skrivbar",
+	
+	# new to 3.3.23 Enhanced Security
+	"SECURITY"				=>	"Sikkerhet",
+	"HTACCESS_TEST_EXPLANATION"	=>	"Denne testen bekrefter at sensitive kataloger faktisk er beskyttet ved å forsøke å få tilgang til dem via HTTP. Dette sikrer at .htaccess-filene fungerer som de skal.",
+	"CRITICAL_SECURITY_RISK"	=>	"KRITISK SIKKERHETSRISIKO",
+	"CANNOT_VERIFY"			=>	"Kan ikke verifiseres",
+	"CANNOT_TEST"			=>	"Kan ikke testes",
+	"APPLICATION_LEVEL_PROTECTION"	=>	"Beskyttelse på applikasjonsnivå (index.php)",
+	"DEFENSE_IN_DEPTH" 		=>	"Forsvar i dybden",
+	"INDEX_PHP_EXPLANATION"	=>	"Disse beskyttelsesfilene gir sikkerhet på applikasjonsnivå som fungerer selv om .htaccess er deaktivert. Dette er ditt primære forsvar mot uautorisert tilgang.",
+	"INDEX_PHP_RECOMMENDATION"	=>	"Plasser index.php-beskyttelsesfiler i sensitive kataloger for forsvar i dybden",
+	"RECOMMENDATION"		=>	"Anbefaling",
+	"CRITICAL"				=>	"KRITISK",
+	"EFFECTIVENESS"			=>	"Effektivitet",
+	"PLACE_INDEX"			=>	"Plasser de medfølgende index.php-filene i",
+	"FILES_PROVIDE"			=>	"Disse filene gir forsvar i dybden selv om .htaccess feiler.",
 
-/* For: footer.php */
+	/* 
+	 * For: footer.php
+	 */
 "POWERED_BY"		=>	"Drevet av",
 
-/* For: backups.php */
+	/* 
+	 * For: backups.php
+	 */
 "PAGE_BACKUPS"		=>	"Sikkerhetskopier av side",
 "ASK_DELETE_ALL"	=>	"Slett alle",
 "DELETE_ALL_BAK"	=>	"Slett alle sikkerhetskopier?",
 "TOTAL_BACKUPS"		=>	"totalt antall sikkerhetskopier",
 
-/* For: archive.php */
+	/* 
+	 * For: archive.php
+	 */
 "SUCC_WEB_ARCHIVE"	=>	"Et arkiv av nettstedet ditt er opprettet",
 "SUCC_WEB_ARC_DEL"	=>	"Det valgte arkivet er slettet",
 "WEBSITE_ARCHIVES"	=>	"Nettstedsarkiver",
@@ -245,7 +301,9 @@ $i18n = [
 "DELETE_ARCHIVE"	=>	"Slett arkiv",
 "TOTAL_ARCHIVES"	=>	"totalt antall arkiver",
 
-/* For: include-nav.php */
+	/* 
+	 * For: include-nav.php
+	 */
 "WELCOME"			=>	"Velkommen", // brukt som 'Velkommen BRUKERNAVN!'
 "TAB_PAGES"			=>	"Sider",
 "TAB_FILES"			=>	"Filer",
@@ -256,37 +314,51 @@ $i18n = [
 "TAB_SUPPORT"		=>	"Support",
 "TAB_LOGOUT"		=>	"Logg ut",
 
-/* For: sidebar-files.php */
+	/* 
+	 * For: sidebar-files.php
+	 */
 "BROWSE_COMPUTER"	=>	"Bla gjennom datamaskinen din",
 "UPLOAD"			=>	"Last opp",
 
-/* For: sidebar-support.php */
+	/* 
+	 * For: sidebar-support.php
+	 */
 "SIDE_SUPPORT_LOG"	=>	"Support",
 "SIDE_HEALTH_CHK"	=>	"Tilstandssjekk for nettsted",
 "SIDE_DOCUMENTATION" =>	"Wiki-dokumentasjon",
 "SIDE_VIEW_LOG"		=>	"Vis logg",
 
-/* For: sidebar-theme.php */
+	/* 
+	 * For: sidebar-theme.php
+	 */
 "SIDE_VIEW_SITEMAP"	=>	"Vis sitemap",
 "SIDE_GEN_SITEMAP"	=>	"Generer sitemap",
 "SIDE_COMPONENTS"	=>	"Rediger komponenter",
 "SIDE_EDIT_THEME"	=>	"Rediger tema",
 "SIDE_CHOOSE_THEME"	=>	"Velg tema",
 
-/* For: sidebar-pages.php */
+	/* 
+	 * For: sidebar-pages.php
+	 */
 "SIDE_CREATE_NEW"	=>	"Opprett ny side",
 "SIDE_VIEW_PAGES"	=>	"Vis alle sider",
 
-/* For: sidebar-settings.php */
+	/* 
+	 * For: sidebar-settings.php
+	 */
 "SIDE_GEN_SETTINGS"	=>	"Generelle innstillinger",
 "SIDE_USER_PROFILE"	=>	"Brukerprofil",
 
-/* For: sidebar-backups.php */
+	/* 
+	 * For: sidebar-backups.php
+	 */
 "SIDE_VIEW_BAK"		=>	"Vis sikkerhetskopi av side",
 "SIDE_WEB_ARCHIVES"	=>	"Nettstedsarkiver",
 "SIDE_PAGE_BAK"		=>	"Sikkerhetskopier av side",
 
-/* For: error_checking.php */
+	/* 
+	 * For: error_checking.php
+	 */
 "ER_PWD_CHANGE"		=>	"Ikke glem å <a href=\"settings.php#profile\">endre passordet ditt</a> fra det tilfeldig genererte du har nå...",
 "ER_BAKUP_DELETED"	=>	"Sikkerhetskopien er slettet for <b>%s</b>",
 "ER_REQ_PROC_FAIL"	=>	"Den forespurte prosessen mislyktes",
@@ -304,11 +376,15 @@ $i18n = [
 "ER_COMPONENT_REST"	=>	"Dine komponenter er gjenopprettet",
 "ER_CANCELLED_FAIL"	=>	"<b>Avbrutt:</b> Denne oppdateringen er avbrutt",
 
-/* For: changedata.php */
+	/* 
+	 * For: changedata.php
+	 */
 "CANNOT_SAVE_EMPTY"	=>	"Du kan ikke lagre en side med en tom tittel",
 "META_DESC"			=>	"Meta-beskrivelse",
 
-/* For: template_functions.php */
+	/* 
+	 * For: template_functions.php
+	 */
 "FTYPE_COMPRESSED"	=>	"Komprimert", //en filtype
 "FTYPE_VECTOR"		=>	"Vektor", //en filtype
 "FTYPE_FLASH"		=>	"Flash", //en filtype
@@ -320,20 +396,28 @@ $i18n = [
 "FTYPE_MISC"		=>	"Diverse", //en filtype
 "IMAGES"			=>	"Bilder",
 
-/* For: login_functions.php */
+	/* 
+	 * For: login_functions.php
+	 */
 "FILL_IN_REQ_FIELD"	=>	"Vennligst fyll ut alle obligatoriske felt",
 "LOGIN_FAILED"		=>	"Innlogging mislyktes. Vennligst dobbeltsjekk brukernavn og passord",
 
-/* For: Date Format */
+	/* 
+	 * For: Date Format
+	 */
 "DATE_FORMAT"		=>	"d. M Y", //vennligst hold kort
 "DATE_AND_TIME_FORMAT"	=>	"d. F Y - H:i", //dato og tid
 
-/* For: support.php */
+	/* 
+	 * For: support.php
+	 */
 "WELCOME_MSG"		=>	"Takk for at du valgte GetSimple som ditt innholdsstyringssystem!",
 "WELCOME_P"			=>	"GetSimple gjør det så enkelt som mulig å administrere et nettsted med sitt førsteklasses brukergrensesnitt. Vi streber etter å holde systemet enkelt nok for alle å bruke, men likevel kraftig nok for en utvikler til å aktivere alle nødvendige funksjoner.</p><p><strong>Noen første steg som kan være nyttige:</strong></p>",
 "GETTING_STARTED"	=>	"Kom i gang",
 
-/* For: image.php */
+	/* 
+	 * For: image.php
+	 */
 "CURRENT_THUMBNAIL"	=>	"Nåværende miniatyrbilde",
 "RECREATE"			=>	"gjenopprett",
 "CREATE_ONE"		=>	"opprett ett",
@@ -349,7 +433,9 @@ $i18n = [
 "LINK_THUMBNAIL"	=>	"Lenke til miniatyrbilde",
 "HTML_THUMB_ORIG"	=>	"HTML for miniatyrbilde-til-bilde",
 
-/* For: plugins.php */
+	/* 
+	 * For: plugins.php
+	 */
 "PLUGINS_MANAGEMENT" =>	"Pluginadministrasjon",
 "PLUGINS_MANAGEMENT_INFO" =>	"Noen plugins kan kreve ytterligere js/css-skript for å fungere korrekt.<br>Sørg for at 'modernScript CE'-pluginen er aktivert og sjekk innstillingene.",
 "PLUGINS_INSTALLED"	=>	"plugins installert",
@@ -360,11 +446,13 @@ $i18n = [
 "PLUGIN_VER"		=>	"Versjon",
 "PLUGIN_UPDATED"	=>	"Plugin oppdatert",
 
-/****************
- * SIDEN Versjon 3.0
-*****************/
+	/***********************************************************************************
+	 * SINCE Version 3.0
+	***********************************************************************************/
 
-/* For: setup.php */
+	/* 
+	 * For: setup.php
+	 */
 "ROOT_HTACCESS_ERROR" =>	"Kunne ikke opprette .htaccess i root! Vennligst kopier <code>%s</code> til <code>.htaccess</code> og endre <code>%s</code> til <code>%s</code>",
 "REMOVE_TEMPCONFIG_ERROR" =>	"Kunne ikke fjerne <code>%s</code>! Vennligst gjør det manuelt.",
 "MOVE_TEMPCONFIG_ERROR" =>	"Kunne ikke omdøpe <code>%s</code> til <code>%s</code>! Vennligst gjør det manuelt.",
@@ -372,9 +460,10 @@ $i18n = [
 "REFRESH"			=>	"Oppdater",
 "BETA"				=>	"Beta / Siste nytt",
 
-/* Misc Cleanup Work */
-# new to 3.0
-
+	/*
+	 * Misc Cleanup Work
+	 */
+	# new to 3.0 
 "HOMEPAGE_DELETE_ERROR" =>	"Du kan ikke slette hjemmesiden din", //deletefile
 "NO_ZIPARCHIVE"		=>	"ZipArchive-utvidelsen er ikke installert. Kan ikke fortsette", //zip
 "REDIRECT_MSG"		=>	"Hvis nettleseren din ikke videresender deg, klikk <a href=\"%s\">her</a>", //basic
@@ -408,8 +497,7 @@ $i18n = [
 "ARCHIVE_DATE"		=>	"Arkivdato", //archive.php
 "CKEDITOR_LANG"		=>	"no", // edit.php ; sett CKEditor-språk, ikke glem å inkludere CKEditor-språkfil i oversettelses-zip
 
-# new to 3.1
-
+	# new to 3.1 
 "XML_INVALID"		=>	"Ugyldig XML", //template-functions.php
 "XML_VALID"			=>	"Gyldig XML",
 "UPDATE_AVAILABLE"	=>	"Oppdater til", //plugins.php
@@ -434,7 +522,9 @@ $i18n = [
 "MENU_MANAGER_DESC"	=>	"Dra og slipp menyelementene rundt til du har den rekkefølgen du ønsker, og klikk deretter på knappen <strong>'Lagre menyrekkefølge'</strong>.", //menu-manager.php
 "MENU_MANAGER_SUCCESS"	=>	"Den nye menyrekkefølgen er lagret", //menu-manager.php
 
-/* For: api related pages */
+	/* 
+	 * For: api related pages
+	 */
 "API_ERR_MISSINGPARAM"	=>	'parameterdata eksisterer ikke',
 "API_ERR_BADMETHOD"	=>	'metoden %s eksisterer ikke',
 "API_ERR_AUTHFAILED" =>	'autentisering mislyktes',
@@ -482,59 +572,63 @@ $i18n = [
 	"Add_hash_GSUSECUSTOMSALT" 	=> 'Legg til den nye hashen i \'GSUSECUSTOMSALT\'-feltet i gsconfig.php.',
 	"Clear_cookies" 		=> 'Slett informasjonskapsler.',
 
-/* Default transliteration */
-"TRANSLITERATION"	=>	[
-	// Roman
-	'á'=>'a', 'é'=>'e', 'í'=>'i', 'ó'=>'o', 'ú'=>'u',
-	'Á'=>'a', 'É'=>'e', 'Í'=>'i', 'Ó'=>'o', 'Ú'=>'u',
-	'à'=>'a', 'è'=>'e', 'ì'=>'i', 'ò'=>'o', 'ù'=>'u',
-	'À'=>'a', 'È'=>'e', 'Ì'=>'i', 'Ò'=>'o', 'Ù'=>'u',
-	'ä'=>'a', 'ë'=>'e', 'ï'=>'i', 'ö'=>'o', 'ü'=>'u',
-	'Ä'=>'a', 'Ë'=>'e', 'Ï'=>'i', 'Ö'=>'o', 'Ü'=>'u',
-	'â'=>'a', 'ê'=>'e', 'î'=>'i', 'ô'=>'o', 'û'=>'u',
-	'Â'=>'a', 'Ê'=>'e', 'Î'=>'i', 'Ô'=>'o', 'Û'=>'u',
-	'ñ'=>'n', 'ç'=>'c',
-	'Ñ'=>'n', 'Ç'=>'c',
-	'¿'=>'', '¡'=>'',
-	// special Czech chars with diacritics (except some)
-	"ě"=>"e","Ě"=>"E","š"=>"s","Š"=>"S","č"=>"c",
-	"Č"=>"c","ř"=>"r","Ř"=>"r","ž"=>"z","Ž"=>"z",
-	"ý"=>"y","Ý"=>"y",
-	"ů"=>"u","Ů"=>"u","ť"=>"t","Ť"=>"t",
-	"ď"=>"d","Ď"=>"d","ň"=>"n","Ň"=>"n",
-	//special Slovakian chars with diacritics (except some)
-	"ĺ"=>"l","ľ"=>"l","ŕ"=>"r", 
-	"Ĺ"=>"l","Ľ"=>"L","Ŕ"=>"r",
-	// Polish
-	"Ą"=>"a","Ć"=>"c","Ę"=>"e",
-	"Ł"=>"L","Ń"=>"n","Ó"=>"o",
-	"Ś"=>"s","Ź"=>"z","Ż"=>"z",
-	"ą"=>"a","ć"=>"c","ę"=>"e",
-	"ł"=>"l","ń"=>"n","ó"=>"o",
-	"ś"=>"s","ź"=>"z","ż"=>"z",
-	// Russian
-	"А"=>"a","Б"=>"b","В"=>"v",
-	"Г"=>"g","Д"=>"d","Е"=>"e","Ё"=>"yo","Ж"=>"zh",
-	"З"=>"z","И"=>"i","Й"=>"j","К"=>"k","Л"=>"l",
-	"М"=>"m","Н"=>"n","О"=>"o","П"=>"p","Р"=>"r",
-	"С"=>"s","Т"=>"t","У"=>"u","Ф"=>"f","Х"=>"h",
-	"Ц"=>"c","Ч"=>"ch","Ш"=>"sh","Щ"=>"shh","Ъ"=>"'",
-	"Ы"=>"y","Ь"=>"","Э"=>"e","Ю"=>"yu","Я"=>"ya",
-	"а"=>"a","б"=>"b","в"=>"v","г"=>"g","д"=>"d",
-	"е"=>"e","ё"=>"yo","ж"=>"zh","з"=>"z","и"=>"i",
-	"й"=>"j","к"=>"k","л"=>"l","м"=>"m","н"=>"n",
-	"о"=>"o","п"=>"p","р"=>"r","с"=>"s","т"=>"t",
-	"у"=>"u","ф"=>"f","х"=>"h","ц"=>"c","ч"=>"ch",
-	"ш"=>"sh","щ"=>"shh","ъ"=>"","ы"=>"y","ь"=>"",
-	"э"=>"e","ю"=>"yu","я"=>"ya",
-	// Scandinavian
-	"æ"=>"a","Æ"=>"a","å"=>"a","Å"=>"a","ä"=>"a","Ä"=>"a","ø"=>"a","Ø"=>"a","ö"=>"o","Ö"=>"o"
-],
+	/*
+	 * Default transliteration
+	 */
+	"TRANSLITERATION" 		=> [
+		// Roman
+		'á'=>'a', 'é'=>'e', 'í'=>'i', 'ó'=>'o', 'ú'=>'u',
+		'Á'=>'a', 'É'=>'e', 'Í'=>'i', 'Ó'=>'o', 'Ú'=>'u',
+		'à'=>'a', 'è'=>'e', 'ì'=>'i', 'ò'=>'o', 'ù'=>'u',
+		'À'=>'a', 'È'=>'e', 'Ì'=>'i', 'Ò'=>'o', 'Ù'=>'u',
+		'ä'=>'a', 'ë'=>'e', 'ï'=>'i', 'ö'=>'o', 'ü'=>'u',
+		'Ä'=>'a', 'Ë'=>'e', 'Ï'=>'i', 'Ö'=>'o', 'Ü'=>'u',
+		'â'=>'a', 'ê'=>'e', 'î'=>'i', 'ô'=>'o', 'û'=>'u',
+		'Â'=>'a', 'Ê'=>'e', 'Î'=>'i', 'Ô'=>'o', 'Û'=>'u',
+		'ñ'=>'n', 'ç'=>'c',
+		'Ñ'=>'n', 'Ç'=>'c',
+		'¿'=>'', '¡'=>'',
+		// special Czech chars with diacritics (except some)
+		"ě"=>"e","Ě"=>"E","š"=>"s","Š"=>"S","č"=>"c",
+		"Č"=>"c","ř"=>"r","Ř"=>"r","ž"=>"z","Ž"=>"z",
+		"ý"=>"y","Ý"=>"y",
+		"ů"=>"u","Ů"=>"u","ť"=>"t","Ť"=>"t",
+		"ď"=>"d","Ď"=>"d","ň"=>"n","Ň"=>"n",
+		//special Slovakian chars with diacritics (except some)
+		"ĺ"=>"l","ľ"=>"l","ŕ"=>"r", 
+		"Ĺ"=>"l","Ľ"=>"L","Ŕ"=>"r",
+		// Polish
+		"Ą"=>"a","Ć"=>"c","Ę"=>"e",
+		"Ł"=>"L","Ń"=>"n","Ó"=>"o",
+		"Ś"=>"s","Ź"=>"z","Ż"=>"z",
+		"ą"=>"a","ć"=>"c","ę"=>"e",
+		"ł"=>"l","ń"=>"n","ó"=>"o",
+		"ś"=>"s","ź"=>"z","ż"=>"z",
+		// Russian
+		"А"=>"a","Б"=>"b","В"=>"v",
+		"Г"=>"g","Д"=>"d","Е"=>"e","Ё"=>"yo","Ж"=>"zh",
+		"З"=>"z","И"=>"i","Й"=>"j","К"=>"k","Л"=>"l",
+		"М"=>"m","Н"=>"n","О"=>"o","П"=>"p","Р"=>"r",
+		"С"=>"s","Т"=>"t","У"=>"u","Ф"=>"f","Х"=>"h",
+		"Ц"=>"c","Ч"=>"ch","Ш"=>"sh","Щ"=>"shh","Ъ"=>"'",
+		"Ы"=>"y","Ь"=>"","Э"=>"e","Ю"=>"yu","Я"=>"ya",
+		"а"=>"a","б"=>"b","в"=>"v","г"=>"g","д"=>"d",
+		"е"=>"e","ё"=>"yo","ж"=>"zh","з"=>"z","и"=>"i",
+		"й"=>"j","к"=>"k","л"=>"l","м"=>"m","н"=>"n",
+		"о"=>"o","п"=>"p","р"=>"r","с"=>"s","т"=>"t",
+		"у"=>"u","ф"=>"f","х"=>"h","ц"=>"c","ч"=>"ch",
+		"ш"=>"sh","щ"=>"shh","ъ"=>"","ы"=>"y","ь"=>"",
+		"э"=>"e","ю"=>"yu","я"=>"ya",
+		// Scandinavian
+		"æ"=>"a","Æ"=>"a","å"=>"a","Å"=>"a","ä"=>"a","Ä"=>"a","ø"=>"a","Ø"=>"a","ö"=>"o","Ö"=>"o"
+	],
 
-"X"	=>	"not translated",
+	"X" 					=> "not translated",
 
-/* Additions for 3.1 */
-"DEBUG_CONSOLE"	=>	'Debug Console',
+	/*
+	 * Additions for 3.1
+	 */
+	"DEBUG_CONSOLE"			=>	"Debug Console",
 
 ];
 

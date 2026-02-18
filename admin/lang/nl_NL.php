@@ -4,9 +4,9 @@
  * Dutch Language File
  *
  * Date: 		2009.09.10
- * Revision:	2023.07.23
- * Version:		GetSimple 3.3.19 CE
- * Traductors: 	GS Community 
+ * Revision:	2026.02.14
+ * Version:		GetSimple 3.3.23 CE
+ * Translators: GS Team
  *
  * @package GetSimple
  * @subpackage Language
@@ -14,9 +14,9 @@
 
 $i18n = [
 
-    /* 
-     * For: install.php
-    */
+	/* 
+	 * For: install.php
+	 */
     'PHPVER_ERROR' => "<b>Voortgang is mislukt:</b> PHP 7.4 of hoger is benodigd, u hebt versie ",
     'SIMPLEXML_ERROR' => "<b>Voortgang is mislukt:</b> <em>SimpleXML</em> is niet ge&iuml;nstalleerd",
     'CURL_WARNING' => "<b>Waarschuwing:</b> <em>cURL</em> is niet ge&iuml;nstalleerd",
@@ -49,9 +49,9 @@ $i18n = [
     'SITE_UPDATED' => "Uw site is bijgewerkt",
     'SERVICE_UNAVAILABLE' => "Deze pagina is tijdelijk niet beschikbaar",
 
-    /* 
-     * For: pages.php
-    */
+	/* 
+	 * For: pages.php
+	 */
     'MENUITEM_SUBTITLE' => "Menu-item",
     'HOMEPAGE_SUBTITLE' => "Home-pagina",
     'PRIVATE_SUBTITLE' => "Priv&eacute;",
@@ -63,9 +63,9 @@ $i18n = [
     'TOTAL_PAGES' => "pagina('s) in totaal",
     'ALL_PAGES' => "Alle pagina's",
 
-    /* 
-     * For: edit.php
-    */
+	/* 
+	 * For: edit.php
+	 */
     'PAGE_NOTEXIST' => "De opgevraagde pagina bestaat niet",
     'BTN_SAVEPAGE' => "Sla pagina op",
     'BTN_SAVEUPDATES' => "Sla updates op",
@@ -95,9 +95,9 @@ $i18n = [
     'SAVE_AND_CLOSE' => "Opslaan &amp; Sluiten",
     'PAGE_UNSAVED' => "Nog niet opgeslagen wijzigingen",
 
-    /* 
-     * For: upload.php
-    */
+	/* 
+	 * For: upload.php
+	 */
     'ERROR_UPLOAD' => "Er is een probleem met het uploaden van uw bestand",
     'FILE_SUCCESS_MSG' => "Succes! Bestandslocatie ",
     'FILE_MANAGEMENT' => "Bestandsbeheer",
@@ -107,29 +107,29 @@ $i18n = [
     'DELETE_FILE' => "Verwijder bestand",
     'TOTAL_FILES' => "Totaal aantal bestanden",
 
-    /* 
-     * For: logout.php
-    */
+	/* 
+	 * For: logout.php
+	 */
     'MSG_LOGGEDOUT' => "U bent nu uitgelogd",
 
-    /* 
-     * For: index.php
-    */
+	/* 
+	 * For: index.php
+	 */
     'LOGIN' => "Login",
     'USERNAME' => "Gebruikersnaam",
     'PASSWORD' => "Wachtwoord",
     'FORGOT_PWD' => "Wachtwoord vergeten?",
     'CONTROL_PANEL' => "Controlepaneel",
 
-    /* 
-     * For: navigation.php
-    */
+	/* 
+	 * For: navigation.php
+	 */
     'CURRENT_MENU' => "Huidig menu",
     'NO_MENU_PAGES' => "Er zijn geen pagina's toegewezen aan het menu",
 
-    /* 
-     * For: theme-edit.php
-    */
+	/* 
+	 * For: theme-edit.php
+	 */
     'TEMPLATE_FILE' => "Templatebestand <b>%en</b> is bijgewerkt!",
     'THEME_MANAGEMENT' => "Themabeheer",
     'EDIT_THEME' => "Wijzig thema",
@@ -137,9 +137,9 @@ $i18n = [
     'BTN_SAVECHANGES' => "Bewaar wijzigingen",
     'EDIT' => "Wijzig",
 
-    /* 
-     * For: support.php
-    */
+	/* 
+	 * For: support.php
+	 */
     'SETTINGS_UPDATED' => "Uw instellingen zijn bijgewerkt",
     'UNDO' => "Ongedaan maken",
     'SUPPORT' => "Help",
@@ -148,10 +148,9 @@ $i18n = [
     'BTN_SAVESETTINGS' => "Bewaar voorkeuren",
     'VIEW_FAILED_LOGIN' => "Bekijk niet-geslaagde inlogpogingen",
 
-
-    /* 
-     * For: log.php
-    */
+	/* 
+	 * For: log.php
+	 */
     'MSG_HAS_BEEN_CLR' => " is geleegd",
     'LOGS' => "Logs",
     'VIEWING' => "Bekijken",
@@ -161,9 +160,9 @@ $i18n = [
     'LOG_FILE_ENTRY' => "LOGBESTAND-ITEM",
     'THIS_COMPUTER' => "Deze computer",
 
-    /* 
-     * For: backup-edit.php
-    */
+	/* 
+	 * For: backup-edit.php
+	 */
     'BAK_MANAGEMENT' => "Backup-beheer",
     'ASK_CANCEL' => "Cancel",
     'ASK_RESTORE' => "R<estore",
@@ -177,7 +176,7 @@ $i18n = [
 
 	/* 
 	 * For: components.php
-	*/
+	 */
     'COMPONENTS' => "Componenten",
     'DELETE_COMPONENT' => "Verwijder component",
 	"EDIT"					=>	"Edit",
@@ -186,24 +185,24 @@ $i18n = [
 
 	/* 
 	 * For: sitemap.php
-	*/
+	 */
     'SITEMAP_CREATED' => "Sitemap gecre&euml;erd! Tevens hebben we 4 zoekmachines ge<em>ping</em>d over de updates",
     'SITEMAP_ERRORPING' => "Sitemap gecre&euml;erd, hoewel er een fout optrad bij het pingen van 1 of meerdere zoekmachines!",
     'SITEMAP_ERROR' => "Het was niet mogelijk uw sitemap te genereren!",
     'SITEMAP_WAIT' => "<b>Wacht a.u.b.:</b>De Sitemap van uw website wordt gecre&euml;erd",
 
-    /* 
-     * For: theme.php
-    */
+	/* 
+	 * For: theme.php
+	 */
     'THEME_CHANGED' => "Uw thema is met succes gewijzigd",
     'CHOOSE_THEME' => "Kies uw thema",
     'ACTIVATE_THEME' => "Activeer thema",
     'THEME_SCREENSHOT' => "Thema-afbeelding",
     'THEME_PATH' => "Huidig themapad",
 
-    /* 
-     * For: resetpassword.php
-    */
+	/* 
+	 * For: resetpassword.php
+	 */
     'RESET_PASSWORD' => "Reset wachtwoord",
     'YOUR_NEW' => "Uw nieuwe",
     'PASSWORD_IS' => "wachtwoord is",
@@ -211,9 +210,9 @@ $i18n = [
     'MSG_PLEASE_EMAIL' => "Vul a.u.b. uw (in dit systeem geregistreerde) e-mailadres in. Een nieuw wachtwoord wordt dan verzonden naar dit e-mailadres.",
     'SEND_NEW_PWD' => "Verzend nieuw wachtwoord",
 
-    /* 
-     * For: settings.php
-    */
+	/* 
+	 * For: settings.php
+	 */
     'GENERAL_SETTINGS' => "Algemene voorkeuren",
     'WEBSITE_SETTINGS' => "Websitevoorkeuren",
     'LOCAL_TIMEZONE' => "Lokale tijdzone",
@@ -232,9 +231,9 @@ $i18n = [
     'FLUSHCACHE-SUCCESS' => "Alle caches succesvol geleegd",
     'DISPLAY_NAME' => "Openbaar weer te geven naam (NIET uw gebruikersnaam!)",
 
-    /* 
-     * For: health-check.php
-    */
+	/* 
+	 * For: health-check.php
+	 */
     'WEB_HEALTH_CHECK' => "Statuscontrole van de website",
     'VERSION' => "Versie",
     'UPG_NEEDED' => "Aanbevolen upgrade naar",
@@ -258,23 +257,39 @@ $i18n = [
     'DOWNLOAD' => "Download",
     'WRITABLE' => "Schrijfbaar",
     'NOT_WRITABLE' => "Niet schrijfbaar",
+	
+	# new to 3.3.23 Enhanced Security
+	"SECURITY"				=>	"Beveiliging",
+	"HTACCESS_TEST_EXPLANATION"	=>	"Deze test controleert of gevoelige mappen daadwerkelijk beschermd zijn door te proberen er via HTTP toegang toe te krijgen. Dit zorgt ervoor dat de .htaccess-bestanden correct functioneren.",
+	"CRITICAL_SECURITY_RISK"	=>	"KRITIEK BEVEILIGINGSRISICO",
+	"CANNOT_VERIFY"			=>	"Kan niet worden geverifieerd",
+	"CANNOT_TEST"			=>	"Kan niet worden getest",
+	"APPLICATION_LEVEL_PROTECTION"	=>	"Beveiliging op applicatieniveau (index.php)",
+	"DEFENSE_IN_DEPTH" 		=>	"Verdediging in de diepte",
+	"INDEX_PHP_EXPLANATION"	=>	"Deze beveiligingsbestanden bieden beveiliging op applicatieniveau die werkt, zelfs als .htaccess is uitgeschakeld. Dit is uw primaire verdediging tegen ongeautoriseerde toegang.",
+	"INDEX_PHP_RECOMMENDATION"	=>	"Plaats de index.php-beveiligingsbestanden in gevoelige mappen voor verdediging in de diepte",
+	"RECOMMENDATION"		=>	"Aanbeveling",
+	"CRITICAL"				=>	"KRITIEK",
+	"EFFECTIVENESS"			=>	"Effectiviteit",
+	"PLACE_INDEX"			=>	"Plaats de meegeleverde index.php-bestanden in",
+	"FILES_PROVIDE"			=>	"Deze bestanden bieden verdediging in de diepte, zelfs als .htaccess faalt.",
 
-    /* 
-     * For: footer.php
-    */
+	/* 
+	 * For: footer.php
+	 */
     'POWERED_BY' => "Draait op",
 
-    /* 
-     * For: backups.php
-    */
+	/* 
+	 * For: backups.php
+	 */
     'PAGE_BACKUPS' => "Pagina-backups",
     'ASK_DELETE_ALL' => "Verwijder alles",
     'DELETE_ALL_BAK' => "Verwijder alle backups?",
     'TOTAL_BACKUPS' => "Totaal aantal backups",
 
-    /* 
-     * For: archive.php
-    */
+	/* 
+	 * For: archive.php
+	 */
     'SUCC_WEB_ARCHIVE' => "Website met succes gearchiveerd",
     'SUCC_WEB_ARC_DEL' => "Website-archief met succes verwijderd",
     'WEBSITE_ARCHIVES' => "Website-archieven",
@@ -288,7 +303,7 @@ $i18n = [
 
 	/* 
 	 * For: include-nav.php
-	*/
+	 */
     'WELCOME' => "Welkom",
     'TAB_PAGES' => "Pagina's",
     'TAB_FILES' => "Bestanden",
@@ -299,51 +314,51 @@ $i18n = [
     'TAB_SUPPORT' => "Support",
     'TAB_LOGOUT' => "Uitloggen",
 
-    /* 
-     * For: sidebar-files.php
-    */
+	/* 
+	 * For: sidebar-files.php
+	 */
     'BROWSE_COMPUTER' => "Blader op uw computer",
     'UPLOAD' => "Upload",
 
-    /* 
-     * For: sidebar-support.php
-    */
+	/* 
+	 * For: sidebar-support.php
+	 */
     'SIDE_SUPPORT_LOG' => "Support",
     'SIDE_HEALTH_CHK' => "Statuscontrole van de website",
     'SIDE_DOCUMENTATION' => "Wiki-documentatie",
     'SIDE_VIEW_LOG' => "Bekijk logbestand",
 
-    /* 
-     * For: sidebar-theme.php
-    */
+	/* 
+	 * For: sidebar-theme.php
+	 */
     'SIDE_VIEW_SITEMAP' => "Bekijk Sitemap",
     'SIDE_GEN_SITEMAP' => "Genereer Sitemap",
     'SIDE_COMPONENTS' => "Wijzig Componenten",
     'SIDE_EDIT_THEME' => "Wijzig Thema",
     'SIDE_CHOOSE_THEME' => "Kies Thema",
 
-    /* 
-     * For: sidebar-pages.php
-    */
+	/* 
+	 * For: sidebar-pages.php
+	 */
     'SIDE_CREATE_NEW' => "Cre&euml;er een nieuwe pagina",
     'SIDE_VIEW_PAGES' => "Bekijk alle pagina's",
 
-    /* 
-     * For: sidebar-settings.php
-    */
+	/* 
+	 * For: sidebar-settings.php
+	 */
     'SIDE_GEN_SETTINGS' => "Algemene Instellingen",
     'SIDE_USER_PROFILE' => "Gebruikersprofiel",
 
-    /* 
-     * For: sidebar-backups.php
-    */
+	/* 
+	 * For: sidebar-backups.php
+	 */
     'SIDE_VIEW_BAK' => "Bekijk pagina-backup",
     'SIDE_WEB_ARCHIVES' => "Website-archieven",
     'SIDE_PAGE_BAK' => "Pagina-backups",
 
-    /* 
-     * For: error_checking.php
-    */
+	/* 
+	 * For: error_checking.php
+	 */
     'ER_PWD_CHANGE' => "Niet vergeten het huidige, willekeurig gegenereerde, wachtwoord <a href=\"settings.php#profile\">wachtwoord</a> te wijzigen ...",
     'ER_BAKUP_DELETED' => "De backup voor %s is verwijderd",
     'ER_REQ_PROC_FAIL' => "Het aangevraagde proces is mislukt",
@@ -361,15 +376,15 @@ $i18n = [
     'ER_COMPONENT_REST' => "Uw componenten zijn teruggezet",
     'ER_CANCELLED_FAIL' => "<b>Geannuleerd:</b> Deze update is geannuleerd",
 
-    /* 
-     * For: changedata.php
-    */
+	/* 
+	 * For: changedata.php
+	 */
     'CANNOT_SAVE_EMPTY' => "Een pagina zonder paginatitel opslaan is niet mogelijk",
     'META_DESC' => "Meta-beschrijving",
 
 	/* 
 	 * For: template_functions.php
-	*/
+	 */
     'FTYPE_COMPRESSED' => "Gecomprimeerd",
     'FTYPE_VECTOR' => "Vector",
     'FTYPE_FLASH' => "Flash",
@@ -383,26 +398,26 @@ $i18n = [
 
 	/* 
 	 * For: login_functions.php
-	*/
+	 */
     'FILL_IN_REQ_FIELD' => "Vul a.u.b. alle benodigde velden in",
     'LOGIN_FAILED' => "Inloggen is mislukt! Controleer uw gebruikersnaam en wachtwoord",
 
 	/* 
 	 * For: Date Format
-	*/
+	 */
     'DATE_FORMAT' => "j, m, Y",
     'DATE_AND_TIME_FORMAT' => "F jS, Y - g:i A",
 
 	/* 
 	 * For: support.php
-	*/
+	 */
     'WELCOME_MSG' => "Bedankt voor het kiezen van GetSimple als uw content-management-systeem!",
     'WELCOME_P' => "GetSimple maakt het beheren van een website zo eenvoudig mogelijk door zijn 'beste-van-de-klas'-gebruikersomgeving. Wij streven ernaar het systeem zowel eenvoudig als krachtig te houden, zodat het voor zowel de gebruiker als de ontwikkelaar geschikt is.</p><p><strong>Enkele eerste bruikbare stappen:</strong></p>",
     'GETTING_STARTED' => "De eerste stappen",
 
-    /* 
-     * For: image.php
-    */
+	/* 
+	 * For: image.php
+	 */
     'CURRENT_THUMBNAIL' => "Huidige Thumbnail",
     'RECREATE' => "maak opnieuw",
     'CREATE_ONE' => "maak er een",
@@ -418,9 +433,9 @@ $i18n = [
     'LINK_THUMBNAIL' => "Thumbnail Link",
     'HTML_THUMB_ORIG' => "Van Thumbnail-naar-Afb. HTML",
 
-    /* 
-     * For: plugins.php
-    */
+	/* 
+	 * For: plugins.php
+	 */
     'PLUGINS_MANAGEMENT' => "Plugin-beheer",
     "PLUGINS_MANAGEMENT_INFO"	=> "Voor sommige plug-ins zijn aanvullende js/css-scripts nodig om correct te kunnen functioneren.<br>Zorg ervoor dat de plug-in 'modernScript CE' is ingeschakeld en controleer de instellingen.",
     'PLUGINS_INSTALLED' => "plugins ge&iuml;nstalleerd",
@@ -507,10 +522,9 @@ $i18n = [
     'MENU_MANAGER_DESC' => "Versleep (Drag-and-drop) de menu-items totdat de gewenste volgorde is bereikt. Klik vervolgens op <strong>'Menu-itemvolgorde opslaan'</strong>.",
     'MENU_MANAGER_SUCCESS' => "De nieuwe menu-itemvolgorde is opgeslagen",
 
-
-    /* 
-     * For: api related pages
-     */
+	/* 
+	 * For: api related pages
+	 */
     'API_ERR_MISSINGPARAM' => "Parameter bestaat niet",
     'API_ERR_BADMETHOD' => "Methode %s bestaat niet",
     'API_ERR_AUTHFAILED' => "Authenticatie is mislukt",
@@ -558,10 +572,10 @@ $i18n = [
 	"Add_hash_GSUSECUSTOMSALT" 	=> 'Voeg de nieuwe hash toe aan uw \'GSUSECUSTOMSALT\'-veld in gsconfig.php.',
 	"Clear_cookies" 		=> 'Cookies wissen.',
 
-    /*
-     * Default transliteration
-     */
-    "TRANSLITERATION" 		=> [
+	/*
+	 * Default transliteration
+	 */
+	"TRANSLITERATION" 		=> [
 		// Roman
 		'á'=>'a', 'é'=>'e', 'í'=>'i', 'ó'=>'o', 'ú'=>'u',
 		'Á'=>'a', 'É'=>'e', 'Í'=>'i', 'Ó'=>'o', 'Ú'=>'u',
@@ -607,14 +621,14 @@ $i18n = [
 		"э"=>"e","ю"=>"yu","я"=>"ya",
 		// Scandinavian
 		"æ"=>"a","Æ"=>"a","å"=>"a","Å"=>"a","ä"=>"a","Ä"=>"a","ø"=>"a","Ø"=>"a","ö"=>"o","Ö"=>"o"
-],
+	],
 
 	"X" 					=> "not translated",
 
 	/*
 	 * Additions for 3.1
 	 */
-	"DEBUG_CONSOLE" 		=> 'Debug Console',
+	"DEBUG_CONSOLE"			=>	"Debug Console",
 
 ];
 

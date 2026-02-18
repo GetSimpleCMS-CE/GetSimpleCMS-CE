@@ -4,9 +4,9 @@
  * Russian GetSimple CMS
  *
  * Date: 		2023.07.22
- * Revision:	2023.07.23
- * Version:		GetSimple 3.3.19 CE
- * Traductors: 	GS Community 
+ * Revision:	2026.02.14
+ * Version:		GetSimple 3.3.23 CE
+ * Translators: GS Team 
  *
  * @package GetSimple
  * @subpackage Language
@@ -14,9 +14,9 @@
 
 $i18n = [
 
-/* 
- * For: install.php
-*/
+	/* 
+	 * For: install.php
+	 */
 "PHPVER_ERROR"			=>	"<b>Невозможно продолжить:</b> требуется PHP версии 7.4 или выше, у Вас ",
 "SIMPLEXML_ERROR"		=>	"<b>Невозможно продолжить:</b> SimpleXML не установлен",
 "CURL_WARNING"			=>	"<b>Предупреждение:</b> cURL не установлен",
@@ -49,9 +49,9 @@ $i18n = [
 "SITE_UPDATED" 			=>   	"Ваш сайт был обновлен",
 "SERVICE_UNAVAILABLE"		=>	"Эта страница временно недоступна",
 
-/* 
- * For: pages.php
-*/
+	/* 
+	 * For: pages.php
+	 */
 "MENUITEM_SUBTITLE"		=>	"пункт меню",
 "HOMEPAGE_SUBTITLE"		=>	"начальная страница",
 "PRIVATE_SUBTITLE"		=>	"Приватная",
@@ -63,9 +63,9 @@ $i18n = [
 "TOTAL_PAGES"			=>	"(кол-во страниц)",
 "ALL_PAGES"			=>	"Все страницы",
 
-/* 
- * For: edit.php
-*/
+	/* 
+	 * For: edit.php
+	 */
 "PAGE_NOTEXIST"			=>	"Запрашиваемой страницы не существует",
 "BTN_SAVEPAGE"			=>	"Сохранить страницу",
 "BTN_SAVEUPDATES"		=>	"Сохранить изменения",
@@ -95,9 +95,9 @@ $i18n = [
 "SAVE_AND_CLOSE"		=> 	"Сохранить и закрыть",
 "PAGE_UNSAVED"			=>	"Страница содержит несохраненные изменения",
 
-/* 
- * For: upload.php
-*/
+	/* 
+	 * For: upload.php
+	 */
 "ERROR_UPLOAD"			=>	"Проблема с загрузкой файлов",
 "FILE_SUCCESS_MSG"		=>	"Файл успешно размещен в",
 "FILE_MANAGEMENT"		=>	"Каталог файлов",
@@ -107,29 +107,29 @@ $i18n = [
 "DELETE_FILE"			=>	"Удалить файл",
 "TOTAL_FILES"			=>	"(кол-во файлов)",
 
-/* 
- * For: logout.php
-*/
+	/* 
+	 * For: logout.php
+	 */
 "MSG_LOGGEDOUT"			=>	"Вы вышли",
 
-/* 
- * For: index.php
-*/
+	/* 
+	 * For: index.php
+	 */
 "LOGIN"				=>	"Войти",
 "USERNAME"			=>	"Имя",
 "PASSWORD"			=>	"Пароль",
 "FORGOT_PWD"			=>	"Забыли пароль?",
 "CONTROL_PANEL"			=>	"Панель управления",
 
-/* 
- * For: navigation.php
-*/
+	/* 
+	 * For: navigation.php
+	 */
 "CURRENT_MENU" 			=> 	"Меню сайта",
 "NO_MENU_PAGES" 		=> 	"Ни одна страница не была добавлена в главное меню",
 
-/* 
- * For: theme-edit.php
-*/
+	/* 
+	 * For: theme-edit.php
+	 */
 "TEMPLATE_FILE" 		=> 	"Шаблон <b>%s</b> был успешно изменен!",
 "THEME_MANAGEMENT" 		=> 	"Управление темами",
 "EDIT_THEME" 			=> 	"Редактировать тему",
@@ -137,9 +137,9 @@ $i18n = [
 "BTN_SAVECHANGES" 		=> 	"Сохранить",
 "EDIT" 					=> 	"Редактировать",
 
-/* 
- * For: support.php
-*/
+	/* 
+	 * For: support.php
+	 */
 "SETTINGS_UPDATED"		=> 	"Настройки обновлены",
 "UNDO" 				=> 	"Отменить",
 "SUPPORT" 			=> 	"Поддержка",
@@ -149,9 +149,9 @@ $i18n = [
 "VIEW_FAILED_LOGIN"		=> 	"Просмотреть ошибки авторизации",
 
 
-/* 
- * For: log.php
-*/
+	/* 
+	 * For: log.php
+	 */
 "MSG_HAS_BEEN_CLR" 		=> 	"был очищен",
 "LOGS" 				=> 	"событий",
 "VIEWING" 			=> 	"Просмотр",
@@ -161,9 +161,9 @@ $i18n = [
 "LOG_FILE_ENTRY" 		=> 	"ЗАПИСЬ ЛОГ ФАЙЛА",
 "THIS_COMPUTER"			=>	"Данный компьютер",
 
-/* 
- * For: backup-edit.php
-*/
+	/* 
+	 * For: backup-edit.php
+	 */
 "BAK_MANAGEMENT"		=>	"Управление бэкапом",
 "ASK_CANCEL"			=>	"Отменить",
 "ASK_RESTORE"			=>	"Восстановить",
@@ -175,35 +175,35 @@ $i18n = [
 "DATE"				=>	"Дата",
 "PERMS"				=>  	"Перманент",
 
-/* 
- * For: components.php
-*/
+	/* 
+	 * For: components.php
+	 */
 "COMPONENTS"			=>	"Компоненты",
 "DELETE_COMPONENT"		=>	"Удалить",
 "EDIT"				=>	"Редактировать",
 "ADD_COMPONENT"			=>	"Добавить",
 "SAVE_COMPONENTS"		=>	"Сохранить",
 
-/* 
- * For: sitemap.php
-*/
+	/* 
+	 * For: sitemap.php
+	 */
 "SITEMAP_CREATED"		=>	"Карта сайта создана! Мы так же успешно пинговали 4 поисковика",
 "SITEMAP_ERRORPING"		=>	"Карта сайта создана, но произошла ошибка с пингом одного или более поисковиков",
 "SITEMAP_ERROR"			=>	"Карта сайта не может быть сгенерирована",
 "SITEMAP_WAIT"			=>	"<b>Подождите:</b> Создается карта сайта",
 
-/* 
- * For: theme.php
-*/
+	/* 
+	 * For: theme.php
+	 */
 "THEME_CHANGED"			=>	"Новая тема активирована!",
 "CHOOSE_THEME"			=>	"Управление темами",
 "ACTIVATE_THEME"		=>	"Активировать тему",
 "THEME_SCREENSHOT"		=>	"Скриншот",
 "THEME_PATH"			=>	"Файлы этой темы расположены в",
 
-/* 
- * For: resetpassword.php
-*/
+	/* 
+	 * For: resetpassword.php
+	 */
 "RESET_PASSWORD"		=>	"Восстановление пароля",
 "YOUR_NEW"			=>	"Ваш новый",
 "PASSWORD_IS"			=>	"пароль",
@@ -211,9 +211,9 @@ $i18n = [
 "MSG_PLEASE_EMAIL"		=>	"Пожалуйста, введите свой логин и Вам будет отправлен новый пароль",
 "SEND_NEW_PWD"			=>	"Отправить",
 
-/* 
- * For: settings.php
-*/
+	/* 
+	 * For: settings.php
+	 */
 "GENERAL_SETTINGS"		=>	"Настройки системы",
 "WEBSITE_SETTINGS"		=>	"Настройки сайта",
 "LOCAL_TIMEZONE"		=>	"Часовой пояс",
@@ -232,9 +232,9 @@ $i18n = [
 "FLUSHCACHE-SUCCESS"		=>  "Кэш успешно очищен",
 "DISPLAY_NAME"			=>  "Имя для публичного показа, не ваш логин",
 
-/* 
- * For: health-check.php
-*/
+	/* 
+	 * For: health-check.php
+	 */
 "WEB_HEALTH_CHECK"		=>	"Проверка работоспособности",
 "VERSION"			=>	"версия",
 "UPG_NEEDED"			=>	"Обновите до",
@@ -258,23 +258,39 @@ $i18n = [
 "DOWNLOAD"			=>	"Скачать",
 "WRITABLE"			=>	"Перезаписываемый",
 "NOT_WRITABLE"			=>	"Неперезаписываемый",
+	
+	# new to 3.3.23 Enhanced Security
+	"SECURITY"				=>	"Безопасность",
+	"HTACCESS_TEST_EXPLANATION"	=>	"Этот тест проверяет, действительно ли защищены конфиденциальные каталоги, пытаясь получить к ним доступ через HTTP. Это гарантирует, что файлы .htaccess работают корректно.",
+	"CRITICAL_SECURITY_RISK"	=>	"КРИТИЧЕСКИЙ РИСК БЕЗОПАСНОСТИ",
+	"CANNOT_VERIFY"			=>	"Невозможно проверить",
+	"CANNOT_TEST"			=>	"Невозможно протестировать",
+	"APPLICATION_LEVEL_PROTECTION"	=>	"Защита на уровне приложения (index.php)",
+	"DEFENSE_IN_DEPTH" 		=>	"Многоуровневая защита",
+	"INDEX_PHP_EXPLANATION"	=>	"Эти файлы защиты обеспечивают безопасность на уровне приложения, которая работает даже если .htaccess отключён. Это ваша основная защита от несанкционированного доступа.",
+	"INDEX_PHP_RECOMMENDATION"	=>	"Разместите файлы защиты index.php в конфиденциальных каталогах для обеспечения многоуровневой защиты",
+	"RECOMMENDATION"		=>	"Рекомендация",
+	"CRITICAL"				=>	"КРИТИЧЕСКИЙ",
+	"EFFECTIVENESS"			=>	"Эффективность",
+	"PLACE_INDEX"			=>	"Разместите предоставленные файлы index.php в",
+	"FILES_PROVIDE"			=>	"Эти файлы обеспечивают многоуровневую защиту даже в случае сбоя .htaccess.",
 
-/* 
- * For: footer.php
-*/
+	/* 
+	 * For: footer.php
+	 */
 "POWERED_BY"			=>	"Работает на",
 
-/* 
- * For: backups.php
-*/
+	/* 
+	 * For: backups.php
+	 */
 "PAGE_BACKUPS"			=>	"Сохраненные страницы",
 "ASK_DELETE_ALL"		=>	"Удалить все",
 "DELETE_ALL_BAK"		=>	"Удалить все резервные копии?",
 "TOTAL_BACKUPS"			=>	"(кол-во резервных копий)",
 
-/* 
- * For: archive.php
-*/
+	/* 
+	 * For: archive.php
+	 */
 "SUCC_WEB_ARCHIVE"		=>	"Сайт архивирован!",
 "SUCC_WEB_ARC_DEL"		=>	"Архив сайта успешно удален",
 "WEBSITE_ARCHIVES"		=>	"Архивы сайта",
@@ -286,9 +302,9 @@ $i18n = [
 "DELETE_ARCHIVE"		=>	"Удалить архив",
 "TOTAL_ARCHIVES"		=>	"(кол-во архивов)",
 
-/* 
- * For: include-nav.php
-*/
+	/* 
+	 * For: include-nav.php
+	 */
 "WELCOME"			=>	"Здравствуйте",
 "TAB_PAGES"			=>	"Страницы",
 "TAB_FILES"			=>	"Файлы",
@@ -299,51 +315,51 @@ $i18n = [
 "TAB_SUPPORT"			=>	"Поддержка",
 "TAB_LOGOUT"			=>	"Выйти",
 
-/* 
- * For: sidebar-files.php
-*/
+	/* 
+	 * For: sidebar-files.php
+	 */
 "BROWSE_COMPUTER"		=>	"Загрузить файл",
 "UPLOAD"			=>	"Загрузить",
 
-/* 
- * For: sidebar-support.php
-*/
+	/* 
+	 * For: sidebar-support.php
+	 */
 "SIDE_SUPPORT_LOG"		=>	"Настройки и логи",
 "SIDE_HEALTH_CHK"		=>	"Информация о сайте",
 "SIDE_DOCUMENTATION"		=>	"Документация",
 "SIDE_VIEW_LOG"			=>	"Просмотр логов",
 
-/* 
- * For: sidebar-theme.php
-*/
+	/* 
+	 * For: sidebar-theme.php
+	 */
 "SIDE_VIEW_SITEMAP"		=>	"Просмотр карты сайта",
 "SIDE_GEN_SITEMAP"		=>	"Сгенерировать карту сайта",
 "SIDE_COMPONENTS"		=>	"Редактировать компоненты",
 "SIDE_EDIT_THEME"		=>	"Редактировать тему",
 "SIDE_CHOOSE_THEME"		=>	"Выбрать тему",
 
-/* 
- * For: sidebar-pages.php
-*/
+	/* 
+	 * For: sidebar-pages.php
+	 */
 "SIDE_CREATE_NEW"		=>	"Создать новую страницу",
 "SIDE_VIEW_PAGES"		=>	"Просмотр cтраниц",
 
-/* 
- * For: sidebar-settings.php
-*/
+	/* 
+	 * For: sidebar-settings.php
+	 */
 "SIDE_GEN_SETTINGS"		=>	"Настройки системы",
 "SIDE_USER_PROFILE"		=>	"Профиль пользователя",
 
-/* 
- * For: sidebar-backups.php
-*/
+	/* 
+	 * For: sidebar-backups.php
+	 */
 "SIDE_VIEW_BAK"			=>	"Просмотр бэкапов страниц",
 "SIDE_WEB_ARCHIVES"		=>	"Архивы сайта",
 "SIDE_PAGE_BAK"			=>	"Бэкап страниц",
 
-/* 
- * For: error_checking.php
-*/
+	/* 
+	 * For: error_checking.php
+	 */
 "ER_PWD_CHANGE"			=>	"Не забудьте <a href=\"settings.php#profile\">сменить сгенерированный пароль</a>!",
 "ER_BAKUP_DELETED"		=>	"Бэкап %s был удален",
 "ER_REQ_PROC_FAIL"		=>	"Ошибка запрашиваемого процесса",
@@ -361,15 +377,15 @@ $i18n = [
 "ER_COMPONENT_REST"		=>	"Компоненты были восстановлены",
 "ER_CANCELLED_FAIL"		=>	"<b>Отменено:</b> Обновление этого файла было отменено",
 
-/* 
- * For: changedata.php
-*/
+	/* 
+	 * For: changedata.php
+	 */
 "CANNOT_SAVE_EMPTY"		=>	"Невозможно сохранить пустую страницу",
 "META_DESC" 			=>  "Мета описание",
 
-/* 
- * For: template_functions.php
-*/
+	/* 
+	 * For: template_functions.php
+	 */
 "FTYPE_COMPRESSED"		=>	"Сжатые",
 "FTYPE_VECTOR"			=>	"Векторные",
 "FTYPE_FLASH"			=>	"Флэш",
@@ -381,28 +397,28 @@ $i18n = [
 "FTYPE_MISC"			=>	"Разное",
 "IMAGES"			=>	"Изображения",
 
-/* 
- * For: login_functions.php
-*/
+	/* 
+	 * For: login_functions.php
+	 */
 "FILL_IN_REQ_FIELD"		=>	"Пожалуйста заполните все обязательные поля",
 "LOGIN_FAILED"			=>	"Не удалось авторизироваться. Пожалуйста проверьте имя пользователя и пароль",
 
-/* 
- * For: Date Format
-*/
+	/* 
+	 * For: Date Format
+	 */
 "DATE_FORMAT"			=>	"d.m.Y", //please keep short
 "DATE_AND_TIME_FORMAT"		=>	"d.m.Y - G:i ", //date and time
 
-/* 
- * For: support.php
-*/
+	/* 
+	 * For: support.php
+	 */
 "WELCOME_MSG"			=>	"Благодарим Вас за использование GetSimple CMS!",
 "WELCOME_P"			=>	"GetSimple CMS &mdash; с помощью этой системы Вы сможете легко управлять Вашим сайтом благодаря простому, интуитивно понятному интерфейсу и легкой шаблонной системе.",
 "GETTING_STARTED"		=>	"Первые шаги",
 
-/* 
- * For: image.php
-*/
+	/* 
+	 * For: image.php
+	 */
 "CURRENT_THUMBNAIL" 		=>  "Миниатюра",
 "RECREATE" 			=>  "создать заново",
 "CREATE_ONE" 			=>  "Создать миниатюру",
@@ -418,9 +434,9 @@ $i18n = [
 "LINK_THUMBNAIL" 		=>  "Ссылка на миниатюру",
 "HTML_THUMB_ORIG" 		=>  "HTML код миниатюры-изображения",
 
-/* 
- * For: plugins.php
-*/
+	/* 
+	 * For: plugins.php
+	 */
 "PLUGINS_MANAGEMENT"		=>  "Установленные плагины",
 "PLUGINS_MANAGEMENT_INFO"	=> "Для корректной работы некоторых плагинов требуются дополнительные скрипты js/css.<br>Убедитесь, что плагин 'modernScript CE' включен, и проверьте настройки.",
 "PLUGINS_INSTALLED" 		=>  "(кол-во плагинов)",
@@ -431,13 +447,13 @@ $i18n = [
 "PLUGIN_VER" 			=>  "Версия",
 "PLUGIN_UPDATED"		=> "Плагин обновлен",
 
-/***********************************************************************************
- * SINCE Version 3.0
-***********************************************************************************/
+	/***********************************************************************************
+	 * SINCE Version 3.0
+	***********************************************************************************/
 
-/* 
- * For: setup.php
- */
+	/* 
+	 * For: setup.php
+	 */
 "ROOT_HTACCESS_ERROR" 		=> "Не удалось создать .htaccess в корне сайта! Пожалуйста скопируйте <b>%s</b> файл <b>.htaccess</b> и поменяйте <code>%s</code> на <code>%s</code>",
 "REMOVE_TEMPCONFIG_ERROR" 	=> "Не удалось удалить <b>%s</b>! Пожалуйста, сделайте это вручную.",
 "MOVE_TEMPCONFIG_ERROR" 	=> "Не удалось переименовать <b>%s</b> to <b>%s</b>! Не удалось переименовать.",
@@ -445,9 +461,9 @@ $i18n = [
 "REFRESH" 			=> "Обновить",
 "BETA"				=> "Beta / Bleeding Edge",
 
-/*
- * Misc Cleanup Work
- */
+	/*
+	 * Misc Cleanup Work
+	 */
 	# new to 3.0 
 "HOMEPAGE_DELETE_ERROR" 	=> "Вы не можете удалить главную страницу", //deletefile
 "NO_ZIPARCHIVE" 		=> "ZipArchive расширение не установлено. Невозможно продолжать", //zip
@@ -482,7 +498,7 @@ $i18n = [
 "ARCHIVE_DATE" 			=> "Архив", //archive.php
 "CKEDITOR_LANG" 		=> "ru",
 
-# new to 3.1 
+	# new to 3.1 
 "XML_INVALID" 			=> "Недопустимый XML", //template-functions.php
 "XML_VALID" 			=> "Действительный XML",
 "UPDATE_AVAILABLE"		=> "Обновите до ", //plugins.php
@@ -508,9 +524,9 @@ $i18n = [
 "MENU_MANAGER_SUCCESS" 		=> "Порядок пунктов меню сохранен.", //menu-manager.php
 
 
-/* 
- * For: api related pages
- */
+	/* 
+	 * For: api related pages
+	 */
 "API_ERR_MISSINGPARAM" 		=> 'данного параметра не существует',
 "API_ERR_BADMETHOD" 		=> 'метод %s не существует',
 "API_ERR_AUTHFAILED" 		=> 'Ошибка проверки подлинности',
@@ -558,10 +574,10 @@ $i18n = [
 	"Add_hash_GSUSECUSTOMSALT" 	=> 'Добавьте новый хеш в поле \'GSUSECUSTOMSALT\' в gsconfig.php.',
 	"Clear_cookies" 		=> 'Очистить куки.',
 
-    /*
-     * Default transliteration
-     */
-    "TRANSLITERATION" 		=> [
+	/*
+	 * Default transliteration
+	 */
+	"TRANSLITERATION" 		=> [
 		// Roman
 		'á'=>'a', 'é'=>'e', 'í'=>'i', 'ó'=>'o', 'ú'=>'u',
 		'Á'=>'a', 'É'=>'e', 'Í'=>'i', 'Ó'=>'o', 'Ú'=>'u',
@@ -585,35 +601,36 @@ $i18n = [
 		"Ĺ"=>"l","Ľ"=>"L","Ŕ"=>"r",
 		// Polish
 		"Ą"=>"a","Ć"=>"c","Ę"=>"e",
-		"Ł"=>"L","Ń"=>"N","Ó"=>"O",
+		"Ł"=>"L","Ń"=>"n","Ó"=>"o",
 		"Ś"=>"s","Ź"=>"z","Ż"=>"z",
 		"ą"=>"a","ć"=>"c","ę"=>"e",
 		"ł"=>"l","ń"=>"n","ó"=>"o",
 		"ś"=>"s","ź"=>"z","ż"=>"z",
 		// Russian
-  "А"=>"a","Б"=>"b","В"=>"v",
-	"Г"=>"g","Д"=>"d","Е"=>"e","Ё"=>"yo","Ж"=>"zh",
-	"З"=>"z","И"=>"i","Й"=>"j","К"=>"k","Л"=>"l",
-	"М"=>"m","Н"=>"n","О"=>"o","П"=>"p","Р"=>"r",
-	"С"=>"s","Т"=>"t","У"=>"u","Ф"=>"f","Х"=>"h",
-	"Ц"=>"c","Ч"=>"ch","Ш"=>"sh","Щ"=>"shh","Ъ"=>"'",
-	"Ы"=>"y","Ь"=>"","Э"=>"e","Ю"=>"yu","Я"=>"ya",
-	"а"=>"a","б"=>"b","в"=>"v","г"=>"g","д"=>"d",
-	"е"=>"e","ё"=>"yo","ж"=>"zh","з"=>"z","и"=>"i",
-	"й"=>"j","к"=>"k","л"=>"l","м"=>"m","н"=>"n",
-	"о"=>"o","п"=>"p","р"=>"r","с"=>"s","т"=>"t",
-	"у"=>"u","ф"=>"f","х"=>"h","ц"=>"c","ч"=>"ch",
-	"ш"=>"sh","щ"=>"shh","ъ"=>"","ы"=>"y","ь"=>"",
-
-		"э"=>"e","ю"=>"yu","я"=>"ya"
+		"А"=>"a","Б"=>"b","В"=>"v",
+		"Г"=>"g","Д"=>"d","Е"=>"e","Ё"=>"yo","Ж"=>"zh",
+		"З"=>"z","И"=>"i","Й"=>"j","К"=>"k","Л"=>"l",
+		"М"=>"m","Н"=>"n","О"=>"o","П"=>"p","Р"=>"r",
+		"С"=>"s","Т"=>"t","У"=>"u","Ф"=>"f","Х"=>"h",
+		"Ц"=>"c","Ч"=>"ch","Ш"=>"sh","Щ"=>"shh","Ъ"=>"'",
+		"Ы"=>"y","Ь"=>"","Э"=>"e","Ю"=>"yu","Я"=>"ya",
+		"а"=>"a","б"=>"b","в"=>"v","г"=>"g","д"=>"d",
+		"е"=>"e","ё"=>"yo","ж"=>"zh","з"=>"z","и"=>"i",
+		"й"=>"j","к"=>"k","л"=>"l","м"=>"m","н"=>"n",
+		"о"=>"o","п"=>"p","р"=>"r","с"=>"s","т"=>"t",
+		"у"=>"u","ф"=>"f","х"=>"h","ц"=>"c","ч"=>"ch",
+		"ш"=>"sh","щ"=>"shh","ъ"=>"","ы"=>"y","ь"=>"",
+		"э"=>"e","ю"=>"yu","я"=>"ya",
+		// Scandinavian
+		"æ"=>"a","Æ"=>"a","å"=>"a","Å"=>"a","ä"=>"a","Ä"=>"a","ø"=>"a","Ø"=>"a","ö"=>"o","Ö"=>"o"
 	],
 
-"X" 				=>  "не переведено",
+	"X" 				=>  "не переведено",
 
-/*
- * Additions for 3.1
- */
-"DEBUG_CONSOLE" 		=> 'Консоль ошибок'
+	/*
+	 * Additions for 3.1
+	 */
+	"DEBUG_CONSOLE" 		=> 'Консоль ошибок'
 
 ];
 

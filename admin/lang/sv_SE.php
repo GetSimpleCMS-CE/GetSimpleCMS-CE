@@ -1,20 +1,22 @@
 <?php
 
 /**
-* Swedish Language File
-*
-* Date:	2025.05.05
-* Revision:	2025.05.06
-* Version:	GetSimple 3.3.21 CE
-* Traductors:	Thomasgrumpy
-*
-* @package GetSimple
-* @subpackage Language
-*/
+ * Swedish Language File
+ *
+ * Date:		2025.05.05
+ * Revision:	2026.02.14
+ * Version:		GetSimple 3.3.23 CE
+ * Translators:	Thomasgrumpy, GS Team
+ *
+ * @package GetSimple
+ * @subpackage Language
+ */
 
 $i18n = [
 
-/* For: install.php */
+	/* 
+	 * For: install.php
+	 */
 "PHPVER_ERROR"	=>	"<b>Kan inte fortsätta:</b> PHP 7.4 eller högre krävs, du har ",
 "SIMPLEXML_ERROR"	=>	"<b>Kan inte fortsätta:</b> <em>SimpleXML</em> är inte installerat",
 "CURL_WARNING"	=>	"<b>Varning:</b> <em>cURL</em> är inte installerat",
@@ -47,7 +49,9 @@ $i18n = [
 "SITE_UPDATED"	=>	"Din webbplats har uppdaterats",
 "SERVICE_UNAVAILABLE"	=>	"Denna sida är tillfälligt otillgänglig",
 
-/* For: pages.php */
+	/* 
+	 * For: pages.php
+	 */
 "MENUITEM_SUBTITLE"	=>	"menyalternativ",
 "HOMEPAGE_SUBTITLE"	=>	"startsida",
 "PRIVATE_SUBTITLE"	=>	"privat",
@@ -59,7 +63,9 @@ $i18n = [
 "TOTAL_PAGES"	=>	"totalt antal sidor",
 "ALL_PAGES"	=>	"Sidor",
 
-/* For: edit.php */
+	/* 
+	 * For: edit.php
+	 */
 "PAGE_NOTEXIST"	=>	"Den begärda sidan existerar inte",
 "BTN_SAVEPAGE"	=>	"Spara sida",
 "BTN_SAVEUPDATES"	=>	"Spara uppdateringar",
@@ -89,7 +95,9 @@ $i18n = [
 "SAVE_AND_CLOSE"	=>	"Spara och stäng",
 "PAGE_UNSAVED"	=>	"Sidan har osparade ändringar",
 
-/* For: upload.php */
+	/* 
+	 * For: upload.php
+	 */
 "ERROR_UPLOAD"	=>	"Ett problem uppstod vid filuppladdningen",
 "FILE_SUCCESS_MSG"	=>	"Lyckades! Filens placering",
 "FILE_MANAGEMENT"	=>	"Filhantering",
@@ -99,21 +107,29 @@ $i18n = [
 "DELETE_FILE"	=>	"Radera fil",
 "TOTAL_FILES"	=>	"totalt antal filer och mappar",
 
-/* For: logout.php */
+	/* 
+	 * For: logout.php
+	 */
 "MSG_LOGGEDOUT"	=>	"Du är nu utloggad.",
 
-/* For: index.php */
+	/* 
+	 * For: index.php
+	 */
 "LOGIN"	=>	"Logga in",
 "USERNAME"	=>	"Användarnamn",
 "PASSWORD"	=>	"Lösenord",
 "FORGOT_PWD"	=>	"Glömt lösenord?",
 "CONTROL_PANEL"	=>	"Kontrollpanelinloggning",
 
-/* For: navigation.php */
+	/* 
+	 * For: navigation.php
+	 */
 "CURRENT_MENU"	=>	"Aktuell meny",
 "NO_MENU_PAGES"	=>	"Det finns inga sidor som är inställda att visas i huvudmenyn",
 
-/* For: theme-edit.php */
+	/* 
+	 * For: theme-edit.php
+	 */
 "TEMPLATE_FILE"	=>	"Mallfilen <b>%s</b> har uppdaterats!",
 "THEME_MANAGEMENT"	=>	"Temahantering",
 "EDIT_THEME"	=>	"Temaredigering",
@@ -121,7 +137,9 @@ $i18n = [
 "BTN_SAVECHANGES"	=>	"Spara ändringar",
 "EDIT"	=>	"Redigera",
 
-/* For: support.php */
+	/* 
+	 * For: support.php
+	 */
 "SETTINGS_UPDATED"	=>	"Dina inställningar har uppdaterats",
 "UNDO"	=>	"Ångra",
 "SUPPORT"	=>	"Support",
@@ -130,7 +148,9 @@ $i18n = [
 "BTN_SAVESETTINGS"	=>	"Spara inställningar",
 "VIEW_FAILED_LOGIN"	=>	"Visa misslyckade inloggningsförsök",
 
-/* For: log.php */
+	/* 
+	 * For: log.php
+	 */
 "MSG_HAS_BEEN_CLR"	=>	" har rensats",
 "LOGS"	=>	"Loggar",
 "VIEWING"	=>	"Visar",
@@ -140,7 +160,9 @@ $i18n = [
 "LOG_FILE_ENTRY"	=>	"LOGGFILPOST",
 "THIS_COMPUTER"	=>	"Denna dator",
 
-/* For: backup-edit.php */
+	/* 
+	 * For: backup-edit.php
+	 */
 "BAK_MANAGEMENT"	=>	"Hantering av säkerhetskopior",
 "ASK_CANCEL"	=>	"Avbryt", // 'c' är snabbtangenten
 "ASK_RESTORE"	=>	"Återställ", // 'r' är snabbtangenten
@@ -152,27 +174,35 @@ $i18n = [
 "DATE"	=>	"Datum",
 "PERMS"	=>	"Behörigheter",
 
-/* For: components.php */
+	/* 
+	 * For: components.php
+	 */
 "COMPONENTS"	=>	"Komponenter",
 "DELETE_COMPONENT"	=>	"Radera komponent",
 "EDIT"	=>	"Redigera",
 "ADD_COMPONENT"	=>	"Lägg till komponent", // 'a' är snabbtangenten
 "SAVE_COMPONENTS"	=>	"Spara komponenter",
 
-/* For: sitemap.php */
+	/* 
+	 * For: sitemap.php
+	 */
 "SITEMAP_CREATED"	=>	"Webbplatskarta skapad! Vi har också pingat 4 sökmotorer om uppdateringen",
 "SITEMAP_ERRORPING"	=>	"Webbplatskarta skapad, men ett fel uppstod vid pingning av en eller flera sökmotorer",
 "SITEMAP_ERROR"	=>	"Din webbplatskarta kunde inte genereras",
 "SITEMAP_WAIT"	=>	"<b>Vänligen vänta:</b> Skapar webbplatsens karta",
 
-/* For: theme.php */
+	/* 
+	 * For: theme.php
+	 */
 "THEME_CHANGED"	=>	"Ditt tema har ändrats",
 "CHOOSE_THEME"	=>	"Välj ditt tema",
 "ACTIVATE_THEME"	=>	"Aktivera tema",
 "THEME_SCREENSHOT"	=>	"Skärmbild av tema",
 "THEME_PATH"	=>	"Temamappens sökväg",
 
-/* For: resetpassword.php */
+	/* 
+	 * For: resetpassword.php
+	 */
 "RESET_PASSWORD"	=>	"Återställ lösenord",
 "YOUR_NEW"	=>	"Ditt nya",
 "PASSWORD_IS"	=>	"lösenord är",
@@ -180,7 +210,9 @@ $i18n = [
 "MSG_PLEASE_EMAIL"	=>	"Vänligen ange det användarnamn som är registrerat på detta system, och ett nytt lösenord kommer att skickas till e-postadressen.",
 "SEND_NEW_PWD"	=>	"Skicka nytt lösenord",
 
-/* For: settings.php */
+	/* 
+	 * For: settings.php
+	 */
 "GENERAL_SETTINGS"	=>	"Allmänna inställningar",
 "WEBSITE_SETTINGS"	=>	"Webbplatsinställningar",
 "LOCAL_TIMEZONE"	=>	"Lokal tidszon",
@@ -199,7 +231,9 @@ $i18n = [
 "FLUSHCACHE-SUCCESS"	=>	"Cache tömd",
 "DISPLAY_NAME"	=>	"Ett namn för offentlig visning som inte är ditt användarnamn",
 
-/* For: health-check.php */
+	/* 
+	 * For: health-check.php
+	 */
 "WEB_HEALTH_CHECK"	=>	"Webbplatsens hälsokontroll",
 "VERSION"	=>	"Version",
 "UPG_NEEDED"	=>	"Uppgradering rekommenderas",
@@ -223,17 +257,39 @@ $i18n = [
 "DOWNLOAD"	=>	"Ladda ner",
 "WRITABLE"	=>	"Skrivbar",
 "NOT_WRITABLE"	=>	"Inte skrivbar",
+	
+	# new to 3.3.23 Enhanced Security
+	"SECURITY"				=>	"Säkerhet",
+	"HTACCESS_TEST_EXPLANATION"	=>	"Detta test verifierar att känsliga kataloger faktiskt är skyddade genom att försöka komma åt dem via HTTP. Detta säkerställer att .htaccess-filerna fungerar korrekt.",
+	"CRITICAL_SECURITY_RISK"	=>	"KRITISK SÄKERHETSRISK",
+	"CANNOT_VERIFY"			=>	"Kan inte verifieras",
+	"CANNOT_TEST"			=>	"Kan inte testas",
+	"APPLICATION_LEVEL_PROTECTION"	=>	"Skydd på applikationsnivå (index.php)",
+	"DEFENSE_IN_DEPTH" 		=>	"Försvar på djupet",
+	"INDEX_PHP_EXPLANATION"	=>	"Dessa skyddsfiler ger säkerhet på applikationsnivå som fungerar även om .htaccess är inaktiverat. Detta är ditt primära skydd mot obehörig åtkomst.",
+	"INDEX_PHP_RECOMMENDATION"	=>	"Placera skyddsfilerna index.php i känsliga kataloger för försvar på djupet",
+	"RECOMMENDATION"		=>	"Rekommendation",
+	"CRITICAL"				=>	"KRITISK",
+	"EFFECTIVENESS"			=>	"Effektivitet",
+	"PLACE_INDEX"			=>	"Placera de medföljande index.php-filerna i",
+	"FILES_PROVIDE"			=>	"Dessa filer ger försvar på djupet även om .htaccess misslyckas.",
 
-/* For: footer.php */
+	/* 
+	 * For: footer.php
+	 */
 "POWERED_BY"	=>	"Drivs av",
 
-/* For: backups.php */
+	/* 
+	 * For: backups.php
+	 */
 "PAGE_BACKUPS"	=>	"Säkerhetskopior av sida",
 "ASK_DELETE_ALL"	=>	"Radera alla",
 "DELETE_ALL_BAK"	=>	"Radera alla säkerhetskopior?",
 "TOTAL_BACKUPS"	=>	"totalt antal säkerhetskopior",
 
-/* For: archive.php */
+	/* 
+	 * For: archive.php
+	 */
 "SUCC_WEB_ARCHIVE"	=>	"Ett arkiv av din webbplats har skapats",
 "SUCC_WEB_ARC_DEL"	=>	"Det valda arkivet har raderats",
 "WEBSITE_ARCHIVES"	=>	"Webbplatsarkiv",
@@ -245,7 +301,9 @@ $i18n = [
 "DELETE_ARCHIVE"	=>	"Radera arkiv",
 "TOTAL_ARCHIVES"	=>	"totalt antal arkiv",
 
-/* For: include-nav.php */
+	/* 
+	 * For: include-nav.php
+	 */
 "WELCOME"	=>	"Välkommen", // används som 'Välkommen ANVÄNDARNAMN!'
 "TAB_PAGES"	=>	"Sidor",
 "TAB_FILES"	=>	"Filer",
@@ -256,37 +314,51 @@ $i18n = [
 "TAB_SUPPORT"	=>	"Support",
 "TAB_LOGOUT"	=>	"Logga ut",
 
-/* For: sidebar-files.php */
+	/* 
+	 * For: sidebar-files.php
+	 */
 "BROWSE_COMPUTER"	=>	"Bläddra på din dator",
 "UPLOAD"	=>	"Ladda upp",
 
-/* For: sidebar-support.php */
+	/* 
+	 * For: sidebar-support.php
+	 */
 "SIDE_SUPPORT_LOG"	=>	"Support",
 "SIDE_HEALTH_CHK"	=>	"Webbplatsens hälsokontroll",
 "SIDE_DOCUMENTATION"	=>	"Wiki-dokumentation",
 "SIDE_VIEW_LOG"	=>	"Visa logg",
 
-/* For: sidebar-theme.php */
+	/* 
+	 * For: sidebar-theme.php
+	 */
 "SIDE_VIEW_SITEMAP"	=>	"Visa webbplatskarta",
 "SIDE_GEN_SITEMAP"	=>	"Generera webbplatskarta",
 "SIDE_COMPONENTS"	=>	"Redigera komponenter",
 "SIDE_EDIT_THEME"	=>	"Redigera tema",
 "SIDE_CHOOSE_THEME"	=>	"Välj tema",
 
-/* For: sidebar-pages.php */
+	/* 
+	 * For: sidebar-pages.php
+	 */
 "SIDE_CREATE_NEW"	=>	"Skapa ny sida",
 "SIDE_VIEW_PAGES"	=>	"Visa alla sidor",
 
-/* For: sidebar-settings.php */
+	/* 
+	 * For: sidebar-settings.php
+	 */
 "SIDE_GEN_SETTINGS"	=>	"Allmänna inställningar",
 "SIDE_USER_PROFILE"	=>	"Användarprofil",
 
-/* For: sidebar-backups.php */
+	/* 
+	 * For: sidebar-backups.php
+	 */
 "SIDE_VIEW_BAK"	=>	"Visa säkerhetskopia av sida",
 "SIDE_WEB_ARCHIVES"	=>	"Webbplatsarkiv",
 "SIDE_PAGE_BAK"	=>	"Säkerhetskopior av sida",
 
-/* For: error_checking.php */
+	/* 
+	 * For: error_checking.php
+	 */
 "ER_PWD_CHANGE"	=>	"Glöm inte att <a href=\"settings.php#profile\">ändra ditt lösenord</a> från det slumpmässigt genererade du nu har...",
 "ER_BAKUP_DELETED"	=>	"Säkerhetskopian har raderats för <b>%s</b>",
 "ER_REQ_PROC_FAIL"	=>	"Den begärda processen misslyckades",
@@ -304,11 +376,15 @@ $i18n = [
 "ER_COMPONENT_REST"	=>	"Dina komponenter har återställts",
 "ER_CANCELLED_FAIL"	=>	"<b>Avbruten:</b> Denna uppdatering har avbrutits",
 
-/* For: changedata.php */
+	/* 
+	 * For: changedata.php
+	 */
 "CANNOT_SAVE_EMPTY"	=>	"Du kan inte spara en sida med en tom titel",
 "META_DESC"	=>	"Meta-beskrivning",
 
-/* For: template_functions.php */
+	/* 
+	 * For: template_functions.php
+	 */
 "FTYPE_COMPRESSED"	=>	"Komprimerad", //en filtyp
 "FTYPE_VECTOR"	=>	"Vektor", //en filtyp
 "FTYPE_FLASH"	=>	"Flash", //en filtyp
@@ -320,20 +396,28 @@ $i18n = [
 "FTYPE_MISC"	=>	"Övrigt", //en filtyp
 "IMAGES"	=>	"Bilder",
 
-/* For: login_functions.php */
+	/* 
+	 * For: login_functions.php
+	 */
 "FILL_IN_REQ_FIELD"	=>	"Vänligen fyll i alla obligatoriska fält",
 "LOGIN_FAILED"	=>	"Inloggning misslyckades. Vänligen dubbelkolla användarnamn och lösenord",
 
-/* For: Date Format */
+	/* 
+	 * For: Date Format
+	 */
 "DATE_FORMAT"	=>	"d. M Y", //vänligen håll kort
 "DATE_AND_TIME_FORMAT"	=>	"d. F Y - H:i", //datum och tid
 
-/* For: support.php */
+	/* 
+	 * For: support.php
+	 */
 "WELCOME_MSG"	=>	"Tack för att du valde GetSimple som ditt innehållshanteringssystem!",
 "WELCOME_P"	=>	"GetSimple gör det så enkelt som möjligt att hantera en webbplats med sitt förstklassiga användargränssnitt. Vi strävar efter att hålla systemet tillräckligt enkelt för alla att använda, men ändå kraftfullt nog för en utvecklare att aktivera alla nödvändiga funktioner.</p><p><strong>Några första steg som kan vara användbara:</strong></p>",
 "GETTING_STARTED"	=>	"Kom igång",
 
-/* For: image.php */
+	/* 
+	 * For: image.php
+	 */
 "CURRENT_THUMBNAIL"	=>	"Nuvarande miniatyrbild",
 "RECREATE"	=>	"återskapa",
 "CREATE_ONE"	=>	"skapa en",
@@ -349,7 +433,9 @@ $i18n = [
 "LINK_THUMBNAIL"	=>	"Länk till miniatyrbild",
 "HTML_THUMB_ORIG"	=>	"HTML för miniatyrbild-till-bild",
 
-/* For: plugins.php */
+	/* 
+	 * For: plugins.php
+	 */
 "PLUGINS_MANAGEMENT"	=>	"Pluginhantering",
 "PLUGINS_MANAGEMENT_INFO"	=>	"Vissa plugins kan kräva ytterligare js/css-skript för att fungera korrekt.<br>Se till att 'modernScript CE'-pluginet är aktiverat och kontrollera inställningarna.",
 "PLUGINS_INSTALLED"	=>	"plugins installerade",
@@ -360,11 +446,13 @@ $i18n = [
 "PLUGIN_VER"	=>	"Version",
 "PLUGIN_UPDATED"	=>	"Plugin uppdaterad",
 
-/****************
- * SIDEN Versjon 3.0
-*****************/
+	/***********************************************************************************
+	 * SINCE Version 3.0
+	***********************************************************************************/
 
-/* For: setup.php */
+	/* 
+	 * For: setup.php
+	 */
 "ROOT_HTACCESS_ERROR"	=>	"Kunde inte skapa .htaccess i root! Vänligen kopiera <code>%s</code> till <code>.htaccess</code> och ändra <code>%s</code> till <code>%s</code>",
 "REMOVE_TEMPCONFIG_ERROR" =>	"Kunde inte ta bort <code>%s</code>! Vänligen gör det manuellt.",
 "MOVE_TEMPCONFIG_ERROR" =>	"Kunde inte döpa om <code>%s</code> till <code>%s</code>! Vänligen gör det manuellt.",
@@ -372,9 +460,10 @@ $i18n = [
 "REFRESH"	=>	"Uppdatera",
 "BETA"	=>	"Beta / Senaste nytt",
 
-/* Misc Cleanup Work */
-# new to 3.0
-
+	/*
+	 * Misc Cleanup Work
+	 */
+	# new to 3.0 
 "HOMEPAGE_DELETE_ERROR" =>	"Du kan inte radera din startsida", //deletefile
 "NO_ZIPARCHIVE"	=>	"ZipArchive-utvidgningen är inte installerad. Kan inte fortsätta", //zip
 "REDIRECT_MSG"	=>	"Om din webbläsare inte omdirigerar dig, klicka <a href=\"%s\">här</a>", //basic
@@ -408,8 +497,7 @@ $i18n = [
 "ARCHIVE_DATE"	=>	"Arkivdatum", //archive.php
 "CKEDITOR_LANG"	=>	"sv", // edit.php ; ange CKEditor-språk, glöm inte att inkludera CKEditor-språkfil i översättnings-zip
 
-# new to 3.1
-
+	# new to 3.1 
 "XML_INVALID"	=>	"Ogiltig XML", //template-functions.php
 "XML_VALID"	=>	"Giltig XML",
 "UPDATE_AVAILABLE"	=>	"Uppdatera till", //plugins.php
@@ -434,7 +522,9 @@ $i18n = [
 "MENU_MANAGER_DESC"	=>	"Dra och släpp menyalternativen tills du har den ordning du önskar, och klicka sedan på knappen <strong>'Spara menyordning'</strong>.", //menu-manager.php
 "MENU_MANAGER_SUCCESS"	=>	"Den nya menyordningen har sparats", //menu-manager.php
 
-/* For: api related pages */
+	/* 
+	 * For: api related pages
+	 */
 "API_ERR_MISSINGPARAM"	=>	'parameterdata saknas',
 "API_ERR_BADMETHOD"	=>	'metoden %s existerar inte',
 "API_ERR_AUTHFAILED"	=>	'autentisering misslyckades',
@@ -482,59 +572,63 @@ $i18n = [
 	"Add_hash_GSUSECUSTOMSALT" 	=> 'Lägg till den nya hashen i ditt \'GSUSECUSTOMSALT\'-fält i gsconfig.php.',
 	"Clear_cookies" 		=> 'Rensa kakor.',
 
-/* Default transliteration */
-"TRANSLITERATION"	=>	[
-	// Roman
-	'á'=>'a', 'é'=>'e', 'í'=>'i', 'ó'=>'o', 'ú'=>'u',
-	'Á'=>'a', 'É'=>'e', 'Í'=>'i', 'Ó'=>'o', 'Ú'=>'u',
-	'à'=>'a', 'è'=>'e', 'ì'=>'i', 'ò'=>'o', 'ù'=>'u',
-	'À'=>'a', 'È'=>'e', 'Ì'=>'i', 'Ò'=>'o', 'Ù'=>'u',
-	'ä'=>'a', 'ë'=>'e', 'ï'=>'i', 'ö'=>'o', 'ü'=>'u',
-	'Ä'=>'a', 'Ë'=>'e', 'Ï'=>'i', 'Ö'=>'o', 'Ü'=>'u',
-	'â'=>'a', 'ê'=>'e', 'î'=>'i', 'ô'=>'o', 'û'=>'u',
-	'Â'=>'a', 'Ê'=>'e', 'Î'=>'i', 'Ô'=>'o', 'Û'=>'u',
-	'ñ'=>'n', 'ç'=>'c',
-	'Ñ'=>'n', 'Ç'=>'c',
-	'¿'=>'', '¡'=>'',
-	// special Czech chars with diacritics (except some)
-	"ě"=>"e","Ě"=>"E","š"=>"s","Š"=>"S","č"=>"c",
-	"Č"=>"c","ř"=>"r","Ř"=>"r","ž"=>"z","Ž"=>"z",
-	"ý"=>"y","Ý"=>"y",
-	"ů"=>"u","Ů"=>"u","ť"=>"t","Ť"=>"t",
-	"ď"=>"d","Ď"=>"d","ň"=>"n","Ň"=>"n",
-	//special Slovakian chars with diacritics (except some)
-	"ĺ"=>"l","ľ"=>"l","ŕ"=>"r", 
-	"Ĺ"=>"l","Ľ"=>"L","Ŕ"=>"r",
-	// Polish
-	"Ą"=>"a","Ć"=>"c","Ę"=>"e",
-	"Ł"=>"L","Ń"=>"n","Ó"=>"o",
-	"Ś"=>"s","Ź"=>"z","Ż"=>"z",
-	"ą"=>"a","ć"=>"c","ę"=>"e",
-	"ł"=>"l","ń"=>"n","ó"=>"o",
-	"ś"=>"s","ź"=>"z","ż"=>"z",
-	// Russian
-	"А"=>"a","Б"=>"b","В"=>"v",
-	"Г"=>"g","Д"=>"d","Е"=>"e","Ё"=>"yo","Ж"=>"zh",
-	"З"=>"z","И"=>"i","Й"=>"j","К"=>"k","Л"=>"l",
-	"М"=>"m","Н"=>"n","О"=>"o","П"=>"p","Р"=>"r",
-	"С"=>"s","Т"=>"t","У"=>"u","Ф"=>"f","Х"=>"h",
-	"Ц"=>"c","Ч"=>"ch","Ш"=>"sh","Щ"=>"shh","Ъ"=>"'",
-	"Ы"=>"y","Ь"=>"","Э"=>"e","Ю"=>"yu","Я"=>"ya",
-	"а"=>"a","б"=>"b","в"=>"v","г"=>"g","д"=>"d",
-	"е"=>"e","ё"=>"yo","ж"=>"zh","з"=>"z","и"=>"i",
-	"й"=>"j","к"=>"k","л"=>"l","м"=>"m","н"=>"n",
-	"о"=>"o","п"=>"p","р"=>"r","с"=>"s","т"=>"t",
-	"у"=>"u","ф"=>"f","х"=>"h","ц"=>"c","ч"=>"ch",
-	"ш"=>"sh","щ"=>"shh","ъ"=>"","ы"=>"y","ь"=>"",
-	"э"=>"e","ю"=>"yu","я"=>"ya",
-	// Scandinavian
-	"æ"=>"a","Æ"=>"a","å"=>"a","Å"=>"a","ä"=>"a","Ä"=>"a","ø"=>"a","Ø"=>"a","ö"=>"o","Ö"=>"o"
-],
+	/*
+	 * Default transliteration
+	 */
+	"TRANSLITERATION" 		=> [
+		// Roman
+		'á'=>'a', 'é'=>'e', 'í'=>'i', 'ó'=>'o', 'ú'=>'u',
+		'Á'=>'a', 'É'=>'e', 'Í'=>'i', 'Ó'=>'o', 'Ú'=>'u',
+		'à'=>'a', 'è'=>'e', 'ì'=>'i', 'ò'=>'o', 'ù'=>'u',
+		'À'=>'a', 'È'=>'e', 'Ì'=>'i', 'Ò'=>'o', 'Ù'=>'u',
+		'ä'=>'a', 'ë'=>'e', 'ï'=>'i', 'ö'=>'o', 'ü'=>'u',
+		'Ä'=>'a', 'Ë'=>'e', 'Ï'=>'i', 'Ö'=>'o', 'Ü'=>'u',
+		'â'=>'a', 'ê'=>'e', 'î'=>'i', 'ô'=>'o', 'û'=>'u',
+		'Â'=>'a', 'Ê'=>'e', 'Î'=>'i', 'Ô'=>'o', 'Û'=>'u',
+		'ñ'=>'n', 'ç'=>'c',
+		'Ñ'=>'n', 'Ç'=>'c',
+		'¿'=>'', '¡'=>'',
+		// special Czech chars with diacritics (except some)
+		"ě"=>"e","Ě"=>"E","š"=>"s","Š"=>"S","č"=>"c",
+		"Č"=>"c","ř"=>"r","Ř"=>"r","ž"=>"z","Ž"=>"z",
+		"ý"=>"y","Ý"=>"y",
+		"ů"=>"u","Ů"=>"u","ť"=>"t","Ť"=>"t",
+		"ď"=>"d","Ď"=>"d","ň"=>"n","Ň"=>"n",
+		//special Slovakian chars with diacritics (except some)
+		"ĺ"=>"l","ľ"=>"l","ŕ"=>"r", 
+		"Ĺ"=>"l","Ľ"=>"L","Ŕ"=>"r",
+		// Polish
+		"Ą"=>"a","Ć"=>"c","Ę"=>"e",
+		"Ł"=>"L","Ń"=>"n","Ó"=>"o",
+		"Ś"=>"s","Ź"=>"z","Ż"=>"z",
+		"ą"=>"a","ć"=>"c","ę"=>"e",
+		"ł"=>"l","ń"=>"n","ó"=>"o",
+		"ś"=>"s","ź"=>"z","ż"=>"z",
+		// Russian
+		"А"=>"a","Б"=>"b","В"=>"v",
+		"Г"=>"g","Д"=>"d","Е"=>"e","Ё"=>"yo","Ж"=>"zh",
+		"З"=>"z","И"=>"i","Й"=>"j","К"=>"k","Л"=>"l",
+		"М"=>"m","Н"=>"n","О"=>"o","П"=>"p","Р"=>"r",
+		"С"=>"s","Т"=>"t","У"=>"u","Ф"=>"f","Х"=>"h",
+		"Ц"=>"c","Ч"=>"ch","Ш"=>"sh","Щ"=>"shh","Ъ"=>"'",
+		"Ы"=>"y","Ь"=>"","Э"=>"e","Ю"=>"yu","Я"=>"ya",
+		"а"=>"a","б"=>"b","в"=>"v","г"=>"g","д"=>"d",
+		"е"=>"e","ё"=>"yo","ж"=>"zh","з"=>"z","и"=>"i",
+		"й"=>"j","к"=>"k","л"=>"l","м"=>"m","н"=>"n",
+		"о"=>"o","п"=>"p","р"=>"r","с"=>"s","т"=>"t",
+		"у"=>"u","ф"=>"f","х"=>"h","ц"=>"c","ч"=>"ch",
+		"ш"=>"sh","щ"=>"shh","ъ"=>"","ы"=>"y","ь"=>"",
+		"э"=>"e","ю"=>"yu","я"=>"ya",
+		// Scandinavian
+		"æ"=>"a","Æ"=>"a","å"=>"a","Å"=>"a","ä"=>"a","Ä"=>"a","ø"=>"a","Ø"=>"a","ö"=>"o","Ö"=>"o"
+	],
 
-"X"	=>	"not translated",
+	"X" 					=> "not translated",
 
-/* Additions for 3.1 */
-"DEBUG_CONSOLE"	=>	'Debug Console',
+	/*
+	 * Additions for 3.1
+	 */
+	"DEBUG_CONSOLE"			=>	"Debug Console",
 
 ];
 

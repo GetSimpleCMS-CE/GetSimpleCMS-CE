@@ -4,9 +4,9 @@
  * Portuguese (Portugal) Language File
  *
  * Date: 		2015.05.12
- * Revision:	2023.07.23
- * Version:		GetSimple 3.3.19 CE
- * Traductors: 	GS Community 
+ * Revision:	2026.02.14
+ * Version:		GetSimple 3.3.23 CE
+ * Translators: GS Team
  *
  * @package GetSimple
  * @subpackage Language
@@ -14,9 +14,9 @@
 
 $i18n = [
 
-/* 
- * For: install.php
-*/
+	/* 
+	 * For: install.php
+	 */
     'PHPVER_ERROR' => "<b>Não é possível continuar:</b> É necessário PHP 7.4 ou superior, versão disponível ",
     'SIMPLEXML_ERROR' => "<b>Não é possível continuar:</b> O <em>SimpleXML</em> não está instalado",
     'CURL_WARNING' => "<b>Aviso:</b> O <em>cURL</em> não está instalado",
@@ -49,9 +49,9 @@ $i18n = [
     'SITE_UPDATED' => "O seu site foi atualizado",
     'SERVICE_UNAVAILABLE' => "Esta página temporariamente indisponível",
 
-    /* 
-     * For: pages.php
-    */
+	/* 
+	 * For: pages.php
+	 */
     'MENUITEM_SUBTITLE' => "item de menu",
     'HOMEPAGE_SUBTITLE' => "início",
     'PRIVATE_SUBTITLE' => "privada",
@@ -63,9 +63,9 @@ $i18n = [
     'TOTAL_PAGES' => "páginas no total",
     'ALL_PAGES' => "Todas as Páginas",
 
-    /* 
-     * For: edit.php
-    */
+	/* 
+	 * For: edit.php
+	 */
     'PAGE_NOTEXIST' => "A página pedida não existe",
     'BTN_SAVEPAGE' => "Guardar Página",
     'BTN_SAVEUPDATES' => "Guardar Alterações",
@@ -95,9 +95,9 @@ $i18n = [
     'SAVE_AND_CLOSE' => "Guardar &amp; Fechar",
     'PAGE_UNSAVED' => "Esta página tem alterações por gravar",
 
-    /* 
-     * For: upload.php
-    */
+	/* 
+	 * For: upload.php
+	 */
     'ERROR_UPLOAD' => "Existe um problema com o envio do ficheiro",
     'FILE_SUCCESS_MSG' => "Sucesso! O ficheiro está em",
     'FILE_MANAGEMENT' => "Gestão de Ficheiros",
@@ -107,29 +107,29 @@ $i18n = [
     'DELETE_FILE' => "Apagar Ficheiro",
     'TOTAL_FILES' => "ficheiros no total",
 
-    /* 
-     * For: logout.php
-    */
+	/* 
+	 * For: logout.php
+	 */
     'MSG_LOGGEDOUT' => "A sua sessão foi terminada.",
 
-    /* 
-     * For: index.php
-    */
+	/* 
+	 * For: index.php
+	 */
     'LOGIN' => "Entrar",
     'USERNAME' => "Username",
     'PASSWORD' => "Password",
     'FORGOT_PWD' => "Esqueceu a password?",
     'CONTROL_PANEL' => "Painel de Controlo",
 
-    /* 
-     * For: navigation.php
-    */
+	/* 
+	 * For: navigation.php
+	 */
     'CURRENT_MENU' => "Menu Atual",
     'NO_MENU_PAGES' => "Não existem páginas definidas para aparecer no menu principal",
 
-    /* 
-     * For: theme-edit.php
-    */
+	/* 
+	 * For: theme-edit.php
+	 */
     'TEMPLATE_FILE' => "O ficheiro de tema <b>%s</b> foi actualizado com sucesso!",
     'THEME_MANAGEMENT' => "Gestor de Temas",
     'EDIT_THEME' => "Editar Tema",
@@ -137,9 +137,9 @@ $i18n = [
     'BTN_SAVECHANGES' => "Guardar Alterações",
     'EDIT' => "Editar",
 
-    /* 
-     * For: support.php
-    */
+	/* 
+	 * For: support.php
+	 */
     'SETTINGS_UPDATED' => "As suas definições foram actualizadas",
     'UNDO' => "Anular",
     'SUPPORT' => "Suporte",
@@ -148,10 +148,9 @@ $i18n = [
     'BTN_SAVESETTINGS' => "Guardar Definições",
     'VIEW_FAILED_LOGIN' => "Ver Tentativas de Acesso Falhadas",
 
-
-    /* 
-     * For: log.php
-    */
+	/* 
+	 * For: log.php
+	 */
     'MSG_HAS_BEEN_CLR' => " foi limpo",
     'LOGS' => "Logs",
     'VIEWING' => "A Ver",
@@ -161,9 +160,9 @@ $i18n = [
     'LOG_FILE_ENTRY' => "ENTRADA DE FICHEIRO DE LOG",
     'THIS_COMPUTER' => "Este Computador",
 
-    /* 
-     * For: backup-edit.php
-    */
+	/* 
+	 * For: backup-edit.php
+	 */
     'BAK_MANAGEMENT' => "Gestão de Cópias de Segurança",
     'ASK_CANCEL' => "Cancelar",
     'ASK_RESTORE' => "Recuperar",
@@ -177,7 +176,7 @@ $i18n = [
 
 	/* 
 	 * For: components.php
-	*/
+	 */
     'COMPONENTS' => "Componentes",
     'DELETE_COMPONENT' => "Apagar Componente",
 	"EDIT"					=>	"Edit",
@@ -186,24 +185,24 @@ $i18n = [
 
 	/* 
 	 * For: sitemap.php
-	*/
+	 */
     'SITEMAP_CREATED' => "Sitemap Criado! Também enviámos, com sucesso, um ping a 4 motores de busca para que efectuem atualizações",
     'SITEMAP_ERRORPING' => "Sitemap Criado, no entanto ocorreu um erro ao enviar ping a um ou mais motores de busca",
     'SITEMAP_ERROR' => "O seu sitemap não pôde ser gerado",
     'SITEMAP_WAIT' => "<b>Aguarde:</b> A criar o sitemap do website",
 
-    /* 
-     * For: theme.php
-    */
+	/* 
+	 * For: theme.php
+	 */
     'THEME_CHANGED' => "O seu tema foi alterado com sucesso",
     'CHOOSE_THEME' => "Escolha o Seu Tema",
     'ACTIVATE_THEME' => "Activar Tema",
     'THEME_SCREENSHOT' => "Pré-visualização do Tema",
     'THEME_PATH' => "Caminho actual do tema",
 
-    /* 
-     * For: resetpassword.php
-    */
+	/* 
+	 * For: resetpassword.php
+	 */
     'RESET_PASSWORD' => "Redefinir Password",
     'YOUR_NEW' => "A sua nova",
     'PASSWORD_IS' => "password é",
@@ -211,9 +210,9 @@ $i18n = [
     'MSG_PLEASE_EMAIL' => "Indique o endereço de e-mail registado neste sistema, e ser-lhe-á enviada uma nova password",
     'SEND_NEW_PWD' => "Enviar Nova Password",
 
-    /* 
-     * For: settings.php
-    */
+	/* 
+	 * For: settings.php
+	 */
     'GENERAL_SETTINGS' => "Definições Gerais",
     'WEBSITE_SETTINGS' => "Definições do Website",
     'LOCAL_TIMEZONE' => "Fuso Horário Local",
@@ -232,9 +231,9 @@ $i18n = [
     'FLUSHCACHE-SUCCESS' => "Caches apagadas!",
     'DISPLAY_NAME' => "Um nome público que não seja o seu nome de utilizador",
 
-    /* 
-     * For: health-check.php
-    */
+	/* 
+	 * For: health-check.php
+	 */
     'WEB_HEALTH_CHECK' => "Verificação de Saúde",
     'VERSION' => "Versão",
     'UPG_NEEDED' => "Actualização recomendada para",
@@ -257,24 +256,40 @@ $i18n = [
     'CANNOT_DEL_FILE' => "Não é Possível Apagar o Ficheiro",
     'DOWNLOAD' => "Download",
     'WRITABLE' => "Com Permissões de Escrita",
-
     'NOT_WRITABLE' => "Sem Permissões de Escrita",
-    /* 
-     * For: footer.php
-    */
+	
+	# new to 3.3.23 Enhanced Security
+	"SECURITY"				=>	"Segurança",
+	"HTACCESS_TEST_EXPLANATION"	=>	"Este teste verifica se os diretórios sensíveis estão realmente protegidos ao tentar aceder-lhes através de HTTP. Isto garante que os ficheiros .htaccess estão a funcionar corretamente.",
+	"CRITICAL_SECURITY_RISK"	=>	"RISCO CRÍTICO DE SEGURANÇA",
+	"CANNOT_VERIFY"			=>	"Não é possível verificar",
+	"CANNOT_TEST"			=>	"Não é possível testar",
+	"APPLICATION_LEVEL_PROTECTION"	=>	"Proteção ao nível da aplicação (index.php)",
+	"DEFENSE_IN_DEPTH" 		=>	"Defesa em profundidade",
+	"INDEX_PHP_EXPLANATION"	=>	"Estes ficheiros de proteção fornecem segurança ao nível da aplicação que funciona mesmo que o .htaccess esteja desativado. Esta é a sua principal defesa contra acesso não autorizado.",
+	"INDEX_PHP_RECOMMENDATION"	=>	"Coloque os ficheiros de proteção index.php nos diretórios sensíveis para uma defesa em profundidade",
+	"RECOMMENDATION"		=>	"Recomendação",
+	"CRITICAL"				=>	"CRÍTICO",
+	"EFFECTIVENESS"			=>	"Eficácia",
+	"PLACE_INDEX"			=>	"Coloque os ficheiros index.php fornecidos em",
+	"FILES_PROVIDE"			=>	"Estes ficheiros fornecem proteção em profundidade mesmo que o .htaccess falhe.",
+
+	/* 
+	 * For: footer.php
+	 */
     'POWERED_BY' => "Desenvolvido em",
 
-    /* 
-     * For: backups.php
-    */
+	/* 
+	 * For: backups.php
+	 */
     'PAGE_BACKUPS' => "Cópias de Segurança de Páginas",
     'ASK_DELETE_ALL' => "Apagar Tudo",
     'DELETE_ALL_BAK' => "Apagar todas as cópias de segurança?",
     'TOTAL_BACKUPS' => "total de cópias de segurança",
 
-    /* 
-     * For: archive.php
-    */
+	/* 
+	 * For: archive.php
+	 */
     'SUCC_WEB_ARCHIVE' => "Arquivo de website criado com sucesso!",
     'SUCC_WEB_ARC_DEL' => "O arquivo do website foi apagado com sucesso",
     'WEBSITE_ARCHIVES' => "Arquivos do Website",
@@ -288,7 +303,7 @@ $i18n = [
 
 	/* 
 	 * For: include-nav.php
-	*/
+	 */
     'WELCOME' => "Bem-vindo",
     'TAB_PAGES' => "Páginas",
     'TAB_FILES' => "Ficheiros",
@@ -299,51 +314,51 @@ $i18n = [
     'TAB_SUPPORT' => "Suporte",
     'TAB_LOGOUT' => "Sair",
 
-    /* 
-     * For: sidebar-files.php
-    */
+	/* 
+	 * For: sidebar-files.php
+	 */
     'BROWSE_COMPUTER' => "Procurar no Seu Computador",
     'UPLOAD' => "Enviar",
 
-    /* 
-     * For: sidebar-support.php
-    */
+	/* 
+	 * For: sidebar-support.php
+	 */
     'SIDE_SUPPORT_LOG' => "Definições de Suporte &amp; Logs",
     'SIDE_HEALTH_CHK' => "Verificação de Saúde",
     'SIDE_DOCUMENTATION' => "Documentação",
     'SIDE_VIEW_LOG' => "Ver Log",
 
-    /* 
-     * For: sidebar-theme.php
-    */
+	/* 
+	 * For: sidebar-theme.php
+	 */
     'SIDE_VIEW_SITEMAP' => "Ver Sitemap",
     'SIDE_GEN_SITEMAP' => "Gerar Sitemap",
     'SIDE_COMPONENTS' => "Editar Componentes",
     'SIDE_EDIT_THEME' => "Editar Tema",
     'SIDE_CHOOSE_THEME' => "Escolher Tema",
 
-    /* 
-     * For: sidebar-pages.php
-    */
+	/* 
+	 * For: sidebar-pages.php
+	 */
     'SIDE_CREATE_NEW' => "Ciar Nova Página",
     'SIDE_VIEW_PAGES' => "Ver Todas as Páginas",
 
-    /* 
-     * For: sidebar-settings.php
-    */
+	/* 
+	 * For: sidebar-settings.php
+	 */
     'SIDE_GEN_SETTINGS' => "Definições Gerais",
     'SIDE_USER_PROFILE' => "Perfil do Utilizador",
 
-    /* 
-     * For: sidebar-backups.php
-    */
+	/* 
+	 * For: sidebar-backups.php
+	 */
     'SIDE_VIEW_BAK' => "Ver Cópia de Segurança da Página",
     'SIDE_WEB_ARCHIVES' => "Arquivos de Website",
     'SIDE_PAGE_BAK' => "Cópia de Segurança de Páginas",
 
-    /* 
-     * For: error_checking.php
-    */
+	/* 
+	 * For: error_checking.php
+	 */
     'ER_PWD_CHANGE' => "Não se esqueça de <a href=\"settings.php#profile\">mudar a sua password</a> para uma que não seja a aleatória que tem agora...",
     'ER_BAKUP_DELETED' => "A cópia de segurança foi eliminada por %s",
     'ER_REQ_PROC_FAIL' => "O processo pedido falhou",
@@ -361,15 +376,15 @@ $i18n = [
     'ER_COMPONENT_REST' => "Os seus componentes foram restaurados",
     'ER_CANCELLED_FAIL' => "<b>Cancelado:</b> Esta atualização foi cancelada",
 
-    /* 
-     * For: changedata.php
-    */
+	/* 
+	 * For: changedata.php
+	 */
     'CANNOT_SAVE_EMPTY' => "Não pode guardar uma página vazia",
     'META_DESC' => "Descrição 'Meta'",
 
 	/* 
 	 * For: template_functions.php
-	*/
+	 */
     'FTYPE_COMPRESSED' => "Comprimido",
     'FTYPE_VECTOR' => "Vector",
     'FTYPE_FLASH' => "Flash",
@@ -383,26 +398,26 @@ $i18n = [
 
 	/* 
 	 * For: login_functions.php
-	*/
+	 */
 	"FILL_IN_REQ_FIELD"		=>	"Please fill in all the required fields",
     'LOGIN_FAILED' => "O Login falhou. Verifique o seu Username e a Password",
 
 	/* 
 	 * For: Date Format
-	*/
+	 */
 	"DATE_FORMAT"			=>	"M j, Y", //please keep short
     'DATE_AND_TIME_FORMAT' => "j de F de Y - H:i",
 
 	/* 
 	 * For: support.php
-	*/
+	 */
     'WELCOME_MSG' => "Obrigado por escolher, para seu CMS, o GetSimple!",
     'WELCOME_P' => "O GetSimple torna a gestão do seu website o mais simples possível, com uma fantástica interface com o utilizador e o sistema de templates mais fácil de usar que existe. Lutamos para manter o sistema com uma utilização acessível a todos, e ao mesmo tempo dotá-lo de todas as funcionalidades que precisa. </p><p><strong>Alguns primeiros passos que podem ser úteis:</strong></p>",
     'GETTING_STARTED' => "Primeiros Passos",
 
-    /* 
-     * For: image.php
-    */
+	/* 
+	 * For: image.php
+	 */
     'CURRENT_THUMBNAIL' => "Miniatura Actual",
     'RECREATE' => "recriar",
     'CREATE_ONE' => "criar uma",
@@ -418,9 +433,9 @@ $i18n = [
     'LINK_THUMBNAIL' => "Link da Miniatura",
     'HTML_THUMB_ORIG' => "HTML de Miniatura-para-Imagem",
 
-    /* 
-     * For: plugins.php
-    */
+	/* 
+	 * For: plugins.php
+	 */
     'PLUGINS_MANAGEMENT' => "Gestão de Plugins",
     "PLUGINS_MANAGEMENT_INFO"	=> "Alguns plug-ins podem exigir scripts js/css adicionais para funcionar corretamente.<br>Certifique-se de que o plugin 'modernScript CE' esteja habilitado e verifique as configurações.",
     'PLUGINS_INSTALLED' => "Plugins Instalados",
@@ -507,10 +522,9 @@ $i18n = [
     'MENU_MANAGER_DESC' => "Arraste e largue os itens de menu até ficar satisfeito, depois clique em <strong>Guardar Ordenação do Menu</strong>.",
     'MENU_MANAGER_SUCCESS' => "a ordenação do menu foi guardada",
 
-
-    /* 
-     * For: api related pages
-     */
+	/* 
+	 * For: api related pages
+	 */
     'API_ERR_MISSINGPARAM' => "dados de parâmetros inexistentes",
     'API_ERR_BADMETHOD' => "método %s não existe",
     'API_ERR_AUTHFAILED' => "a autenticação falhou",
@@ -558,10 +572,10 @@ $i18n = [
 	"Add_hash_GSUSECUSTOMSALT" 	=> 'Adicione o novo hash ao seu campo \'GSUSECUSTOMSALT\' no gsconfig.php.',
 	"Clear_cookies" 		=> 'Limpar cookies.',
 
-    /*
-     * Default transliteration
-     */
-    "TRANSLITERATION" 		=> [
+	/*
+	 * Default transliteration
+	 */
+	"TRANSLITERATION" 		=> [
 		// Roman
 		'á'=>'a', 'é'=>'e', 'í'=>'i', 'ó'=>'o', 'ú'=>'u',
 		'Á'=>'a', 'É'=>'e', 'Í'=>'i', 'Ó'=>'o', 'Ú'=>'u',
@@ -607,7 +621,7 @@ $i18n = [
 		"э"=>"e","ю"=>"yu","я"=>"ya",
 		// Scandinavian
 		"æ"=>"a","Æ"=>"a","å"=>"a","Å"=>"a","ä"=>"a","Ä"=>"a","ø"=>"a","Ø"=>"a","ö"=>"o","Ö"=>"o"
-],
+	],
 
 	"X" 					=> "não traduzido",
 

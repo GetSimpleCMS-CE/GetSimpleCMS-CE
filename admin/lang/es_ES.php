@@ -4,9 +4,9 @@
  * Spanish Language File
  *
  * Date:		2015.11.21
- * Revision:	2025.05.28
- * Version:		GetSimple 3.3.19 CE
- * Traductors: 	GS Community 
+ * Revision:	2026.02.14
+ * Version:		GetSimple 3.3.23 CE
+ * Translators: GS Team 
  *
  * @package GetSimple
  * @subpackage Language
@@ -14,9 +14,9 @@
 
 $i18n = [
 
-    /* 
-     * For: install.php
-    */
+	/* 
+	 * For: install.php
+	 */
 	"PHPVER_ERROR"			=>	"<b>No es posible continuar:</b> PHP 7.4 o superior requerido, usted tiene ",
 	"SIMPLEXML_ERROR"		=>	"<b>No es posible continuar:</b> SimpleXML no instalado",
 	"CURL_WARNING"			=>	"<b>Aviso:</b> cURL no está instalado",
@@ -257,6 +257,22 @@ $i18n = [
 	"DOWNLOAD"				=>	"Descargar",
 	"WRITABLE"				=>	"Grabable",
 	"NOT_WRITABLE"			=>	"No grabable",
+	
+	# new to 3.3.23 Enhanced Security
+	"SECURITY"				=>	"Seguridad",
+	"HTACCESS_TEST_EXPLANATION"	=>	"Esta prueba verifica que los directorios sensibles estén realmente protegidos intentando acceder a ellos mediante HTTP. Esto garantiza que los archivos .htaccess estén funcionando correctamente.",
+	"CRITICAL_SECURITY_RISK"	=>	"RIESGO CRÍTICO DE SEGURIDAD",
+	"CANNOT_VERIFY"			=>	"No se puede verificar",
+	"CANNOT_TEST"			=>	"No se puede probar",
+	"APPLICATION_LEVEL_PROTECTION"	=>	"Protección a nivel de aplicación (index.php)",
+	"DEFENSE_IN_DEPTH" 		=>	"Defensa en profundidad",
+	"INDEX_PHP_EXPLANATION"	=>	"Estos archivos de protección proporcionan seguridad a nivel de aplicación que funciona incluso si .htaccess está deshabilitado. Esta es su principal defensa contra accesos no autorizados.",
+	"INDEX_PHP_RECOMMENDATION"	=>	"Coloque los archivos de protección index.php en los directorios sensibles para una seguridad en profundidad",
+	"RECOMMENDATION"		=>	"Recomendación",
+	"CRITICAL"				=>	"CRÍTICO",
+	"EFFECTIVENESS"			=>	"Eficacia",
+	"PLACE_INDEX"			=>	"Coloque los archivos index.php proporcionados en",
+	"FILES_PROVIDE"			=>	"Estos archivos proporcionan protección en profundidad incluso si .htaccess falla.",
 
 	/* 
 	 * For: footer.php
@@ -490,9 +506,9 @@ $i18n = [
 	"CLONE_SUCCESS" 		=> "Exitosamente creado %s", //pages.php
 	"COPY" 					=> "Copiar", //pages.php
 	"CLONE_ERROR" 			=> "Hubo un problema al tratar de clonar <b>%s</b>",  //pages.php
-	"AUTOSAVE_NOTIFY" 		=> 'Página autoguardada en', //edit.php
-	"MENU_MANAGER" 			=> 'Gestor de Menú', //edit.php
-	"GET_PLUGINS_LINK" 		=> 'Descargar más extensiones',
+	"AUTOSAVE_NOTIFY" 		=>	"Página autoguardada en", //edit.php
+	"MENU_MANAGER" 			=>	"Gestor de Menú", //edit.php
+	"GET_PLUGINS_LINK" 		=>	"Descargar más extensiones",
 	"SITEMAP_REFRESHED" 	=> "Su mapa del sitio web ha sido refrescado", //edit.php
 	"LOG_FILE_EMPTY" 		=> 	"Este log está vacío", //log.php
 	"SHARE" 				=> 	"Compartir", //footer.php
@@ -509,52 +525,52 @@ $i18n = [
 	/* 
 	 * For: api related pages
 	 */
-	"API_ERR_MISSINGPARAM" 	=> 'no existe este parámetro',
-	"API_ERR_BADMETHOD" 	=> 'método %s inexistente',
-	"API_ERR_AUTHFAILED" 	=> 'autenticación fallida',
-	"API_ERR_AUTHDISABLED" 	=> 'autenticación deshabilitada',
-	"API_ERR_NOPAGE" 		=> 'página solicitada %s inexistente',
-	"API_CONFIGURATION" 	=> 'Configuración API',
-	"API_ENABLE" 			=> 'Habilitar la API',
-	"API_REGENKEY" 			=> 'Regenerar la llave',
+	"API_ERR_MISSINGPARAM" 	=>	"no existe este parámetro",
+	"API_ERR_BADMETHOD" 	=>	"método %s inexistente",
+	"API_ERR_AUTHFAILED" 	=>	"autenticación fallida",
+	"API_ERR_AUTHDISABLED" 	=>	"autenticación deshabilitada",
+	"API_ERR_NOPAGE" 		=>	"página solicitada %s inexistente",
+	"API_CONFIGURATION" 	=>	"Configuración API",
+	"API_ENABLE" 			=>	"Habilitar la API",
+	"API_REGENKEY" 			=>	"Regenerar la llave",
 	"API_DISCLAIMER" 		=> "Habilitando esta API estás permitiendo que cualquier aplicación externa con una copia de su llave tenga acceso a todo el contneido de su sitio web. <b>Compara su llave sólo con aplicaciones en las que confíe.</b>",
 	"API_REGEN_DISCLAIMER" 	=> "Cuando regenere la llave de su API tendrá que introducir su nueva llave en cualquier aplicación externa usando su API para que se pueda conectar a su sitio web.",
 	"API_CONFIRM" 			=> "¿Está seguro?",
 	
 	// salt-shaker
-	"Security_Generator" 	=> 'CE Generador de Sal/Hash de Seguridad',
-	"More_info" 			=> 'Más información disponible en el',
-	"Wiki" 					=> 'Wiki',
-	"Security_Notice" 		=> 'Aviso de Seguridad',
-	"Tokens_are_never" 		=> 'Los tokens nunca se muestran y se borran inmediatamente después del procesamiento.',
-	"Password_Hash" 		=> 'Hash de Contraseña',
-	"Custom_Salt_Hash" 		=> 'Hash de Sal Personalizado',
-	"Password_Hashing" 		=> 'Hash de Contraseña',
-	"Used_to_enhance" 		=> 'Se utiliza para mejorar la seguridad de las contraseñas de usuario. Deberá restablecer todas las contraseñas una vez que se agregue esto.',
-	"Password_Token" 		=> 'Token de Contraseña',
-	"Any_word" 				=> 'Cualquier palabra que elijas...',
-	"Random_string" 		=> 'Cadena aleatoria que incluye caracteres y símbolos...',
-	"System_Salt" 			=> 'Sal del Sistema',
-	"Generate" 				=> 'Generar',
-	"Security_Hashing" 		=> 'Hash de Seguridad',
-	"enhance_system_wide" 	=> 'Se utiliza para mejorar la seguridad del sistema, incluyendo:',
-	"temporary_files" 		=> 'Cookies/archivos temporales, reinicio de sesión, protección CSRF, carga de archivos, etc.',
-	"Input_Token" 			=> 'Token de Entrada',
-	"Application_Salt" 		=> 'Sal de la Aplicación',
-	"Generate_Hashes" 		=> 'Generar Hashes',
-	"Password_Hash_Results" => 'Resultados del Hash de Contraseña',
-	"hidden" 				=> 'oculto',
-	"SHA1_of_Salt" 			=> 'SHA1 de la Sal',
-	"Your_Hash" 			=> 'Tu Hash \'GSLOGINSALT\'',
-	"hash_copied" 			=> '¡hash copiado!',
-	"Remain_logged" 		=> 'Permanece conectado en tu cuenta de administrador.',
-	"Add_hash_GSLOGINSALT" 	=> 'Agrega el nuevo hash a tu campo \'GSLOGINSALT\' en gsconfig.php.',
-	"Update_all" 			=> 'Actualizar todas las contraseñas de usuario.',
-	"Custom_Salt" 			=> 'Resultados del Hash de Sal Personalizado',
-	"SHA1_of_Application" 	=> 'SHA1 de la Sal de la Aplicación',
-	"Your_Custome_Hash" 	=> 'Tu Hash \'GSUSECUSTOMSALT\'',
-	"Add_hash_GSUSECUSTOMSALT" 	=> 'Agrega el nuevo hash a tu campo \'GSUSECUSTOMSALT\' en gsconfig.php.',
-	"Clear_cookies" 		=> 'Borrar cookies.',
+	"Security_Generator" 	=>	"CE Generador de Sal/Hash de Seguridad",
+	"More_info" 			=>	"Más información disponible en el",
+	"Wiki" 					=>	"Wiki",
+	"Security_Notice" 		=>	"Aviso de Seguridad",
+	"Tokens_are_never" 		=>	"Los tokens nunca se muestran y se borran inmediatamente después del procesamiento.",
+	"Password_Hash" 		=>	"Hash de Contraseña",
+	"Custom_Salt_Hash" 		=>	"Hash de Sal Personalizado",
+	"Password_Hashing" 		=>	"Hash de Contraseña",
+	"Used_to_enhance" 		=>	"Se utiliza para mejorar la seguridad de las contraseñas de usuario. Deberá restablecer todas las contraseñas una vez que se agregue esto.",
+	"Password_Token" 		=>	"Token de Contraseña",
+	"Any_word" 				=>	"Cualquier palabra que elijas...",
+	"Random_string" 		=>	"Cadena aleatoria que incluye caracteres y símbolos...",
+	"System_Salt" 			=>	"Sal del Sistema",
+	"Generate" 				=>	"Generar",
+	"Security_Hashing" 		=>	"Hash de Seguridad",
+	"enhance_system_wide" 	=>	"Se utiliza para mejorar la seguridad del sistema, incluyendo:",
+	"temporary_files" 		=>	"Cookies/archivos temporales, reinicio de sesión, protección CSRF, carga de archivos, etc.",
+	"Input_Token" 			=>	"Token de Entrada",
+	"Application_Salt" 		=>	"Sal de la Aplicación",
+	"Generate_Hashes" 		=>	"Generar Hashes",
+	"Password_Hash_Results" =>	"Resultados del Hash de Contraseña",
+	"hidden" 				=>	"oculto",
+	"SHA1_of_Salt" 			=>	"SHA1 de la Sal",
+	"Your_Hash" 			=>	"Tu Hash 'GSLOGINSALT'",
+	"hash_copied" 			=>	"¡hash copiado!",
+	"Remain_logged" 		=>	"Permanece conectado en tu cuenta de administrador.",
+	"Add_hash_GSLOGINSALT" 	=>	"Agrega el nuevo hash a tu campo 'GSLOGINSALT' en gsconfig.php.",
+	"Update_all" 			=>	"Actualizar todas las contraseñas de usuario.",
+	"Custom_Salt" 			=>	"Resultados del Hash de Sal Personalizado",
+	"SHA1_of_Application" 	=>	"SHA1 de la Sal de la Aplicación",
+	"Your_Custome_Hash" 	=>	"Tu Hash 'GSUSECUSTOMSALT'",
+	"Add_hash_GSUSECUSTOMSALT" 	=>	"Agrega el nuevo hash a tu campo 'GSUSECUSTOMSALT' en gsconfig.php.",
+	"Clear_cookies" 		=>	"Borrar cookies.",
 
 	/*
 	 * Default transliteration
@@ -605,14 +621,14 @@ $i18n = [
 		"э"=>"e","ю"=>"yu","я"=>"ya",
 		// Scandinavian
 		"æ"=>"a","Æ"=>"a","å"=>"a","Å"=>"a","ä"=>"a","Ä"=>"a","ø"=>"a","Ø"=>"a","ö"=>"o","Ö"=>"o"
-],
+	],
 
 	"X" 					=> "sin traducir",
 
 	/*
 	 * Additions for 3.1
 	 */
-	"DEBUG_CONSOLE" 		=> 'Consola Debug'
+	"DEBUG_CONSOLE" 		=>	"Consola Debug",
 
 ];
 

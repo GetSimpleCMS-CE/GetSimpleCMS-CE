@@ -4,10 +4,9 @@
  * Ukranian Language File
  *
  * Date:		22 July 2023
- * Revision:	2023.07.23
- * Version:		GetSimple 3.3.19 CE
- * Author:      VeNickov
- * Traductors: 	GS Community 
+ * Revision:	2026.02.14
+ * Version:		GetSimple 3.3.23 CE
+ * Translators: VeNickov, GS Team 
  *
  * @package GetSimple
  * @subpackage Language
@@ -15,9 +14,9 @@
 
 $i18n = [
 
-    /* 
-     * For: install.php
-    */
+	/* 
+	 * For: install.php
+	 */
     'PHPVER_ERROR' => "<b>Неможливо продовжувати:</b> потрібен PHP версії 7.4 або вище",
     'SIMPLEXML_ERROR' => "<b>Неможливо продовжувати:</b> <em>SimpleXML</em> не встановлено",
     'CURL_WARNING' => "<b>Попередження:</b> <em>cURL</em> не встановлено",
@@ -50,9 +49,9 @@ $i18n = [
     'SITE_UPDATED' => "Ваш сайт був оновлений",
     'SERVICE_UNAVAILABLE' => "Ця сторінка тимчасово недоступна",
 
-    /* 
-     * For: pages.php
-    */
+	/* 
+	 * For: pages.php
+	 */
     'MENUITEM_SUBTITLE' => "пункт меню",
     'HOMEPAGE_SUBTITLE' => "головна сторінка",
     'PRIVATE_SUBTITLE' => "Приватна",
@@ -64,9 +63,9 @@ $i18n = [
     'TOTAL_PAGES' => "всього сторінок",
     'ALL_PAGES' => "Всі сторінки",
 
-    /* 
-     * For: edit.php
-    */
+	/* 
+	 * For: edit.php
+	 */
     'PAGE_NOTEXIST' => "Сторінка не існує",
     'BTN_SAVEPAGE' => "Зберегти сторінку",
     'BTN_SAVEUPDATES' => "Зберегти зміни",
@@ -96,9 +95,9 @@ $i18n = [
     'SAVE_AND_CLOSE' => "Зберегти й закрити",
     'PAGE_UNSAVED' => "Сторінка містить незбережені зміни",
 
-    /* 
-     * For: upload.php
-    */
+	/* 
+	 * For: upload.php
+	 */
     'ERROR_UPLOAD' => "Проблема із завантаженням файлів",
     'FILE_SUCCESS_MSG' => "Файл успішно розміщений в",
     'FILE_MANAGEMENT' => "Каталог файлів",
@@ -108,29 +107,29 @@ $i18n = [
     'DELETE_FILE' => "Видалити файл",
     'TOTAL_FILES' => "всього файлів &amp;папок",
 
-    /* 
-     * For: logout.php
-    */
+	/* 
+	 * For: logout.php
+	 */
     'MSG_LOGGEDOUT' => "Ви вийшли",
 
-    /* 
-     * For: index.php
-    */
+	/* 
+	 * For: index.php
+	 */
     'LOGIN' => "Увійти",
     'USERNAME' => "Ім'я",
     'PASSWORD' => "Пароль",
     'FORGOT_PWD' => "Забули пароль?",
     'CONTROL_PANEL' => "Панель керування",
 
-    /* 
-     * For: navigation.php
-    */
+	/* 
+	 * For: navigation.php
+	 */
     'CURRENT_MENU' => "Меню сайту",
     'NO_MENU_PAGES' => "Жодної сторінки не було додано в головне меню",
 
-    /* 
-     * For: theme-edit.php
-    */
+	/* 
+	 * For: theme-edit.php
+	 */
     'TEMPLATE_FILE' => "Шаблон <b>%s</b> було успішно змінено!",
     'THEME_MANAGEMENT' => "Керування темами",
     'EDIT_THEME' => "Редагувати тему",
@@ -138,9 +137,9 @@ $i18n = [
     'BTN_SAVECHANGES' => "Зберегти",
     'EDIT' => "Редагувати",
 
-    /* 
-     * For: support.php
-    */
+	/* 
+	 * For: support.php
+	 */
     'SETTINGS_UPDATED' => "Налаштування оновлені",
     'UNDO' => "Скасувати",
     'SUPPORT' => "Підтримка",
@@ -150,9 +149,9 @@ $i18n = [
     'VIEW_FAILED_LOGIN' => "Подивитися помилки авторизації",
 
 
-    /* 
-     * For: log.php
-    */
+	/* 
+	 * For: log.php
+	 */
     'MSG_HAS_BEEN_CLR' => "було очищено",
     'LOGS' => "подій",
     'VIEWING' => "Перегляд",
@@ -162,9 +161,9 @@ $i18n = [
     'LOG_FILE_ENTRY' => "ЗАПИС ЛОГ ФАЙЛУ",
     'THIS_COMPUTER' => "Цей компютер",
 
-    /* 
-     * For: backup-edit.php
-    */
+	/* 
+	 * For: backup-edit.php
+	 */
     'BAK_MANAGEMENT' => "Керування бекапом",
     'ASK_CANCEL' => "Скасувати",
     'ASK_RESTORE' => "Відновити",
@@ -178,7 +177,7 @@ $i18n = [
 
 	/* 
 	 * For: components.php
-	*/
+	 */
     'COMPONENTS' => "Компоненти",
     'DELETE_COMPONENT' => "Видалити",
     'EDIT' => "Edit",
@@ -187,24 +186,24 @@ $i18n = [
 
 	/* 
 	 * For: sitemap.php
-	*/
+	 */
     'SITEMAP_CREATED' => "Карта сайту створена! Ми також успішно пропінгували 4 пошуковики",
     'SITEMAP_ERRORPING' => "Карта сайту створена, але виникла помилка із пінгом одного чи більше пошуковиків",
     'SITEMAP_ERROR' => "Карта сайту не може бути згенерована",
     'SITEMAP_WAIT' => "<b>Зачекайте:</b> Генерується карта сайту",
 
-    /* 
-     * For: theme.php
-    */
+	/* 
+	 * For: theme.php
+	 */
     'THEME_CHANGED' => "Нову тему активовано!",
     'CHOOSE_THEME' => "Вибрати тему сайту",
     'ACTIVATE_THEME' => "Активувати тему",
     'THEME_SCREENSHOT' => "Скріншот",
     'THEME_PATH' => "Файли цієї теми розташовані у",
 
-    /* 
-     * For: resetpassword.php
-    */
+	/* 
+	 * For: resetpassword.php
+	 */
     'RESET_PASSWORD' => "Відновлення паролю",
     'YOUR_NEW' => "Ваш новий",
     'PASSWORD_IS' => "пароль",
@@ -212,9 +211,9 @@ $i18n = [
     'MSG_PLEASE_EMAIL' => "Будь-ласка, введіть свій логін і Вам буде відправлено новий пароль",
     'SEND_NEW_PWD' => "Відправити",
 
-    /* 
-     * For: settings.php
-    */
+	/* 
+	 * For: settings.php
+	 */
     'GENERAL_SETTINGS' => "Налаштування системи",
     'WEBSITE_SETTINGS' => "Налаштування сайту",
     'LOCAL_TIMEZONE' => "Часовий пояс",
@@ -233,9 +232,9 @@ $i18n = [
     'FLUSHCACHE-SUCCESS' => "Кеш успішно очищено",
     'DISPLAY_NAME' => "Ім'я для публічного показу, не ваш логін",
 
-    /* 
-     * For: health-check.php
-    */
+	/* 
+	 * For: health-check.php
+	 */
     'WEB_HEALTH_CHECK' => "Перевірка працездатності",
     'VERSION' => "версія",
     'UPG_NEEDED' => "Оновіть до",
@@ -259,23 +258,39 @@ $i18n = [
     'DOWNLOAD' => "Завантажити",
     'WRITABLE' => "Перезаписуваний",
     'NOT_WRITABLE' => "Неперезаписуваний",
+	
+	# new to 3.3.23 Enhanced Security
+	"SECURITY"				=>	"Безпека",
+	"HTACCESS_TEST_EXPLANATION"	=>	"Цей тест перевіряє, чи дійсно захищені конфіденційні каталоги, намагаючись отримати до них доступ через HTTP. Це гарантує, що файли .htaccess працюють коректно.",
+	"CRITICAL_SECURITY_RISK"	=>	"КРИТИЧНИЙ РИЗИК БЕЗПЕКИ",
+	"CANNOT_VERIFY"			=>	"Неможливо перевірити",
+	"CANNOT_TEST"			=>	"Неможливо протестувати",
+	"APPLICATION_LEVEL_PROTECTION"	=>	"Захист на рівні застосунку (index.php)",
+	"DEFENSE_IN_DEPTH" 		=>	"Багаторівневий захист",
+	"INDEX_PHP_EXPLANATION"	=>	"Ці файли захисту забезпечують безпеку на рівні застосунку, яка працює навіть якщо .htaccess вимкнено. Це ваш основний захист від несанкціонованого доступу.",
+	"INDEX_PHP_RECOMMENDATION"	=>	"Розмістіть файли захисту index.php у конфіденційних каталогах для забезпечення багаторівневого захисту",
+	"RECOMMENDATION"		=>	"Рекомендація",
+	"CRITICAL"				=>	"КРИТИЧНИЙ",
+	"EFFECTIVENESS"			=>	"Ефективність",
+	"PLACE_INDEX"			=>	"Розмістіть надані файли index.php у",
+	"FILES_PROVIDE"			=>	"Ці файли забезпечують багаторівневий захист навіть у разі збою .htaccess.",
 
-    /* 
-     * For: footer.php
-    */
+	/* 
+	 * For: footer.php
+	 */
     'POWERED_BY' => "Працює на",
 
-    /* 
-     * For: backups.php
-    */
+	/* 
+	 * For: backups.php
+	 */
     'PAGE_BACKUPS' => "Збережені сторінки",
     'ASK_DELETE_ALL' => "Видалити все",
     'DELETE_ALL_BAK' => "Видалити всі резервні копії?",
     'TOTAL_BACKUPS' => "кількість резервних копій",
 
-    /* 
-     * For: archive.php
-    */
+	/* 
+	 * For: archive.php
+	 */
     'SUCC_WEB_ARCHIVE' => "Сайт успішно заархівовано!",
     'SUCC_WEB_ARC_DEL' => "Архів сайту успішно видалено",
     'WEBSITE_ARCHIVES' => "Архіви сайту",
@@ -289,7 +304,7 @@ $i18n = [
 
 	/* 
 	 * For: include-nav.php
-	*/
+	 */
 	'WELCOME' => "Вітаємо",
     'TAB_PAGES' => "Сторінки",
     'TAB_FILES' => "Файли",
@@ -300,51 +315,51 @@ $i18n = [
     'TAB_SUPPORT' => "Підтримка",
     'TAB_LOGOUT' => "Вийти",
 
-    /* 
-     * For: sidebar-files.php
-    */
+	/* 
+	 * For: sidebar-files.php
+	 */
    'BROWSE_COMPUTER' => "Завантажити файл",
     'UPLOAD' => "Завантажити",
 
-    /* 
-     * For: sidebar-support.php
-    */
+	/* 
+	 * For: sidebar-support.php
+	 */
    'SIDE_SUPPORT_LOG' => "Налаштування і логи",
     'SIDE_HEALTH_CHK' => "Перевірка стану сайту",
     'SIDE_DOCUMENTATION' => "Документація WiKi",
     'SIDE_VIEW_LOG' => "Перегляд логів",
 
-    /* 
-     * For: sidebar-theme.php
-    */
+	/* 
+	 * For: sidebar-theme.php
+	 */
     'SIDE_VIEW_SITEMAP' => "Перегляд мапи сайту",
     'SIDE_GEN_SITEMAP' => "Згенерувати мапу сайта",
     'SIDE_COMPONENTS' => "Редагувати компоненти",
     'SIDE_EDIT_THEME' => "Редагувати тему",
     'SIDE_CHOOSE_THEME' => "Вибрати тему",
 
-    /* 
-     * For: sidebar-pages.php
-    */
+	/* 
+	 * For: sidebar-pages.php
+	 */
     'SIDE_CREATE_NEW' => "Створити нову сторінку",
     'SIDE_VIEW_PAGES' => "Перегляд сторінок",
 
-    /* 
-     * For: sidebar-settings.php
-    */
+	/* 
+	 * For: sidebar-settings.php
+	 */
    'SIDE_GEN_SETTINGS' => "Налаштування системи",
     'SIDE_USER_PROFILE' => "Профіль користувача",
 
-    /* 
-     * For: sidebar-backups.php
-    */
+	/* 
+	 * For: sidebar-backups.php
+	 */
     'SIDE_VIEW_BAK' => "Перегляд бекапів сайту",
     'SIDE_WEB_ARCHIVES' => "Бекапи (архіви) сайту",
     'SIDE_PAGE_BAK' => "Бекап сторінок",
 
-    /* 
-     * For: error_checking.php
-    */
+	/* 
+	 * For: error_checking.php
+	 */
     'ER_PWD_CHANGE' => "Не забувайте <a href=\"settings.php#profile\">змінити випадково згенерований пароль</a>!",
     'ER_BAKUP_DELETED' => "Бекап <b>%s</b> було видалено",
     'ER_REQ_PROC_FAIL' => "Помилка запитуваного процесу",
@@ -362,15 +377,15 @@ $i18n = [
     'ER_COMPONENT_REST' => "Компоненти було відновлено",
     'ER_CANCELLED_FAIL' => "<b>Скасовано:</b> Оновлення цього файлу було скасовано",
 
-    /* 
-     * For: changedata.php
-    */
+	/* 
+	 * For: changedata.php
+	 */
     'CANNOT_SAVE_EMPTY' => "Неможливо зберегти порожню сторінку",
     'META_DESC' => "Мета-опис",
 
 	/* 
 	 * For: template_functions.php
-	*/
+	 */
     'FTYPE_COMPRESSED' => "Стиснуті",
     'FTYPE_VECTOR' => "Векторні",
     'FTYPE_FLASH' => "Флеш",
@@ -384,26 +399,26 @@ $i18n = [
 
 	/* 
 	 * For: login_functions.php
-	*/
+	 */
     'FILL_IN_REQ_FIELD' => "Будь-ласка, заповніть всі обов'язкові поля",
     'LOGIN_FAILED' => "Не вдалося авторизуватися. Будь-ласка, перевірте ім'я кориcтувача і пароль",
 
 	/* 
 	 * For: Date Format
-	*/
+	 */
     'DATE_FORMAT' => "d.m.Y",
     'DATE_AND_TIME_FORMAT' => "d.m.Y - G:i ",
 
 	/* 
 	 * For: support.php
-	*/
+	 */
     'WELCOME_MSG' => "Дякуємо за використання GetSimple CMS!",
     'WELCOME_P' => "GetSimple CMS &mdash; за допомогою цієї системи Ви можете легко керувати Вашим сайтом завдяки простому, інтуїтивно зрозумілому інтерфейсу і легкій шаблонній системі.",
     'GETTING_STARTED' => "Перші кроки",
 
-    /* 
-     * For: image.php
-    */
+	/* 
+	 * For: image.php
+	 */
     'CURRENT_THUMBNAIL' => "Мініатюра",
     'RECREATE' => "створити заново",
     'CREATE_ONE' => "Створити мініатюру",
@@ -419,9 +434,9 @@ $i18n = [
     'LINK_THUMBNAIL' => "Посилання на мініатюру",
     'HTML_THUMB_ORIG' => "HTML код миниатюри-зображення",
 
-    /* 
-     * For: plugins.php
-    */
+	/* 
+	 * For: plugins.php
+	 */
     'PLUGINS_MANAGEMENT' => "Встановлені плагіни",
     "PLUGINS_MANAGEMENT_INFO"	=> "Для коректної роботи деяких плагінів потрібні додаткові сценарії js/css.<br>Переконайтеся, що плагін 'modernScript CE' увімкнено, і перевірте налаштування.",
     'PLUGINS_INSTALLED' => "(кількість плагінів)",
@@ -482,7 +497,7 @@ $i18n = [
     'FILE_SIZE' => "Розмір",
     'ARCHIVE_DATE' => "Архів",
     'CKEDITOR_LANG' => "uk",
-    # new to 3.1
+	# new to 3.1 
     'XML_INVALID' => "Недійсний XML",
     'XML_VALID' => "Дійсний XML",
     'UPDATE_AVAILABLE' => "Оновіть до ",
@@ -507,10 +522,9 @@ $i18n = [
     'MENU_MANAGER_DESC' => "Перетягніть пункти меню и розташуйте їх в будь-якому порядкові, потім натисніть <strong>'Зберегти порядок пунктів меню'</strong>.",
     'MENU_MANAGER_SUCCESS' => "Порядок пунктів меню збережено.",
 
-
-    /* 
-     * For: api related pages
-     */
+	/* 
+	 * For: api related pages
+	 */
     'API_ERR_MISSINGPARAM' => "даного параметру не існує",
     'API_ERR_BADMETHOD' => "метод %s не існує",
     'API_ERR_AUTHFAILED' => "Помилка перевірки справжності",
@@ -558,10 +572,10 @@ $i18n = [
 	"Add_hash_GSUSECUSTOMSALT" 	=> 'Додайте новий хеш у поле \'GSUSECUSTOMSALT\' у gsconfig.php.',
 	"Clear_cookies" 		=> 'Очистити кукі.',
 
-    /*
-     * Default transliteration
-     */
-    "TRANSLITERATION" 		=> [
+	/*
+	 * Default transliteration
+	 */
+	"TRANSLITERATION" 		=> [
 		// Roman
 		'á'=>'a', 'é'=>'e', 'í'=>'i', 'ó'=>'o', 'ú'=>'u',
 		'Á'=>'a', 'É'=>'e', 'Í'=>'i', 'Ó'=>'o', 'Ú'=>'u',
@@ -585,7 +599,7 @@ $i18n = [
 		"Ĺ"=>"l","Ľ"=>"L","Ŕ"=>"r",
 		// Polish
 		"Ą"=>"a","Ć"=>"c","Ę"=>"e",
-		"Ł"=>"l","Ń"=>"n","Ó"=>"o",
+		"Ł"=>"L","Ń"=>"n","Ó"=>"o",
 		"Ś"=>"s","Ź"=>"z","Ż"=>"z",
 		"ą"=>"a","ć"=>"c","ę"=>"e",
 		"ł"=>"l","ń"=>"n","ó"=>"o",
@@ -604,8 +618,9 @@ $i18n = [
 		"о"=>"o","п"=>"p","р"=>"r","с"=>"s","т"=>"t",
 		"у"=>"u","ф"=>"f","х"=>"h","ц"=>"c","ч"=>"ch",
 		"ш"=>"sh","щ"=>"shh","ъ"=>"","ы"=>"y","ь"=>"",
-
-		"э"=>"e","ю"=>"yu","я"=>"ya"
+		"э"=>"e","ю"=>"yu","я"=>"ya",
+		// Scandinavian
+		"æ"=>"a","Æ"=>"a","å"=>"a","Å"=>"a","ä"=>"a","Ä"=>"a","ø"=>"a","Ø"=>"a","ö"=>"o","Ö"=>"o"
 	],
 
 	"X" 					=> "not translated",

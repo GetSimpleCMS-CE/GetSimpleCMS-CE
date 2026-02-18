@@ -4,9 +4,9 @@
  * ملف اللغة العربية
  *
  * التاريخ: 		2009.09.10
- * المراجعة:		2023.07.23
- * الإصدار:		GetSimple 3.3.19 CE
- * المترجمون:   مجتمع GS
+ * المراجعة:		2026.02.14
+ * الإصدار:			GetSimple 3.3.23 CE
+ * المترجمون:		GS Team
  *
  * @package GetSimple
  * @subpackage Language
@@ -14,9 +14,9 @@
 
 $i18n = [
 
-    /* 
-     * For: install.php
-    */
+	/* 
+	 * For: install.php
+	 */
     "PHPVER_ERROR"          =>  "<b>غير قادر على المتابعة:</b> يتطلب PHP 7.4 أو أعلى، لديك ",
     "SIMPLEXML_ERROR"       =>  "<b>غير قادر على المتابعة:</b> <em>SimpleXML</em> غير مثبت",
     "CURL_WARNING"          =>  "<b>تحذير:</b> <em>cURL</em> غير مثبت",
@@ -49,9 +49,9 @@ $i18n = [
     "SITE_UPDATED"          =>  "تم تحديث موقعك",
     "SERVICE_UNAVAILABLE"   =>  "هذه الصفحة غير متوفرة مؤقتاً",
 
-    /* 
-     * For: pages.php
-    */
+	/* 
+	 * For: pages.php
+	 */
     "MENUITEM_SUBTITLE"     =>  "عنصر القائمة",
     "HOMEPAGE_SUBTITLE"     =>  "الصفحة الرئيسية",
     "PRIVATE_SUBTITLE"      =>  "خاص",
@@ -63,9 +63,9 @@ $i18n = [
     "TOTAL_PAGES"           =>  "إجمالي الصفحات",
     "ALL_PAGES"             =>  "الصفحات",
 
-    /* 
-     * For: edit.php
-    */
+	/* 
+	 * For: edit.php
+	 */
     "PAGE_NOTEXIST"         =>  "الصفحة المطلوبة غير موجودة",
     "BTN_SAVEPAGE"          =>  "حفظ الصفحة",
     "BTN_SAVEUPDATES"       =>  "حفظ التحديثات",
@@ -95,9 +95,9 @@ $i18n = [
     "SAVE_AND_CLOSE"        =>  "حفظ وإغلاق",
     "PAGE_UNSAVED"          =>  "هناك تغييرات غير محفوظة في الصفحة",
 
-    /* 
-     * For: upload.php
-    */
+	/* 
+	 * For: upload.php
+	 */
     "ERROR_UPLOAD"          =>  "حدثت مشكلة أثناء رفع الملف",
     "FILE_SUCCESS_MSG"      =>  "نجاح! موقع الملف",
     "FILE_MANAGEMENT"       =>  "إدارة الملفات",
@@ -107,29 +107,29 @@ $i18n = [
     "DELETE_FILE"           =>  "حذف الملف",
     "TOTAL_FILES"           =>  "إجمالي الملفات والمجلدات",
 
-    /* 
-     * For: logout.php
-    */
+	/* 
+	 * For: logout.php
+	 */
     "MSG_LOGGEDOUT"         =>  "لقد تم تسجيل خروجك الآن.",
 
-    /* 
-     * For: index.php
-    */
+	/* 
+	 * For: index.php
+	 */
     "LOGIN"                 =>  "تسجيل الدخول",
     "USERNAME"              =>  "اسم المستخدم",
     "PASSWORD"              =>  "كلمة المرور",
     "FORGOT_PWD"            =>  "هل نسيت كلمة المرور؟",
     "CONTROL_PANEL"         =>  "دخول لوحة التحكم",
 
-    /* 
-     * For: navigation.php
-    */
+	/* 
+	 * For: navigation.php
+	 */
     "CURRENT_MENU"          =>  "القائمة الحالية",
     "NO_MENU_PAGES"         =>  "لا توجد صفحات محددة للظهور في القائمة الرئيسية",
 
-    /* 
-     * For: theme-edit.php
-    */
+	/* 
+	 * For: theme-edit.php
+	 */
     "TEMPLATE_FILE"         =>  "تم تحديث ملف القالب <b>%s</b> بنجاح!",
     "THEME_MANAGEMENT"      =>  "إدارة القوالب",
     "EDIT_THEME"            =>  "محرر القوالب",
@@ -137,9 +137,9 @@ $i18n = [
     "BTN_SAVECHANGES"       =>  "حفظ التغييرات",
     "EDIT"                  =>  "تحرير",
 
-    /* 
-     * For: support.php
-    */
+	/* 
+	 * For: support.php
+	 */
     "SETTINGS_UPDATED"      =>  "تم تحديث إعداداتك",
     "UNDO"                  =>  "تراجع",
     "SUPPORT"               =>  "الدعم",
@@ -148,9 +148,9 @@ $i18n = [
     "BTN_SAVESETTINGS"      =>  "حفظ الإعدادات",
     "VIEW_FAILED_LOGIN"     =>  "عرض محاولات تسجيل الدخول الفاشلة",
 
-    /* 
-     * For: log.php
-    */
+	/* 
+	 * For: log.php
+	 */
     "MSG_HAS_BEEN_CLR"      =>  " تم مسحها",
     "LOGS"                  =>  "السجلات",
     "VIEWING"               =>  "عرض",
@@ -160,9 +160,9 @@ $i18n = [
     "LOG_FILE_ENTRY"        =>  "إدخال ملف السجل",
     "THIS_COMPUTER"         =>  "هذا الكمبيوتر",
 
-    /* 
-     * For: backup-edit.php
-    */
+	/* 
+	 * For: backup-edit.php
+	 */
     "BAK_MANAGEMENT"        =>  "إدارة النسخ الاحتياطية",
     "ASK_CANCEL"            =>  "إلغاء", // المفتاح: 'c'
     "ASK_RESTORE"           =>  "استعادة", // المفتاح: 'r'
@@ -174,35 +174,35 @@ $i18n = [
     "DATE"                  =>  "التاريخ",
     "PERMS"                 =>  "الأذونات",
 
-    /* 
-     * For: components.php
-    */
+	/* 
+	 * For: components.php
+	 */
     "COMPONENTS"            =>  "المكونات",
     "DELETE_COMPONENT"      =>  "حذف المكون",
     "EDIT"                  =>  "تحرير",
     "ADD_COMPONENT"         =>  "إضافة مكون", // المفتاح: 'a'
     "SAVE_COMPONENTS"       =>  "حفظ المكونات",
 
-    /* 
-     * For: sitemap.php
-    */
+	/* 
+	 * For: sitemap.php
+	 */
     "SITEMAP_CREATED"       =>  "تم إنشاء خريطة الموقع بنجاح! كما تم إعلام 4 محركات بحث بالتحديث",
     "SITEMAP_ERRORPING"     =>  "تم إنشاء خريطة الموقع، ولكن حدث خطأ أثناء إعلام محرك بحث واحد أو أكثر",
     "SITEMAP_ERROR"         =>  "تعذر إنشاء خريطة موقعك",
     "SITEMAP_WAIT"          =>  "<b>يرجى الانتظار:</b> جاري إنشاء خريطة الموقع",
 
-    /* 
-     * For: theme.php
-    */
+	/* 
+	 * For: theme.php
+	 */
     "THEME_CHANGED"         =>  "تم تغيير القالب بنجاح",
     "CHOOSE_THEME"          =>  "اختر قالبك",
     "ACTIVATE_THEME"        =>  "تفعيل القالب",
     "THEME_SCREENSHOT"      =>  "لقطة شاشة للقالب",
     "THEME_PATH"            =>  "مسار مجلد القالب",
 
-    /* 
-     * For: resetpassword.php
-    */
+	/* 
+	 * For: resetpassword.php
+	 */
     "RESET_PASSWORD"        =>  "إعادة تعيين كلمة المرور",
     "YOUR_NEW"              =>  "كلمة المرور الجديدة الخاصة بك هي",
     "PASSWORD_IS"           =>  "كلمة المرور هي",
@@ -210,9 +210,9 @@ $i18n = [
     "MSG_PLEASE_EMAIL"      =>  "يرجى إدخال اسم المستخدم المسجل في هذا النظام، وسنرسل كلمة مرور جديدة إلى عنوان بريده الإلكتروني.",
     "SEND_NEW_PWD"          =>  "إرسال كلمة مرور جديدة",
 
-    /* 
-     * For: settings.php
-    */
+	/* 
+	 * For: settings.php
+	 */
     "GENERAL_SETTINGS"      =>  "الإعدادات العامة",
     "WEBSITE_SETTINGS"      =>  "إعدادات الموقع",
     "LOCAL_TIMEZONE"        =>  "المنطقة الزمنية المحلية",
@@ -231,9 +231,9 @@ $i18n = [
     "FLUSHCACHE-SUCCESS"    =>  "تم مسح ذاكرات التخزين المؤقت بنجاح",
     "DISPLAY_NAME"          =>  "اسم للعرض العام مختلف عن اسم المستخدم",
 
-    /* 
-     * For: health-check.php
-    */
+	/* 
+	 * For: health-check.php
+	 */
     "WEB_HEALTH_CHECK"      =>  "فحص صحة الموقع",
     "VERSION"               =>  "الإصدار",
     "UPG_NEEDED"            =>  "يوصى بالترقية",
@@ -257,23 +257,39 @@ $i18n = [
     "DOWNLOAD"              =>  "تنزيل",
     "WRITABLE"              =>  "قابل للكتابة",
     "NOT_WRITABLE"          =>  "غير قابل للكتابة",
+	
+	# new to 3.3.23 Enhanced Security
+	"SECURITY"				=>	"الأمان",
+	"HTACCESS_TEST_EXPLANATION"	=>	"يتحقق هذا الاختبار من أن الأدلة الحساسة محمية فعليًا من خلال محاولة الوصول إليها عبر HTTP. يضمن ذلك أن ملفات .htaccess تعمل بشكل صحيح.",
+	"CRITICAL_SECURITY_RISK"	=>	"مخاطر أمنية حرجة",
+	"CANNOT_VERIFY"			=>	"لا يمكن التحقق",
+	"CANNOT_TEST"			=>	"لا يمكن الاختبار",
+	"APPLICATION_LEVEL_PROTECTION"	=>	"حماية على مستوى التطبيق (index.php)",
+	"DEFENSE_IN_DEPTH" 		=>	"الدفاع متعدد الطبقات",
+	"INDEX_PHP_EXPLANATION"	=>	"توفر ملفات الحماية هذه أمانًا على مستوى التطبيق يعمل حتى إذا تم تعطيل .htaccess. هذا هو خط الدفاع الأساسي ضد الوصول غير المصرح به.",
+	"INDEX_PHP_RECOMMENDATION"	=>	"ضع ملفات الحماية index.php في الأدلة الحساسة لتحقيق أمان متعدد الطبقات",
+	"RECOMMENDATION"		=>	"توصية",
+	"CRITICAL"				=>	"حرج",
+	"EFFECTIVENESS"			=>	"الفعالية",
+	"PLACE_INDEX"			=>	"ضع ملفات index.php المقدمة في",
+	"FILES_PROVIDE"			=>	"توفر هذه الملفات حماية متعددة الطبقات حتى في حال فشل .htaccess.",
 
-    /* 
-     * For: footer.php
-    */
+	/* 
+	 * For: footer.php
+	 */
     "POWERED_BY"            =>  "مدعوم من",
 
-    /* 
-     * For: backups.php
-    */
+	/* 
+	 * For: backups.php
+	 */
     "PAGE_BACKUPS"          =>  "نسخ احتياطية للصفحة",
     "ASK_DELETE_ALL"        =>  "حذف الكل",
     "DELETE_ALL_BAK"        =>  "حذف كل النسخ الاحتياطية؟",
     "TOTAL_BACKUPS"         =>  "إجمالي النسخ الاحتياطية",
 
-    /* 
-     * For: archive.php
-    */
+	/* 
+	 * For: archive.php
+	 */
     "SUCC_WEB_ARCHIVE"      =>  "تم إنشاء أرشيف لموقعك بنجاح",
     "SUCC_WEB_ARC_DEL"      =>  "تم حذف الأرشيف المحدد بنجاح",
     "WEBSITE_ARCHIVES"      =>  "أرشيفات الموقع",
@@ -285,9 +301,9 @@ $i18n = [
     "DELETE_ARCHIVE"        =>  "حذف الأرشيف",
     "TOTAL_ARCHIVES"        =>  "إجمالي الأرشيفات",
 
-    /* 
-     * For: include-nav.php
-    */
+	/* 
+	 * For: include-nav.php
+	 */
     "WELCOME"               =>  "مرحباً", // يستخدم في 'مرحباً USERNAME!'
     "TAB_PAGES"             =>  "الصفحات",
     "TAB_FILES"             =>  "الملفات",
@@ -298,51 +314,51 @@ $i18n = [
     "TAB_SUPPORT"           =>  "الدعم",
     "TAB_LOGOUT"            =>  "تسجيل الخروج",
 
-    /* 
-     * For: sidebar-files.php
-    */
+	/* 
+	 * For: sidebar-files.php
+	 */
     "BROWSE_COMPUTER"       =>  "تصفح جهاز الكمبيوتر الخاص بك",
     "UPLOAD"                =>  "رفع",
 
-    /* 
-     * For: sidebar-support.php
-    */
+	/* 
+	 * For: sidebar-support.php
+	 */
     "SIDE_SUPPORT_LOG"      =>  "الدعم",
     "SIDE_HEALTH_CHK"       =>  "فحص صحة الموقع",
     "SIDE_DOCUMENTATION"    =>  "توثيق الويكي",
     "SIDE_VIEW_LOG"         =>  "عرض السجل",
 
-    /* 
-     * For: sidebar-theme.php
-    */
+	/* 
+	 * For: sidebar-theme.php
+	 */
     "SIDE_VIEW_SITEMAP"     =>  "عرض خريطة الموقع",
     "SIDE_GEN_SITEMAP"      =>  "إنشاء خريطة الموقع",
     "SIDE_COMPONENTS"       =>  "تحرير المكونات",
     "SIDE_EDIT_THEME"       =>  "تحرير القالب",
     "SIDE_CHOOSE_THEME"     =>  "اختر القالب",
 
-    /* 
-     * For: sidebar-pages.php
-    */
+	/* 
+	 * For: sidebar-pages.php
+	 */
     "SIDE_CREATE_NEW"       =>  "إنشاء صفحة جديدة",
     "SIDE_VIEW_PAGES"       =>  "عرض كل الصفحات",
 
-    /* 
-     * For: sidebar-settings.php
-    */
+	/* 
+	 * For: sidebar-settings.php
+	 */
     "SIDE_GEN_SETTINGS"     =>  "الإعدادات العامة",
     "SIDE_USER_PROFILE"     =>  "الملف الشخصي للمستخدم",
 
-    /* 
-     * For: sidebar-backups.php
-    */
+	/* 
+	 * For: sidebar-backups.php
+	 */
     "SIDE_VIEW_BAK"         =>  "عرض نسخة احتياطية للصفحة",
     "SIDE_WEB_ARCHIVES"      =>  "أرشيفات الموقع",
     "SIDE_PAGE_BAK"         =>  "نسخ الصفحات الاحتياطية",
 
-    /* 
-     * For: error_checking.php
-    */
+	/* 
+	 * For: error_checking.php
+	 */
     "ER_PWD_CHANGE"         =>  "لا تنسى <a href=\"settings.php#profile\">تغيير كلمة المرور</a> من تلك التي تم توليدها عشوائياً حاليًا...",
     "ER_BAKUP_DELETED"      =>  "تم حذف النسخة الاحتياطية لـ <b>%s</b>",
     "ER_REQ_PROC_FAIL"      =>  "فشل العملية المطلوبة",
@@ -360,15 +376,15 @@ $i18n = [
     "ER_COMPONENT_REST"     =>  "تم استعادة المكونات الخاصة بك",
     "ER_CANCELLED_FAIL"     =>  "<b>أُلغيت:</b> تم إلغاء هذا التحديث",
 
-    /* 
-     * For: changedata.php
-    */
+	/* 
+	 * For: changedata.php
+	 */
     "CANNOT_SAVE_EMPTY"     =>  "لا يمكنك حفظ صفحة بعنوان فارغ",
     "META_DESC"             =>  "الوصف التعريفي",
 
-    /* 
-     * For: template_functions.php
-    */
+	/* 
+	 * For: template_functions.php
+	 */
     "FTYPE_COMPRESSED"      =>  "مضغوط", // نوع ملف
     "FTYPE_VECTOR"          =>  "متجه", // نوع ملف
     "FTYPE_FLASH"           =>  "فلاش", // نوع ملف
@@ -380,28 +396,28 @@ $i18n = [
     "FTYPE_MISC"            =>  "متنوع", // نوع ملف
     "IMAGES"                =>  "الصور",
 
-    /* 
-     * For: login_functions.php
-    */
+	/* 
+	 * For: login_functions.php
+	 */
     "FILL_IN_REQ_FIELD"     =>  "يرجى ملء جميع الحقول المطلوبة",
     "LOGIN_FAILED"          =>  "فشل تسجيل الدخول. يرجى التحقق من اسم المستخدم وكلمة المرور",
 
-    /* 
-     * For: Date Format
-    */
+	/* 
+	 * For: Date Format
+	 */
     "DATE_FORMAT"           =>  "M j, Y", // يجب أن يكون قصيراً
     "DATE_AND_TIME_FORMAT"  =>  "F jS, Y - g:i A", // التاريخ والوقت
 
-    /* 
-     * For: support.php
-    */
+	/* 
+	 * For: support.php
+	 */
     "WELCOME_MSG"           =>  "شكراً لاختيارك GetSimple كنظام إدارة المحتوى الخاص بك!",
     "WELCOME_P"             =>  "يجعل GetSimple إدارة الموقع بسيطة بقدر الإمكان بفضل واجهة المستخدم الرائعة الخاصة به. نسعى لجعل النظام سهل الاستخدام لأي شخص، ومع ذلك قوي بما يكفي للمطور لتفعيل جميع الميزات المطلوبة.</p><p><strong>بعض الخطوات الأولية التي قد تكون مفيدة:</strong></p>",
     "GETTING_STARTED"       =>  "ابدأ الآن",
 
-    /* 
-     * For: image.php
-    */
+	/* 
+	 * For: image.php
+	 */
     "CURRENT_THUMBNAIL"     =>  "الصورة المصغرة الحالية",
     "RECREATE"              =>  "إعادة إنشاء",
     "CREATE_ONE"            =>  "إنشاء واحدة",
@@ -417,9 +433,9 @@ $i18n = [
     "LINK_THUMBNAIL"        =>  "رابط الصورة المصغرة",
     "HTML_THUMB_ORIG"       =>  "HTML تحويل الصورة المصغرة إلى الصورة الأصلية",
 
-    /* 
-     * For: plugins.php
-    */
+	/* 
+	 * For: plugins.php
+	 */
     "PLUGINS_MANAGEMENT"    =>  "إدارة الإضافات",
     "PLUGINS_MANAGEMENT_INFO" => "قد تتطلب بعض الإضافات سكربتات js/css إضافية لتعمل بشكل صحيح.<br>تأكد من تفعيل إضافة 'modernScript CE' والتحقق من الإعدادات.",
     "PLUGINS_INSTALLED"     =>  "الإضافات المثبتة",
@@ -430,13 +446,13 @@ $i18n = [
     "PLUGIN_VER"            =>  "الإصدار",
     "PLUGIN_UPDATED"        =>  "تم تحديث الإضافة",
 
-    /***********************************************************************************
-     * منذ الإصدار 3.0
-    ***********************************************************************************/
+	/***********************************************************************************
+	 * SINCE Version 3.0
+	***********************************************************************************/
 
-    /* 
-     * For: setup.php
-    */
+	/* 
+	 * For: setup.php
+	 */
     "ROOT_HTACCESS_ERROR"   =>  "فشل إنشاء .htaccess في الدليل الجذر! يرجى نسخ <code>%s</code> إلى <code>.htaccess</code> وتغيير <code>%s</code> إلى <code>%s</code>",
     "REMOVE_TEMPCONFIG_ERROR" => "فشل إزالة <code>%s</code>! يرجى القيام بذلك يدوياً.",
     "MOVE_TEMPCONFIG_ERROR"   => "فشل إعادة تسمية <code>%s</code> إلى <code>%s</code>! يرجى القيام بذلك يدوياً.",
@@ -444,10 +460,10 @@ $i18n = [
     "REFRESH"                 => "تحديث",
     "BETA"                    => "بيتا / الإصدار التجريبي",
 
-    /*
-     * أعمال التنظيف المتنوعة
-     */
-    # جديد في 3.0 
+	/*
+	 * Misc Cleanup Work
+	 */
+	# new to 3.0 
     "HOMEPAGE_DELETE_ERROR"   => "لا يمكنك حذف الصفحة الرئيسية", // حذف ملف
     "NO_ZIPARCHIVE"           => "امتداد ZipArchive غير مثبت. لا يمكن المتابعة", // zip
     "REDIRECT_MSG"            => "إذا لم يقم المتصفح بإعادة التوجيه، اضغط <a href=\"%s\">هنا</a>", // بسيط
@@ -481,7 +497,7 @@ $i18n = [
     "ARCHIVE_DATE"            => "تاريخ الأرشيف", // archive.php
     "CKEDITOR_LANG"           => "en", // edit.php ؛ ضبط لغة CKEditor، لا تنسى تضمين ملف لغة CKEditor في حزمة الترجمة
 
-    # جديد في 3.1 
+	# new to 3.1 
     "XML_INVALID"             => "XML غير صالح", // template-functions.php
     "XML_VALID"               => "XML صالح",
     "UPDATE_AVAILABLE"        => "تحديث إلى", // plugins.php
@@ -506,9 +522,9 @@ $i18n = [
     "MENU_MANAGER_DESC"       => "اسحب وأفلت عناصر القائمة حتى تحصل على الترتيب المطلوب، ثم اضغط على زر <strong>'حفظ ترتيب القائمة'</strong>.", // menu-manager.php
     "MENU_MANAGER_SUCCESS"    => "تم حفظ ترتيب القائمة الجديد", // menu-manager.php
 
-    /* 
-     * For: api related pages
-     */
+	/* 
+	 * For: api related pages
+	 */
     "API_ERR_MISSINGPARAM"    => "بيانات المعامل غير موجودة",
     "API_ERR_BADMETHOD"       => "الطريقة %s غير موجودة",
     "API_ERR_AUTHFAILED"      => "فشل التوثيق",
@@ -556,62 +572,63 @@ $i18n = [
 	"Add_hash_GSUSECUSTOMSALT" 	=> 'أضف التجزئة الجديدة إلى حقل \'GSUSECUSTOMSALT\' في gsconfig.php.',
 	"Clear_cookies" 		=> 'مسح ملفات تعريف الارتباط.',
 
-    /*
-     * التحويل الحرفي الافتراضي
-     */
-    "TRANSLITERATION"         => [
-        // الحروف الرومانية
-        'á'=>'a', 'é'=>'e', 'í'=>'i', 'ó'=>'o', 'ú'=>'u',
-        'Á'=>'a', 'É'=>'e', 'Í'=>'i', 'Ó'=>'o', 'Ú'=>'u',
-        'à'=>'a', 'è'=>'e', 'ì'=>'i', 'ò'=>'o', 'ù'=>'u',
-        'À'=>'a', 'È'=>'e', 'Ì'=>'i', 'Ò'=>'o', 'Ù'=>'u',
-        'ä'=>'a', 'ë'=>'e', 'ï'=>'i', 'ö'=>'o', 'ü'=>'u',
-        'Ä'=>'a', 'Ë'=>'e', 'Ï'=>'i', 'Ö'=>'o', 'Ü'=>'u',
-        'â'=>'a', 'ê'=>'e', 'î'=>'i', 'ô'=>'o', 'û'=>'u',
-        'Â'=>'a', 'Ê'=>'e', 'Î'=>'i', 'Ô'=>'o', 'Û'=>'u',
-        'ñ'=>'n', 'ç'=>'c',
-        'Ñ'=>'n', 'Ç'=>'c',
-        '¿'=>'', '¡'=>'',
-        // أحرف تشيكية خاصة مع تأثير النبر (باستثناء بعضها)
-        "ě"=>"e","Ě"=>"E","š"=>"s","Š"=>"S","č"=>"c",
-        "Č"=>"c","ř"=>"r","Ř"=>"r","ž"=>"z","Ž"=>"z",
-        "ý"=>"y","Ý"=>"y",
-        "ů"=>"u","Ů"=>"u","ť"=>"t","Ť"=>"t",
-        "ď"=>"d","Ď"=>"d","ň"=>"n","Ň"=>"n",
-        // أحرف سلوفاكية خاصة مع تأثير النبر (باستثناء بعضها)
-        "ĺ"=>"l","ľ"=>"l","ŕ"=>"r", 
-        "Ĺ"=>"l","Ľ"=>"L","Ŕ"=>"r",
-        // البولندية
-        "Ą"=>"a","Ć"=>"c","Ę"=>"e",
-        "Ł"=>"L","Ń"=>"N","Ó"=>"O",
-        "Ś"=>"s","Ź"=>"z","Ż"=>"z",
-        "ą"=>"a","ć"=>"c","ę"=>"e",
-        "ł"=>"l","ń"=>"n","ó"=>"o",
-        "ś"=>"s","ź"=>"z","ż"=>"z",
-        // الروسية
-        "А"=>"a","Б"=>"b","В"=>"v",
-        "Г"=>"g","Д"=>"d","Е"=>"e","Ё"=>"yo","Ж"=>"zh",
-        "З"=>"z","И"=>"i","Й"=>"j","К"=>"k","Л"=>"l",
-        "М"=>"m","Н"=>"n","О"=>"o","П"=>"p","Р"=>"r",
-        "С"=>"s","Т"=>"t","У"=>"u","Ф"=>"f","Х"=>"h",
-        "Ц"=>"c","Ч"=>"ch","Ш"=>"sh","Щ"=>"shh","Ъ"=>"'",
-        "Ы"=>"y","Ь"=>"","Э"=>"e","Ю"=>"yu","Я"=>"ya",
-        "а"=>"a","б"=>"b","в"=>"v","г"=>"g","д"=>"d",
-        "е"=>"e","ё"=>"yo","ж"=>"zh","з"=>"z","и"=>"i",
-        "й"=>"j","к"=>"k","л"=>"l","м"=>"m","н"=>"n",
-        "о"=>"o","п"=>"p","р"=>"r","с"=>"s","т"=>"t",
+	/*
+	 * Default transliteration
+	 */
+	"TRANSLITERATION" 		=> [
+		// Roman
+		'á'=>'a', 'é'=>'e', 'í'=>'i', 'ó'=>'o', 'ú'=>'u',
+		'Á'=>'a', 'É'=>'e', 'Í'=>'i', 'Ó'=>'o', 'Ú'=>'u',
+		'à'=>'a', 'è'=>'e', 'ì'=>'i', 'ò'=>'o', 'ù'=>'u',
+		'À'=>'a', 'È'=>'e', 'Ì'=>'i', 'Ò'=>'o', 'Ù'=>'u',
+		'ä'=>'a', 'ë'=>'e', 'ï'=>'i', 'ö'=>'o', 'ü'=>'u',
+		'Ä'=>'a', 'Ë'=>'e', 'Ï'=>'i', 'Ö'=>'o', 'Ü'=>'u',
+		'â'=>'a', 'ê'=>'e', 'î'=>'i', 'ô'=>'o', 'û'=>'u',
+		'Â'=>'a', 'Ê'=>'e', 'Î'=>'i', 'Ô'=>'o', 'Û'=>'u',
+		'ñ'=>'n', 'ç'=>'c',
+		'Ñ'=>'n', 'Ç'=>'c',
+		'¿'=>'', '¡'=>'',
+		// special Czech chars with diacritics (except some)
+		"ě"=>"e","Ě"=>"E","š"=>"s","Š"=>"S","č"=>"c",
+		"Č"=>"c","ř"=>"r","Ř"=>"r","ž"=>"z","Ž"=>"z",
+		"ý"=>"y","Ý"=>"y",
+		"ů"=>"u","Ů"=>"u","ť"=>"t","Ť"=>"t",
+		"ď"=>"d","Ď"=>"d","ň"=>"n","Ň"=>"n",
+		//special Slovakian chars with diacritics (except some)
+		"ĺ"=>"l","ľ"=>"l","ŕ"=>"r", 
+		"Ĺ"=>"l","Ľ"=>"L","Ŕ"=>"r",
+		// Polish
+		"Ą"=>"a","Ć"=>"c","Ę"=>"e",
+		"Ł"=>"L","Ń"=>"n","Ó"=>"o",
+		"Ś"=>"s","Ź"=>"z","Ż"=>"z",
+		"ą"=>"a","ć"=>"c","ę"=>"e",
+		"ł"=>"l","ń"=>"n","ó"=>"o",
+		"ś"=>"s","ź"=>"z","ż"=>"z",
+		// Russian
+		"А"=>"a","Б"=>"b","В"=>"v",
+		"Г"=>"g","Д"=>"d","Е"=>"e","Ё"=>"yo","Ж"=>"zh",
+		"З"=>"z","И"=>"i","Й"=>"j","К"=>"k","Л"=>"l",
+		"М"=>"m","Н"=>"n","О"=>"o","П"=>"p","Р"=>"r",
+		"С"=>"s","Т"=>"t","У"=>"u","Ф"=>"f","Х"=>"h",
+		"Ц"=>"c","Ч"=>"ch","Ш"=>"sh","Щ"=>"shh","Ъ"=>"'",
+		"Ы"=>"y","Ь"=>"","Э"=>"e","Ю"=>"yu","Я"=>"ya",
+		"а"=>"a","б"=>"b","в"=>"v","г"=>"g","д"=>"d",
+		"е"=>"e","ё"=>"yo","ж"=>"zh","з"=>"z","и"=>"i",
+		"й"=>"j","к"=>"k","л"=>"l","м"=>"m","н"=>"n",
+		"о"=>"o","п"=>"p","р"=>"r","с"=>"s","т"=>"t",
 		"у"=>"u","ф"=>"f","х"=>"h","ц"=>"c","ч"=>"ch",
 		"ш"=>"sh","щ"=>"shh","ъ"=>"","ы"=>"y","ь"=>"",
-
-		"э"=>"e","ю"=>"yu","я"=>"ya"
-	],
+		"э"=>"e","ю"=>"yu","я"=>"ya",
+		// Scandinavian
+		"æ"=>"a","Æ"=>"a","å"=>"a","Å"=>"a","ä"=>"a","Ä"=>"a","ø"=>"a","Ø"=>"a","ö"=>"o","Ö"=>"o"
+],
 
 	"X" 					=> "not translated",
 
 	/*
 	 * Additions for 3.1
 	 */
-	"DEBUG_CONSOLE" 		=> 'Debug Console',
+	"DEBUG_CONSOLE"	=>	'Debug Console',
 
 ];
 
