@@ -38,7 +38,20 @@ if (isset($data->turnon) && $data->turnon == 'true'):
 		// Update site logo
 		var sitenameLink = document.querySelector('#sitename a');
 		if (sitenameLink) {
-			sitenameLink.innerHTML = '<img class="logocustom" style="vertical-align:middle;" src="<?php echo htmlspecialchars($SITEURL . 'data/other/footerfoto/' . $data->ownfootericon, ENT_QUOTES, 'UTF-8'); ?>" alt="<?php echo htmlspecialchars($SITENAME, ENT_QUOTES, 'UTF-8'); ?>"> <span class="sitename"><?php echo htmlspecialchars($SITENAME, ENT_QUOTES, 'UTF-8'); ?></span>';
+			var img = document.createElement('img');
+			img.className = 'logocustom';
+			img.style.verticalAlign = 'middle';
+			img.src = '<?php echo htmlspecialchars($SITEURL . 'data/other/footerfoto/' . $data->ownfootericon, ENT_QUOTES, 'UTF-8'); ?>';
+			img.alt = '<?php echo htmlspecialchars($SITENAME, ENT_QUOTES, 'UTF-8'); ?>';
+			
+			var span = document.createElement('span');
+			span.className = 'sitename';
+			span.textContent = <?php echo json_encode($SITENAME, JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT); ?>;
+			
+			sitenameLink.innerHTML = '';
+			sitenameLink.appendChild(img);
+			sitenameLink.appendChild(document.createTextNode(' '));
+			sitenameLink.appendChild(span);
 		}
 		<?php endif; ?>
 		
@@ -55,7 +68,7 @@ if (isset($data->turnon) && $data->turnon == 'true'):
 		if (footerLeft) {
 			footerLeft.style.marginTop = "5px";
 			<?php if (isset($data->ownfootername) && !empty($data->ownfootername)): ?>
-			footerLeft.innerHTML = '<?php echo date('Y'); ?> © <?php echo htmlspecialchars($data->ownfootername, ENT_QUOTES, 'UTF-8'); ?>';
+			footerLeft.textContent = '<?php echo date('Y'); ?> © ' + <?php echo json_encode($data->ownfootername, JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT); ?>;
 			<?php endif; ?>
 		}
 	})();
