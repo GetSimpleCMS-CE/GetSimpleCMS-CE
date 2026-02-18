@@ -8,7 +8,6 @@
  * @subpackage Zip
  */ 
 	
-	
 /**
  * Get Template
  *
@@ -71,7 +70,6 @@ function get_filename_id() {
  * @param string $id File ID to delete
  */
 function delete_file($id) {
-
 	$bakfilepath = GSBACKUPSPATH . 'pages' . DIRECTORY_SEPARATOR;
 	$bakfile = $bakfilepath . $id .'.bak.xml';
 
@@ -95,9 +93,9 @@ function delete_file($id) {
  *
  * @param string $path File and/or path
  */
-function check_perms($path) { 
-  clearstatcache(); 
-  $configmod = substr(sprintf('%o', fileperms($path)), -4);  
+function check_perms($path) {
+	clearstatcache(); 
+	$configmod = substr(sprintf('%o', fileperms($path)), -4);
 	return $configmod;
 } 
 
@@ -110,12 +108,12 @@ function check_perms($path) {
  * @param string $id Zip filename to delete
  * @return string
  */
-function delete_zip($id) { 
+function delete_zip($id) {
 	$filepath = GSBACKUPSPATH . 'zip' . DIRECTORY_SEPARATOR;
 	$file = $filepath . $id;
 
 	if(filepath_is_safe($file,$filepath)){
-		$success =  unlink($file);
+		$success = unlink($file);
 		if($success) return 'success';
 	}
 	return 'error';
@@ -132,9 +130,9 @@ function delete_zip($id) {
  * @param string $path Path to uploaded file folder
  * @return string
  */
-function delete_upload($id, $path = "") { 
+function delete_upload($id, $path = "") {
 	$filepath = GSDATAUPLOADPATH . $path;
-	$file =  $filepath . $id;
+	$file = $filepath . $id;
 
 	if(path_is_safe($filepath,GSDATAUPLOADPATH) && filepath_is_safe($file,$filepath)){
 		$status = unlink(GSDATAUPLOADPATH . $path . $id);
@@ -158,7 +156,7 @@ function delete_upload($id, $path = "") {
  *
  * @returns deleted count on success, null if there are any errors
  */
-function delete_cache() { 
+function delete_cache() {
 	$cachepath = GSCACHEPATH;
 	
 	$cnt = 0;	
@@ -182,7 +180,7 @@ function delete_cache() {
  * @param string $id File ID to delete
  * @return string
  */
-function delete_bak($id) { 
+function delete_bak($id) {
 	unlink(GSBACKUPSPATH."pages/". $id .".bak.xml");
 	return 'success';
 } 
@@ -221,17 +219,17 @@ function restore_bak($id) {
  * @return string
  */
 function createRandomPassword() {
-    $chars = "Ayz23mFGHBxPQefgnopRScdqrTU4CXYZabstuDEhijkIJKMNVWvw56789";
-    srand((double)microtime()*1000000);
-    $i = 0;
-    $pass = '' ;
-    while ($i <= 5) {
-        $num = rand() % 33;
-        $tmp = substr($chars, $num, 1);
-        $pass = $pass . $tmp;
-        $i++;
-    }
-    return $pass;
+	$chars = "Ayz23mFGHBxPQefgnopRScdqrTU4CXYZabstuDEhijkIJKMNVWvw56789";
+	srand((double)microtime()*1000000);
+	$i = 0;
+	$pass = '' ;
+	while ($i <= 5) {
+		$num = rand() % 33;
+		$tmp = substr($chars, $num, 1);
+		$pass = $pass . $tmp;
+		$i++;
+	}
+	return $pass;
 }
 
 /**
@@ -246,7 +244,6 @@ function createRandomPassword() {
  * @return string
  */
 function get_FileType($ext) {
-
 	$ext = lowercase($ext);
 	if ($ext == 'jpg' || $ext == 'jpeg' || $ext == 'pct' || $ext == 'gif' || $ext == 'bmp' || $ext == 'png' || $ext == 'webp' || $ext == 'svg' ) {
 		return i18n_r('IMAGES') .' Images';
@@ -304,15 +301,15 @@ function createBak($file, $filepath, $bakpath) {
  * @return string
  */
 function makeIso8601TimeStamp($dateTime) {
-    if (!$dateTime) {
-        $dateTime = date('Y-m-d H:i:s');
-    }
-    if (is_numeric(substr($dateTime, 11, 1))) {
-        $isoTS = substr($dateTime, 0, 10) ."T".substr($dateTime, 11, 8) ."+00:00";
-    } else {
-        $isoTS = substr($dateTime, 0, 10);
-    }
-    return $isoTS;
+	if (!$dateTime) {
+		$dateTime = date('Y-m-d H:i:s');
+	}
+	if (is_numeric(substr($dateTime, 11, 1))) {
+		$isoTS = substr($dateTime, 0, 10) ."T".substr($dateTime, 11, 8) ."+00:00";
+	} else {
+		$isoTS = substr($dateTime, 0, 10);
+	}
+	return $isoTS;
 }
 
 /**
@@ -324,62 +321,61 @@ function makeIso8601TimeStamp($dateTime) {
  * @return bool
  */
 function pingGoogleSitemaps($url_xml) {
-   $status = 0;
-   $google = 'www.google.com';
-   $bing 	 = 'www.bing.com';
-   $ask 	 = 'submissions.ask.com';
-   if( $fp=@fsockopen($google, 80) ) {
-      $req =  'GET /webmasters/sitemaps/ping?sitemap=' .
-              urlencode( $url_xml ) . " HTTP/1.1\r\n" .
-              "Host: $google\r\n" .
-              "User-Agent: Mozilla/5.0 (compatible; " .
-              PHP_OS . ") PHP/" . PHP_VERSION . "\r\n" .
-              "Connection: Close\r\n\r\n";
-      fwrite( $fp, $req );
-      while( !feof($fp) ) {
-         if( @preg_match('~^HTTP/\d\.\d (\d+)~i', fgets($fp, 128), $m) ) {
-            $status = intval( $m[1] );
-            break;
-         }
-      }
-      fclose( $fp );
-   }
-   
-   if( $fp=@fsockopen($bing, 80) ) {
-      $req =  'GET /webmaster/ping.aspx?sitemap=' .
-              urlencode( $url_xml ) . " HTTP/1.1\r\n" .
-              "Host: $bing\r\n" .
-              "User-Agent: Mozilla/5.0 (compatible; " .
-              PHP_OS . ") PHP/" . PHP_VERSION . "\r\n" .
-              "Connection: Close\r\n\r\n";
-      fwrite( $fp, $req );
-      while( !feof($fp) ) {
-         if( @preg_match('~^HTTP/\d\.\d (\d+)~i', fgets($fp, 128), $m) ) {
-            $status = intval( $m[1] );
-            break;
-         }
-      }
-      fclose( $fp );
-   }
-   
-   if( $fp=@fsockopen($ask, 80) ) {
-      $req =  'GET /ping?sitemap=' .
-              urlencode( $url_xml ) . " HTTP/1.1\r\n" .
-              "Host: $ask\r\n" .
-              "User-Agent: Mozilla/5.0 (compatible; " .
-              PHP_OS . ") PHP/" . PHP_VERSION . "\r\n" .
-              "Connection: Close\r\n\r\n";
-      fwrite( $fp, $req );
-      while( !feof($fp) ) {
-         if( @preg_match('~^HTTP/\d\.\d (\d+)~i', fgets($fp, 128), $m) ) {
-            $status = intval( $m[1] );
-            break;
-         }
-      }
-      fclose( $fp );
-   }
-   
-   return( $status );
+	$status	= 0;
+	$google	= 'www.google.com';
+	$bing	= 'www.bing.com';
+	$ask	= 'submissions.ask.com';
+	if( $fp=@fsockopen($google, 80) ) {
+		$req = 'GET /webmasters/sitemaps/ping?sitemap=' .
+			urlencode( $url_xml ) . " HTTP/1.1\r\n" .
+			"Host: $google\r\n" .
+			"User-Agent: Mozilla/5.0 (compatible; " .
+			PHP_OS . ") PHP/" . PHP_VERSION . "\r\n" .
+			"Connection: Close\r\n\r\n";
+		fwrite( $fp, $req );
+		while( !feof($fp) ) {
+			if( @preg_match('~^HTTP/\d\.\d (\d+)~i', fgets($fp, 128), $m) ) {
+				$status = intval( $m[1] );
+				break;
+			}
+		}
+		fclose( $fp );
+	}
+	
+	if( $fp=@fsockopen($bing, 80) ) {
+		$req = 'GET /webmaster/ping.aspx?sitemap=' .
+			urlencode( $url_xml ) . " HTTP/1.1\r\n" .
+			"Host: $bing\r\n" .
+			"User-Agent: Mozilla/5.0 (compatible; " .
+			PHP_OS . ") PHP/" . PHP_VERSION . "\r\n" .
+			"Connection: Close\r\n\r\n";
+		fwrite( $fp, $req );
+		while( !feof($fp) ) {
+			if( @preg_match('~^HTTP/\d\.\d (\d+)~i', fgets($fp, 128), $m) ) {
+				$status = intval( $m[1] );
+				break;
+			}
+		}
+		fclose( $fp );
+	}
+	
+	if( $fp=@fsockopen($ask, 80) ) {
+		$req = 'GET /ping?sitemap=' .
+			urlencode( $url_xml ) . " HTTP/1.1\r\n" .
+			"Host: $ask\r\n" .
+			"User-Agent: Mozilla/5.0 (compatible; " .
+			PHP_OS . ") PHP/" . PHP_VERSION . "\r\n" .
+			"Connection: Close\r\n\r\n";
+		fwrite( $fp, $req );
+		while( !feof($fp) ) {
+			if( @preg_match('~^HTTP/\d\.\d (\d+)~i', fgets($fp, 128), $m) ) {
+				$status = intval( $m[1] );
+				break;
+			}
+		}
+		fclose( $fp );
+	}
+	return( $status );
 }
 
 /**
@@ -395,11 +391,11 @@ function pingGoogleSitemaps($url_xml) {
  */
 function undo($file, $filepath, $bakpath) {
 	$undo_file = $filepath . $file;
-	$bak_file  = tsl($bakpath) . $file .".bak";
+	$bak_file = tsl($bakpath) . $file .".bak";
 	$tmp_file = tsl($bakpath) . $file .".tmp";
 	copy($undo_file, $tmp_file); // rename original to temp shuttle
 	copy($bak_file, $undo_file); // copy backup
-	copy($tmp_file, $bak_file);  // save original as backup
+	copy($tmp_file, $bak_file); // save original as backup
 	unlink($tmp_file); 			 // remove temp shuttle file
 	
 	if (file_exists($tmp_file)) {
@@ -425,7 +421,6 @@ function fSize($s) {
 	if ($s <= "999") {
 		$size = '<span>&lt; 1</span> KB'; // in kb
 	}
-	
 	return $size;
 }
 
@@ -438,34 +433,34 @@ function fSize($s) {
  * @return bool
  */
 function check_email_address($email) {
-    if (function_exists('filter_var')) {
-    	// PHP 5.2 or higher
-    	return (!filter_var((string)$email,FILTER_VALIDATE_EMAIL)) ? false: true;
-    } else {
-    	// old way
-	    if (!preg_match("/[^@]{1,64}@[^@]{1,255}$/", $email)) {
-	        return false;
-	    }
-	    $email_array = explode("@", $email);
-	    $local_array = explode(".", $email_array[0]);
-	    for ($i = 0; $i < sizeof($local_array); $i++) {
-	        if (!preg_match("/(([A-Za-z0-9!#$%&'*+\/\=?^_`{|}~-][A-Za-z0-9!#$%&'*+\/\=?^_`{|}~\.-]{0,63})|(\"[^(\\|\")]{0,62}\"))$/", $local_array[$i])) {
-	            return false;
-	        }
-	    }
-	    if (!preg_match("/\[?[0-9\.]+\]?$/", $email_array[1])) {
-	        $domain_array = explode(".", $email_array[1]);
-	        if (sizeof($domain_array) < 2) {
-	            return false; // Not enough parts to domain
-	        }
-	        for ($i = 0; $i < sizeof($domain_array); $i++) {
-	            if (!preg_match("/(([A-Za-z0-9][A-Za-z0-9-]{0,61}[A-Za-z0-9])|([A-Za-z0-9]+))$/", $domain_array[$i])) {
-	                return false;
-	            }
-	        }
-	    }
-	    return true;
-	  }
+	if (function_exists('filter_var')) {
+		// PHP 5.2 or higher
+		return (!filter_var((string)$email,FILTER_VALIDATE_EMAIL)) ? false: true;
+	} else {
+		// old way
+		if (!preg_match("/[^@]{1,64}@[^@]{1,255}$/", $email)) {
+			return false;
+		}
+		$email_array = explode("@", $email);
+		$local_array = explode(".", $email_array[0]);
+		for ($i = 0; $i < sizeof($local_array); $i++) {
+			if (!preg_match("/(([A-Za-z0-9!#$%&'*+\/\=?^_`{|}~-][A-Za-z0-9!#$%&'*+\/\=?^_`{|}~\.-]{0,63})|(\"[^(\\|\")]{0,62}\"))$/", $local_array[$i])) {
+				return false;
+			}
+		}
+		if (!preg_match("/\[?[0-9\.]+\]?$/", $email_array[1])) {
+			$domain_array = explode(".", $email_array[1]);
+			if (sizeof($domain_array) < 2) {
+				return false; // Not enough parts to domain
+			}
+			for ($i = 0; $i < sizeof($domain_array); $i++) {
+				if (!preg_match("/(([A-Za-z0-9][A-Za-z0-9-]{0,61}[A-Za-z0-9])|([A-Za-z0-9]+))$/", $domain_array[$i])) {
+					return false;
+				}
+			}
+		}
+		return true;
+	}
 }
 
 /**
@@ -514,15 +509,15 @@ function valid_xml($file) {
  * @return string
  */
 function generate_salt() {
-  if(version_compare(PHP_VERSION, '5.3.0') >= 0 && function_exists("openssl_random_pseudo_bytes")){
-    return bin2hex(openssl_random_pseudo_bytes(16));
-  }else{
-     /* Known to be terribly insecure. Default seeded with an cryptographically
-      * insecure, 32 bit integer, and PHP versions prior to 5.3 lack built in access
-      * to secure random.
-      */
-     return sha1(mt_rand());
-  }
+	if(version_compare(PHP_VERSION, '5.3.0') >= 0 && function_exists("openssl_random_pseudo_bytes")){
+		return bin2hex(openssl_random_pseudo_bytes(16));
+	}else{
+		/* Known to be terribly insecure. Default seeded with an cryptographically
+		 * insecure, 32 bit integer, and PHP versions prior to 5.3 lack built in access
+		 * to secure random.
+		 */
+		return sha1(mt_rand());
+	}
 } 
 
 /**
@@ -552,13 +547,11 @@ function get_admin_path() {
  * @return string
  */
 function get_root_path() {
-  $pos = strrpos(__DIR__,DIRECTORY_SEPARATOR.'inc');
-  $adm = substr(__DIR__, 0, $pos);
-  $pos2 = strrpos($adm,DIRECTORY_SEPARATOR);
-  return tsl(substr(__FILE__, 0, $pos2));
+	$pos = strrpos(__DIR__,DIRECTORY_SEPARATOR.'inc');
+	$adm = substr(__DIR__, 0, $pos);
+	$pos2 = strrpos($adm,DIRECTORY_SEPARATOR);
+	return tsl(substr(__FILE__, 0, $pos2));
 }
-
-
 
 /**
  * Check Current Menu
@@ -588,12 +581,11 @@ function check_menu($text) {
  * @return string
  */
 function passhash($p) {
-	if(defined('GSLOGINSALT') && GSLOGINSALT != '') { 
+	if(defined('GSLOGINSALT') && GSLOGINSALT != '') {
 		$logsalt = sha1(GSLOGINSALT);
 	} else { 
 		$logsalt = null; 
 	}
-	
 	return sha1($p . $logsalt);
 }
 
@@ -611,36 +603,35 @@ function passhash($p) {
  * @return array|string Type 'string' in this case will be XML 
  */
 function get_available_pages() {
-    $menu_extract = '';
-    
+	$menu_extract = '';
+	
 	global $pagesArray;
-    
-    $pagesSorted = subval_sort($pagesArray,'title');
-    if (count($pagesSorted) != 0) { 
-      $count = 0;
-      foreach ($pagesSorted as $page) {
-      	if ($page['private']!='Y'){
-        $text = (string)$page['menu'];
-        $pri = (string)$page['menuOrder'];
-        $parent = (string)$page['parent'];
-        $title = (string)$page['title'];
-        $slug = (string)$page['url'];
-        $menuStatus = (string)$page['menuStatus'];
-        $private = (string)$page['private'];
+	
+	$pagesSorted = subval_sort($pagesArray,'title');
+	if (count($pagesSorted) != 0) {
+		$count = 0;
+		foreach ($pagesSorted as $page) {
+			if ($page['private']!='Y'){
+				$text = (string)$page['menu'];
+				$pri = (string)$page['menuOrder'];
+				$parent = (string)$page['parent'];
+				$title = (string)$page['title'];
+				$slug = (string)$page['url'];
+				$menuStatus = (string)$page['menuStatus'];
+				$private = (string)$page['private'];
 				$pubDate = (string)$page['pubDate'];
-        
-        $url = find_url($slug,$parent);
-        
-        $specific = ["slug"=>$slug, "url"=>$url, "parent_slug"=>$parent, "title"=>$title, "menu_priority"=>$pri, "menu_text"=>$text, "menu_status"=>$menuStatus, "private"=>$private, "pub_date"=>$pubDate];
-        
-        $extract[] = $specific;
-      } 
-      } 
-      return $extract;
-    }
+
+				$url = find_url($slug,$parent);
+
+				$specific = ["slug"=>$slug, "url"=>$url, "parent_slug"=>$parent, "title"=>$title, "menu_priority"=>$pri, "menu_text"=>$text, "menu_status"=>$menuStatus, "private"=>$private, "pub_date"=>$pubDate];
+				
+				$extract[] = $specific;
+			} 
+		} 
+		return $extract;
+	}
 }
 
-  
 /**
  * Update Slugs
  *
@@ -653,24 +644,23 @@ function get_available_pages() {
 function updateSlugs($existingUrl, $newurl=null){
 	global $pagesArray;
 	getPagesXmlValues();
-      
-      if (!$newurl){
-      	global $url;
-      } else {
-      	$url = $newurl;
-      }
+	
+	if (!$newurl){
+		global $url;
+	} else {
+		$url = $newurl;
+	}
 
 	foreach ($pagesArray as $page){
 		if ( $page['parent'] == $existingUrl ){
 			$thisfile = @file_get_contents(GSDATAPAGESPATH.$page['filename']);
-        		$data = simplexml_load_string($thisfile);
-            		$data->parent=$url;
-            		XMLsave($data, GSDATAPAGESPATH.$page['filename']);
-        }
-      }
+			$data = simplexml_load_string($thisfile);
+			$data->parent=$url;
+			XMLsave($data, GSDATAPAGESPATH.$page['filename']);
+		}
+	}
 }
 
-          
 /**
  * Get Link Menu Array
  * 
@@ -678,14 +668,13 @@ function updateSlugs($existingUrl, $newurl=null){
  * 
  * @uses $pagesSorted
  *
- * @since  3.3.0
+ * @since 3.3.0
  * @param string $parent
  * @param array $array
  * @param int $level
  * @return array menuitems title,url,parent
  */
 function get_link_menu_array($parent='', $array=[], $level=0) {
-	
 	global $pagesSorted;
 	
 	$items=[];
@@ -699,22 +688,22 @@ function get_link_menu_array($parent='', $array=[], $level=0) {
 
 	if (count($items)>0){
 		foreach ($items as $page) {
-		  	$dash="";
-		  	if ($page['parent'] != '') {
-	  			$page['parent'] = $page['parent']."/";
-	  		}
+			$dash="";
+			if ($page['parent'] != '') {
+				$page['parent'] = $page['parent']."/";
+			}
 			for ($i=0;$i<=$level-1;$i++){
 				if ($i!=$level-1){
-	  				$dash .= "\u{00A0}\u{00A0}"; // outer level
-          } else {
+					$dash .= "\u{00A0}\u{00A0}"; // outer level
+					} else {
 					$dash .= '- '; // inner level
-            }   
-          } 
+				}
+			} 
 			array_push($array, [$dash . $page['title'], find_url($page['url'], $page['parent'])]);
 			// recurse submenus
 			$array=get_link_menu_array((string)$page['url'], $array,$level+1);	 
-        }
-      }
+		}
+	}
 	return $array;
 } 
 
@@ -739,21 +728,21 @@ function list_pages_json() {
 	$pagesArray_tmp = [];
 	$count = 0;
 	foreach ($pagesArray as $page) {
-		if ($page['parent'] != '') { 
+		if ($page['parent'] != '') {
 			$parentTitle = returnPageField($page['parent'], "title");
 			$sort = $parentTitle .' '. $page['title'];		
-			} else {
+		} else {
 			$sort = $page['title'];
-			}
+		}
 		$page = array_merge($page, ['sort' => $sort]);
 		$pagesArray_tmp[$count] = $page;
 			$count++;
-			}
+	}
 	$pagesSorted = subval_sort($pagesArray_tmp,'sort');
 
 	$links = exec_filter('editorlinks',get_link_menu_array());
 	return json_encode($links);
-		}
+}
 
 /**
  * @deprecated since 3.3.0
@@ -767,7 +756,6 @@ function ckeditor_add_page_link(){
 	//]]>
 	</script>";
 }
-
 
 /**
  * Recursive list of pages
@@ -796,13 +784,13 @@ function get_pages_menu($parent, $menu,$level) {
 	}	
 	if (count($items)>0){
 		foreach ($items as $page) {
-		  	$dash="";
-		  	if ($page['parent'] != '') {
-	  			$page['parent'] = $page['parent']."/";
-	  		}
+			$dash="";
+			if ($page['parent'] != '') {
+				$page['parent'] = $page['parent']."/";
+			}
 			for ($i=0;$i<=$level-1;$i++){
 				if ($i!=$level-1){
-	  				$dash .= '<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>';
+					$dash .= '<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>';
 				} else {
 					$dash .= '<span>&nbsp;&nbsp;&ndash;&nbsp;&nbsp;&nbsp;</span>';
 				}
@@ -823,7 +811,7 @@ function get_pages_menu($parent, $menu,$level) {
 				$menu .= '<td class="delete" ></td>';
 			}
 			$menu .= '</tr>';
-			$menu = get_pages_menu((string)$page['url'], $menu,$level+1);	  	
+			$menu = get_pages_menu((string)$page['url'], $menu,$level+1);
 		}
 	}
 	return $menu;
@@ -858,20 +846,20 @@ function get_pages_menu_dropdown($parentitem, $menu,$level) {
 	}	
 	if (count($items)>0){
 		foreach ($items as $page) {
-		  	$dash="";
-		  	if ($page['parent'] != '') {
-	  			$page['parent'] = $page['parent']."/";
-	  		}
+			$dash="";
+			if ($page['parent'] != '') {
+				$page['parent'] = $page['parent']."/";
+			}
 			for ($i=0;$i<=$level-1;$i++){
 				if ($i!=$level-1){
-	  				$dash .= '<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>';
+					$dash .= '<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>';
 				} else {
 					$dash .= '<span>&nbsp;&nbsp;&ndash;&nbsp;&nbsp;&nbsp;</span>';
 				}
 			} 
 			if ($parent == (string)$page['url']) { $sel="selected"; } else { $sel=""; }
 			$menu .= '<option '.$sel.' value="'.$page['url'] .'" >'.$dash.$page['url'].'</option>';
-			$menu = get_pages_menu_dropdown((string)$page['url'], $menu,$level+1);	  	
+			$menu = get_pages_menu_dropdown((string)$page['url'], $menu,$level+1);
 		}
 	}
 	return $menu;
@@ -891,7 +879,7 @@ function get_pages_menu_dropdown($parentitem, $menu,$level) {
  *
  * @param string $type, default is 'core'
  * @param array $args, default is empty
- * @param  bool $cached force cached check only, do not use curl
+ * @param bool $cached force cached check only, do not use curl
  * 
  * @returns string
  */
@@ -938,7 +926,6 @@ function get_api_details($type='core', $args=null, $cached = false) {
 
 	$cacheAge = file_exists(GSCACHEPATH.$cachefile) ? filemtime(GSCACHEPATH.$cachefile) : '';
 
-
 	// api disabled and no cache file exists
 	if($cached && empty($cacheAge)){
 		debug_api_details('cache file does not exist - ' . GSCACHEPATH.$cachefile);
@@ -951,7 +938,7 @@ function get_api_details($type='core', $args=null, $cached = false) {
 		# grab the api request from the cache
 		$data = file_get_contents(GSCACHEPATH.$cachefile);
 		debug_api_details('returning cache file - ' . GSCACHEPATH.$cachefile);
-	} else {	
+	} else {
 		# make the api call
 		if (function_exists('curl_init') && function_exists('curl_exec') && !$nocurl) {
 
@@ -1009,7 +996,7 @@ function get_api_details($type='core', $args=null, $cached = false) {
 
 			curl_close($ch);
 
-		} else if(ini_get('allow_url_fopen')) {  
+		} else if(ini_get('allow_url_fopen')) {
 			// USE FOPEN
 			debug_api_details("using fopen");			
 			$timeout = $api_timeout / 1000; // ms to float seconds
@@ -1071,7 +1058,6 @@ function get_gs_version() {
 	return GSVERSION;
 }
 
-
 /**
  * Creates Sitemap
  *
@@ -1089,43 +1075,39 @@ function generate_sitemap() {
 	getPagesXmlValues(false);
 	$pagesSorted = subval_sort($pagesArray,'menuStatus');
 	
-	if (count($pagesSorted) != 0)
-	{ 
+	if (count($pagesSorted) != 0){
 		$xml = new SimpleXMLElement('<?xml version="1.0" encoding="UTF-8"?><urlset></urlset>');
 		$xml->addAttribute('xsi:schemaLocation', 'http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd', 'http://www.w3.org/2001/XMLSchema-instance');
 		$xml->addAttribute('xmlns', 'http://www.sitemaps.org/schemas/sitemap/0.9');
 		
-		foreach ($pagesSorted as $page)
-		{	
-			if ($page['url'] != '404')
-			{		
-			if ($page['private'] != 'Y')
-			{
-				// set <loc>
-				$pageLoc = find_url($page['url'], $page['parent']);
-				
-				// set <lastmod>
-					$tmpDate = date("Y-m-d H:i:s", strtotime($page['pubDate']));
-				$pageLastMod = makeIso8601TimeStamp($tmpDate);
-				
-				// set <changefreq>
-				$pageChangeFreq = 'weekly';
-				
-				// set <priority>
-				if ($page['menuStatus'] == 'Y') {
-					$pagePriority = '1.0';
-				} else {
-					$pagePriority = '0.5';
+		foreach ($pagesSorted as $page) {
+			if ($page['url'] != '404'){
+				if ($page['private'] != 'Y'){
+					// set <loc>
+					$pageLoc = find_url($page['url'], $page['parent']);
+					
+					// set <lastmod>
+						$tmpDate = date("Y-m-d H:i:s", strtotime($page['pubDate']));
+					$pageLastMod = makeIso8601TimeStamp($tmpDate);
+					
+					// set <changefreq>
+					$pageChangeFreq = 'weekly';
+					
+					// set <priority>
+					if ($page['menuStatus'] == 'Y') {
+						$pagePriority = '1.0';
+					} else {
+						$pagePriority = '0.5';
+					}
+					
+					//add to sitemap
+					$url_item = $xml->addChild('url');
+					$url_item->addChild('loc', $pageLoc);
+					$url_item->addChild('lastmod', $pageLastMod);
+					$url_item->addChild('changefreq', $pageChangeFreq);
+					$url_item->addChild('priority', $pagePriority);
 				}
-				
-				//add to sitemap
-				$url_item = $xml->addChild('url');
-				$url_item->addChild('loc', $pageLoc);
-				$url_item->addChild('lastmod', $pageLastMod);
-				$url_item->addChild('changefreq', $pageChangeFreq);
-				$url_item->addChild('priority', $pagePriority);
 			}
-		}
 		}
 		
 		//create xml file
@@ -1137,7 +1119,7 @@ function generate_sitemap() {
 	
 	if (!defined('GSDONOTPING')) {
 		if (file_exists(GSROOTPATH .'sitemap.xml')){
-			if( 200 === ($status=pingGoogleSitemaps($SITEURL.'sitemap.xml')))	{
+			if( 200 === ($status=pingGoogleSitemaps($SITEURL.'sitemap.xml'))) {
 				#sitemap successfully created & pinged
 				return true;
 			} else {
@@ -1154,14 +1136,13 @@ function generate_sitemap() {
 	}
 }
 
-
 /**
  * Creates tar.gz Archive 
  */
 function archive_targz() {
 	if(!function_exists('exec')) {
-    return false;
-    exit;
+		return false;
+		exit;
 	}
 	$timestamp = gmdate('Y-m-d-Hi_s');
 	$saved_zip_file_path = GSBACKUPSPATH.'zip/';
@@ -1186,9 +1167,9 @@ function isAuthPage(){
 
 /**
  * returns a query string with only the allowed keys
- * @since  3.3.0
+ * @since 3.3.0
  * 
- * @param  array $allowed array of querystring keys to keep
+ * @param array $allowed array of querystring keys to keep
  * @return string built query string
  */
 function filter_queryString($allowed = []){
@@ -1197,7 +1178,6 @@ function filter_queryString($allowed = []){
 	$new_qstring = http_build_query($qstring_filtered,'','&amp;');
 	return $new_qstring;
 }
-
 
 /**
  * Get String Excerpt
@@ -1224,7 +1204,7 @@ function getExcerpt($str, $len = 200, $striphtml = true, $ellipsis = '...', $bre
 	$len = $len++; // zero index bump
 
 	// setup multibyte function names
-	$prefix = strIsMultibyte($str) ?  'mb_' : '';
+	$prefix = strIsMultibyte($str) ? 'mb_' : '';
 	list($substr,$strlen,$strrpos) = [$prefix.'substr', $prefix.'strlen', $prefix.'strrpos'];
 
 	// string is shorter than truncate length, return
@@ -1251,8 +1231,8 @@ function getExcerpt($str, $len = 200, $striphtml = true, $ellipsis = '...', $bre
  * 
  * @uses mb_check_encoding
  * 
- * @param  string $str string to check
- * @return bool      true if multibyte
+ * @param string $str string to check
+ * @return bool true if multibyte
  */
 function strIsMultibyte($str){
 	return function_exists('mb_check_encoding') && ! mb_check_encoding($str, 'ASCII') && mb_check_encoding($str, 'UTF-8');
@@ -1265,9 +1245,9 @@ function strIsMultibyte($str){
  * 
  * @note supressing errors on libxml functions to prevent parse errors on not well-formed content
  * @since 3.3.2
- * @param  string $str string to clean up
- * @param  array $strip_tags optional elements to remove eg. array('style')
- * @return string      return well formed html , with open tags being closed and incomplete open tags removed
+ * @param string $str string to clean up
+ * @param array $strip_tags optional elements to remove eg. array('style')
+ * @return string return well formed html, with open tags being closed and incomplete open tags removed
  */
 function cleanHtml($str,$strip_tags = []){
 	// setup encoding, required for proper dom loading
@@ -1280,10 +1260,10 @@ function cleanHtml($str,$strip_tags = []){
 	@$dom_document->loadHTML($charsetstr.$str);
 	
 	foreach($strip_tags as $tag){
-    	$elem = $dom_document->getElementsByTagName($tag);
-    	while ( ($node = $elem->item(0)) ) {
-        	$node->parentNode->removeChild($node);
-	    }
+		$elem = $dom_document->getElementsByTagName($tag);
+		while ( ($node = $elem->item(0)) ) {
+			$node->parentNode->removeChild($node);
+		}
 	}
 
 	// strip dom tags that we added, and ones that savehtml adds
@@ -1291,6 +1271,5 @@ function cleanHtml($str,$strip_tags = []){
 	$html_fragment = preg_replace('/^<!DOCTYPE.+?>|<head.*?>(.*)?<\/head>/', '', str_replace( ['<html>', '</html>', '<body>', '</body>'], ['', '', '', ''], @$dom_document->saveHTML()));	
 	return $html_fragment;
 }	
-
 
 ?>
