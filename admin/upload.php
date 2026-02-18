@@ -34,6 +34,15 @@ $isUnixHost = (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN' ? false : true);
 
 // if a file was uploaded
 if (isset($_FILES['file'])) {
+	
+	// SECURITY FIX: Add CSRF protection for file uploads
+	if (!defined('GSNOCSRF') || (GSNOCSRF == FALSE) ) {
+		$nonce = isset($_POST['nonce']) ? $_POST['nonce'] : '';
+		if(!check_nonce($nonce, "upload")) {
+			die("CSRF detected!");
+		}
+	}
+	
 	$uploadsCount = count($_FILES['file']['name']);
 	if($uploadsCount > 0) {
 		$errors = [];
@@ -70,6 +79,20 @@ if (isset($_FILES['file'])) {
 					} else {
 						chmod($file_loc, 0644);
 					}
+					
+					// SECURITY ENHANCEMENT: Sanitize SVG files after upload
+					if (strtolower($extension) === 'svg') {
+						// Sanitize the SVG file (overwrite with sanitized version)
+						$sanitized = sanitize_svg_file($file_loc, true, false);
+						
+						if ($sanitized === false) {
+							// Sanitization failed - delete the file and report error
+							unlink($file_loc);
+							$errors[] = $_FILES["file"]["name"][$i] . ' - ' . i18n_r('ERROR_UPLOAD') . ' (Invalid SVG)';
+							continue; // Skip to next file
+						}
+					}
+					
 					exec_action('file-uploaded');
 
 					// Generate thumbnail (skip for SVG files)

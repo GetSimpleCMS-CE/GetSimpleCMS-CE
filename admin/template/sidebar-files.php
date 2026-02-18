@@ -19,6 +19,7 @@ $path = (isset($_GET['path'])) ? $_GET['path'] : "";
 <form class="uploadform" action="upload.php?path=<?php echo $path; ?>" method="post" enctype="multipart/form-data" style="background-color:var(--main-color);color:white;border-radius:10px;padding: 10px;">
 	<p><input type="file" name="file[]" id="file" style="width:220px;" multiple /></p>
 	<input type="hidden" name="hash" id="hash" value="<?php echo $SESSIONHASH; ?>" />
+	<input type="hidden" name="nonce" value="<?php echo get_nonce('upload'); ?>" />
 	<input type="submit" class="submit" name="submit" value="<?php i18n('UPLOAD'); ?>" />
 </form>
 
@@ -27,6 +28,7 @@ $path = (isset($_GET['path'])) ? $_GET['path'] : "";
 	<form class="uploadform" action="upload.php?path=<?php echo $path; ?>" method="post" enctype="multipart/form-data">
 		<p><input type="file" name="file[]" id="file" style="width:220px;" multiple /></p>
 		<input type="hidden" name="hash" id="hash" value="<?php echo $SESSIONHASH; ?>" />
+		<input type="hidden" name="nonce" value="<?php echo get_nonce('upload'); ?>" />
 		<input type="submit" class="submit" name="submit" value="<?php i18n('UPLOAD'); ?>" />
 	</form>
 </noscript>

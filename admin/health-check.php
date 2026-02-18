@@ -400,6 +400,165 @@ get_template('header', cl($SITENAME).' &raquo; '.i18n_r('SUPPORT').' &raquo; '.i
 				?>
 				</td></tr>
 			</table>
+			
+			<h3><?php echo i18n_r('SECURITY') . ' - .htaccess ' . i18n_r('EFFECTIVENESS'); ?></h3>
+			<table class="highlight healthcheck">
+				<tr>
+					<td colspan="2">
+						<p style="margin: 10px 0; padding: 10px; background: #fff3cd; border-left: 4px solid #ffc107;">
+							<strong><?php i18n('SECURITY'); ?>:</strong> 
+							<?php echo i18n_r('HTACCESS_TEST_EXPLANATION'); ?>
+						</p>
+					</td>
+				</tr>
+				<?php
+				/**
+				 * Test if .htaccess protection is actually working
+				 * 
+				 * This test attempts to access a known sensitive file via HTTP.
+				 * If the file is accessible, .htaccess is NOT working (AllowOverride likely disabled).
+				 */
+				
+				// Construct the base URL for testing
+				$protocol = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? 'https' : 'http';
+				$host = $_SERVER['HTTP_HOST'];
+				$base_url = $protocol . '://' . $host . dirname(dirname($_SERVER['SCRIPT_NAME']));
+				
+				// Test critical files
+				$test_files = array(
+					'data/other/authorization.xml' => 'API Keys & Salts',
+					'data/users/' => 'User Data',
+					'backups/users/' => 'User Backups'
+				);
+				
+				$all_protected = true;
+				
+				foreach ($test_files as $test_path => $description) {
+					$test_url = $base_url . '/' . $test_path;
+					
+					echo '<tr><td style="width:445px;">/' . htmlspecialchars($test_path) . '<br><small style="color:#666;">' . htmlspecialchars($description) . '</small></td><td>';
+					
+					// Attempt to access the file/directory
+					$context = stream_context_create(array(
+						'http' => array(
+							'timeout' => 3,
+							'ignore_errors' => true,
+							'header' => "User-Agent: GetSimple-HealthCheck\r\n"
+						)
+					));
+					
+					$response = @file_get_contents($test_url, false, $context);
+					
+					// Check HTTP response code
+					if (isset($http_response_header)) {
+						$status_line = $http_response_header[0];
+						preg_match('/\d{3}/', $status_line, $matches);
+						$status_code = isset($matches[0]) ? intval($matches[0]) : 0;
+						
+						if ($status_code === 403 || $status_code === 404) {
+							// Protected - Good!
+							echo '<span class="OKmsg"><b>✓ Protected</b> - HTTP ' . $status_code . ' - ' . i18n_r('OK') . '</span>';
+						} elseif ($status_code === 200) {
+							// Accessible - BAD!
+							echo '<span class="ERRmsg"><b>✗ EXPOSED</b> - HTTP 200 - <b>' . i18n_r('CRITICAL_SECURITY_RISK') . '</b></span>';
+							$all_protected = false;
+						} else {
+							// Unknown status
+							echo '<span class="WARNmsg">HTTP ' . $status_code . ' - ' . i18n_r('CANNOT_VERIFY') . '</span>';
+						}
+					} else {
+						// Could not test
+						echo '<span class="WARNmsg">' . i18n_r('CANNOT_TEST') . '</span>';
+					}
+					
+					echo '</td></tr>';
+				}
+				
+				// Display warning if protection is insufficient
+				if (!$all_protected) {
+					echo '<tr><td colspan="2" style="padding: 15px;">';
+					echo '<div style="background: #f8d7da; border: 2px solid #dc3545; padding: 15px; border-radius: 5px;">';
+					echo '<h4 style="margin: 0 0 10px 0; color: #721c24;"><b>⚠ CRITICAL SECURITY WARNING</b></h4>';
+					echo '<p style="margin: 5px 0; color: #721c24;">';
+					echo '<b>Your sensitive files are publicly accessible!</b><br>';
+					echo 'This means .htaccess files are being ignored by your server (AllowOverride likely disabled).<br><br>';
+					echo '<b>Immediate Actions Required:</b></p>';
+					echo '<ol style="margin: 10px 0; padding-left: 20px; color: #721c24;">';
+					echo '<li>Ensure <code>index.php</code> protection files are in place (see below)</li>';
+					echo '<li>Contact your hosting provider to enable AllowOverride in Apache configuration</li>';
+					echo '<li>Consider moving sensitive directories outside the web root</li>';
+					echo '<li>Review server logs for unauthorized access attempts</li>';
+					echo '</ol>';
+					echo '</div>';
+					echo '</td></tr>';
+				}
+				?>
+			</table>
+			
+			<h3><?php echo i18n_r('APPLICATION_LEVEL_PROTECTION'); ?></h3>
+			<table class="highlight healthcheck">
+				<tr>
+					<td colspan="2">
+						<p style="margin: 10px 0; padding: 10px; background: #d4edda; border-left: 4px solid #28a745;">
+							<strong><?php i18n('DEFENSE_IN_DEPTH'); ?>:</strong> 
+							<?php echo i18n_r('INDEX_PHP_EXPLANATION'); ?>
+						</p>
+					</td>
+				</tr>
+				<?php
+				// Check for application-level protection files
+				$protection_dirs = array(
+					GSDATAPATH => 'data/',
+					GSBACKUPSPATH => 'backups/'
+				);
+				
+				$missing_protection = false; // Track if any files are missing
+				
+				foreach ($protection_dirs as $dir_path => $display_name) {
+					$index_file = $dir_path . 'index.php';
+					
+					echo '<tr><td style="width:445px;">/' . htmlspecialchars($display_name) . 'index.php</td><td>';
+					
+					if (file_exists($index_file)) {
+						// Verify it's a protection file (check for "403" in content)
+						$content = file_get_contents($index_file);
+						if (strpos($content, '403') !== false && strpos($content, 'Forbidden') !== false) {
+							echo '<span class="OKmsg"><b>✓ Installed</b> - ' . i18n_r('OK') . '</span>';
+						} else {
+							echo '<span class="WARNmsg"><b>Found but Invalid</b> - ' . i18n_r('WARNING') . '</span>';
+							$missing_protection = true; // Invalid file counts as missing
+						}
+					} else {
+						echo '<span class="ERRmsg"><b>✗ Missing</b> - <b>' . i18n_r('CRITICAL') . '</b></span>';
+						$missing_protection = true; // File is missing
+					}
+					
+					echo '</td></tr>';
+				}
+				
+				// Only show recommendation if any protection files are missing or invalid
+				if ($missing_protection) {
+				?>
+				<tr>
+					<td colspan="2" style="padding: 15px;">
+						<p style="margin: 5px 0;">
+							<b><?php i18n('RECOMMENDATION'); ?>:</b> 
+							<?php echo i18n_r('INDEX_PHP_RECOMMENDATION'); ?>
+						</p>
+						<pre style="background: #f8f9fa; padding: 10px; border-radius: 3px; font-size: 12px; overflow-x: auto;">
+<?php echo i18n_r('PLACE_INDEX'); ?>:
+• /data/index.php
+• /backups/index.php
+
+<?php echo i18n_r('FILES_PROVIDE'); ?>
+						</pre>
+					</td>
+				</tr>
+				<?php
+				} // End of missing_protection check
+				?>
+			</table>
+			
 			<?php exec_action('healthcheck-extras'); ?>
 	</div>
 

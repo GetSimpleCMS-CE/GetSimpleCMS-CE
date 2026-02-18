@@ -278,6 +278,312 @@ function var_out($var,$filter = "special"){
 	}
 }
 
+/**
+ * Sanitize SVG Content
+ *
+ * Sanitizes SVG files using a strict allowlist-based approach.
+ * Removes dangerous elements, attributes, and event handlers that could be exploited for XSS attacks.
+ *
+ * @since 3.3.23
+ *
+ * @param string $svg_content The raw SVG content to sanitize
+ * @param bool $strip_styles Optional, whether to remove style elements and attributes (default: false)
+ * @return string|false Sanitized SVG content or false on failure
+ */
+function sanitize_svg($svg_content, $strip_styles = false) {
+	// Return false if content is empty
+	if (empty($svg_content)) {
+		return false;
+	}
+	
+	// Allowlist of safe SVG elements
+	$allowed_elements = [
+		'svg', 'g', 'path', 'rect', 'circle', 'ellipse', 'line', 'polyline', 'polygon',
+		'text', 'tspan', 'tref', 'textPath', 'defs', 'clipPath', 'mask', 'pattern',
+		'linearGradient', 'radialGradient', 'stop', 'use', 'symbol', 'marker',
+		'title', 'desc', 'metadata', 'image', 'switch', 'a', 'view',
+		// Style element (for CSS)
+		'style',
+		// SMIL Animation elements (declarative, safe - no JavaScript execution)
+		'animate', 'animateTransform', 'animateMotion', 'set', 'animateColor', 'mpath'
+	];
+	
+	// Allowlist of safe SVG attributes (general + presentation attributes)
+	$allowed_attributes = [
+		// Core attributes
+		'id', 'class', 'style', 'transform', 'data-.*',
+		// Language and internationalization
+		'lang', 'xml:lang', 'dir',
+		// Geometry attributes
+		'x', 'y', 'x1', 'y1', 'x2', 'y2', 'cx', 'cy', 'r', 'rx', 'ry',
+		'width', 'height', 'd', 'points', 'viewBox', 'preserveAspectRatio',
+		// Presentation attributes
+		'fill', 'fill-opacity', 'fill-rule', 'stroke', 'stroke-width',
+		'stroke-opacity', 'stroke-linecap', 'stroke-linejoin', 'stroke-dasharray',
+		'stroke-dashoffset', 'stroke-miterlimit', 'opacity', 'color',
+		'font-family', 'font-size', 'font-weight', 'font-style', 'font-variant',
+		'text-anchor', 'text-decoration', 'letter-spacing', 'word-spacing',
+		// Text rendering attributes
+		'dominant-baseline', 'alignment-baseline', 'baseline-shift',
+		'writing-mode', 'glyph-orientation-vertical', 'glyph-orientation-horizontal',
+		// Gradient attributes
+		'offset', 'stop-color', 'stop-opacity', 'gradientUnits', 'gradientTransform',
+		'spreadMethod', 'x1', 'y1', 'x2', 'y2', 'fx', 'fy',
+		// Clip/Mask attributes
+		'clip-path', 'clip-rule', 'mask',
+		// Link attributes (for <a> tags)
+		'xlink:href', 'href', 'target',
+		// Filter attributes
+		'filter',
+		// Pattern attributes
+		'patternUnits', 'patternContentUnits', 'patternTransform',
+		// Use attributes
+		'xlink:href', 'href',
+		// SVG specific
+		'xmlns', 'xmlns:xlink', 'version', 'baseProfile',
+		// Style element attributes
+		'type', 'media',
+		// Pointer and interaction attributes (safe ones)
+		'pointer-events', 'cursor',
+		// Visibility attributes
+		'display', 'visibility', 'overflow',
+		// Accessibility
+		'aria-.*', 'role', 'tabindex', 'focusable',
+		// SMIL Animation attributes (safe - declarative animation control, no JavaScript)
+		'attributeName', 'attributeType', 'begin', 'dur', 'end', 'min', 'max',
+		'restart', 'repeatCount', 'repeatDur', 'fill',
+		'calcMode', 'values', 'keyTimes', 'keySplines', 'from', 'to', 'by',
+		'additive', 'accumulate',
+		// animateTransform specific
+		'type',
+		// animateMotion specific  
+		'path', 'keyPoints', 'rotate'
+	];
+	
+	// Elements to always remove (dangerous)
+	$forbidden_elements = [
+		'script', 'iframe', 'object', 'embed', 'link', 'foreignObject',
+		'applet', 'base', 'frame', 'frameset', 'audio', 'video'
+	];
+	
+	// Attributes to always remove (event handlers and dangerous attributes)
+	$forbidden_attributes = [
+		'on.*',  // All event handlers (onclick, onload, onmouseover, etc.)
+		'xmlns:xlink.*', // Except the standard xmlns:xlink
+	];
+	
+	// Additional forbidden patterns in attribute values
+	$forbidden_protocols = [
+		'javascript:', 'data:', 'vbscript:', 'file:', 'about:'
+	];
+	
+	// Safe protocols explicitly allowed in href/xlink:href
+	$safe_protocols = [
+		'http://', 'https://', 'mailto:', 'tel:', 'sms:', 'ftp://', '#'
+	];
+	
+	// If strip_styles is enabled, add style-related items to forbidden list
+	if ($strip_styles) {
+		$forbidden_elements[] = 'style';
+		$forbidden_attributes[] = 'style';
+	}
+	
+	// Load SVG content with DOM
+	libxml_use_internal_errors(true);
+	$dom = new DOMDocument();
+	$dom->encoding = 'UTF-8';
+	$dom->preserveWhiteSpace = true;
+	$dom->formatOutput = false;
+	
+	// Trim leading/trailing whitespace from SVG content
+	$svg_content = trim($svg_content);
+	
+	// Load SVG content - preserve CDATA sections for CSS in <style> tags
+	if (!$dom->loadXML($svg_content, LIBXML_NONET | LIBXML_NOENT)) {
+		// If loading fails, return false
+		return false;
+	}
+	
+	libxml_clear_errors();
+	
+	// Get the root element
+	$root = $dom->documentElement;
+	
+	// Verify it's an SVG element
+	if (!$root || $root->nodeName !== 'svg') {
+		return false;
+	}
+	
+	// Recursive function to sanitize nodes
+	$sanitize_node = function($node) use (&$sanitize_node, $allowed_elements, $allowed_attributes, $forbidden_elements, $forbidden_attributes, $forbidden_protocols) {
+		// Skip text nodes, comments, and CDATA sections (they contain safe text/CSS)
+		if ($node->nodeType === XML_TEXT_NODE || 
+		    $node->nodeType === XML_COMMENT_NODE || 
+		    $node->nodeType === XML_CDATA_SECTION_NODE) {
+			return true;
+		}
+		
+		// Check if element is forbidden
+		$element_name = strtolower($node->nodeName);
+		foreach ($forbidden_elements as $forbidden) {
+			if ($element_name === strtolower($forbidden)) {
+				return false; // Mark for removal
+			}
+		}
+		
+		// Check if element is in allowlist
+		$element_allowed = false;
+		foreach ($allowed_elements as $allowed) {
+			if ($element_name === strtolower($allowed)) {
+				$element_allowed = true;
+				break;
+			}
+		}
+		
+		if (!$element_allowed) {
+			return false; // Mark for removal
+		}
+		
+		// Sanitize attributes
+		if ($node->hasAttributes()) {
+			$attributes_to_remove = [];
+			
+			foreach ($node->attributes as $attr) {
+				$attr_name = strtolower($attr->name);
+				$attr_value = $attr->value;
+				$keep_attribute = false;
+				
+				// Check against forbidden attributes (regex patterns)
+				$is_forbidden = false;
+				foreach ($forbidden_attributes as $forbidden_pattern) {
+					if (preg_match('/^' . $forbidden_pattern . '$/i', $attr_name)) {
+						$is_forbidden = true;
+						break;
+					}
+				}
+				
+				if ($is_forbidden) {
+					$attributes_to_remove[] = $attr->name;
+					continue;
+				}
+				
+				// Check against allowed attributes (regex patterns)
+				foreach ($allowed_attributes as $allowed_pattern) {
+					if (preg_match('/^' . $allowed_pattern . '$/i', $attr_name)) {
+						$keep_attribute = true;
+						break;
+					}
+				}
+				
+				if (!$keep_attribute) {
+					$attributes_to_remove[] = $attr->name;
+					continue;
+				}
+				
+				// Check attribute value for dangerous protocols (only for href/xlink:href attributes)
+				if (in_array($attr_name, ['href', 'xlink:href'])) {
+					$is_dangerous = false;
+					
+					// Check for forbidden protocols at the start of the value
+					foreach ($forbidden_protocols as $protocol) {
+						if (stripos($attr_value, $protocol) === 0) {
+							$is_dangerous = true;
+							break;
+						}
+					}
+					
+					if ($is_dangerous) {
+						$attributes_to_remove[] = $attr->name;
+					}
+				}
+			}
+			
+			// Remove forbidden attributes
+			foreach ($attributes_to_remove as $attr_name) {
+				$node->removeAttribute($attr_name);
+			}
+		}
+		
+		// Recursively process child nodes
+		$children_to_remove = [];
+		if ($node->hasChildNodes()) {
+			foreach ($node->childNodes as $child) {
+				if (!$sanitize_node($child)) {
+					$children_to_remove[] = $child;
+				}
+			}
+		}
+		
+		// Remove forbidden children
+		foreach ($children_to_remove as $child) {
+			$node->removeChild($child);
+		}
+		
+		return true;
+	};
+	
+	// Start sanitization from root
+	if (!$sanitize_node($root)) {
+		return false;
+	}
+	
+	// Return sanitized SVG
+	$sanitized = $dom->saveXML($dom->documentElement);
+	
+	// Additional regex-based cleanup for any remaining dangerous patterns
+	$sanitized = preg_replace('/<script\b[^>]*>.*?<\/script>/is', '', $sanitized);
+	$sanitized = preg_replace('/on\w+\s*=\s*["\'][^"\']*["\']/i', '', $sanitized);
+	$sanitized = preg_replace('/javascript:/i', '', $sanitized);
+	$sanitized = preg_replace('/data:text\/html/i', '', $sanitized);
+	
+	return $sanitized;
+}
+
+/**
+ * Sanitize SVG File
+ *
+ * Reads and sanitizes an SVG file, optionally saving the sanitized version back to the file.
+ *
+ * @since 3.3.23
+ *
+ * @param string $file_path Absolute path to the SVG file
+ * @param bool $overwrite Optional, whether to overwrite the original file with sanitized version (default: false)
+ * @param bool $strip_styles Optional, whether to remove style elements and attributes (default: false)
+ * @return string|false Sanitized SVG content or false on failure
+ */
+function sanitize_svg_file($file_path, $overwrite = false, $strip_styles = false) {
+	// Verify file exists and is readable
+	if (!file_exists($file_path) || !is_readable($file_path)) {
+		return false;
+	}
+	
+	// Verify it's actually an SVG file
+	$file_extension = strtolower(pathinfo($file_path, PATHINFO_EXTENSION));
+	if ($file_extension !== 'svg') {
+		return false;
+	}
+	
+	// Read file content
+	$svg_content = file_get_contents($file_path);
+	if ($svg_content === false) {
+		return false;
+	}
+	
+	// Sanitize the content
+	$sanitized = sanitize_svg($svg_content, $strip_styles);
+	
+	if ($sanitized === false) {
+		return false;
+	}
+	
+	// Optionally overwrite the original file
+	if ($overwrite && is_writable($file_path)) {
+		file_put_contents($file_path, $sanitized);
+	}
+	
+	return $sanitized;
+}
+
 function validImageFilename($file){
 	$image_exts = ['jpg', 'jpeg', 'gif', 'png', 'webp', 'svg'];
 	return in_array(getFileExtension($file),$image_exts);
