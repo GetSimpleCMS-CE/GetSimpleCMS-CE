@@ -98,13 +98,13 @@ class MassiveAdminClass{
 	{
 		global $SITEURL, $USR, $GSADMIN;
 
-		echo '<link rel="stylesheet" href="' . $SITEURL . 'plugins/massiveAdmin/css/massiveIcons.css">';
-		echo ' <meta name="viewport" content="width=device-width, initial-scale=1.0">';
+		echo '<link rel="stylesheet" href="' . $SITEURL . 'plugins/massiveAdmin/css/massiveIcons.css">
+	';
+		echo '<meta name="viewport" content="width=device-width, initial-scale=1.0">';
 
 		$massiveOptionFile = GSDATAOTHERPATH . '/massiveadmin/massiveOption.json';
 		$file = GSDATAOTHERPATH . 'massiveHiddenSection/' . $USR . '.json';
 		$url = $SITEURL . ltrim($_SERVER['REQUEST_URI'], '/');
-
 
 		if (!file_exists($massiveOptionFile)) {
 			mkdir(GSDATAOTHERPATH . 'massiveadmin', 0755);
@@ -116,10 +116,7 @@ class MassiveAdminClass{
 		}';
 
 			file_put_contents($massiveOptionFile, $content);
-		}
-		;
-
-		
+		};
 
 		if (file_exists($file) && filesize($file) > 0) {
 			$fileContent = file_get_contents($file);
@@ -215,7 +212,8 @@ class MassiveAdminClass{
 		};
 
 		echo "<script>const Another = '" . i18n_r('massiveAdmin/ANOTHERPAGE') . "'</script>";
-		echo "<script>document.querySelector('.massiveoption').innerHTML = '<span>'+Another+'</span>' </script>";
+		echo "
+		<script>document.querySelector('.massiveoption').innerHTML = '<span>'+Another+'</span>' </script>";
 		echo ("<meta http-equiv='refresh' content='0'>");
 
 		/* hideAdminSection */

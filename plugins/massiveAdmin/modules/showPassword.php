@@ -5,12 +5,10 @@ echo $SITEURL; ?>plugins/massiveAdmin/css/w3-custom.css">
 
 <button onclick="myFunction('Tab6')" style="margin-top:10px"
 	class=" w3-button w3-xlarge w3-round w3-block w3-gray w3-text-white w3-left-align w3-margin-bottom">
-	<?php echo i18n_r('massiveAdmin/LOGINOPTIONS'); ?> <span class="w3-right"><svg xmlns="http://www.w3.org/2000/svg"
-			width="22" height="22" viewBox="0 0 24 24">
-			<path fill="currentColor" fill-rule="evenodd" d="m5 8l7 8l7-8z" />
-		</svg></span></button>
-<div id="Tab6" class="w3-hide w3-container">
+	<?php echo i18n_r('massiveAdmin/LOGINOPTIONS'); ?> <span class="w3-right"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24"> <path fill="currentColor" fill-rule="evenodd" d="m5 8l7 8l7-8z" /> </svg></span>
+</button>
 
+<div id="Tab6" class="w3-hide w3-container">
 	<div class="w3-container">
 		<form action="#" method="post">
 			<div class="w3-border-bottom w3-padding-32">

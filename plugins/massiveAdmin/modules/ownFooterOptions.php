@@ -19,11 +19,9 @@ echo $SITEURL; ?>plugins/massiveAdmin/css/w3-custom.css">
 		padding: .75rem 1rem;
 		margin: 0 10px 20px 20px;
 	}
-
 	input::file-selector-button:hover {
 		box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)
 	}
-
 	.CodeMirror {
 		font-size: 15px;
 		width: 100%;
@@ -49,20 +47,34 @@ echo $SITEURL; ?>plugins/massiveAdmin/css/w3-custom.css">
 		<div class="w3-margin-bottom">
 			<label for="ownfootername"><?php echo i18n_r('massiveAdmin/OWNFOOTERNAME'); ?> </label>
 			<input class="w3-input w3-padding w3-border w3-round w3-margin-bottom" style="width:96%" type="text"
-				value="<?php echo $dataOwnFooter->ownfootername ?? ''; ?>" name="ownfootername">
+				value="<?php echo htmlspecialchars($dataOwnFooter->ownfootername ?? '', ENT_QUOTES, 'UTF-8'); ?>" name="ownfootername">
+		</div>
+
+		<div class="w3-margin-bottom">
+			<label for="ownfooterlink"><?php echo i18n_r('massiveAdmin/OWNFOOTERLINK'); ?></label>
+			<input class="w3-input w3-padding w3-border w3-round w3-margin-bottom" style="width:96%" type="text"
+				value="<?php echo htmlspecialchars($dataOwnFooter->ownfooterlink ?? '', ENT_QUOTES, 'UTF-8'); ?>" name="ownfooterlink">
 		</div>
 
 		<div class="w3-margin-bottom">
 
 			<?php if (isset($dataOwnFooter->ownfootericon) && !empty($dataOwnFooter->ownfootericon)): ?>
-				<img src="<?php global $SITEURL;
-				echo $SITEURL . 'data/other/footerfoto/' . @$dataOwnFooter->ownfootericon; ?>"
-					style="width:80px;height:80px;display:block;border:solid 1px #ddd;padding:5px;margin:10px 0;object-fit:contain;">
-
+				<?php 
+				$iconPath = GSDATAOTHERPATH . '/footerfoto/' . $dataOwnFooter->ownfootericon;
+				if (file_exists($iconPath)): 
+				?>
+					<img src="<?php global $SITEURL;
+					echo $SITEURL . 'data/other/footerfoto/' . htmlspecialchars($dataOwnFooter->ownfootericon, ENT_QUOTES, 'UTF-8'); ?>"
+						style="width:80px;height:80px;display:block;border:solid 1px #ddd;padding:5px;margin:10px 0;object-fit:contain;"
+						alt="<?php echo htmlspecialchars($dataOwnFooter->ownfootername ?? 'Footer icon', ENT_QUOTES, 'UTF-8'); ?>">
+				<?php endif; ?>
 			<?php endif; ?>
 
 			<label for="ownfootericon"><?php echo i18n_r('massiveAdmin/OWNFOOTERICON'); ?></label>
-			<input class="w3-input" type="file" value="<?php echo @$dataOwnFooter->ownfootericon; ?>" name="ownfootericon">
+			<input class="w3-input" type="file" name="ownfootericon" accept="image/jpeg,image/png,image/gif">
+			<?php if (isset($dataOwnFooter->ownfootericon) && !empty($dataOwnFooter->ownfootericon)): ?>
+				<small style="display:block;margin-top:5px;color:#666;">Current: <?php echo htmlspecialchars($dataOwnFooter->ownfootericon, ENT_QUOTES, 'UTF-8'); ?></small>
+			<?php endif; ?>
 		</div>
 
 		<div class="w3-margin-bottom">
@@ -71,12 +83,6 @@ echo $SITEURL; ?>plugins/massiveAdmin/css/w3-custom.css">
 				<option value="yes"><?php echo i18n_r('massiveAdmin/YES'); ?></option>
 				<option value="no"><?php echo i18n_r('massiveAdmin/NO'); ?></option>
 			</select>
-		</div>
-
-		<div class="w3-margin-bottom">
-			<label for="ownfooterlink"><?php echo i18n_r('massiveAdmin/OWNFOOTERLINK'); ?></label>
-			<input class="w3-input w3-padding w3-border w3-round w3-margin-bottom" style="width:96%" type="text"
-				value="<?php echo $dataOwnFooter->ownfooterlink ?? ''; ?>" name="ownfooterlink">
 		</div>
 
 		<?php global $SITEURL; ?>
@@ -94,13 +100,13 @@ echo $SITEURL; ?>plugins/massiveAdmin/css/w3-custom.css">
 		<div class="w3-margin-bottom">
 			<label for="ownheader"><?php echo i18n_r('massiveAdmin/OWNFOOTERHEADER'); ?></label>
 			<textarea name="ownheader" id="ownheader"
-				style="width:100%; height:200px; margin-top:10px; display:block;"><?php echo $dataOwnFooter->ownheader ?? ''; ?></textarea>
+				style="width:100%; height:200px; margin-top:10px; display:block;"><?php echo htmlspecialchars($dataOwnFooter->ownheader ?? '', ENT_QUOTES, 'UTF-8'); ?></textarea>
 		</div>
 
 		<div class="w3-margin-bottom">
 			<label for="ownfooter"><?php echo i18n_r('massiveAdmin/OWNFOOTERFOOTER'); ?></label>
 			<textarea name="ownfooter" id="ownfooter"
-				style="width:100%; height:200px; margin-top:10px; display:block;"><?php echo $dataOwnFooter->ownfooter ?? ''; ?></textarea>
+				style="width:100%; height:200px; margin-top:10px; display:block;"><?php echo htmlspecialchars($dataOwnFooter->ownfooter ?? '', ENT_QUOTES, 'UTF-8'); ?></textarea>
 		</div>
 
 		<div class="w3-container w3-margin-bottom" style="margin-top:70px">
@@ -114,14 +120,14 @@ echo $SITEURL; ?>plugins/massiveAdmin/css/w3-custom.css">
 
 			<div class="w3-row w3-margin-bottom">
 				<div class="w3-half colors-item" style="padding:15px;">
-					<label for="ownmaincolor"><?php echo i18n_r('massiveAdmin/MAINCOLOR'); ?></label>
+					<label for="maincolor"><?php echo i18n_r('massiveAdmin/MAINCOLOR'); ?></label>
 					<input class="w3-input" type="color" style="height:50px"
-						value="<?php echo $dataOwnFooter->maincolor ?? ''; ?>" name="maincolor">
+						value="<?php echo htmlspecialchars($dataOwnFooter->maincolor ?? '#000000', ENT_QUOTES, 'UTF-8'); ?>" name="maincolor">
 				</div>
 
 				<div class="w3-rest colors-item" style="padding:15px;">
-					<label for="ownmaincolor"><?php echo i18n_r('massiveAdmin/BGCOLOR'); ?></label>
-					<input class="w3-input" type="color" style="height:50px" value="<?php echo $dataOwnFooter->bgcolor ?? ''; ?>"
+					<label for="bgcolor"><?php echo i18n_r('massiveAdmin/BGCOLOR'); ?></label>
+					<input class="w3-input" type="color" style="height:50px" value="<?php echo htmlspecialchars($dataOwnFooter->bgcolor ?? '#ffffff', ENT_QUOTES, 'UTF-8'); ?>"
 						name="bgcolor">
 				</div>
 			</div>
@@ -136,8 +142,8 @@ echo $SITEURL; ?>plugins/massiveAdmin/css/w3-custom.css">
 	</form>
  
 <script>
-	const checkbox = '<?php echo $dataOwnFooter->turnon; ?>';
-	const turncolor = '<?php echo $dataOwnFooter->turncolor; ?>';
+	const checkbox = '<?php echo $dataOwnFooter->turnon ?? ''; ?>';
+	const turncolor = '<?php echo $dataOwnFooter->turncolor ?? ''; ?>';
 
 	if (turncolor == 'true') {
 		document.querySelector('.turncolor').checked = true;
@@ -149,7 +155,7 @@ echo $SITEURL; ?>plugins/massiveAdmin/css/w3-custom.css">
 	} else {
 		document.querySelector('.checkbox').checked = false;
 	}
-	if ("<?php echo $dataOwnFooter->ownlogo; ?>" == "yes") {
+	if ("<?php echo $dataOwnFooter->ownlogo ?? ''; ?>" == "yes") {
 		document.querySelector(".ownlogo").value = "yes";
 	} else {
 		document.querySelector(".ownlogo").value = "no";
@@ -162,11 +168,11 @@ echo $SITEURL; ?>plugins/massiveAdmin/css/w3-custom.css">
     function myFunctionWithCodemirror(tabName) {
         var x = document.getElementById(tabName);
         if (x.className.indexOf("w3-show") == -1) {
-            x.className += " w3-show"; // Pokazujemy zawartość
+            x.className += " w3-show";
             
-            // Inicjalizacja CodeMirror tylko raz, gdy zakładka jest pokazana
+            // Initialize CodeMirror only once when tab is shown
             if (!x.dataset.codemirrorInitialized) {
-                // Inicjalizacja dla ownheader
+                // Initialize for ownheader
                 CodeMirror.fromTextArea(document.getElementById("ownheader"), {
 					theme: "<?php echo $CMTHEME; ?>",
 					lineNumbers: true,
@@ -180,7 +186,7 @@ echo $SITEURL; ?>plugins/massiveAdmin/css/w3-custom.css">
 					inlineDynamicImports: true
                 });
 
-                // Inicjalizacja dla ownfooter
+                // Initialize for ownfooter
                 CodeMirror.fromTextArea(document.getElementById("ownfooter"), {
 					theme: "<?php echo $CMTHEME; ?>",
 					lineNumbers: true,
@@ -194,14 +200,12 @@ echo $SITEURL; ?>plugins/massiveAdmin/css/w3-custom.css">
 					inlineDynamicImports: true
                 });
 
-                // Oznaczamy, że CodeMirror został zainicjalizowany
                 x.dataset.codemirrorInitialized = "true";
             }
         } else {
-            x.className = x.className.replace(" w3-show", ""); // Ukrywamy zawartość
+            x.className = x.className.replace(" w3-show", "");
         }
     }
-
 
 	// Save with ctrl+s
     document.addEventListener('keydown', function(e) {
@@ -215,107 +219,84 @@ echo $SITEURL; ?>plugins/massiveAdmin/css/w3-custom.css">
     });
 </script>
 
-
 <?php
 if (isset($_POST['submit'])) {
-	$turnon = $_POST['turnon'] ?? '';
-	if ($turnon == 'true') {
-		$turnon = "true";
-	} else {
-		$turnon = "false";
-	}
-	;
-
+	$turnon = isset($_POST['turnon']) && $_POST['turnon'] == 'true' ? 'true' : 'false';
 	$ownfootername = $_POST['ownfootername'] ?? '';
 	$ownlogo = $_POST['ownlogo'] ?? '';
-	$ownheader = $_POST['ownheader'] ?? '';
-	$ownheadernew = json_encode($ownheader, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_NUMERIC_CHECK);
-	$ownfooter = $_POST['ownfooter'] ?? '';
-	$ownfooternew = json_encode($ownfooter, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_NUMERIC_CHECK);
-	$ownfootericon = $_FILES["ownfootericon"]["name"];
-
+	$ownfooterlink = $_POST['ownfooterlink'] ?? '';
+	$turncolor = isset($_POST['turncolor']) && $_POST['turncolor'] == 'true' ? 'true' : 'false';
 	$maincolor = $_POST['maincolor'] ?? '';
 	$bgcolor = $_POST['bgcolor'] ?? '';
-	$turncolor = $_POST['turncolor'] ?? '';
-	if ($turncolor == 'true') {
-		$turncolor = "true";
-	} else {
-		$turncolor = "false";
+	
+	// Handle textarea content - decode from JSON if needed for storage
+	$ownheader = $_POST['ownheader'] ?? '';
+	$ownfooter = $_POST['ownfooter'] ?? '';
+
+	// Handle file upload
+	$ownfootericon = '';
+	
+	// Check if a file was actually uploaded
+	if (isset($_FILES["ownfootericon"]) && $_FILES["ownfootericon"]["error"] === UPLOAD_ERR_OK) {
+		$massiveOwnFooterFolderFoto = GSDATAOTHERPATH . '/footerfoto/';
+		
+		// Create directory if it doesn't exist
+		if (!file_exists($massiveOwnFooterFolderFoto)) {
+			mkdir($massiveOwnFooterFolderFoto, 0755, true);
+			$htaccess = 'Allow from all';
+			file_put_contents($massiveOwnFooterFolderFoto . '.htaccess', $htaccess);
+		}
+
+		$target_dir = $massiveOwnFooterFolderFoto;
+		$imageFileType = strtolower(pathinfo($_FILES["ownfootericon"]["name"], PATHINFO_EXTENSION));
+		
+		// Validate file type
+		$allowed_types = array("jpg", "jpeg", "png", "gif");
+		if (in_array($imageFileType, $allowed_types)) {
+			// Validate it's actually an image
+			$check = getimagesize($_FILES["ownfootericon"]["tmp_name"]);
+			if ($check !== false) {
+				// Generate safe filename
+				$safe_filename = preg_replace("/[^a-zA-Z0-9._-]/", "", basename($_FILES["ownfootericon"]["name"]));
+				$target_file = $target_dir . $safe_filename;
+				
+				// Move uploaded file
+				if (move_uploaded_file($_FILES["ownfootericon"]["tmp_name"], $target_file)) {
+					$ownfootericon = $safe_filename;
+				}
+			}
+		}
 	}
-	;
-
-	if ($ownfootericon == "") {
-		$ownfootericon = $dataOwnFooter->ownfootericon;
+	
+	// If no new file was uploaded, keep the existing icon
+	if (empty($ownfootericon)) {
+		$ownfootericon = $dataOwnFooter->ownfootericon ?? '';
 	}
 
-	$ownfooterlink = $_POST['ownfooterlink'];
+	// Build JSON - properly escape values
+	$jsonData = array(
+		'turnon' => $turnon,
+		'ownfootername' => $ownfootername,
+		'ownfootericon' => $ownfootericon,
+		'ownfooterlink' => $ownfooterlink,
+		'ownlogo' => $ownlogo,
+		'ownheader' => $ownheader,
+		'ownfooter' => $ownfooter,
+		'turncolor' => $turncolor,
+		'bgcolor' => $bgcolor,
+		'maincolor' => $maincolor
+	);
 
-	$json = '{
-	"turnon": "' . $turnon . '",
-	"ownfootername": "' . $ownfootername . '",
-	"ownfootericon": "' . $ownfootericon . '",
-	"ownfooterlink": "' . $ownfooterlink . '",
-	"ownlogo": "' . $ownlogo . '",
-	"ownheader": ' . $ownheadernew . ',
-	"ownfooter": ' . $ownfooternew . ',
-	"turncolor": "' . $turncolor . '",
-	"bgcolor": "' . $bgcolor . '",
-	"maincolor": "' . $maincolor . '"
-}';
+	$json = json_encode($jsonData, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT);
 
+	// Save JSON file
 	$massiveOwnFooterFolder = GSDATAOTHERPATH . '/massiveOwnFooter/';
-	$filejson = 'OwnFooter.json';
-	$finaljson = $massiveOwnFooterFolder . $filejson;
-	$chmod_mode = 0755;
-	$folder_exists = file_exists($massiveOwnFooterFolder) || mkdir($massiveOwnFooterFolder, $chmod_mode);
-
+	if (!file_exists($massiveOwnFooterFolder)) {
+		mkdir($massiveOwnFooterFolder, 0755, true);
+	}
+	
+	$finaljson = $massiveOwnFooterFolder . 'OwnFooter.json';
 	file_put_contents($finaljson, $json);
 
-	$massiveOwnFooterFolderFoto = GSDATAOTHERPATH . '/footerfoto/';
-
-	$target_dir = $massiveOwnFooterFolderFoto;
-	$target_file = $target_dir . basename($_FILES["ownfootericon"]["name"]);
-	$uploadOk = 1;
-	$imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
-
-	if (!file_exists($massiveOwnFooterFolderFoto)) {
-		mkdir($massiveOwnFooterFolderFoto, 0755);
-		$datas = 'Allow from all';
-		file_put_contents($massiveOwnFooterFolderFoto . '.htaccess', $datas);
-	}
-	;
-
-	// Check if image file is a actual image or fake image
-	if (isset($_POST["ownfootericon"])) {
-		$check = getimagesize($_FILES["ownfootericon"]["tmp_name"]);
-		if ($check !== false) {
-			echo "File is an image - " . $check["mime"] . ".";
-			$uploadOk = 1;
-		} else {
-			echo "File is not an image.";
-			$uploadOk = 0;
-		}
-	}
-
-	// Allow certain file formats
-	if (
-		$imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
-		&& $imageFileType != "gif"
-	) {
-		echo "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
-		$uploadOk = 0;
-	}
-
-	if ($uploadOk == 0) {
-		echo "Sorry, your file was not uploaded.";
-	} else {
-		if (move_uploaded_file($_FILES["ownfootericon"]["tmp_name"], $target_file)) {
-			echo "The file " . htmlspecialchars(basename($_FILES["ownfootericon"]["name"])) . " has been uploaded.";
-		} else {
-			echo "Sorry, there was an error uploading your file.";
-		}
-	}
-
 	echo ("<meta http-equiv='refresh' content='0'>");
-};
-?>
+}

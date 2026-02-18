@@ -95,7 +95,6 @@
 		$file =  GSDATAOTHERPATH . 'massiveHiddenSection/' . pathinfo($us)['filename'] . '.json';
 		$data = '';
 		if (file_exists($file)) {
-
 			$data = file_get_contents($file);
 			$data = json_decode($data);
 		} else {

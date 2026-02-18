@@ -45,12 +45,9 @@ echo $SITEURL; ?>plugins/massiveAdmin/css/w3-custom.css">
 			<textarea class="ckeditors w3-input w3-padding w3-border w3-round w3-margin-bottom"
 				name="content"><?php echo $data->maintencecontent ?? ''; ?></textarea>
 
-			<div class="w3-margin-top w3-center">
-	
-			</div>
+			<div class="w3-margin-top w3-center"></div>
 	 
-
-	<h3><?php echo i18n_r('massiveAdmin/BOOTSTRAPTITLE'); ?></h3>
+			<h3><?php echo i18n_r('massiveAdmin/BOOTSTRAPTITLE'); ?></h3>
 			<label for="grid"><?php echo i18n_r("massiveAdmin/TURNONBOOTSTRAPGRID"); ?></label>
 			<select class="gridselect w3-select w3-padding w3-border w3-round w3-margin-bottom" name="grid" id="">
 				<option value="no"><?php echo i18n_r("massiveAdmin/NO"); ?></option>
@@ -69,9 +66,9 @@ echo $SITEURL; ?>plugins/massiveAdmin/css/w3-custom.css">
 					<?php echo i18n_r("massiveAdmin/SAVEOPTION"); ?>
 				</button>
 			</div>
-		</form></div>
+		</form>
+	</div>
 	
-
 	<script type="text/javascript" src="template/js/ckeditor/ckeditor.js"></script>
 
 	<?php
@@ -134,21 +131,21 @@ echo $SITEURL; ?>plugins/massiveAdmin/css/w3-custom.css">
 	<?php
 	if (file_exists($filename)) {
 		if ($data->maintence == 'yes') {
-			echo '<script>document.querySelector(".maintenceselect").value = "yes"</script></script>';
+			echo '<script>document.querySelector(".maintenceselect").value = "yes"</script>';
 		} else {
-			echo '<script>document.querySelector(".maintenceselect").value = "no"</script></script>';
+			echo '<script>document.querySelector(".maintenceselect").value = "no"</script>';
 		}
 		;
 		if ($data->grid == 'yes') {
-			echo '<script>document.querySelector(".gridselect").value = "yes"</script></script>';
+			echo '<script>document.querySelector(".gridselect").value = "yes"</script>';
 		} else {
-			echo '<script>document.querySelector(".gridselect").value = "no"</script></script>';
+			echo '<script>document.querySelector(".gridselect").value = "no"</script>';
 		}
 		;
 		if ($data->gridfront == 'yes') {
-			echo '<script>document.querySelector(".gridselectfront").value = "yes"</script></script>';
+			echo '<script>document.querySelector(".gridselectfront").value = "yes"</script>';
 		} else {
-			echo '<script>document.querySelector(".gridselectfront").value = "no"</script></script>';
+			echo '<script>document.querySelector(".gridselectfront").value = "no"</script>';
 		};
 	};
 

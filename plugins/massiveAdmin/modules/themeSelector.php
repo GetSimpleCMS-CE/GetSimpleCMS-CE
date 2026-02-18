@@ -1,10 +1,10 @@
 <?php 
 $fileOptionCheck = @file_get_contents( GSDATAOTHERPATH.'massiveTheme/option.txt');
 ?>
- 
 
 <button onclick="myFunction('Tab4')" style="margin-top:10px" class=" w3-button w3-xlarge w3-round w3-block w3-gray w3-text-white w3-left-align w3-margin-bottom"> Admin Theme Selector <span class="w3-right"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24"><path fill="currentColor" fill-rule="evenodd" d="m5 8l7 8l7-8z"/></svg></span></button>
-	<div id="Tab4" class="w3-hide w3-container">
+
+<div id="Tab4" class="w3-hide w3-container">
  
 <?php 
 if(isset($_POST['save'])){
@@ -33,21 +33,21 @@ if(isset($_POST['save'])){
 };
 ?>
  
-<hr>
+	<hr>
 
-<form method="POST">
+	<form method="POST">
 
-	<select name="theme" class="w3-select w3-border" style="padding:10px;  width:98%">
-		<?php 
-			foreach(glob(GSPLUGINPATH.'massiveAdmin/theme/*.css') as $style){
-				$pure = pathinfo($style)['filename'];
-				echo '<option value="'. $pure.'" '.( $fileOptionCheck == $pure ? 'selected':'').'>'. $pure.'</option>';
-			};
-		?>
-	</select>
-	
-	<div class="w3-margin-top w3-center">
-		<button class="w3-btn w3-large w3-round w3-green" type="submit" name="save"><?php echo i18n_r('massiveAdmin/SAVEOPTION'); ?></button>
-	</div>
-</form>
-	</div>
+		<select name="theme" class="w3-select w3-border" style="padding:10px;  width:98%">
+			<?php 
+				foreach(glob(GSPLUGINPATH.'massiveAdmin/theme/*.css') as $style){
+					$pure = pathinfo($style)['filename'];
+					echo '<option value="'. $pure.'" '.( $fileOptionCheck == $pure ? 'selected':'').'>'. $pure.'</option>';
+				};
+			?>
+		</select>
+		
+		<div class="w3-margin-top w3-center">
+			<button class="w3-btn w3-large w3-round w3-green" type="submit" name="save"><?php echo i18n_r('massiveAdmin/SAVEOPTION'); ?></button>
+		</div>
+	</form>
+</div>

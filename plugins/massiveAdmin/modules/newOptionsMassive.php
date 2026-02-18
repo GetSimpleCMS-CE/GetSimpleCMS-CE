@@ -1,3 +1,172 @@
+<?php
+/**
+ * Security improvements:
+ * - Path traversal protection
+ * - CSRF protection
+ * - XSS protection
+ * - Input validation
+ */
+
+// Start session for CSRF protection
+if (session_status() === PHP_SESSION_NONE) {
+	session_start();
+}
+
+if (empty($_SESSION['massive_admin_csrf'])) {
+	$_SESSION['massive_admin_csrf'] = bin2hex(random_bytes(32));
+}
+
+// Security helper functions
+function massive_sanitize_filename($filename) {
+	// Remove path components and dangerous characters
+	$filename = basename($filename);
+	$filename = str_replace(['..', '/', '\\'], '', $filename);
+	return $filename;
+}
+
+function massive_verify_csrf() {
+	if (!isset($_POST['csrf_token']) || 
+		!hash_equals($_SESSION['massive_admin_csrf'], $_POST['csrf_token'])) {
+		die('Security validation failed. Please try again.');
+	}
+}
+
+function massive_is_safe_path($path, $base_path) {
+	$realpath = realpath($path);
+	$realbase = realpath($base_path);
+	
+	if ($realpath === false) {
+		return false;
+	}
+	
+	if ($realbase === false) {
+		return false;
+	}
+	
+	return strpos($realpath, $realbase) === 0;
+}
+
+// Handle rename operation
+if (isset($_POST['save-rename-massive'])) {
+	massive_verify_csrf();
+	
+	$oldFilename = massive_sanitize_filename($_POST['rename-massive-hide']);
+	$newFilename = massive_sanitize_filename($_POST['rename-massive']);
+	
+	if (empty($oldFilename) || empty($newFilename)) {
+		echo '<div class="massive-error">Invalid filename provided</div>';
+	} else {
+		$oldDirMassive = '../data/uploads/' . $oldFilename;
+		$newDirMassive = '../data/uploads/' . $newFilename;
+		$afterNewDir = preg_replace('/\s+/', '-', $newDirMassive);
+		
+		// Security: Verify paths are within uploads directory
+		if (!massive_is_safe_path($oldDirMassive, '../data/uploads/')) {
+			error_log("Massive Admin Security: Path traversal attempt blocked in rename");
+			echo '<div class="massive-error">Invalid file path</div>';
+		} elseif (!file_exists($oldDirMassive)) {
+			echo '<div class="massive-error">Source file not found</div>';
+		} elseif (file_exists($afterNewDir)) {
+			echo '<div class="massive-error">A file with that name already exists</div>';
+		} else {
+			if (rename($oldDirMassive, $afterNewDir)) {
+				echo '<div class="massive-done">' . 
+					 htmlspecialchars(i18n_r("massiveAdmin/FILENOW"), ENT_QUOTES, 'UTF-8') . 
+					 ' ' . htmlspecialchars($afterNewDir, ENT_QUOTES, 'UTF-8') . 
+					 '</div>';
+				echo '<meta http-equiv="refresh" content="1">';
+			} else {
+				echo '<div class="massive-error">Failed to rename file</div>';
+			}
+		}
+	}
+}
+
+// Handle copy operation
+if (isset($_POST['copy-rename-massive'])) {
+	massive_verify_csrf();
+	
+	$oldFilename = massive_sanitize_filename($_POST['rename-massive-hide']);
+	$newFilename = massive_sanitize_filename($_POST['rename-massive']);
+	
+	if (empty($oldFilename) || empty($newFilename)) {
+		echo '<div class="massive-error">Invalid filename provided</div>';
+	} else {
+		$oldDirMassive = '../data/uploads/' . $oldFilename;
+		$newDirMassive = '../data/uploads/' . $newFilename;
+		$afterNewDir = preg_replace('/\s+/', '-', $newDirMassive);
+		
+		// Security: Verify paths are within uploads directory
+		if (!massive_is_safe_path($oldDirMassive, '../data/uploads/')) {
+			error_log("Massive Admin Security: Path traversal attempt blocked in copy");
+			echo '<div class="massive-error">Invalid file path</div>';
+		} elseif (!file_exists($oldDirMassive)) {
+			echo '<div class="massive-error">Source file not found</div>';
+		} elseif (file_exists($afterNewDir)) {
+			echo '<div class="massive-error">' . 
+				 htmlspecialchars(i18n_r("massiveAdmin/INFOERROR"), ENT_QUOTES, 'UTF-8') . 
+				 '</div>';
+		} else {
+			if (copy($oldDirMassive, $afterNewDir)) {
+				echo '<div class="massive-done">' . 
+					 htmlspecialchars(i18n_r("massiveAdmin/INFOCOPY"), ENT_QUOTES, 'UTF-8') . 
+					 ' ' . htmlspecialchars($afterNewDir, ENT_QUOTES, 'UTF-8') . 
+					 '</div>';
+				echo '<meta http-equiv="refresh" content="1">';
+			} else {
+				echo '<div class="massive-error">Failed to copy file</div>';
+			}
+		}
+	}
+}
+
+// Handle batch delete operation
+if (isset($_POST['deleteFileList'])) {
+	massive_verify_csrf();
+	
+	$list = $_POST['delFileList'];
+	$ar = explode(",", $list);
+	$deleted = 0;
+	$failed = 0;
+	
+	foreach ($ar as $key => $value) {
+		$value = trim($value);
+		$value = massive_sanitize_filename($value);
+		
+		if (empty($value)) {
+			continue;
+		}
+		
+		$filepath = GSDATAUPLOADPATH . $value;
+		
+		// Security: Verify path is within uploads directory
+		if (!massive_is_safe_path($filepath, GSDATAUPLOADPATH)) {
+			error_log("Massive Admin Security: Path traversal attempt blocked in delete: " . $value);
+			$failed++;
+			continue;
+		}
+		
+		if (file_exists($filepath)) {
+			if (unlink($filepath)) {
+				$deleted++;
+			} else {
+				$failed++;
+			}
+		} else {
+			$failed++;
+		}
+	}
+	
+	if ($deleted > 0) {
+		echo '<div class="massive-done">Successfully deleted ' . $deleted . ' file(s)</div>';
+	}
+	if ($failed > 0) {
+		echo '<div class="massive-error">Failed to delete ' . $failed . ' file(s)</div>';
+	}
+	echo '<meta http-equiv="refresh" content="1">';
+}
+?>
+
 <style>
 	#imageTable tr td {
 		display: flex;
@@ -154,10 +323,11 @@
 <div class="rename-fog hide-fog">
 	<div class="form-rename">
 		<form class="form-form-rename" action="#" method="post">
+			<input type="hidden" name="csrf_token" value="<?php echo htmlspecialchars($_SESSION['massive_admin_csrf'], ENT_QUOTES, 'UTF-8'); ?>">
 			<input type="text" name="rename-massive-hide" style="display:none">
 			<input type="text" name="rename-massive">
-			<input type="submit" name="save-rename-massive" class="submit" value="<?php echo i18n_r("massiveAdmin/RENAMEFILE"); ?>">
-			<input type="submit" name="copy-rename-massive" class="submit" value="<?php echo i18n_r("massiveAdmin/COPYFILE"); ?>">
+			<input type="submit" name="save-rename-massive" class="submit" value="<?php echo htmlspecialchars(i18n_r("massiveAdmin/RENAMEFILE"), ENT_QUOTES, 'UTF-8'); ?>">
+			<input type="submit" name="copy-rename-massive" class="submit" value="<?php echo htmlspecialchars(i18n_r("massiveAdmin/COPYFILE"), ENT_QUOTES, 'UTF-8'); ?>">
 			<button class="close-rename-fog">
 			
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="times"><path fill="#fff" d="M13.41,12l4.3-4.29a1,1,0,1,0-1.42-1.42L12,10.59,7.71,6.29A1,1,0,0,0,6.29,7.71L10.59,12l-4.3,4.29a1,1,0,0,0,0,1.42,1,1,0,0,0,1.42,0L12,13.41l4.29,4.3a1,1,0,0,0,1.42,0,1,1,0,0,0,0-1.42Z"></path></svg>	
@@ -186,7 +356,7 @@
 
 						const copyBtn = document.createElement('button');
 						copyBtn.classList.add('copy-massive-btn');
-						copyBtn.innerHTML = "  <i class='uil uil-copy-alt'></i>";
+						copyBtn.innerHTML = "  xx<i class='uil uil-copy-alt'></i>";
 						deleteBtn.insertAdjacentElement('afterend', copyBtn);
 
 						const downloadBtn = document.createElement('a');
@@ -240,37 +410,6 @@
 	};
 </script>
 
-<?php
-if (isset($_POST['save-rename-massive'])) {
-	$oldDirMassive = '../data/uploads/' . $_POST['rename-massive-hide'];
-	$newDirMassive = '../data/uploads/' . $_POST['rename-massive'];
-
-	$afterNewDir = preg_replace('/\s+/', '-', $newDirMassive);
-
-	rename($oldDirMassive, $afterNewDir);
-	echo '<div class="massive-done">' . i18n_r("massiveAdmin/FILENOW") . $afterNewDir . '</div>';
-
-	echo ("<meta http-equiv='refresh' content='1'>");
-}
-
-if (isset($_POST['copy-rename-massive'])) {
-	$fileIsHere = i18n_r("massiveAdmin/INFOERROR");
-
-	$oldDirMassive = '../data/uploads/' . $_POST['rename-massive-hide'];
-	$newDirMassive = '../data/uploads/' . $_POST['rename-massive'];
-
-	$afterNewDir = preg_replace('/\s+/', '-', $newDirMassive);
-
-	if (file_exists($afterNewDir) == 'true') {
-		echo '<div class="massive-error">' . $fileIsHere . '</div>';
-	} else {
-		copy($oldDirMassive, $afterNewDir);
-		echo ("<meta http-equiv='refresh' content='1'>");
-		echo '<div class="massive-done">' . i18n_r("massiveAdmin/INFOCOPY") . $afterNewDir . '</div>';
-	}
-};
-?>
-
 <script>
 	document.querySelectorAll('.imgthumb').forEach(x => {
 		if (x.innerHTML == '') {
@@ -290,6 +429,7 @@ if (isset($_POST['copy-rename-massive'])) {
 
 <div style="width:100%;padding:5px;background:var(--main-color);margin-bottom:10px;">
 	<form method="post">
+		<input type="hidden" name="csrf_token" value="<?php echo htmlspecialchars($_SESSION['massive_admin_csrf'], ENT_QUOTES, 'UTF-8'); ?>">
 		<textarea style="display:none;" class="delFileList" name="delFileList"></textarea>
 		<button class="delOn" style="border:solid 1px #fff;margin: 6px 5px; background: rgba(0,0,0,0.8); 
 		color: rgb(255, 255, 255);   border-radius: 5px; padding: 5px; cursor: pointer;">Delete Multiple Files</button>
@@ -352,15 +492,3 @@ if (isset($_POST['copy-rename-massive'])) {
 		})
 	})
 </script>
-
-<?php
-if (isset($_POST['deleteFileList'])) {
-	$list = $_POST['delFileList'];
-	$ar = explode(",", $list);
-	foreach ($ar as $key => $value) {
-		unlink(GSDATAUPLOADPATH . $value);
-		echo ("
-		<meta http-equiv='refresh' content='1'>");
-	}
-};
-?>
