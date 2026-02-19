@@ -73,19 +73,19 @@ Designed to be light and agile, the base install comes to you clutter free, with
 
 ### New:
 
-- New: SVG support for Uploads & Filebrowser
-- New: Admin Page Sorting
-- New: Update plugin from Plugins Tab
-- New: Added Twig support to theme editor
-- New: Added new theme functions: [Wiki](https://github.com/GetSimpleCMS-CE/GetSimpleCMS-CE/wiki/Template-Tags#new-theme-functions-v34)
+- SVG support for Uploads & Filebrowser
+- Admin Page Sorting
+- Update plugin from Plugins Tab
+- Added Twig support to theme editor
+- Added new theme functions: [Wiki](https://github.com/GetSimpleCMS-CE/GetSimpleCMS-CE/wiki/Template-Tags#new-theme-functions-v34)
 
 ### Updates:
 
-- Updated: Plugin - Massive Admin v6.x (refactor, security enhancements).
-- Updated: Plugin - UpdateCE
-- Updated: Health Check
-- Updated: Support Page
-- Updated: Sitemap UI
+- Plugin - Massive Admin v6.x (refactor, security enhancements).
+- Plugin - UpdateCE
+- Health Check
+- Support Page
+- Sitemap UI
 
 
 ### Fixes:
