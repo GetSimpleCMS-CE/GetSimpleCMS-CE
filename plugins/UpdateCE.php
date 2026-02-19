@@ -33,21 +33,19 @@ function update_ce() {
 	
 	<div class="w3-parent w3-container"><!-- Start Plugin -->
 	
-		<h3>'.i18n_r("UpdateCE/lang_Icon").i18n_r("UpdateCE/lang_Page_Title").' <small>(v'. $plugin_info['UpdateCE']['version'].')';
+		<h3>'.i18n_r("UpdateCE/lang_Icon").i18n_r("UpdateCE/lang_Page_Title").' <!--small>(v'. $plugin_info['UpdateCE']['version'].')';
 		
 		// Check for update...
 		$db = file_get_contents('https://getsimplecms-ce.github.io/upgrade.json');
 		$jsondb = json_decode($db);
 		
 		foreach ($jsondb as $key => $value) {
-			if ((float) $value->plugver > (float) $plugin_info['UpdateCE']['version'] ||
-				((float) $value->plugver === (float) $plugin_info['UpdateCE']['version'] && isset($value->lastupdate) && $value->lastupdate > $plugin_info['UpdateCE']['lastupdate'])) {
-				echo '<sup class="w3-text-light w3-orange w3-round" style="padding:3px 1px;"><a style="font-weight:400; text-decoration:none; color:#fff!important;" href="plugins.php"> * Update available (v' . $value->plugver . ') <svg xmlns="http://www.w3.org/2000/svg" style="vertical-align:middle" width="1em" height="1em" viewBox="0 0 24 24"><rect width="24" height="24" fill="none"/><path fill="none" stroke="#CF3805" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.213 9.787a3.39 3.39 0 0 0-4.795 0l-3.425 3.426a3.39 3.39 0 0 0 4.795 4.794l.321-.304m-.321-4.49a3.39 3.39 0 0 0 4.795 0l3.424-3.426a3.39 3.39 0 0 0-4.794-4.795l-1.028.961"/></svg></a>';
-				break;
+			if ((float) $value->plugver > (float) $plugin_info['UpdateCE']['version']) {
+				echo '<sup class="w3-text-light w3-orange w3-round" style="padding:3px 1px;"><a style="font-weight:400; text-decoration:none; color:#fff!important;" href="load.php?id=massiveAdmin&downloader"> * Update available (v' . $value->plugver . ') <svg xmlns="http://www.w3.org/2000/svg" style="vertical-align:middle" width="1em" height="1em" viewBox="0 0 24 24"><rect width="24" height="24" fill="none"/><path fill="none" stroke="#CF3805" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.213 9.787a3.39 3.39 0 0 0-4.795 0l-3.425 3.426a3.39 3.39 0 0 0 4.795 4.794l.321-.304m-.321-4.49a3.39 3.39 0 0 0 4.795 0l3.424-3.426a3.39 3.39 0 0 0-4.794-4.795l-1.028.961"/></svg></a>';
 			};
 		};
 		
-		echo '</small></h3>
+		echo '</small--></h3>
 		<p>'.i18n_r("UpdateCE/lang_Description").'</p>';
 		
 		include(GSADMININCPATH ."configuration.php");
@@ -135,7 +133,6 @@ function update_ce() {
 						</form>
 					</footer>
 				</div>';
-				break;
 			}
 		};
 		
