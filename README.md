@@ -94,7 +94,7 @@ Designed to be light and agile, the base install comes to you clutter free, with
 
 ### Security & Hotfixes:
 
-- Hotfixes: Numerous vulnerabilities patched 
+- Hotfixes: Numerous issues patched/enhanced 
   - CVE-2026-27146 (CSRF)
   - CVE-2026-27147 (XSS)
   - CVE-2026-27161 (If AllowOverride is disabled)
