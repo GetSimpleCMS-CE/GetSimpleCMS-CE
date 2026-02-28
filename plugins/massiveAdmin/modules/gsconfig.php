@@ -1,3 +1,23 @@
+<?php
+// CSRF protection using HMAC of the session ID.
+$gsconfig_token = hash_hmac('sha256', 'gsconfig_edit', session_id());
+
+// Handle POST before any HTML output.
+$gsconfig_error   = null;
+$gsconfig_success = false;
+
+if (isset($_POST['editGSConfig'])) {
+    $submitted = $_POST['gs_csrf_token'] ?? '';
+    if (!hash_equals($gsconfig_token, $submitted)) {
+        $gsconfig_error = 'Invalid security token. Please reload the page and try again.';
+    } else {
+        global $MA;
+        $MA->gsConfigEdit();
+        $gsconfig_success = true;
+    }
+}
+?>
+
 <?php global $SITEURL; ?>
 
 <link rel="stylesheet" href="<?php echo $SITEURL; ?>plugins/massiveAdmin/css/codemirror.min.css" />
@@ -22,8 +42,19 @@
 		</svg></span>
 </button>
 <div id="Tab7" class="w3-hide w3-container">
+
+	<?php if ($gsconfig_error): ?>
+		<div style="background:#c0392b; width:100%; text-align:center; padding:10px; border-radius:3px; color:#fff; margin-bottom:10px;">
+			<?php echo htmlspecialchars($gsconfig_error); ?>
+		</div>
+	<?php elseif ($gsconfig_success): ?>
+		<div class="doneMassive" style="background:green; width:100%; text-align:center; padding:10px; border-radius:3px; color:#fff; margin-bottom:10px;">Done</div>
+		<meta http-equiv='refresh' content='1'>
+	<?php endif; ?>
+
 	<form action="#" method="Post">
-		<textarea name="content" id="myTextarea" wrap='off'><?php echo file_get_contents(GSROOTPATH . 'gsconfig.php'); ?></textarea>
+		<input type="hidden" name="gs_csrf_token" value="<?php echo $gsconfig_token; ?>">
+		<textarea name="content" id="myTextarea" wrap='off'><?php echo htmlspecialchars(file_get_contents(GSROOTPATH . 'gsconfig.php')); ?></textarea>
 
 		<div class="w3-center" style="margin-top:30px">
 			<button class="w3-btn w3-large w3-round w3-green" type="submit"
@@ -41,12 +72,12 @@
 	function toggleTab(tabId) {
 		var tab = document.getElementById(tabId);
 		
-		// Przełącz widoczność taba
+		// Przelacz widocznosc taba
 		if (tab.classList.contains('w3-hide')) {
-			// Pokaż tab
+			// Pokaz tab
 			tab.classList.remove('w3-hide');
 			
-			// Inicjalizacja lub odświeżenie CodeMirror
+			// Inicjalizacja lub odswiezenie CodeMirror
 			if (!editor) {
 				// Pierwsza inicjalizacja
 				editor = CodeMirror.fromTextArea(document.getElementById('myTextarea'), {
@@ -61,11 +92,11 @@
 					inlineDynamicImports: true
 				});
 			} else {
-				// Odśwież edytor po pokazaniu taba
+				// Odswiez edytor po pokazaniu taba
 				setTimeout(function() {
 					editor.refresh();
 					editor.focus(); // Opcjonalnie: ustawia fokus na edytorze
-				}, 50); // Krótsze opóźnienie
+				}, 50); // Krótsze opóznienie
 			}
 		} else {
 			// Ukryj tab
@@ -84,12 +115,3 @@
 		}
 	});
 </script>
-
-<?php
-if (isset($_POST['editGSConfig'])) {
-	global $MA;
-	$MA->gsConfigEdit();
-	echo '<div class="doneMassive" style="background:green;width:100%;text-align:center;padding:10px;border-radius:3px;color:#fff;">Done</div>';
-	echo ("<meta http-equiv='refresh' content='1'>");
-}
-?>
