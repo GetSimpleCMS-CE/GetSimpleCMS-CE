@@ -105,9 +105,8 @@ if(isset($_POST['submitted'])) {
 	}
    
 	# user-specific fields
-	if(isset($_POST['user'])) { 
-		$USR = strtolower($_POST['user']); 
-	}
+	$USR = strtolower($USR);
+	
  	if(isset($_POST['name'])) { 
 		$NAME = $_POST['name']; 
 	} 
@@ -125,7 +124,6 @@ if(isset($_POST['submitted'])) {
 	} else {
 		$HTMLEDITOR = '';
 	}
-	
 	
 	# check to see if passwords are changing
 	if(isset($_POST['sitepwd'])) { $pwd1 = $_POST['sitepwd']; }
