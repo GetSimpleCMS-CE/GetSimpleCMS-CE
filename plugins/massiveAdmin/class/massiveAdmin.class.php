@@ -225,6 +225,7 @@ class MassiveAdminClass{
 		$supportUserMailMonkey = str_replace('@', '', $newposUserwithspace);
 		$supportUserMailFinal = str_replace('.', '', $supportUserMailMonkey);
 		$createUserEmail = $_POST['createuseremail'];
+		$disName = $_POST['createdisname'];
 		$pass = $_POST['createpassword'];
 		$lang = $_POST['lang'];
 		$passhash = passhash($pass);
@@ -232,7 +233,7 @@ class MassiveAdminClass{
 		$newUserFile = $folder . '/' . $supportUserMailFinal . '.xml';
 		
 		$userinfo = '<?xml version="1.0" encoding="UTF-8"?>
-	<item><USR>' . strtolower($newposUser) . '</USR><NAME/><PWD>' . $passhash . '</PWD><EMAIL>' . $createUserEmail . '</EMAIL><HTMLEDITOR>1</HTMLEDITOR><TIMEZONE/><LANG>' . $lang . '</LANG></item>';
+	<item><USR>' . strtolower($newposUser) . '</USR><NAME>' . $disName . '</NAME><PWD>' . $passhash . '</PWD><EMAIL>' . $createUserEmail . '</EMAIL><HTMLEDITOR>1</HTMLEDITOR><TIMEZONE/><LANG>' . $lang . '</LANG></item>';
 		
 		file_put_contents($newUserFile, $userinfo);
 		chmod($newUserFile, 0755);
@@ -248,12 +249,18 @@ class MassiveAdminClass{
 		$oldPWD = (string)$data->PWD[0];
 		$oldLANG = (string)$data->LANG[0];
 		$oldEMAIL = (string)$data->EMAIL[0];
+		$oldNAME = (string)$data->NAME[0];
 
+		$newNAME = $_POST['dname'];
 		$newEMAIL = $_POST['email'];
 		$newPWD = $_POST['password'];
 		$newLANG = $_POST['lang'];
 
 		$file = file_get_contents(GSUSERSPATH . $_POST['nameuser'] . '.xml');
+
+		if ($oldNAME !== $newNAME && $oldNAME !== '') {
+			$file = str_replace($oldNAME, $newNAME, $file);
+		}
 
 		if ($oldEMAIL !== $newEMAIL && $newEMAIL !== '') {
 			$file = str_replace($oldEMAIL, $newEMAIL, $file);
@@ -268,6 +275,7 @@ class MassiveAdminClass{
 			$file = str_replace($oldPWD, $passhash, $file);
 		}
 
+		$file = str_replace('<NAME/>', '<NAME></NAME>', $file);
 		file_put_contents(GSUSERSPATH . $_POST['nameuser'] . '.xml', $file);
 
 		global $SITEURL, $GSADMIN;
@@ -308,7 +316,10 @@ class MassiveAdminClass{
 
 					<input name="nameuser" type="hidden"  value="' . htmlspecialchars($usrfile) . '">
 
-					<label for="email">' . i18n_r("massiveAdmin/EMAIL") . '</label>
+					<label for="dname"> ' . i18n_r('LABEL_DISPNAME') . ' <span style="opacity:0.7">(' . i18n_r('DISPLAY_NAME'). ')</span></label>
+					<input class="w3-input w3-border w3-round w3-margin-bottom" type="text" name="dname" value="' . htmlspecialchars((string)$username->NAME[0]) . '">
+
+					<label for="email"> ' . i18n_r("massiveAdmin/EMAIL") . '</label>
 					<input class="w3-input w3-border w3-round w3-margin-bottom" type="email" name="email" value="' . htmlspecialchars($username->EMAIL[0]) . '">
 
 					<label for="password">' . i18n_r("massiveAdmin/PASSWORD") . '</label>

@@ -21,6 +21,9 @@
 			<label><?php echo i18n_r("massiveAdmin/USERNAMECREATE"); ?></label>
 			<input class="w3-input w3-padding w3-border w3-round w3-margin-bottom" type="text" name="createuserhidden" oninput="toLowercase(this)">
 			
+			<label><?php i18n('LABEL_DISPNAME');?> <span style="opacity:0.7">(<?php i18n('DISPLAY_NAME');?>)</span></label>
+			<input class="w3-input w3-padding w3-border w3-round w3-margin-bottom" type="text" name="createdisname">
+
 			<label><?php echo i18n_r('massiveAdmin/PASSWORDCREATE'); ?></label>
 			<input class="w3-input w3-padding w3-border w3-round w3-margin-bottom" type="password" name="createpassword">
 
