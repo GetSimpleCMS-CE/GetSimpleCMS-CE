@@ -45,8 +45,8 @@ define('GSDONOTPING',1);
 # Enable Canonical Redirects?
 # define('GSCANONICAL',1);
 
-# Login Page Default Language: en_EN, es_ES, pl_PL, de_DE, uk_UK, etc.
-$LANG = 'en_EN';
+# Login Page Default Language: en_US, es_ES, pl_PL, de_DE, uk_UK, etc.
+$LANG = 'en_US';
 
 # Sort admin page list by title or menu
 define('GSSORTPAGELISTBY','menu');
@@ -89,10 +89,10 @@ define('GSCMTHEME','blackboard');
 # define('GSTIMEZONE','America/Chicago');
 
 # Disable loading of external CDN versions of scripts (jQuery/jQueryUI)
-define("GSNOCDN",TRUE);
+define('GSNOCDN',TRUE);
 
 # Disable Codemirror theme editor
-# define("GSNOHIGHLIGHT",TRUE);
+# define('GSNOHIGHLIGHT',TRUE);
 
 # Forces suppression of php errors when GSDEBUG is FALSE, despite php ini settings
 define('GSSUPPRESSERRORS',TRUE);
