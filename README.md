@@ -127,7 +127,7 @@ After you have applied the update, you may again personalize this.
 Add New:
 ```
 # Login Page Default Language;
-$LANG = 'en_EN'; // es_ES, pl_PL, de_DE, uk_UK, etc.
+$LANG = 'en_US'; // es_ES, pl_PL, de_DE, uk_UK, etc.
 
 # Sort admin page list by title or menu
 define('GSSORTPAGELISTBY','menu');
