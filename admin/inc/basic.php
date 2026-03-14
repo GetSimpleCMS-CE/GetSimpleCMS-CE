@@ -725,7 +725,13 @@ function i18n_r($name) {
  */
 function i18n_merge($plugin, $language=null) {
 	global $i18n, $LANG;
-	return i18n_merge_impl($plugin, $language ?: $LANG, $i18n);
+	$lang = $language ?: $LANG;
+	$result = i18n_merge_impl($plugin, $lang, $i18n);
+	// Merge en_US as fallback for plugins to fill any missing lang tokens.
+	if ($plugin && $lang !== 'en_US') {
+		i18n_merge_impl($plugin, 'en_US', $i18n);
+	}
+	return $result;
 }
 
 /**
