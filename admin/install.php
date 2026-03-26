@@ -191,6 +191,10 @@ get_template('header', $site_full_name.' CE &raquo; '. i18n_r('INSTALLATION') );
 					$latestVersion = '';
 					
 					foreach ($jsondb as $key => $value) {
+						// Skip beta versions — don't prompt installers to upgrade to a beta
+						if (stripos($value->version, 'beta') !== false) {
+							continue;
+						}
 						if (version_compare($value->version, $site_version_no, '>')) {
 							$updateAvailable = true;
 							$latestVersion = $value->version;
