@@ -73,6 +73,8 @@ Designed to be light and agile, the base install comes to you clutter free, with
 
 ### New:
 
+- Dashboard Plugin: Customizable admin dashboard shown after login.
+- GS Config GUI Plugin: Visual editor for gsconfig.php configuration settings.
 - SVG support for Uploads & Filebrowser
 - Admin Page Sorting
 - Update plugin from Plugins Tab
@@ -90,15 +92,19 @@ Designed to be light and agile, the base install comes to you clutter free, with
 
 ### Fixes:
 
+- Fix: fallback for any missing lang tokens in plugins
+- Fix: stripslashes in components
 - Improved: Image and file handling. Memory usage. Security enhancements.
+
 
 ### Security & Hotfixes:
 
 - Hotfixes: Numerous issues patched/enhanced 
-  - CVE-2026-27146 (CSRF)
-  - CVE-2026-27147 (XSS)
+  - CVE-2026-27146 (CSRF in File Upload)
+  - CVE-2026-27147 (XSS in SVGs)
   - CVE-2026-27161 (If AllowOverride is disabled)
-  - CVE-2026-27202 (Arbitrary File Read)
+  - CVE-2026-27202 (Arbitrary File Read, MA)
+  - CVE-2026-28495 (CSRF in gsconfig.php, MA)
 
 ### Other:
 
