@@ -161,6 +161,8 @@ if(isset($_POST['submitted'])) {
 		$message .= '<p><em>'. i18n_r('EMAIL_THANKYOU') .' '.$site_full_name.'!</em></p>';
 		$status   = sendmail($EMAIL,$subject,$message);
 		# activate default plugins
+		change_plugin('Dashboard.php',true);
+		change_plugin('gsConfigGUI.php',true);
 		change_plugin('massiveAdmin.php',true);
 		change_plugin('UpdateCE.php',true);
 
