@@ -17,7 +17,7 @@ i18n_merge($gsConfigGUI) || i18n_merge($gsConfigGUI, 'en_US');
 register_plugin(
 	$gsConfigGUI,
 	'GS Config GUI',
-	'1.0',
+	'1.1',
 	'risingisland',
 	'https://www.getsimple-ce.ovh/',
 	'Visual editor for gsconfig.php configuration settings.',
@@ -239,8 +239,8 @@ function gscfg_write($content, $settings) {
 			// Written as a bare integer — no quotes
 			$valStr = intval($val);
 		} elseif ($meta['type'] === 'textarea') {
-			// Preserve multiline format as in the original file
-			$valStr = "'\n" . str_replace("'", "\\'", $val) . "\n'";
+			// Use multiline format only when there is content; empty stays as ''
+			$valStr = ($val !== '') ? "'\n" . str_replace("'", "\\'", $val) . "\n'" : "''";
 		} else {
 			$valStr = "'" . addslashes($val) . "'";
 		}
