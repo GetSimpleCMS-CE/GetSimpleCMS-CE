@@ -332,6 +332,7 @@ if (get_filename_id() != 'install' && get_filename_id() != 'setup' && get_filena
 			GSHOMEPATH . 'LICENSE',
 			GSHOMEPATH . 'Tmpfile.zip',
 			
+			GSPLUGINPATH . 'anonymous_data.php',
 			GSPLUGINPATH . 'README.md',
 			
 			GSTHEMESPATH . 'README.md',
@@ -382,6 +383,8 @@ if (get_filename_id() != 'install' && get_filename_id() != 'setup' && get_filena
 			GSADMINPATH . 'template/js/uploadify',
 			GSADMINPATH . 'template/js/codemirror/lib',
 			GSADMINPATH . 'template/js/codemirror/theme',
+			
+			GSPLUGINPATH . 'anonymous_data',
 		];
 
 		foreach ($dirsToDelete as $dir) {
