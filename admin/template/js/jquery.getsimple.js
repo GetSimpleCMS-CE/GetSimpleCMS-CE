@@ -350,20 +350,11 @@ jQuery(document).ready(function () {
 			dataType: "html",
 			url: dlink,
 			success: function (data, textStatus, jqXHR) {
-				// Store the response as specified by the jqXHR object
-				responseText = jqXHR.responseText;
- 
-				// remove scripts to prevent assets from loading when we create temp dom
-				rscript = /<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi;
- 
-				// create temp doms to reliably find elements
-				$('#header').html($("<div>").append(responseText.replace(rscript, "")).find('#header > *'));
-				$('#sidebar').html($("<div>").append(responseText.replace(rscript, "")).find('#sidebar > *'));
-				$('#maincontent').html($("<div>").append(responseText.replace(rscript, "")).find('#maincontent > *'));
- 
-				document.body.style.cursor = "default";
 				clearNotify();
 				notifyOk(i18n('PLUGIN_UPDATED')).popit().removeit();
+				setTimeout(function() {
+					window.location.href = 'plugins.php';
+				}, 800);
 			},
 			error: function (data, textStatus, jqXHR) {
 				// These go in failures if we catch them in the future
