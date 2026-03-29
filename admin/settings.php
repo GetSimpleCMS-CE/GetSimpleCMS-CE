@@ -44,6 +44,11 @@ if (isset($_GET['flushcache'])) {
 			unlink($path);
 		}
 	}
+
+	// Delete update_info_*.html files (hash suffix varies)
+	foreach (glob(GSCACHEPATH . 'update_info_*.html') as $ufile) {
+		unlink($ufile);
+	}
 	
 	$update = 'flushcache-success';
 }
