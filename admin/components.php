@@ -22,8 +22,34 @@ $update 	= ''; $table = ''; $list='';
 
 # Security function to check for dangerous PHP
 function containsDangerousPHP($content) { 
-	$dangerousFunctions = array( 
-		'exec', 'passthru', 'shell_exec', 'system', 'popen', 'proc_open', 'pcntl_exec', 'eval', 'assert', 'create_function', 'preg_replace', 'preg_replace_callback', 'include', 'include_once', 'require', 'require_once', 'dl', 'call_user_func', 'call_user_func_array', 'ReflectionFunction', 'ob_start', 'assert_options', 'mail', 'header', 'putenv', 'ini_set', 'fopen', 'tmpfile', 'bzopen', 'gzopen', 'SplFileObject', 'chgrp', 'chmod', 'chown', 'copy', 'file_put_contents', 'lchgrp', 'lchown', 'link', 'mkdir', 'move_uploaded_file', 'rename', 'rmdir', 'symlink', 'tempnam', 'touch', 'unlink', 'file_exists', 'file_get_contents', 'file', 'fileatime', 'filectime', 'filegroup', 'fileinode', 'filemtime', 'fileowner', 'fileperms', 'filesize', 'filetype', 'glob', 'is_dir', 'is_executable', 'is_file', 'is_link', 'is_readable', 'is_uploaded_file', 'is_writable', 'linkinfo', 'lstat', 'parse_ini_file', 'pathinfo', 'readfile', 'readlink', 'realpath', 'stat', 'gzfile', 'readgzfile', 'getimagesize', 'imagecreatefromgif', 'imagecreatefromjpeg', 'imagecreatefrompng', 'imagecreatefromwbmp', 'imagecreatefromxbm', 'imagecreatefromxpm', 'ftp_get', 'ftp_nb_get', 'ftp_put', 'ftp_nb_put', 'exif_read_data', 'read_exif_data', 'exif_thumbnail', 'exif_imagetype', 'hash_file', 'hash_hmac_file', 'hash_update_file', 'md5_file', 'sha1_file', 'highlight_file', 'show_source', 'php_strip_whitespace', 'get_meta_tags', 'proc_nice', 'proc_terminate', 'proc_close', 'pfsockopen', 'fsockopen', 'apache_child_terminate', 'posix_kill', 'posix_mkfifo', 'posix_setpgid', 'posix_setsid', 'posix_setuid' 
+	$dangerousFunctions = array(
+	// Code execution
+		'eval', 'assert', 'create_function', 'assert_options',
+	// Shell/system execution
+		'exec', 'passthru', 'shell_exec', 'system', 'popen', 'proc_open',
+		'pcntl_exec', 'proc_nice', 'proc_terminate', 'proc_close',
+		'apache_child_terminate',
+	// Dynamic calls (can wrap any of the above)
+		'call_user_func', 'call_user_func_array', 'ReflectionFunction',
+	// File inclusion (arbitrary code execution)
+		'include', 'include_once', 'require', 'require_once', 'dl',
+	// Write/destructive filesystem ops
+		'file_put_contents', 'unlink', 'rename', 'mkdir', 'rmdir',
+		'chmod', 'chown', 'chgrp', 'lchown', 'lchgrp', 'copy',
+		'move_uploaded_file', 'symlink', 'link', 'tempnam', 'touch',
+	// File open (can write)
+		'fopen', 'tmpfile', 'bzopen', 'gzopen', 'SplFileObject',
+	// Network sockets
+		'fsockopen', 'pfsockopen',
+	// FTP
+		'ftp_get', 'ftp_nb_get', 'ftp_put', 'ftp_nb_put',
+	// POSIX process manipulation
+		'posix_kill', 'posix_mkfifo', 'posix_setpgid',
+		'posix_setsid', 'posix_setuid',
+	// Environment/config tampering
+		'putenv', 'ini_set',
+	// Config/source disclosure
+		'parse_ini_file', 'highlight_file', 'show_source', 'php_strip_whitespace',
 	);
 	
 	foreach ($dangerousFunctions as $func) {
