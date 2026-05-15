@@ -43,28 +43,63 @@ $metad = '';
 if ($id) {
 	// Sanitize $id to prevent directory traversal
 	$id = preg_replace('/[^a-zA-Z0-9\-_]/', '', $id);
-	$file = $id . '.xml';
 
-	if (!file_exists($path . $file)) { 
-		redirect('pages.php?error=' . urlencode(i18n_r('PAGE_NOTEXIST')));
+	if (defined('GSDATABASE') && GSDATABASE == 'sqlite3') {
+
+		// Load page data from database
+		$stmt = gs_db()->prepare("SELECT * FROM pages WHERE slug = :slug LIMIT 1");
+		$stmt->bindValue(':slug', $id, SQLITE3_TEXT);
+		$row = $stmt->execute()->fetchArray(SQLITE3_ASSOC);
+
+		if (!$row) {
+			redirect('pages.php?error=' . urlencode(i18n_r('PAGE_NOTEXIST')));
+		}
+
+		$title	  = stripslashes($row['title']);
+		$pubDate	= $row['pub_date'];
+		$metak	  = stripslashes($row['meta']);
+		$metad	  = stripslashes($row['metad']);
+		$url		= $row['slug'];
+		$content	= stripslashes($row['content']);
+		$template   = $row['template'];
+		$parent	 = $row['parent'];
+		$author	 = $row['author'] ?? '';
+		$menu	   = stripslashes($row['menu']);
+		$private	= $row['private'] ? 'Y' : '';
+		$menuStatus = $row['menu_status'];
+		$menuOrder  = $row['menu_order'];
+		$buttonname = i18n_r('BTN_SAVEUPDATES');
+
+		// Set $data_edit flag so the template knows we are in edit mode
+		$data_edit  = true;
+
+	} else {
+
+		// XML fallback — original logic unchanged
+		$file = $id . '.xml';
+
+		if (!file_exists($path . $file)) {
+			redirect('pages.php?error=' . urlencode(i18n_r('PAGE_NOTEXIST')));
+		}
+
+		$data_edit  = getXML($path . $file);
+		$title	  = stripslashes($data_edit->title);
+		$pubDate	= $data_edit->pubDate;
+		$metak	  = stripslashes($data_edit->meta);
+		$metad	  = stripslashes($data_edit->metad);
+		$url		= $data_edit->url;
+		$content	= stripslashes($data_edit->content);
+		$template   = $data_edit->template;
+		$parent	 = $data_edit->parent;
+		$author	 = $data_edit->author;
+		$menu	   = stripslashes($data_edit->menu);
+		$private	= $data_edit->private;
+		$menuStatus = $data_edit->menuStatus;
+		$menuOrder  = $data_edit->menuOrder;
+		$buttonname = i18n_r('BTN_SAVEUPDATES');
 	}
 
-	$data_edit = getXML($path . $file);
-	$title = stripslashes($data_edit->title);
-	$pubDate = $data_edit->pubDate;
-	$metak = stripslashes($data_edit->meta);
-	$metad = stripslashes($data_edit->metad);
-	$url = $data_edit->url;
-	$content = stripslashes($data_edit->content);
-	$template = $data_edit->template;
-	$parent = $data_edit->parent;
-	$author = $data_edit->author;
-	$menu = stripslashes($data_edit->menu);
-	$private = $data_edit->private;
-	$menuStatus = $data_edit->menuStatus;
-	$menuOrder = $data_edit->menuOrder;
-	$buttonname = i18n_r('BTN_SAVEUPDATES');
-} else {
+}else {
 	// Prefill fields if provided
 	$title      =  isset( $_GET['title']      ) ? var_out( $_GET['title']      ) : '';
 	$template   =  isset( $_GET['template']   ) ? var_out( $_GET['template']   ) : '';

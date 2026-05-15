@@ -87,6 +87,9 @@ $i18n = [
 	'lang_Disable_CDN'			=>	'外部CDNを無効にする',
 	'lang_Disable_CDN_info'		=>	'jQueryとjQueryUIの外部CDNバージョンの読み込みを無効にする',
 	
+	'lang_Disable_Driver'		=>	'データベースドライバ',
+	'lang_Disable_Driver_info'	=>	'データ保存にXMLファイルの代わりにSQLite3を使用します。',
+	
 	'lang_Server_Timezone'		=>	'サーバータイムゾーン',
 	'lang_Server_Timezone_info'	=>	'デフォルトのタイムゾーン文字列（例: America/Chicago または Europe/London）',
 	'lang_PHP_Timezones'		=>	'PHPタイムゾーン',

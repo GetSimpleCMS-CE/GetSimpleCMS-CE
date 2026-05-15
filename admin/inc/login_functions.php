@@ -9,7 +9,7 @@
 $MSG = null;
 # if the login cookie is already set, redirect user to control panel
 if(cookie_check()) {
-	redirect($cookie_redirect);                                             
+	redirect($cookie_redirect);											 
 }
 
 # was the form submitted?
@@ -35,6 +35,43 @@ if(isset($_POST['submitted'])) {
 		$password = passhash($password);
 
 		# does this user exist?
+  if (defined('GSDATABASE') && GSDATABASE == 'sqlite3' && function_exists('gs_db')) {
+
+
+			# pull the data from the SQLite3 users table
+	 $row = gs_db()->querySingle(
+	"SELECT username, password FROM users WHERE LOWER(username) = '" . gs_db()->escapeString($userid) . "' LIMIT 1",
+	true
+);
+
+if ($row) {
+	$PASSWD = $row['password'];
+	$USR	= strtolower($row['username']);
+
+				# do the username and password match?
+				if ( ($userid == $USR) && ($password == $PASSWD) ) {
+					$authenticated = true;
+				} else {
+					$authenticated = false;
+
+					# add login failure to failed logins log
+					$logFailed = new GS_Logging_Class('failedlogins.log');
+					$logFailed->add('Username', $userid);
+					$logFailed->add('Reason', 'Invalid Password');
+				}
+			} else {
+				# user doesnt exist in SQLite3
+				$authenticated = false;
+
+				# add login failure to failed logins log
+				$logFailed = new GS_Logging_Class('failedlogins.log');
+				$logFailed->add('Username', $userid);
+				$logFailed->add('Reason', 'Invalid User');
+			}
+
+		} else {
+
+		# does this user exist in XML?
 		if (file_exists($user_xml)) {
 
 			# pull the data from the user's data file
@@ -64,6 +101,8 @@ if(isset($_POST['submitted'])) {
 			$logFailed->add('Username',$userid);
 			$logFailed->add('Reason','Invalid User');
 		}		
+		
+		} # end backend check
 		
 		# is this successful?
 		if( $authenticated ) {

@@ -33,12 +33,20 @@ if (isset($_GET['id'])) {
 		redirect('pages.php?upd=edit-error&type='.urlencode(i18n_r('HOMEPAGE_DELETE_ERROR')));
 	} else {	
 		updateSlugs($id);
-		$status = delete_file($id);
+
+		if (defined('GSDATABASE') && GSDATABASE == 'sqlite3') {
+			$safe   = gs_db()->escapeString($id);
+			$result = gs_db()->exec("DELETE FROM pages WHERE slug = '$safe'");
+			$status = $result ? 'success' : 'error';
+		} else {
+			$status = delete_file($id);
+		}
+
 		generate_sitemap();
 		exec_action('page-delete');
 		redirect("pages.php?upd=edit-".$status."&id=". $id ."&type=delete");
 	}
-} 
+}
 
 // are we deleting archives?
 if (isset($_GET['zip'])) { 

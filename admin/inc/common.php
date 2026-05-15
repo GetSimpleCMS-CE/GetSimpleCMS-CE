@@ -127,6 +127,289 @@ $reservedSlugs = [$GSADMIN, 'data', 'theme', 'plugins', 'backups'];
 
 require_once(GSADMININCPATH.'configuration.php');
 
+/** grab authorization and security data — must load before grab user data */
+if (defined('GSUSECUSTOMSALT')) {
+	$SALT = sha1(GSUSECUSTOMSALT);
+} else {
+	if (file_exists(GSDATAOTHERPATH . 'authorization.xml')) {
+		$dataa = getXML(GSDATAOTHERPATH . 'authorization.xml');
+		$SALT  = stripslashes($dataa->apikey);
+	}
+}
+
+/**
+ * SQLite3: define gs_db() singleton — must come before any usage
+*/
+
+if (defined('GSDATABASE') && GSDATABASE == 'sqlite3') {
+	function gs_db(): SQLite3 {
+		static $db = null;
+		if ($db === null) {
+			$db = new SQLite3(GSDATAPATH . 'database.db');
+			$db->enableExceptions(true);
+			$db->exec('PRAGMA journal_mode=WAL');
+			$db->exec('PRAGMA foreign_keys=ON');
+		}
+		return $db;
+	}
+}
+
+/** 
+* SQLite3: create tables and run one-time migration from XML
+*/
+if (defined('GSDATABASE') && GSDATABASE == 'sqlite3') {
+
+ gs_db()->exec("
+	CREATE TABLE IF NOT EXISTS pages (
+		id		  INTEGER PRIMARY KEY AUTOINCREMENT,
+		slug		TEXT	NOT NULL UNIQUE,
+		title	   TEXT	NOT NULL,
+		content	 TEXT,
+		template	TEXT	DEFAULT 'template.php',
+		meta		TEXT,
+		metad	   TEXT,
+		menu		TEXT,
+		menu_order  INTEGER DEFAULT 0,
+		menu_status TEXT	DEFAULT 'Y',
+		parent	  TEXT	DEFAULT '',
+		private	 INTEGER DEFAULT 0,
+		pub_date	TEXT	DEFAULT (datetime('now')),
+		author	  TEXT	NOT NULL DEFAULT ''
+	)
+");
+
+	gs_db()->exec("
+		CREATE TABLE IF NOT EXISTS settings (
+			id		 INTEGER PRIMARY KEY AUTOINCREMENT,
+			key		TEXT	NOT NULL UNIQUE,
+			value	  TEXT,
+			updated_at TEXT	DEFAULT (datetime('now'))
+		)
+	");
+
+	gs_db()->exec("
+		CREATE TABLE IF NOT EXISTS users (
+			id		 INTEGER PRIMARY KEY AUTOINCREMENT,
+			username   TEXT	NOT NULL UNIQUE,
+			password   TEXT	NOT NULL,
+			email	  TEXT	NOT NULL DEFAULT '',
+			name	   TEXT	NOT NULL DEFAULT '',
+			htmleditor TEXT	DEFAULT 'ckeditor',
+			timezone   TEXT	DEFAULT '',
+			lang	   TEXT	DEFAULT 'en_US',
+			created_at TEXT	NOT NULL DEFAULT (datetime('now'))
+		)
+	");
+
+	gs_db()->exec("
+		CREATE TABLE IF NOT EXISTS components (
+			id		 INTEGER PRIMARY KEY AUTOINCREMENT,
+			slug	   TEXT	NOT NULL UNIQUE,
+			title	  TEXT	NOT NULL DEFAULT '',
+			value	  TEXT	NOT NULL DEFAULT '',
+			updated_at TEXT	NOT NULL DEFAULT (datetime('now'))
+		)
+	");
+
+	gs_db()->exec("
+		CREATE TABLE IF NOT EXISTS plugins (
+			id		 INTEGER PRIMARY KEY AUTOINCREMENT,
+			plugin	 TEXT	NOT NULL UNIQUE,
+			enabled	TEXT	NOT NULL DEFAULT 'false',
+			updated_at TEXT	NOT NULL DEFAULT (datetime('now'))
+		)
+	");
+
+	// Run one-time migration from XML files to SQLite3
+	$migrationDone = gs_db()->querySingle(
+		"SELECT value FROM settings WHERE key = 'migration_done' LIMIT 1"
+	);
+
+	if ($migrationDone !== '1') {
+
+		$count  = 0;
+		$errors = [];
+
+		// Migrate components
+		if (file_exists(GSDATAOTHERPATH . 'components.xml')) {
+			try {
+				$xml = simplexml_load_file(GSDATAOTHERPATH . 'components.xml');
+				if ($xml && isset($xml->item)) {
+					$cstmt = gs_db()->prepare("
+						INSERT INTO components (slug, title, value)
+						VALUES (:slug, :title, :value)
+						ON CONFLICT(slug) DO UPDATE SET
+							title	  = excluded.title,
+							value	  = excluded.value,
+							updated_at = datetime('now')
+					");
+					foreach ($xml->item as $item) {
+						$cstmt->bindValue(':slug',  (string)$item->slug,  SQLITE3_TEXT);
+						$cstmt->bindValue(':title', (string)$item->title, SQLITE3_TEXT);
+						$cstmt->bindValue(':value', (string)$item->value, SQLITE3_TEXT);
+						$cstmt->execute();
+						$cstmt->reset();
+					}
+				}
+			} catch (Exception $e) {
+				$errors[] = 'components.xml: ' . $e->getMessage();
+			}
+		}
+
+		// Migrate pages
+		$stmt = gs_db()->prepare("
+			INSERT INTO pages
+				(slug, title, content, template, meta, metad,
+				 menu, menu_order, menu_status, parent, private, pub_date, author)
+			VALUES
+					(:slug, :title, :content, :template, :meta, :metad,
+					:menu, :menu_order, :menu_status, :parent, :private, :pub_date,:author)
+			ON CONFLICT(slug) DO UPDATE SET
+				title	   = excluded.title,
+				content	 = excluded.content,
+				template	= excluded.template,
+				meta		= excluded.meta,
+				metad	   = excluded.metad,
+				menu		= excluded.menu,
+				menu_order  = excluded.menu_order,
+				menu_status = excluded.menu_status,
+				parent	  = excluded.parent,
+				private	 = excluded.private,
+				pub_date	= excluded.pub_date,
+				author	  = excluded.author
+		");
+
+		foreach (glob(GSDATAPAGESPATH . '*.xml') as $file) {
+			try {
+				$xml = simplexml_load_file($file);
+				if (!$xml) { $errors[] = basename($file); continue; }
+
+				$stmt->bindValue(':slug',		(string) $xml->url,						SQLITE3_TEXT);
+				$stmt->bindValue(':title',	   (string) $xml->title,					  SQLITE3_TEXT);
+				$stmt->bindValue(':content',	 (string) $xml->content,					SQLITE3_TEXT);
+				$stmt->bindValue(':template',	(string) $xml->template ?: 'template.php', SQLITE3_TEXT);
+				$stmt->bindValue(':meta',		(string) $xml->meta,					   SQLITE3_TEXT);
+				$stmt->bindValue(':metad',	   (string) $xml->metad,					  SQLITE3_TEXT);
+				$stmt->bindValue(':menu',		(string) $xml->menu,					   SQLITE3_TEXT);
+				$stmt->bindValue(':menu_order',  (int)	$xml->menuOrder,				  SQLITE3_INTEGER);
+				$stmt->bindValue(':menu_status', (string) $xml->menuStatus ?: 'Y',		  SQLITE3_TEXT);
+				$stmt->bindValue(':parent',	  (string) $xml->parent,					 SQLITE3_TEXT);
+				$stmt->bindValue(':private',	 (string) $xml->private ? 1 : 0,			SQLITE3_INTEGER);
+				$stmt->bindValue(':pub_date',	(string) $xml->pubDate,					SQLITE3_TEXT);
+				$stmt->bindValue(':author',	  (string) $xml->author,					 SQLITE3_TEXT);
+				$stmt->execute();
+				$stmt->reset();
+				$count++;
+			} catch (Exception $e) {
+				$errors[] = basename($file) . ': ' . $e->getMessage();
+			}
+		}
+
+		// Migrate users
+		foreach (glob(GSUSERSPATH . '*.xml') as $file) {
+			try {
+				$xml = simplexml_load_file($file);
+				if (!$xml) continue;
+
+		  $ustmt = gs_db()->prepare("
+	INSERT INTO users (username, password, email, name, htmleditor, timezone, lang)
+	VALUES (:username, :password, :email, :name, :htmleditor, :timezone, :lang)
+	ON CONFLICT(username) DO UPDATE SET
+		password   = excluded.password,
+		email	  = excluded.email,
+		name	   = excluded.name,
+		htmleditor = excluded.htmleditor,
+		timezone   = excluded.timezone,
+		lang	   = excluded.lang
+");
+$ustmt->bindValue(':username',   strtolower((string) $xml->USR),	  SQLITE3_TEXT);
+$ustmt->bindValue(':password',   (string) $xml->PWD,				  SQLITE3_TEXT);
+$ustmt->bindValue(':email',	  (string) ($xml->EMAIL	?? ''),	 SQLITE3_TEXT);
+$ustmt->bindValue(':name',	   (string) ($xml->NAME	 ?? ''),	 SQLITE3_TEXT);
+$ustmt->bindValue(':htmleditor', (string) ($xml->HTMLEDITOR ?? 'ckeditor'), SQLITE3_TEXT);
+$ustmt->bindValue(':timezone',   (string) ($xml->TIMEZONE  ?? ''),   SQLITE3_TEXT);
+$ustmt->bindValue(':lang',	   (string) ($xml->LANG	  ?? 'en_US'), SQLITE3_TEXT);
+$ustmt->execute();
+			} catch (Exception $e) {
+				$errors[] = basename($file) . ': ' . $e->getMessage();
+			}
+		}
+
+		// Migrate website settings
+		if (file_exists(GSDATAOTHERPATH . 'website.xml')) {
+			try {
+				$wxml = simplexml_load_file(GSDATAOTHERPATH . 'website.xml');
+				if ($wxml) {
+					$wstmt = gs_db()->prepare("
+						INSERT INTO settings (key, value)
+						VALUES (:key, :value)
+						ON CONFLICT(key) DO UPDATE SET
+							value	  = excluded.value,
+							updated_at = datetime('now')
+					");
+					foreach ([
+						'sitename'   => (string) $wxml->SITENAME,
+						'siteurl'	=> (string) $wxml->SITEURL,
+						'template'   => (string) $wxml->TEMPLATE,
+						'prettyurls' => (string) $wxml->PRETTYURLS,
+						'permalink'  => (string) $wxml->PERMALINK,
+					] as $key => $value) {
+						$wstmt->bindValue(':key',   $key,   SQLITE3_TEXT);
+						$wstmt->bindValue(':value', $value, SQLITE3_TEXT);
+						$wstmt->execute();
+						$wstmt->reset();
+					}
+				}
+			} catch (Exception $e) {
+				$errors[] = 'website.xml: ' . $e->getMessage();
+			}
+		}
+
+		// Migrate plugins
+		if (file_exists(GSDATAOTHERPATH . 'plugins.xml')) {
+			try {
+				$pxml = simplexml_load_file(GSDATAOTHERPATH . 'plugins.xml');
+				if ($pxml && isset($pxml->item)) {
+					$pstmt = gs_db()->prepare("
+						INSERT INTO plugins (plugin, enabled)
+						VALUES (:plugin, :enabled)
+						ON CONFLICT(plugin) DO UPDATE SET
+							enabled	= excluded.enabled,
+							updated_at = datetime('now')
+					");
+					foreach ($pxml->item as $item) {
+						$pstmt->bindValue(':plugin',  trim((string)$item->plugin),  SQLITE3_TEXT);
+						$pstmt->bindValue(':enabled', trim((string)$item->enabled), SQLITE3_TEXT);
+						$pstmt->execute();
+						$pstmt->reset();
+					}
+				}
+			} catch (Exception $e) {
+				$errors[] = 'plugins.xml: ' . $e->getMessage();
+			}
+		}
+
+		// Save migration flag
+		$flag = gs_db()->prepare("
+			INSERT INTO settings (key, value)
+			VALUES (:key, :value)
+			ON CONFLICT(key) DO UPDATE SET value = excluded.value
+		");
+		foreach ([
+			'migration_done'   => '1',
+			'migration_date'   => date('Y-m-d H:i:s'),
+			'migration_pages'  => (string) $count,
+			'migration_errors' => implode(',', $errors),
+		] as $key => $value) {
+			$flag->bindValue(':key',   $key,   SQLITE3_TEXT);
+			$flag->bindValue(':value', $value, SQLITE3_TEXT);
+			$flag->execute();
+			$flag->reset();
+		}
+
+	} // end migration
+}
+
 /**
  * Debugging
  */
@@ -154,31 +437,76 @@ $load['plugin'] = (isset($load['plugin'])) ? $load['plugin'] : '';
  */
  
 /** grab website data */
-$thisfilew = GSDATAOTHERPATH .'website.xml';
-if (file_exists($thisfilew)) {
-	$dataw = getXML($thisfilew);
-	$SITENAME = stripslashes($dataw->SITENAME);
-	$SITEURL = $dataw->SITEURL;
-	$TEMPLATE = $dataw->TEMPLATE;
+$thisfilew = GSDATAOTHERPATH . 'website.xml';
+
+if (defined('GSDATABASE') && GSDATABASE == 'sqlite3') {
+	// read site settings from database
+	$wresult  = gs_db()->query(
+		"SELECT key, value FROM settings
+		 WHERE key IN ('sitename','siteurl','template','prettyurls','permalink')"
+	);
+	$wsettings = [];
+	while ($r = $wresult->fetchArray(SQLITE3_ASSOC)) {
+		$wsettings[$r['key']] = $r['value'];
+	}
+	$SITENAME   = stripslashes($wsettings['sitename']   ?? '');
+	$SITEURL	= $wsettings['siteurl']	?? '';
+	$TEMPLATE   = $wsettings['template']   ?? '';
+	$PRETTYURLS = $wsettings['prettyurls'] ?? '';
+	$PERMALINK  = $wsettings['permalink']  ?? '';
+
+} elseif (file_exists($thisfilew)) {
+	// XML fallback
+	$dataw	  = getXML($thisfilew);
+	$SITENAME   = stripslashes($dataw->SITENAME);
+	$SITEURL	= $dataw->SITEURL;
+	$TEMPLATE   = $dataw->TEMPLATE;
 	$PRETTYURLS = $dataw->PRETTYURLS;
-	$PERMALINK = $dataw->PERMALINK;
+	$PERMALINK  = $dataw->PERMALINK;
+
 } else {
 	$SITENAME = '';
-	$SITEURL = '';
-} 
+	$SITEURL  = '';
+}
+
 
 /** grab user data */
 if (isset($_COOKIE['GS_ADMIN_USERNAME'])) {
-	$cookie_user_id = _id($_COOKIE['GS_ADMIN_USERNAME']);
-	if (file_exists(GSUSERSPATH . $cookie_user_id.'.xml')) {
-		$datau = getXML(GSUSERSPATH  . $cookie_user_id.'.xml');
-		$USR = stripslashes($datau->USR);
-		$HTMLEDITOR = $datau->HTMLEDITOR;
-		$TIMEZONE = $datau->TIMEZONE;
-		$LANG = $datau->LANG;
+	 $cookie_user_id = strtolower(preg_replace('/[^a-zA-Z0-9_\-]/', '', $_COOKIE['GS_ADMIN_USERNAME']));
+ 
+
+	if (defined('GSDATABASE') && GSDATABASE == 'sqlite3') {
+		// read user from database
+		$ustmt = gs_db()->prepare(
+			"SELECT username, email, name, htmleditor, timezone, lang
+			 FROM users WHERE username = :u LIMIT 1"
+		);
+		$ustmt->bindValue(':u', strtolower($cookie_user_id), SQLITE3_TEXT);
+		$urow = $ustmt->execute()->fetchArray(SQLITE3_ASSOC);
+
+		if ($urow) {
+			$USR		= $urow['username'];
+			$GLOBALS['USR'] = $USR;
+			$HTMLEDITOR = $urow['htmleditor'] ?? 'ckeditor';
+			$TIMEZONE   = $urow['timezone']   ?? (defined('GSTIMEZONE') ? GSTIMEZONE : '');
+			$LANG	   = $urow['lang']	   ?? 'en_US';
+		} else {
+			$USR = null;
+		}
+
 	} else {
-		$USR = null;
+		// XML fallback
+		if (file_exists(GSUSERSPATH . $cookie_user_id . '.xml')) {
+			$datau	  = getXML(GSUSERSPATH . $cookie_user_id . '.xml');
+			$USR		= stripslashes($datau->USR);
+			$HTMLEDITOR = $datau->HTMLEDITOR;
+			$TIMEZONE   = $datau->TIMEZONE;
+			$LANG	   = $datau->LANG;
+		} else {
+			$USR = null;
+		}
 	}
+
 } else {
 	$USR = null;
 }
@@ -253,20 +581,8 @@ if(isset($TIMEZONE) && function_exists('date_default_timezone_set') && ($TIMEZON
 global $SITENAME, $SITEURL, $TEMPLATE, $TIMEZONE, $LANG, $SALT, $i18n, $USR, $PERMALINK, $GSADMIN, $components, $EDTOOL, $EDOPTIONS, $EDLANG, $EDHEIGHT;
 
 /** grab authorization and security data */
-if (defined('GSUSECUSTOMSALT')) {
-	// use GSUSECUSTOMSALT
-	$SALT = sha1(GSUSECUSTOMSALT);
-} 
-else {
-	// use from authorization.xml
-	if (file_exists(GSDATAOTHERPATH .'authorization.xml')) {
-		$dataa = getXML(GSDATAOTHERPATH .'authorization.xml');
-		$SALT = stripslashes($dataa->apikey);
-	} else {
-		if($SITEURL !='' && get_filename_id() != 'install' && get_filename_id() != 'setup' && get_filename_id() != 'update' && get_filename_id() != 'style'){
-			die(i18n_r('KILL_CANT_CONTINUE')."<br/>".i18n_r('MISSING_FILE').": "."authorization.xml");
-		}
-	}
+ if (empty($SALT) && $SITEURL != '' && get_filename_id() != 'install' && get_filename_id() != 'setup' && get_filename_id() != 'update' && get_filename_id() != 'style') {
+	die(i18n_r('KILL_CANT_CONTINUE')."<br/>".i18n_r('MISSING_FILE').": authorization.xml");
 }
 $SESSIONHASH = sha1($SALT . $SITENAME);
 

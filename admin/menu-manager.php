@@ -16,37 +16,43 @@ login_cookie_check();
 # save page priority order and parent relationships
 if (isset($_POST['menuOrder'])) {
 	$menuOrder = explode(',', $_POST['menuOrder']);
-	$priority = 0;
+	// Remove empty first element caused by leading comma
+	$menuOrder = array_filter($menuOrder);
+	$priority  = 0;
 
-	foreach ($menuOrder as $slug) {
-		$file = GSDATAPAGESPATH . $slug . '.xml';
-		if (file_exists($file)) {
-			$data = getXML($file);
-
-			// Update menuOrder
-			if ($priority != (int) $data->menuOrder) {
-				unset($data->menuOrder);
-				$data->addChild('menuOrder')->addCData($priority);
-			}
-
-			// Update parent if the page has been moved into or out of a nested position
-			$newParent = '';
-			$parentLi = $_POST['parent_' . $slug] ?? '';
-			if ($parentLi) {
-				$newParent = $parentLi;
-			}
-
-			if ((string) $data->parent !== $newParent) {
-				unset($data->parent);
-				$data->addChild('parent')->addCData($newParent);
-			}
-
-			// Save the changes
-			XMLsave($data, $file);
+	if (defined('GSDATABASE') && GSDATABASE == 'sqlite3' && function_exists('gs_db')) {
+		foreach ($menuOrder as $slug) {
+			$slug_safe = gs_db()->escapeString(trim($slug));
+			$newParent = gs_db()->escapeString($_POST['parent_' . $slug] ?? '');
+			gs_db()->exec("UPDATE pages SET menu_order = $priority, parent = '$newParent' WHERE slug = '$slug_safe'");
+			$priority++;
 		}
-		$priority++;
+	} else {
+		foreach ($menuOrder as $slug) {
+			$slug = trim($slug);
+			$file = GSDATAPAGESPATH . $slug . '.xml';
+			if (file_exists($file)) {
+				$data = getXML($file);
+
+				if ($priority != (int) $data->menuOrder) {
+					unset($data->menuOrder);
+					$data->addChild('menuOrder')->addCData($priority);
+				}
+
+				$newParent = $_POST['parent_' . $slug] ?? '';
+
+				if ((string) $data->parent !== $newParent) {
+					unset($data->parent);
+					$data->addChild('parent')->addCData($newParent);
+				}
+
+				XMLsave($data, $file);
+			}
+			$priority++;
+		}
 	}
 
+	// Rebuild pages.xml cache
 	create_pagesxml('true');
 	$success = i18n_r('MENU_MANAGER_SUCCESS');
 }
@@ -62,10 +68,9 @@ get_template('header', cl($SITENAME) . ' &raquo; ' . i18n_r('PAGE_MANAGEMENT') .
 <?php include('template/include-nav.php'); ?>
 
 <style>
-	#menu-order li {padding-bottom:0!important}
-	#menu-order ul.sortable-child {padding-left: 30px; list-style-type: none;}
-	ul.sortable.ui-sortable {margin-bottom:0!important}
-	/*ul.sortable.ui-sortable li.sortable-placeholder {border:1px solid #F6F6F6!important}*/
+	#menu-order li { padding-bottom: 0 !important; }
+	#menu-order ul.sortable-child { padding-left: 30px; list-style-type: none; }
+	ul.sortable.ui-sortable { margin-bottom: 0 !important; }
 </style>
 
 <div class="bodycontent clearfix">
@@ -74,72 +79,68 @@ get_template('header', cl($SITENAME) . ' &raquo; ' . i18n_r('PAGE_MANAGEMENT') .
 		<div class="main">
 			<h3><?php echo str_replace(['<em>', '</em>'], '', i18n_r('MENU_MANAGER')); ?></h3>
 			<p><?php i18n('MENU_MANAGER_DESC'); ?></p>
-			<?php
-			if (count($pagesSorted) != 0) {
-				echo '<form method="post" action="menu-manager.php">';
-				echo '<ul id="menu-order" class="sortable">';
-				foreach ($pagesSorted as $page) {
-					// Only show top-level pages (no parent) that are marked for display in the menu
-					if ($page['menuStatus'] != '' && $page['parent'] == '') {
-						if ($page['menuOrder'] == '') {
-							$page['menuOrder'] = "N/A";
-						}
-						if ($page['menu'] == '') {
-							$page['menu'] = $page['title'];
-						}
-						echo '<li class="clearfix" rel="' . $page['slug'] . '">
-								<strong>#' . $page['menuOrder'] . '</strong>&nbsp;&nbsp;
-								' . $page['menu'] . ' <em>' . $page['title'] . '</em>';
-						// Always render a <ul> container for child pages (even if empty)
-						echo '<ul class="sortable">';
-						renderChildPages($pagesSorted, $page['slug']);
-						echo '<li class="sortable-placeholder"></li>'; // Hidden placeholder <li>
-						echo '</ul>';
-						echo '</li>';
-					}
-				}
-				echo '</ul>';
-				echo '<input type="hidden" name="menuOrder" value=""><input class="submit" type="submit" value="' . i18n_r("SAVE_MENU_ORDER") . '" />';
-				echo '</form>';
-			} else {
-				echo '<p>' . i18n_r('NO_MENU_PAGES') . '.</p>';
-			}
-			?>
+
+			<?php if (count($pagesSorted) != 0): ?>
+				<form method="post" action="menu-manager.php">
+					<ul id="menu-order" class="sortable">
+						<?php foreach ($pagesSorted as $page): ?>
+							<?php if ($page['menuStatus'] != '' && $page['parent'] == ''): ?>
+								<?php
+								$menuOrder_display = ($page['menuOrder'] == '') ? 'N/A' : $page['menuOrder'];
+								$menuLabel		 = ($page['menu'] == '')	  ? $page['title'] : $page['menu'];
+								?>
+								<li class="clearfix" rel="<?php echo htmlspecialchars($page['slug']); ?>">
+									<strong>#<?php echo $menuOrder_display; ?></strong>&nbsp;&nbsp;
+									<?php echo htmlspecialchars($menuLabel); ?>
+									<em><?php echo htmlspecialchars($page['title']); ?></em>
+									<ul class="sortable">
+										<?php renderChildPages($pagesSorted, $page['slug']); ?>
+										<li class="sortable-placeholder"></li>
+									</ul>
+								</li>
+							<?php endif; ?>
+						<?php endforeach; ?>
+					</ul>
+					<input type="hidden" name="menuOrder" value="" />
+					<input class="submit" type="submit" value="<?php echo i18n_r('SAVE_MENU_ORDER'); ?>" />
+				</form>
+			<?php else: ?>
+				<p><?php echo i18n_r('NO_MENU_PAGES'); ?>.</p>
+			<?php endif; ?>
 
 			<script>
 				$(function() {
 					$(".sortable").sortable({
 						cursor: 'move',
 						placeholder: "placeholder-menu",
-						items: "li:not(.sortable-placeholder)", // Exclude the placeholder <li> from being draggable
-						connectWith: ".sortable", // Allow dragging between nested lists
-						update: function(event, ui) {
-							var order = '';
-							var parents = {};
+						items: "li:not(.sortable-placeholder)",
+						connectWith: ".sortable",
+				 update: function(event, ui) {
+	 if (this.id !== 'menu-order') return;
 
-							$('#menu-order li').each(function(index) {
-								// Skip the placeholder <li> when generating the order
-								if (!$(this).hasClass('sortable-placeholder')) {
-									var slug = $(this).attr('rel');
-									order = order + ',' + slug;
+	var order   = '';
+	var parents = {};
 
-									// Determine the new parent for each page
-									var parentLi = $(this).parent('ul').closest('li').attr('rel') || '';
-									parents[slug] = parentLi;
-								}
-							});
+	$('#menu-order li').each(function() {
+		if (!$(this).hasClass('sortable-placeholder')) {
+			var slug = $(this).attr('rel');
+			order += ',' + slug;
+			parents[slug] = $(this).parent('ul').closest('li').attr('rel') || '';
+		}
+	});
 
-							$('[name=menuOrder]').val(order);
+	$('[name=menuOrder]').val(order);
 
-							// Add hidden inputs for parent relationships
-							for (var slug in parents) {
-								$('<input>').attr({
-									type: 'hidden',
-									name: 'parent_' + slug,
-									value: parents[slug]
-								}).appendTo('form');
-							}
-						}
+	$('input[name^="parent_"]').remove();
+
+	$.each(parents, function(slug, parentSlug) {
+		$('<input>').attr({
+			type:  'hidden',
+			name:  'parent_' + slug,
+			value: parentSlug
+		}).appendTo('form');
+	});
+}
 					}).disableSelection();
 				});
 			</script>
@@ -162,19 +163,16 @@ function renderChildPages($pages, $parentSlug) {
 	});
 
 	foreach ($childPages as $childPage) {
-		if ($childPage['menuOrder'] == '') {
-			$childPage['menuOrder'] = "N/A";
-		}
-		if ($childPage['menu'] == '') {
-			$childPage['menu'] = $childPage['title'];
-		}
-		echo '<li class="clearfix" rel="' . $childPage['slug'] . '">
-				<strong>#' . $childPage['menuOrder'] . '</strong>&nbsp;&nbsp;
-				' . $childPage['menu'] . ' <em>' . $childPage['title'] . '</em>';
-		// Recursively render nested child pages
+		$menuOrder_display = ($childPage['menuOrder'] == '') ? 'N/A' : $childPage['menuOrder'];
+		$menuLabel		 = ($childPage['menu'] == '')	  ? $childPage['title'] : $childPage['menu'];
+
+		echo '<li class="clearfix" rel="' . htmlspecialchars($childPage['slug']) . '">';
+		echo '<strong>#' . $menuOrder_display . '</strong>&nbsp;&nbsp;';
+		echo htmlspecialchars($menuLabel);
+		echo ' <em>' . htmlspecialchars($childPage['title']) . '</em>';
 		echo '<ul class="sortable">';
 		renderChildPages($pages, $childPage['slug']);
-		echo '<li class="sortable-placeholder"></li>'; // Hidden placeholder <li>
+		echo '<li class="sortable-placeholder"></li>';
 		echo '</ul>';
 		echo '</li>';
 	}

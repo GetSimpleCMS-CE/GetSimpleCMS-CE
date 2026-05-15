@@ -131,27 +131,65 @@ if (isset($_POST['submitted'])){
 		}
 	}
 	exec_action('component-save');
-	XMLsave($xml, $path . $file);
+
+	if (defined('GSDATABASE') && GSDATABASE == 'sqlite3' && function_exists('gs_db')) {
+		// Recreate components table and insert all current components
+		gs_db()->exec("CREATE TABLE IF NOT EXISTS components (
+			slug  TEXT PRIMARY KEY,
+			title TEXT NOT NULL,
+			value TEXT
+		)");
+		gs_db()->exec("DELETE FROM components");
+		foreach ($ids as $comp) {
+			$s = gs_db()->escapeString($comp['slug']);
+			$t = gs_db()->escapeString($comp['title']);
+			$v = gs_db()->escapeString($comp['value']);
+			gs_db()->exec("INSERT INTO components (slug, title, value) VALUES ('$s', '$t', '$v')");
+		}
+	} else {
+		XMLsave($xml, $path . $file);
+	}
 	redirect('components.php?upd=comp-success');
 }
 
 # if undo was invoked
-if (isset($_GET['undo'])) { 
+if (isset($_GET['undo'])) {
 	
 	# check for csrf
-	$nonce = $_GET['nonce'];	
-	if(!check_nonce($nonce, "undo")) {
+	$nonce = $_GET['nonce'];
+	if (!check_nonce($nonce, "undo")) {
 		die("CSRF detected!");
 	}
 	
-	# perform the undo
-	undo($file, $path, $bakpath);
-	redirect('components.php?upd=comp-restored');
+	if (defined('GSDATABASE') && GSDATABASE == 'sqlite3' && function_exists('gs_db')) {
+		// Undo not supported for SQLite3 backend
+		redirect('components.php?upd=comp-norestore');
+	} else {
+		# perform the undo
+		undo($file, $path, $bakpath);
+		redirect('components.php?upd=comp-restored');
+	}
 }
 
 # create components form html
-$data = getXML($path . $file);
-$componentsec = $data->item;
+if (defined('GSDATABASE') && GSDATABASE == 'sqlite3' && function_exists('gs_db')) {
+	// Load all components from SQLite3
+	$componentsec = [];
+	$result = gs_db()->query("SELECT title, slug, value FROM components ORDER BY title ASC");
+	if ($result) {
+		while ($row = $result->fetchArray(SQLITE3_ASSOC)) {
+			$componentsec[] = (object)[
+				'title' => $row['title'],
+				'slug'  => $row['slug'],
+				'value' => $row['value'],
+			];
+		}
+	}
+} else {
+	$data = getXML($path . $file);
+	$componentsec = $data->item;
+}
+
 $count= 0;
 if (count($componentsec) != 0) {
 	foreach ($componentsec as $component) {

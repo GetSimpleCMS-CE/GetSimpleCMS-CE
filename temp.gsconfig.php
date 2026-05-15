@@ -15,6 +15,9 @@ if (basename($_SERVER['PHP_SELF']) == 'gsconfig.php') {
 /*****************************************************************************/
 /** Below are constants that you can use to customize how GetSimple operates */ 
 
+# Sqlite3 database support. Uncomment this line to use sqlite3 instead of xml files for data storage.
+# define('GSDATABASE','sqlite3');
+
 # Extra salt to secure your password with. Default is empty for backwards compatibility.
 # define('GSLOGINSALT', 'your_unique_phrase');
 

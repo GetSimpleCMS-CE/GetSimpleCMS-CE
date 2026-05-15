@@ -91,10 +91,17 @@ if (file_exists(GSPLUGINPATH)){
 $pluginsLoaded=false;
 
 
-// Check if data\other\plugins.xml exists 
-if (!file_exists(GSDATAOTHERPATH."plugins.xml")){
-   create_pluginsxml();
-} 
+if (defined('GSDATABASE') && GSDATABASE == 'sqlite3') {
+	// Ensure the plugins table exists in SQLite3
+	gs_db()->exec("CREATE TABLE IF NOT EXISTS plugins (
+		plugin  TEXT PRIMARY KEY,
+		enabled TEXT NOT NULL DEFAULT 'false'
+	)");
+} else {
+	if (!file_exists(GSDATAOTHERPATH."plugins.xml")){
+		create_pluginsxml();
+	}
+}
 
 read_pluginsxml();        // get the live plugins into $live_plugins array
 
@@ -137,20 +144,21 @@ function change_plugin($name,$active=null){
 	 if (isset($live_plugins[$name])){
 	
 	  // set plugin active | inactive
-	  if(isset($active) and is_bool($active)) {
-		$live_plugins[$name] = $active ? 'true' : 'false';	  		
-		create_pluginsxml(true);
-		return;
-	  }
+		if (isset($active) && is_bool($active)) {
+			$live_plugins[$name] = $active ? 'true' : 'false';
+		} else {
+			// Toggle current state
+			$live_plugins[$name] = ($live_plugins[$name] == 'true') ? 'false' : 'true';
+		}
 
-	  // else we toggle
-	  if ($live_plugins[$name]=="true"){
-		$live_plugins[$name]="false";
-	  } else {
-		$live_plugins[$name]="true";
-	  }
-
-	  create_pluginsxml(true);
+		if (defined('GSDATABASE') && GSDATABASE == 'sqlite3') {
+			// Update enabled state directly in SQLite3
+			$safe_name = gs_db()->escapeString($name);
+			$safe_val  = gs_db()->escapeString($live_plugins[$name]);
+			gs_db()->exec("UPDATE plugins SET enabled = '$safe_val' WHERE plugin = '$safe_name'");
+		} else {
+			create_pluginsxml(true);
+		}
 	}
 }
 
@@ -165,16 +173,27 @@ function change_plugin($name,$active=null){
  *
  */
 function read_pluginsxml(){
-  global $live_plugins;   
-   
-  $data = getXML(GSDATAOTHERPATH . "plugins.xml");
-  if($data){
-  	$componentsec = $data->item;
-	  if (count($componentsec) != 0) {
-			foreach ($componentsec as $component) {
-			  $live_plugins[trim((string)$component->plugin)]=trim((string)$component->enabled);
+	global $live_plugins;
+
+	if (defined('GSDATABASE') && GSDATABASE == 'sqlite3') {
+		// Read all plugin records from SQLite3 into $live_plugins
+		$result = gs_db()->query("SELECT plugin, enabled FROM plugins");
+		if ($result) {
+			while ($row = $result->fetchArray(SQLITE3_ASSOC)) {
+				$live_plugins[trim($row['plugin'])] = trim($row['enabled']);
 			}
-	  }
+		}
+	} else {
+		// Read plugin list from XML file
+		$data = getXML(GSDATAOTHERPATH . "plugins.xml");
+		if ($data) {
+			$componentsec = $data->item;
+			if (count($componentsec) != 0) {
+				foreach ($componentsec as $component) {
+					$live_plugins[trim((string)$component->plugin)] = trim((string)$component->enabled);
+				}
+			}
+		}
 	}
 }
 
@@ -208,21 +227,45 @@ function create_pluginsxml($force=false){
 	}
   }
   if ($force) {
-	$xml = @new SimpleXMLExtended('<?xml version="1.0" encoding="UTF-8"?><channel></channel>'); 
-	foreach ($phpfiles as $fi) {
-	  $plugins = $xml->addChild('item');  
-	  $p_note = $plugins->addChild('plugin');
-	  $p_note->addCData($fi);
-	  $p_note = $plugins->addChild('enabled');
-	  if (isset($live_plugins[(string)$fi])){
-		$p_note->addCData($live_plugins[(string)$fi]);     
-	  } else {
-		 $p_note->addCData('false'); 
-	  } 
+		if (defined('GSDATABASE') && GSDATABASE == 'sqlite3') {
+			// Sync plugin list to SQLite3 — insert new, keep existing enabled state
+			foreach ($phpfiles as $fi) {
+				$fi_safe = gs_db()->escapeString($fi);
+				$exists = gs_db()->querySingle("SELECT enabled FROM plugins WHERE plugin = '$fi_safe'");
+				if ($exists === null) {
+					// New plugin found — register as disabled
+					gs_db()->exec("INSERT INTO plugins (plugin, enabled) VALUES ('$fi_safe', 'false')");
+				}
+			}
+			// Remove plugins no longer present on disk
+			$result = gs_db()->query("SELECT plugin FROM plugins");
+			if ($result) {
+				while ($row = $result->fetchArray(SQLITE3_ASSOC)) {
+					if (!in_array($row['plugin'], $phpfiles)) {
+						$safe = gs_db()->escapeString($row['plugin']);
+						gs_db()->exec("DELETE FROM plugins WHERE plugin = '$safe'");
+					}
+				}
+			}
+		} else {
+			// Write plugin list to XML file
+			$xml = @new SimpleXMLExtended('<?xml version="1.0" encoding="UTF-8"?><channel></channel>');
+			foreach ($phpfiles as $fi) {
+				$plugins = $xml->addChild('item');
+				$p_note  = $plugins->addChild('plugin');
+				$p_note->addCData($fi);
+				$p_note  = $plugins->addChild('enabled');
+				if (isset($live_plugins[(string)$fi])){
+					$p_note->addCData($live_plugins[(string)$fi]);
+				} else {
+					$p_note->addCData('false');
+				}
+			}
+			XMLsave($xml, GSDATAOTHERPATH."plugins.xml");
+		}
+
+		read_pluginsxml();
 	}
-	XMLsave($xml, GSDATAOTHERPATH."plugins.xml");  
-	read_pluginsxml();
-  }
 
 }
 

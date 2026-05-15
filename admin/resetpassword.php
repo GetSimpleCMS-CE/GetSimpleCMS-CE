@@ -24,61 +24,102 @@ if(isset($_POST['submitted'])){
 	
 	$randSleep = rand(250000,2000000); // random sleep for .25 to 2 seconds
 
-	if(isset($_POST['username']) and !empty($_POST['username']))	{
+	if(isset($_POST['username']) and !empty($_POST['username'])) {
 
-		# user filename
-		$file = _id($_POST['username']).'.xml';
-		
-		# get user information from existing XML file
-		
-		if (filepath_is_safe(GSUSERSPATH . $file,GSUSERSPATH)) {
-			$data = simplexml_load_file(GSUSERSPATH . $file);
-			$USR = strtolower($data->USR);
-			$EMAIL = $data->EMAIL;
-			
-			if(strtolower($_POST['username']) == $USR) {
-				# create new random password
-				$random = createRandomPassword();
-				// $random = '1234';
-				
-				# create backup
-				createBak($file, GSUSERSPATH, GSBACKUSERSPATH);
-				
-				# create password change trigger file
-				$flagfile = GSUSERSPATH . _id($USR).".xml.reset";
-				copy(GSUSERSPATH . $file, $flagfile);
-				
-				# change password and resave xml file
-				$data->PWD = passhash($random); 
-				$status = XMLsave($data, GSUSERSPATH . $file);
-				
-				# send the email with the new password
-				$subject = $site_full_name .' '. i18n_r('RESET_PASSWORD') .' '. i18n_r('ATTEMPT');
-				$message = "<h2>". cl($SITENAME) ." ". i18n_r('RESET_PASSWORD') ." ". i18n_r('ATTEMPT').'</h2>';
-				$message .= "<p>". i18n_r('LABEL_USERNAME').": <strong>". $USR."</strong>";
-				$message .= "<br>". i18n_r('NEW_PASSWORD').": <strong>". $random."</strong>";
-				$message .= '<br>'. i18n_r('EMAIL_LOGIN') .': <a href="'.$SITEURL . $GSADMIN.'/">'.$SITEURL . $GSADMIN.'/</a></p>';
-				exec_action('resetpw-success');
-				$status = sendmail($EMAIL,$subject,$message);
-				# show the result of the reset attempt
-				usleep($randSleep); 
+		$username_input = strtolower(_id($_POST['username']));
+		$file = $username_input . '.xml';
 
-				#deleting $flagfile gives you the ability to reset your password multiple times (added on CE)
-				unlink($flagfile);
-				
-				$status = 'success';
-				redirect("resetpassword.php?upd=pwd-".$status);
-			} else{
-				# username doesnt match listed xml username
-				exec_action('resetpw-error');
+		// --- SQLite3 backend ---
+		if (defined('GSDATABASE') && GSDATABASE == 'sqlite3' && function_exists('gs_db')) {
+
+			// Look up user by username (case-insensitive)
+			$u   = gs_db()->escapeString($username_input);
+			$row = gs_db()->querySingle("SELECT username, email FROM users WHERE LOWER(username) = '$u' LIMIT 1", true);
+		
+			if ($row) {
+				$USR   = strtolower($row['username']);
+				$EMAIL = $row['email'];
+
+				if ($username_input == $USR) {
+					$random  = createRandomPassword();
+					$hashed  = gs_db()->escapeString(passhash($random));
+
+					gs_db()->exec("UPDATE users SET password = '$hashed' WHERE LOWER(username) = '$u'");
+
+						// Send reset email with new temporary password
+						$subject = $site_full_name .' '. i18n_r('RESET_PASSWORD') .' '. i18n_r('ATTEMPT');
+						$message = "<h2>". cl($SITENAME) ." ". i18n_r('RESET_PASSWORD') ." ". i18n_r('ATTEMPT').'</h2>';
+						$message .= "<p>". i18n_r('LABEL_USERNAME').": <strong>". $USR."</strong>";
+						$message .= "<br>". i18n_r('NEW_PASSWORD').": <strong>". $random."</strong>";
+						$message .= '<br>'. i18n_r('EMAIL_LOGIN') .': <a href="'.$SITEURL . $GSADMIN.'/">'.$SITEURL . $GSADMIN.'/</a></p>';
+						exec_action('resetpw-success');
+						sendmail($EMAIL, $subject, $message);
+						usleep($randSleep);
+						redirect("resetpassword.php?upd=pwd-success");
+					} else {
+						// Username mismatch — respond with success to prevent enumeration
+						exec_action('resetpw-error');
+						usleep($randSleep);
+						redirect("resetpassword.php?upd=pwd-success");
+					}
+			} else {
+				// User not found — do not reveal this to the submitter
 				usleep($randSleep);
 				redirect("resetpassword.php?upd=pwd-success");
-			} 
+			}
+
+		// --- XML flat-file backend ---
 		} else {
-			# no user exists for this username, but do not show this to the submitter
-			usleep($randSleep);
-			redirect("resetpassword.php?upd=pwd-success");
+			# get user information from existing XML file
+		
+			if (filepath_is_safe(GSUSERSPATH . $file, GSUSERSPATH)) {
+				$data  = simplexml_load_file(GSUSERSPATH . $file);
+				$USR   = strtolower($data->USR);
+				$EMAIL = $data->EMAIL;
+				
+				if(strtolower($_POST['username']) == $USR) {
+					# create new random password
+					$random = createRandomPassword();
+					// $random = '1234';
+					
+					# create backup
+					createBak($file, GSUSERSPATH, GSBACKUSERSPATH);
+					
+					# create password change trigger file
+					$flagfile = GSUSERSPATH . _id($USR).".xml.reset";
+					copy(GSUSERSPATH . $file, $flagfile);
+					
+					# change password and resave xml file
+					$data->PWD = passhash($random); 
+					$status = XMLsave($data, GSUSERSPATH . $file);
+					
+					# send the email with the new password
+					$subject = $site_full_name .' '. i18n_r('RESET_PASSWORD') .' '. i18n_r('ATTEMPT');
+					$message = "<h2>". cl($SITENAME) ." ". i18n_r('RESET_PASSWORD') ." ". i18n_r('ATTEMPT').'</h2>';
+					$message .= "<p>". i18n_r('LABEL_USERNAME').": <strong>". $USR."</strong>";
+					$message .= "<br>". i18n_r('NEW_PASSWORD').": <strong>". $random."</strong>";
+					$message .= '<br>'. i18n_r('EMAIL_LOGIN') .': <a href="'.$SITEURL . $GSADMIN.'/">'.$SITEURL . $GSADMIN.'/</a></p>';
+					exec_action('resetpw-success');
+					$status = sendmail($EMAIL, $subject, $message);
+					usleep($randSleep);
+
+					#deleting $flagfile gives you the ability to reset your password multiple times (added on CE)
+					unlink($flagfile);
+					
+					redirect("resetpassword.php?upd=pwd-success");
+				} else {
+					# username doesnt match listed xml username
+					exec_action('resetpw-error');
+					usleep($randSleep);
+					redirect("resetpassword.php?upd=pwd-success");
+				} 
+			} else {
+				# no user exists for this username, but do not show this to the submitter
+				usleep($randSleep);
+				redirect("resetpassword.php?upd=pwd-success");
+			}
 		}
+
 	} else {
 		
 		# no username was submitted

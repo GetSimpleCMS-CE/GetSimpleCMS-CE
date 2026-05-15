@@ -32,14 +32,24 @@ if( (isset($_POST['submitted'])) && (isset($_POST['template'])) ) {
 	if(!path_is_safe(GSTHEMESPATH.$TEMPLATE,GSTHEMESPATH)) die();
 
 	# backup old website.xml file
-	$bakpath = GSBACKUPSPATH.'other/';
-	createBak($file, $path, $bakpath);
-	
-	// # udpate website.xml file with new theme
-	$xml = getXML($path . $file);
-	$xml->TEMPLATE = null;
-	$xml->TEMPLATE->addCData($TEMPLATE);
-	$status = XMLsave($xml, $path . $file);
+	if (defined('GSDATABASE') && GSDATABASE == 'sqlite3' && function_exists('gs_db')) {
+		// Save active theme to SQLite3 settings table
+		$t = gs_db()->escapeString($TEMPLATE);
+		gs_db()->exec("INSERT INTO settings (key, value, updated_at)
+						   VALUES ('template', '$t', datetime('now'))
+					   ON CONFLICT(key) DO UPDATE SET
+						   value	  = '$t',
+						   updated_at = datetime('now')");
+	} else {
+		$bakpath = GSBACKUPSPATH.'other/';
+		createBak($file, $path, $bakpath);
+
+		// # udpate website.xml file with new theme
+		$xml = getXML($path . $file);
+		$xml->TEMPLATE = null;
+		$xml->TEMPLATE->addCData($TEMPLATE);
+		$status = XMLsave($xml, $path . $file);
+	}
 	
 	$success = i18n_r('THEME_CHANGED');
 }

@@ -16,9 +16,9 @@ include('inc/common.php');
 
 // Variable settings
 login_cookie_check();
-$id      =  isset($_GET['id']) ? $_GET['id'] : null;
+$id	  =  isset($_GET['id']) ? $_GET['id'] : null;
 $ptype   = isset($_GET['type']) ? $_GET['type'] : null; 
-$path    = GSDATAPAGESPATH;
+$path	= GSDATAPAGESPATH;
 $counter = '0';
 $table   = '';
 
@@ -28,44 +28,95 @@ $sortorder = isset($_GET['sortorder']) ? $_GET['sortorder'] : 'asc';
 
 # clone attempt happening
 if ( isset($_GET['action']) && isset($_GET['id']) && $_GET['action'] == 'clone') {
-	
+
 	// check for csrf
 	if (!defined('GSNOCSRF') || (GSNOCSRF == FALSE) ) {
 		$nonce = $_GET['nonce'];
 		if(!check_nonce($nonce, "clone", "pages.php")) {
-			die("CSRF detected!");	
+			die("CSRF detected!");  
 		}
 	}
 
-	# check to not overwrite
-	$count = 1;
-	$newfile = GSDATAPAGESPATH . $_GET['id'] ."-".$count.".xml";
-	if (file_exists($newfile)) {
-		while ( file_exists($newfile) ) {
+	$sourceSlug = $_GET['id'];
+
+	if (defined('GSDATABASE') && GSDATABASE == 'sqlite3') {
+
+		// find a free slug: slug-1, slug-2, ...
+		$count  = 1;
+		$newurl = $sourceSlug . '-' . $count;
+		while (gs_db()->querySingle("SELECT id FROM pages WHERE slug = '$newurl' LIMIT 1")) {
 			$count++;
-			$newfile = GSDATAPAGESPATH . $_GET['id'] ."-".$count.".xml";
+			$newurl = $sourceSlug . '-' . $count;
 		}
-	}
-	$newurl = $_GET['id'] .'-'. $count;
-	
-	# do the copy
-	$status = copy($path.$_GET['id'].'.xml', $path.$newurl.'.xml');
-	if ($status) {
-		$newxml = getXML($path.$newurl.'.xml');
-		$newxml->url = $newurl;
-		$newxml->title = $newxml->title.' ['.i18n_r('COPY').']';
-		$newxml->pubDate = date('r');
-		$status = XMLsave($newxml, $path.$newurl.'.xml');
-		if ($status) {
-			create_pagesxml('true');
-			header('Location: pages.php?upd=clone-success&id='.$newurl);
+
+		// fetch source row from database
+		$src = gs_db()->prepare("SELECT * FROM pages WHERE slug = :slug LIMIT 1");
+		$src->bindValue(':slug', $sourceSlug, SQLITE3_TEXT);
+		$row = $src->execute()->fetchArray(SQLITE3_ASSOC);
+
+		if ($row) {
+			// insert cloned page with new slug, title suffix and current date
+			$ins = gs_db()->prepare("
+				INSERT INTO pages
+					(slug, title, content, template, meta, metad,
+					 menu, menu_order, menu_status, parent, private, pub_date, author)
+				VALUES
+					(:slug, :title, :content, :template, :meta, :metad,
+					 :menu, :menu_order, :menu_status, :parent, :private, :pub_date, :author)
+			");
+			$ins->bindValue(':slug',		$newurl,								  SQLITE3_TEXT);
+			$ins->bindValue(':title',	   $row['title'] . ' ['.i18n_r('COPY').']',  SQLITE3_TEXT);
+			$ins->bindValue(':content',	 $row['content'],						  SQLITE3_TEXT);
+			$ins->bindValue(':template',	$row['template'],						 SQLITE3_TEXT);
+			$ins->bindValue(':author',	  $row['author'],						   SQLITE3_TEXT);
+			$ins->bindValue(':meta',		$row['meta'],							 SQLITE3_TEXT);
+			$ins->bindValue(':metad',	   $row['metad'],							SQLITE3_TEXT);
+			$ins->bindValue(':menu',		$row['menu'],							 SQLITE3_TEXT);
+			$ins->bindValue(':menu_order',  $row['menu_order'],					   SQLITE3_INTEGER);
+			$ins->bindValue(':menu_status', $row['menu_status'],					  SQLITE3_TEXT);
+			$ins->bindValue(':parent',	  $row['parent'],						   SQLITE3_TEXT);
+			$ins->bindValue(':private',	 $row['private'],						  SQLITE3_INTEGER);
+			$ins->bindValue(':pub_date',	date('r'),								SQLITE3_TEXT);
+			$ins->execute();
+
+			header('Location: pages.php?upd=clone-success&id=' . $newurl);
 		} else {
-			$error = sprintf(i18n_r('CLONE_ERROR'), $_GET['id']);
-			header('Location: pages.php?error='.$error);
+			// source page not found
+			$error = sprintf(i18n_r('CLONE_ERROR'), $sourceSlug);
+			header('Location: pages.php?error=' . $error);
 		}
+
 	} else {
-		$error = sprintf(i18n_r('CLONE_ERROR'), $_GET['id']);
-		header('Location: pages.php?error='.$error);
+
+		// XML fallback — original logic unchanged
+		$count   = 1;
+		$newfile = GSDATAPAGESPATH . $sourceSlug . '-' . $count . '.xml';
+		if (file_exists($newfile)) {
+			while (file_exists($newfile)) {
+				$count++;
+				$newfile = GSDATAPAGESPATH . $sourceSlug . '-' . $count . '.xml';
+			}
+		}
+		$newurl = $sourceSlug . '-' . $count;
+
+		$status = copy($path . $sourceSlug . '.xml', $path . $newurl . '.xml');
+		if ($status) {
+			$newxml		  = getXML($path . $newurl . '.xml');
+			$newxml->url	 = $newurl;
+			$newxml->title   = $newxml->title . ' [' . i18n_r('COPY') . ']';
+			$newxml->pubDate = date('r');
+			$status		  = XMLsave($newxml, $path . $newurl . '.xml');
+			if ($status) {
+				create_pagesxml('true');
+				header('Location: pages.php?upd=clone-success&id=' . $newurl);
+			} else {
+				$error = sprintf(i18n_r('CLONE_ERROR'), $sourceSlug);
+				header('Location: pages.php?error=' . $error);
+			}
+		} else {
+			$error = sprintf(i18n_r('CLONE_ERROR'), $sourceSlug);
+			header('Location: pages.php?error=' . $error);
+		}
 	}
 }
 

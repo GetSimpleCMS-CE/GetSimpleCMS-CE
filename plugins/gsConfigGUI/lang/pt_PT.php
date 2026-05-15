@@ -87,6 +87,9 @@ $i18n = [
 	'lang_Disable_CDN'			=>	'Desativar CDN Externo',
 	'lang_Disable_CDN_info'		=>	'Desativar o carregamento de versões CDN externas do jQuery e jQueryUI',
 	
+	'lang_Disable_Driver'		=>	'Controlador de base de dados',
+	'lang_Disable_Driver_info'	=>	'Use SQLite3 em vez de ficheiros XML para armazenamento de dados.',
+	
 	'lang_Server_Timezone'		=>	'Fuso Horário do Servidor',
 	'lang_Server_Timezone_info'	=>	'String de fuso horário padrão, ex. America/Chicago ou Europe/London',
 	'lang_PHP_Timezones'		=>	'Fusos Horários PHP',

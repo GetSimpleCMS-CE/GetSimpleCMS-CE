@@ -93,7 +93,6 @@ get_template('header', cl($SITENAME).' &raquo; '.i18n_r('SUPPORT').' &raquo; '.i
 			<table class="highlight healthcheck">
 				<tr><td style="width:445px;" >
 				<?php
-
 					if (version_compare(PHP_VERSION, "7.2", "<")) {
 						echo 'PHP '.i18n_r('VERSION').'</td><td><span class="ERRmsg" ><b>'. PHP_VERSION.'</b> - PHP 7.2 '.i18n_r('OR_GREATER_REQ').' - '.i18n_r('ERROR').'</span></td></tr>';
 					} else {
@@ -149,9 +148,26 @@ get_template('header', cl($SITENAME).' &raquo; '.i18n_r('SUPPORT').' &raquo; '.i
 						echo '<tr><td>SQLite3</td><td><span class="OKmsg" >'.i18n_r('INSTALLED').' - '.i18n_r('OK').'</span></td></tr>';
 					}
 
-				$disabled_funcs = ini_get('disable_functions');
-				if(!empty($disabled_funcs)) echo '<tr><td colspan=2>PHP disable_functions<span class="WARNmsg"> ' . $disabled_funcs . '</span></td></tr>';
-	?>
+					if (defined('GSDATABASE') && GSDATABASE == 'sqlite3') {
+						// Show SQLite3 database file status
+						$db_file = GSADMINPATH . 'database.db';
+						if (file_exists($db_file)) {
+							$db_size  = fSize(filesize($db_file));
+							$db_perms = check_perms($db_file);
+							$db_writable = is_writable($db_file) ? '<span class="OKmsg">'.i18n_r('WRITABLE').' ('.$db_perms.') - '.i18n_r('OK').'</span>' : '<span class="ERRmsg">'.i18n_r('NOT_WRITABLE').' ('.$db_perms.') - '.i18n_r('ERROR').'!</span>';
+							echo '<tr><td>Database Backend</td><td><span class="OKmsg"><b>SQLite3</b> - ' . basename($db_file) . ' ('.$db_size.')</span></td></tr>';
+							echo '<tr><td>'.$db_file.'</td><td>'.$db_writable.'</td></tr>';
+						} else {
+							echo '<tr><td>'.i18n_r('DATABASE_BACKEND').'</td><td><span class="ERRmsg"><b>SQLite3</b> - '.i18n_r('FILE_NOT_FOUND').' - '.i18n_r('ERROR').'!</span></td></tr>';
+						}
+					} else {
+						// XML flat-file backend
+						echo '<tr><td>'.i18n_r('DATABASE_BACKEND').'</td><td><span class="OKmsg"><b>XML</b> (flat-file) - '.i18n_r('OK').'</span></td></tr>';
+					}
+
+					$disabled_funcs = ini_get('disable_functions');
+					if(!empty($disabled_funcs)) echo '<tr><td colspan=2>PHP disable_functions<span class="WARNmsg"> ' . $disabled_funcs . '</span></td></tr>';
+				?>
 			</table>
 			<p class="hint"><?php echo sprintf(i18n_r('REQS_MORE_INFO'), "https://github.com/GetSimpleCMS-CE/GetSimpleCMS-CE/wiki/Server-Requirements"); ?></p>
 
@@ -211,7 +227,6 @@ get_template('header', cl($SITENAME).' &raquo; '.i18n_r('SUPPORT').' &raquo; '.i
 				<?php $me = check_perms(GSBACKUPSPATH.'other/'); ?><tr><td>/backups/other/</td><td><?php if( $me >= '0755' ) { echo '<span class="OKmsg" >'. $me .' '.i18n_r('WRITABLE').' - '.i18n_r('OK').'</span>'; } else { echo '<span class="ERRmsg" >'. $me .' '.i18n_r('NOT_WRITABLE').' - '.i18n_r('ERROR').'!</span>'; } ?></td></tr>
 				<?php $me = check_perms(GSBACKUSERSPATH); ?><tr><td>/backups/users/</td><td><?php if( $me >= '0755' ) { echo '<span class="OKmsg" >'. $me .' '.i18n_r('WRITABLE').' - '.i18n_r('OK').'</span>'; } else { echo '<span class="ERRmsg" >'. $me .' '.i18n_r('NOT_WRITABLE').' - '.i18n_r('ERROR').'!</span>'; } ?></td></tr>
 			</table>
-
 
 			<h3><?php echo sprintf(i18n_r('EXISTANCE'), '.htaccess');?></h3>
 			<table class="highlight healthcheck">

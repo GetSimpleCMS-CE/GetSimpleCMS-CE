@@ -89,6 +89,12 @@ if (isset($_POST['submitted'])) {
 					$bakfile = GSBACKUPSPATH."pages/". $existingurl .".bak.xml";
 					copy($existing, $bakfile);
 					unlink($existing);
+
+					if (defined('GSDATABASE') && GSDATABASE == 'sqlite3') {
+						$ds = gs_db()->prepare("DELETE FROM pages WHERE slug = :slug");
+						$ds->bindValue(':slug', $existingurl, SQLITE3_TEXT);
+						$ds->execute();
+					}
 				} 
 			} 
 		}
@@ -179,6 +185,48 @@ if (isset($_POST['submitted'])) {
 		exec_action('changedata-save');
 		if (isset($_POST['autosave']) && $_POST['autosave'] == 'true' && $autoSaveDraft == true) {
 			$status = XMLsave($xml, GSAUTOSAVEPATH.$url);
+		} elseif (defined('GSDATABASE') && GSDATABASE == 'sqlite3') {
+			try {
+				$stmt = gs_db()->prepare("
+					INSERT INTO pages
+						(slug, title, content, template, meta, metad,
+						 menu, menu_order, menu_status, parent, private, pub_date, author)
+					VALUES
+						(:slug, :title, :content, :template, :meta, :metad,
+						 :menu, :menu_order, :menu_status, :parent, :private, :pub_date, :author)
+					ON CONFLICT(slug) DO UPDATE SET
+						title	   = excluded.title,
+						content	 = excluded.content,
+						template	= excluded.template,
+						meta		= excluded.meta,
+						metad	   = excluded.metad,
+						menu		= excluded.menu,
+						menu_order  = excluded.menu_order,
+						menu_status = excluded.menu_status,
+						parent	  = excluded.parent,
+						private	 = excluded.private,
+						pub_date	= excluded.pub_date,
+						author	  = excluded.author
+				");
+				$stmt->bindValue(':slug',		$url,							  SQLITE3_TEXT);
+				$stmt->bindValue(':title',	   $title,							SQLITE3_TEXT);
+				$stmt->bindValue(':content',	 $content,						  SQLITE3_TEXT);
+				$stmt->bindValue(':template',	$template ?? 'template.php',	   SQLITE3_TEXT);
+				$stmt->bindValue(':meta',		$metak	?? '',				   SQLITE3_TEXT);
+				$stmt->bindValue(':metad',	   $metad	?? '',				   SQLITE3_TEXT);
+				$stmt->bindValue(':menu',		$menu	 ?? '',				   SQLITE3_TEXT);
+				$stmt->bindValue(':menu_order',  (int) ($menuOrder ?? 0),		   SQLITE3_INTEGER);
+				$stmt->bindValue(':menu_status', $menuStatus ?? '',				 SQLITE3_TEXT);
+				$stmt->bindValue(':parent',	  $parent   ?? '',				   SQLITE3_TEXT);
+				$stmt->bindValue(':private',	 ($private === 'Y') ? 1 : 0,	   SQLITE3_INTEGER);
+				$stmt->bindValue(':pub_date',	date('r'),						 SQLITE3_TEXT);
+				$stmt->bindValue(':author',	  $author   ?? '',				   SQLITE3_TEXT);
+				$stmt->execute();
+				$status = true;
+			} catch (Exception $e) {
+				$status = false;
+				debugLog('changedata SQLite error: ' . $e->getMessage());
+			}
 		} else {
 			$status = XMLsave($xml, $file);
 		}

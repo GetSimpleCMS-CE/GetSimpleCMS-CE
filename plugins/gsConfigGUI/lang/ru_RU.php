@@ -87,6 +87,9 @@ $i18n = [
 	'lang_Disable_CDN'			=>	'Отключить внешний CDN',
 	'lang_Disable_CDN_info'		=>	'Отключить загрузку внешних CDN-версий jQuery и jQueryUI',
 	
+	'lang_Disable_Driver'		=>	'Драйвер базы данных',
+	'lang_Disable_Driver_info'	=>	'Используйте SQLite3 вместо XML-файлов для хранения данных.',
+	
 	'lang_Server_Timezone'		=>	'Часовой пояс сервера',
 	'lang_Server_Timezone_info'	=>	'Строка часового пояса по умолчанию, например America/Chicago или Europe/London',
 	'lang_PHP_Timezones'		=>	'Часовые пояса PHP',

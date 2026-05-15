@@ -10,11 +10,11 @@
 
 $pagesArray = [];
 
-add_action('index-header','getPagesXmlValues',[false]);      // make $pagesArray available to the front 
-add_action('header', 'getPagesXmlValues',[get_filename_id() != 'pages']);  // make $pagesArray available to the back
-add_action('page-delete', 'create_pagesxml',[true]);         // Create pages.array if page deleted
-add_action('page-restored', 'create_pagesxml',[true]);        // Create pages.array if page undo
-add_action('changedata-aftersave', 'create_pagesxml',[true]);     // Create pages.array if page is updated
+add_action('index-header','getPagesXmlValues',[false]);		// make $pagesArray available to the front 
+add_action('header', 'getPagesXmlValues',[get_filename_id() != 'pages']); // make $pagesArray available to the back
+add_action('page-delete', 'create_pagesxml',[true]);		// Create pages.array if page deleted
+add_action('page-restored', 'create_pagesxml',[true]);		// Create pages.array if page undo
+add_action('changedata-aftersave', 'create_pagesxml',[true]); // Create pages.array if page is updated
 
 /**
  * Get Page Content
@@ -26,12 +26,32 @@ add_action('changedata-aftersave', 'create_pagesxml',[true]);     // Create page
  * @param $page - slug of the page to retrieve content
  *
  */
-function getPageContent($page,$field='content'){   
-	$thisfile = file_get_contents(GSDATAPAGESPATH.$page.'.xml');
-	$data = simplexml_load_string($thisfile);
+function getPageContent($page, $field = 'content') {
+
+	// --- SQLite3 path ---
+	if (defined('GSDATABASE') && GSDATABASE == 'sqlite3') {
+		$stmt = gs_db()->prepare("SELECT * FROM pages WHERE slug = :slug LIMIT 1");
+		$stmt->bindValue(':slug', $page, SQLITE3_TEXT);
+		$row = $stmt->execute()->fetchArray(SQLITE3_ASSOC);
+		if (!$row) return;
+		$content = stripslashes(htmlspecialchars_decode($row[$field] ?? '', ENT_QUOTES));
+		if ($field === 'content') {
+			$content = exec_filter('content', $content);
+		}
+		echo $content;
+		return;
+	}
+
+	// --- XML path ---
+	$path = GSDATAPAGESPATH . $page . '.xml';
+	// Guard: file must exist before reading
+	if (!file_exists($path)) return;
+	$data = simplexml_load_string(file_get_contents($path));
+	// Guard: bail on corrupt XML
+	if (!$data) return;
 	$content = stripslashes(htmlspecialchars_decode($data->$field, ENT_QUOTES));
-	if ($field=='content'){
-		$content = exec_filter('content',$content);
+	if ($field === 'content') {
+		$content = exec_filter('content', $content);
 	}
 	echo $content;
 }
@@ -88,16 +108,34 @@ function echoPageField($page,$field){
  * @param $nofilter false - if true skip content filter execution
  *
  */
-function returnPageContent($page, $field='content', $raw = false, $nofilter = false){   
-	$thisfile = file_get_contents(GSDATAPAGESPATH.$page.'.xml');
-	$data = simplexml_load_string($thisfile);
-	if(!$data) return;
-	$content = $data->$field;
-	if(!$raw) $content = stripslashes(htmlspecialchars_decode($content, ENT_QUOTES));
-	if ($field=='content' and !$nofilter){
-		$content = exec_filter('content',$content);
+function returnPageContent($page, $field = 'content', $raw = false, $nofilter = false) {
+
+	// --- SQLite3 path ---
+	if (defined('GSDATABASE') && GSDATABASE == 'sqlite3') {
+		$stmt = gs_db()->prepare("SELECT * FROM pages WHERE slug = :slug LIMIT 1");
+		$stmt->bindValue(':slug', $page, SQLITE3_TEXT);
+		$row = $stmt->execute()->fetchArray(SQLITE3_ASSOC);
+		if (!$row) return null;
+		$content = $row[$field] ?? '';
+		if (!$raw) $content = stripslashes(htmlspecialchars_decode($content, ENT_QUOTES));
+		// Use && instead of 'and' — higher operator precedence
+		if ($field === 'content' && !$nofilter) {
+			$content = exec_filter('content', $content);
+		}
+		return $content;
 	}
-  	return $content;
+
+	// --- XML path ---
+	$thisfile = file_get_contents(GSDATAPAGESPATH . $page . '.xml');
+	$data	 = simplexml_load_string($thisfile);
+	if (!$data) return null;
+	$content = $data->$field;
+	if (!$raw) $content = stripslashes(htmlspecialchars_decode($content, ENT_QUOTES));
+	// Use && instead of 'and' — higher operator precedence
+	if ($field === 'content' && !$nofilter) {
+		$content = exec_filter('content', $content);
+	}
+	return $content;
 }
 
 /**
@@ -127,7 +165,6 @@ function returnPageField($page,$field){
 	return $ret;
 }
 
-
 /**
  * Get Page Children
  *
@@ -144,9 +181,9 @@ function getChildren($page){
 	if(!$pagesArray) getPagesXmlValues();		
 	$returnArray = [];
 	foreach ($pagesArray as $key => $value) {
-	    if ($pagesArray[$key]['parent']==$page){
-	      $returnArray[]=$key;
-	    }
+		if ($pagesArray[$key]['parent']==$page){
+		  $returnArray[]=$key;
+		}
 	}
 	return $returnArray;
 }
@@ -170,12 +207,12 @@ function getChildrenMulti($page,$options=[]){
 	$count=0;
 	$returnArray = [];
 	foreach ($pagesArray as $key => $value) {
-	    if ($pagesArray[$key]['parent']==$page){
-	      	$returnArray[$count]=[];
+		if ($pagesArray[$key]['parent']==$page){
+		  	$returnArray[$count]=[];
 			$returnArray[$count]['url']=$key;
-	    	foreach ($options as $option){
-	    		$returnArray[$count][$option]=returnPageField($key,$option);
-	    	}
+			foreach ($options as $option){
+				$returnArray[$count][$option]=returnPageField($key,$option);
+			}
 			$count++;
 		}
 	}
@@ -191,51 +228,69 @@ function getChildrenMulti($page,$options=[]){
  * @since 3.1
  *  
  */
-function getPagesXmlValues($chkcount=false){
-  global $pagesArray;
+function getPagesXmlValues($chkcount = false) {
+	global $pagesArray;
 
-   // debugLog(__FUNCTION__.": chkcount - " .(int)$chkcount);
-   
-   // if page cache not load load it
-   if(!$pagesArray){
-		$pagesArray=[];
-		$file=GSDATAOTHERPATH."pages.xml";
-		if (file_exists($file)){
-			// load the xml file and setup the array. 
-			// debugLog(__FUNCTION__.": load pages.xml");
-			$thisfile = file_get_contents($file);
-			$data = simplexml_load_string($thisfile);
-			$pages = $data->item;
-			  foreach ($pages as $page) {
-			    $key=$page->url;
-			    $pagesArray[(string)$key]=[];
-			    foreach ($page->children() as $opt=>$val) {
-			        $pagesArray[(string)$key][(string)$opt]=(string)$val;
-			    }
-			  }
-		}
-		else {
-			// no page cache, regen and then load it
-			// debugLog(__FUNCTION__.": pages.xml not exist");			
-   		 	if(create_pagesxml(true)) getPagesXmlValues(false);
-   		 	return;
-  		}
-  	}
+	// Always reset on explicit call (force fresh data after save)
+	if ($chkcount === false) {
+		$pagesArray = null;
+	}
 
-  	// if checking cache sync, regen cache if pages differ.
-	if ($chkcount==true){
-		$path = GSDATAPAGESPATH;
-		$dir_handle = @opendir($path) or die("getPageXmlValues: Unable to open $path");
-		$filenames = [];
-		while ($filename = readdir($dir_handle)) {
-			$ext = substr($filename, strrpos($filename, '.') + 1);
-			if ($ext=="xml"){
-		  		$filenames[] = $filename;
+	if (!$pagesArray) {
+		$pagesArray = [];
+
+		if (defined('GSDATABASE') && GSDATABASE == 'sqlite3' && function_exists('gs_db')) {
+			// --- SQLite3 path ---
+			$result = gs_db()->query("SELECT * FROM pages ORDER BY menu_order ASC");
+			while ($row = $result->fetchArray(SQLITE3_ASSOC)) {
+				$key			   = $row['slug'];
+				$row['url']		= $row['slug'];
+				$row['menuStatus'] = $row['menu_status'];
+				$row['menuOrder']  = $row['menu_order'];
+				$row['pubDate']	= $row['pub_date'];
+				$pagesArray[$key]  = $row;
+			}
+
+		} else {
+			// --- XML path ---
+			$file = GSDATAOTHERPATH . "pages.xml";
+			if (file_exists($file)) {
+				$data  = simplexml_load_string(file_get_contents($file));
+				$pages = $data->item;
+				foreach ($pages as $page) {
+					$key = (string) $page->url;
+					$pagesArray[$key] = [];
+					foreach ($page->children() as $opt => $val) {
+						$pagesArray[$key][(string)$opt] = (string)$val;
+					}
+				}
+			} else {
+				// No cache file — regenerate and reload
+				if (create_pagesxml(true)) getPagesXmlValues(false);
+				return;
 			}
 		}
-		if (count($pagesArray)!=count($filenames)) {
-			// debugLog(__FUNCTION__.": count differs regen pages.xml");
-			if(create_pagesxml(true)) getPagesXmlValues(false);
+	}
+
+	// Check cache vs actual files — XML only, skip for SQLite3
+	if ($chkcount === true && !(defined('GSDATABASE') && GSDATABASE == 'sqlite3')) {
+		$path	   = GSDATAPAGESPATH;
+		$dir_handle = opendir($path);
+		if ($dir_handle === false) {
+			debugLog("getPagesXmlValues: Unable to open $path");
+			return;
+		}
+		$filenames = [];
+		while ($filename = readdir($dir_handle)) {
+			if (substr($filename, strrpos($filename, '.') + 1) === 'xml') {
+				$filenames[] = $filename;
+			}
+		}
+		closedir($dir_handle);
+
+		if (count($pagesArray) != count($filenames)) {
+			$pagesArray = null;
+			if (create_pagesxml(true)) getPagesXmlValues(false);
 		}
 	}
   
@@ -250,86 +305,111 @@ function getPagesXmlValues($chkcount=false){
  * @since 3.1
  *  
  */
-function create_pagesxml($flag){
-global $pagesArray;
+function create_pagesxml($flag) {
+	global $pagesArray;
 
-$success = '';
+	$success = '';
 
-// debugLog("create_pagesxml: " . $flag);
-if ((isset($_GET['upd']) && $_GET['upd']=="edit-success") || $flag===true || $flag=='true'){
-  $pagesArray = [];
-  // debugLog("create_pagesxml proceeding");
-  $menu = '';
-  $filem=GSDATAOTHERPATH."pages.xml";
+	// Removed $_GET['upd'] check — it was an unnecessary attack surface;
+	// all legitimate callers already pass $flag = true via hooks.
+	if ($flag === true || $flag == 'true') {
+		$pagesArray = [];
+		$filem	  = GSDATAOTHERPATH . "pages.xml";
+		$path	   = GSDATAPAGESPATH;
 
-  $path = GSDATAPAGESPATH;
-  $dir_handle = @opendir($path) or die("create_pagesxml: Unable to open $path");
-  $filenames = [];
-  while ($filename = readdir($dir_handle)) {
-    $ext = substr($filename, strrpos($filename, '.') + 1);
-    if ($ext=="xml"){
-      $filenames[] = $filename;
-    }
-  }
-  
-  $count=0;
-  $xml = new SimpleXMLExtended('<?xml version="1.0" encoding="UTF-8"?><channel></channel>');  
-  if (count($filenames) != 0) {
-    foreach ($filenames as $file) {
-      if ($file == "." || $file == ".." || is_dir(GSDATAPAGESPATH.$file) || $file == ".htaccess"  ) {
-        // not a page data file
-      } else {
-        $thisfile = file_get_contents($path.$file);
-        $data = simplexml_load_string($thisfile);
+		$dir_handle = opendir($path);
+		// Guard: log and return false instead of die()
+		if ($dir_handle === false) {
+			debugLog("create_pagesxml: Unable to open $path");
+			return false;
+		}
 
-        if(!$data){
-        	// handle corrupt page xml
-        	debugLog("page $file is corrupt");
-        	continue;
-        }
+		$filenames = [];
+		while ($filename = readdir($dir_handle)) {
+			if (substr($filename, strrpos($filename, '.') + 1) === 'xml') {
+				$filenames[] = $filename;
+			}
+		}
+		// Always close the directory handle
+		closedir($dir_handle);
 
-        $count++;   
-        $id=$data->url;
+		$count = 0;
+		$xml   = new SimpleXMLExtended('<?xml version="1.0" encoding="UTF-8"?><channel></channel>');
 
-    	$pages = $xml->addChild('item');
-        // $pages->addChild('url', $id);
-        // $pagesArray[(string)$id]['url']=(string)$id;            
+		foreach ($filenames as $file) {
+			if ($file === '.' || $file === '..' || is_dir(GSDATAPAGESPATH . $file) || $file === '.htaccess') {
+				continue;
+			}
 
-        foreach ($data->children() as $item => $itemdata) {
-                if ($item!="content"){
-                        $note = $pages->addChild($item);
-                $note->addCData($itemdata);
-                $pagesArray[(string)$id][$item]=(string)$itemdata;
-                }
-        }
+			$data = simplexml_load_string(file_get_contents($path . $file));
+			if (!$data) {
+				debugLog("create_pagesxml: page $file is corrupt");
+				continue;
+			}
 
-        $note = $pages->addChild('slug');
-        $note->addCData($id);
-        $pagesArray[(string)$id]['slug']=(string)$id;
+			$count++;
+			$id	= $data->url;
+			$pages = $xml->addChild('item');
 
-        $pagesArray[(string)$id]['filename']=$file;
-        $note = $pages->addChild('filename'); 
-        $note->addCData($file);
+			foreach ($data->children() as $item => $itemdata) {
+				if ($item !== 'content') {
+					$note = $pages->addChild($item);
+					$note->addCData($itemdata);
+					$pagesArray[(string)$id][$item] = (string)$itemdata;
+				}
+			}
 
-      } // else
-    } // end foreach
-  }   // endif      
-  if ($flag===true || $flag == 'true'){
+			$note = $pages->addChild('slug');
+			$note->addCData($id);
+			$pagesArray[(string)$id]['slug'] = (string)$id;
 
-  	// Plugin Authors should add custom fields etc.. here
-  	$xml = exec_filter('pagecache',$xml);
+			$pagesArray[(string)$id]['filename'] = $file;
+			$note = $pages->addChild('filename');
+			$note->addCData($file);
 
-    // sanity check in case the filter does not come back properly or returns null
-    if($xml){ 
-    	$success = XMLsave($xml,$filem);
-  	}	
-  	// debugLog("create_pagesxml saved: ". $success);
-  	exec_action('pagecache-aftersave');
-  	return $success;
-  }
+			// --- SQLite3: sync page record from XML into DB ---
+			if (defined('GSDATABASE') && GSDATABASE == 'sqlite3') {
+				$stmt = gs_db()->prepare("
+					INSERT INTO pages (slug, title, content, template, meta, metad, menu, menu_order, menu_status, parent, private, pub_date)
+					VALUES (:slug, :title, :content, :template, :meta, :metad, :menu, :menu_order, :menu_status, :parent, :private, :pub_date)
+					ON CONFLICT(slug) DO UPDATE SET
+						title	   = excluded.title,
+						template	= excluded.template,
+						meta		= excluded.meta,
+						metad	   = excluded.metad,
+						menu		= excluded.menu,
+						menu_order  = excluded.menu_order,
+						menu_status = excluded.menu_status,
+						parent	  = excluded.parent,
+						private	 = excluded.private,
+						pub_date	= excluded.pub_date
+				");
+				$stmt->bindValue(':slug',		(string) $data->url,						SQLITE3_TEXT);
+				$stmt->bindValue(':title',	   (string) $data->title,					  SQLITE3_TEXT);
+				$stmt->bindValue(':content',	 (string) $data->content,					SQLITE3_TEXT);
+				$stmt->bindValue(':template',	(string) $data->template ?: 'template.php', SQLITE3_TEXT);
+				$stmt->bindValue(':meta',		(string) $data->meta,					   SQLITE3_TEXT);
+				$stmt->bindValue(':metad',	   (string) $data->metad,					  SQLITE3_TEXT);
+				$stmt->bindValue(':menu',		(string) $data->menu,					   SQLITE3_TEXT);
+				$stmt->bindValue(':menu_order',  (int)	$data->menuOrder,				  SQLITE3_INTEGER);
+				$stmt->bindValue(':menu_status', (string) $data->menuStatus ?: 'Y',		  SQLITE3_TEXT);
+				$stmt->bindValue(':parent',	  (string) $data->parent,					 SQLITE3_TEXT);
+				$stmt->bindValue(':private',	 (string) $data->private ? 1 : 0,			SQLITE3_INTEGER);
+				$stmt->bindValue(':pub_date',	(string) $data->pubDate,					SQLITE3_TEXT);
+				$stmt->execute();
+			}
+		}
+
+		// Allow plugins to modify the page cache before saving
+		$xml = exec_filter('pagecache', $xml);
+
+		if ($xml) {
+			$success = XMLsave($xml, $filem);
+		}
+
+		exec_action('pagecache-aftersave');
+		return $success;
+	}
 }
-}
-
-
 
 ?>
