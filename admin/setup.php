@@ -13,6 +13,13 @@ $load['plugin'] = true;
 if(isset($_POST['lang']) && trim($_POST['lang']) != '') { $LANG = $_POST['lang']; }
 include('inc/common.php');
 
+if (file_exists('../gsconfig.php')) {
+	$xml = @simplexml_load_file(GSDATAOTHERPATH . 'website.xml');
+	if ($xml && (string)$xml->SITEURL != '') {
+		die("Security Error: Setup has already been completed. Please delete admin/setup.php manually.");
+	}
+}
+
 # default variables
 if(defined('GSLOGINSALT')) { $logsalt = GSLOGINSALT;} else { $logsalt = null; }
 $kill = ''; // fatal error kill submission reshow form
