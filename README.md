@@ -80,6 +80,7 @@ Designed to be light and agile, the base install comes to you clutter free, with
 - Update plugin from Plugins Tab
 - Added Twig support to theme editor
 - Added new theme functions: [Wiki](https://github.com/GetSimpleCMS-CE/GetSimpleCMS-CE/wiki/Template-Tags#new-theme-functions-v34)
+- Single-use password reset token.
 
 ### Updates:
 
@@ -92,8 +93,8 @@ Designed to be light and agile, the base install comes to you clutter free, with
 
 ### Fixes:
 
-- Fix: fallback for any missing lang tokens in plugins
-- Fix: stripslashes in components
+- Fix: fallback for any missing lang tokens in plugins.
+- Fix: stripslashes in components.
 - Improved: Image and file handling. Memory usage. Security enhancements.
 
 
@@ -106,7 +107,7 @@ Designed to be light and agile, the base install comes to you clutter free, with
   - CVE-2026-27202 (Arbitrary File Read, MA)
   - CVE-2026-28495 (CSRF in gsconfig.php, MA)
   - CVE-xxxx-xxxxx (Setup Logic Flaw)
-  - CVE-xxxx-xxxxx (Single-use reset token)
+  - CVE-xxxx-xxxxx (Predictable Password Reset)
 
 ### Other:
 
