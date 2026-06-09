@@ -10,7 +10,7 @@ i18n_merge($UpdateCE) || i18n_merge($UpdateCE, 'en_US');
 register_plugin(
 	$UpdateCE,								# ID of plugin, should be filename minus php
 	i18n_r($UpdateCE.'/lang_Menu_Title'),	# Title of plugin
-	'1.3',									# Plugin version
+	'1.4',									# Plugin version
 	'CE Team',								# Plugin author
 	'https://getsimple-ce.ovh/donate',		# Author URL
 	i18n_r($UpdateCE.'/lang_Description'),	# Plugin Description
@@ -155,75 +155,137 @@ function update_ce() {
 		
 		<hr>
 		
-		<div class="w3-panel w3-leftbar w3-pale-yellow">
-			<h4 class="w3-text-red"><svg xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em" viewBox="0 0 16 16"><path fill="currentColor" fill-rule="evenodd" d="M8.429 2.746a.5.5 0 0 0-.858 0L1.58 12.743a.5.5 0 0 0 .429.757h11.984a.5.5 0 0 0 .43-.757zm-2.144-.77C7.06.68 8.939.68 9.715 1.975l5.993 9.996c.799 1.333-.161 3.028-1.716 3.028H2.008C.453 15-.507 13.305.292 11.972l5.993-9.997ZM9 11.5a1 1 0 1 1-2 0a1 1 0 0 1 2 0m-.25-5.75a.75.75 0 0 0-1.5 0v3a.75.75 0 0 0 1.5 0z" clip-rule="evenodd"/></svg><span style="font-weight:600"> '.i18n_r('UpdateCE/lang_Note').':</span></h4>
-			<ul class="w3-ul">
+		<div class="w3-container w3-padding">
+			<h4 class=" w3-text-red w3-padding w3-pale-yellow" style="font-weight:600"><svg xmlns="http://www.w3.org/2000/svg" style="vertical-align:middle" width="1.2em" height="1.2em" viewBox="0 0 16 16"><path fill="currentColor" fill-rule="evenodd" d="M8.429 2.746a.5.5 0 0 0-.858 0L1.58 12.743a.5.5 0 0 0 .429.757h11.984a.5.5 0 0 0 .43-.757zm-2.144-.77C7.06.68 8.939.68 9.715 1.975l5.993 9.996c.799 1.333-.161 3.028-1.716 3.028H2.008C.453 15-.507 13.305.292 11.972l5.993-9.997ZM9 11.5a1 1 0 1 1-2 0a1 1 0 0 1 2 0m-.25-5.75a.75.75 0 0 0-1.5 0v3a.75.75 0 0 0 1.5 0z" clip-rule="evenodd"/></svg> '.i18n_r('UpdateCE/lang_Note').': </h4>
+		
+			<ul class="w3-ul w3-hoverable w3-margin-bottom">
 				<li><p>'.i18n_r('UpdateCE/lang_Requirement').'</p></li>
 				<li><p>'.i18n_r('UpdateCE/lang_Create_Backup').'</p></li>
-				<!--li><p>'.i18n_r('UpdateCE/lang_Themes_Overwritten').'</p></li-->
 				<li><p>'.i18n_r('UpdateCE/lang_Rename_Admin').'</p></li>
 			</ul>
+		
 		</div>
 		
 		<hr>
 		
-		<div class="w3-container w3-padding" style="margin-top:50px">
-			<h4 class=" w3-text-orange w3-padding w3-pale-yellow" style="font-weight:600"><svg xmlns="http://www.w3.org/2000/svg" style="vertical-align:middle" width="1.2em" height="1.2em" viewBox="0 0 24 24"><path fill="currentColor" d="M12 9a1 1 0 0 0-1 1v3a1 1 0 0 0 2 0v-3a1 1 0 0 0-1-1m7-7H5a3 3 0 0 0-3 3v10a3 3 0 0 0 3 3h11.59l3.7 3.71A1 1 0 0 0 21 22a.84.84 0 0 0 .38-.08A1 1 0 0 0 22 21V5a3 3 0 0 0-3-3m1 16.59l-2.29-2.3A1 1 0 0 0 17 16H5a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1ZM12 6a1 1 0 1 0 1 1a1 1 0 0 0-1-1"/></svg> '.i18n_r('UpdateCE/lang_New').' </h4>
-		
-			<ul class="w3-ul w3-hoverable w3-margin-bottom">
-				<li>
-					<p>'.i18n_r('UpdateCE/lang_Plugin_MA').'</p>
-				</li>
-				<li>
-					<p>'.i18n_r('UpdateCE/lang_Update_gsConfig').'</p>
-				</li>
-			</ul>
-			
-			<p>'.i18n_r('UpdateCE/lang_Add_New').':</p>
-			<div class="w3-codespan w3-padding w3-margin-bottom">
-# Login Page Default Language;<br>
-$LANG = \'en_EN\'; // es_ES, pl_PL, de_DE, uk_UK, etc.<br><br>
+<!-- ### Start Instructions ### -->
 
-# Sort admin page list by title or menu<br>
-define(\'GSSORTPAGELISTBY\',\'menu\');<br><br>
+';
 
-# Set CodeMirror Theme (blackboard or default)<br>
-define(\'GSCMTHEME\',\'blackboard\');
-			</div>
-		
-			<p>'.i18n_r('UpdateCE/lang_Replace_section').':</p>
-			<div class="w3-codespan w3-padding  w3-margin-bottom">
-# WYSIWYG toolbars (advanced, basic or [custom config]) <br>
-# define(\'GSEDITORTOOL\', \'advanced\');<br><br>
+$allowedBase = 'https://getsimplecms-ce.github.io/';
+$cacheDir = GSDATAPATH . 'cache/';
+$cacheTime = 21600; // 6 hours
 
-# WYSIWYG Editor Options<br>
-# define(\'GSEDITOROPTIONS\', \'\');
-			</div>
-		
-			<p>'.i18n_r('UpdateCE/lang_With_updated').':</p>
-			<div class="w3-codespan w3-padding  w3-margin-bottom">
-# WYSIWYG toolbars (advanced, basic, CEbar, island or [custom config])<br>
-define(\'GSEDITORTOOL\', "CEbar");<br><br>
+// Force refresh (?refresh=1)
+$forceRefresh = isset($_GET['refresh']);
 
-# WYSIWYG Editor Options<br>
-define(\'GSEDITOROPTIONS\', \'<br>
-extraPlugins:"fontawesome5,youtube,codemirror,cmsgrid,colorbutton,oembed,simplebutton,spacingsliders",<br>
-disableNativeSpellChecker : false,<br>
-forcePasteAsPlainText : true<br>
-\');
-			</div>
-			
-		</div>
-		';
+// Prevent duplicate loads
+static $alreadyLoaded = [];
 
-		echo '
-			<hr>
-			
-			<div id="paypal" class="xw3-opacity">
-				<p>Made with <span class="credit-icon">❤️</span> especially for "<b>'.$USR.'</b>". Is this plugin useful to you?
-				 <a href="https://getsimple-ce.ovh/donate" target="_blank" class="donateButton">Buy Us A Coffee <svg xmlns="http://www.w3.org/2000/svg" style="vertical-align:middle" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" fill-opacity="0" d="M17 14v4c0 1.66 -1.34 3 -3 3h-6c-1.66 0 -3 -1.34 -3 -3v-4Z"><animate fill="freeze" attributeName="fill-opacity" begin="0.8s" dur="0.5s" values="0;1"/></path><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path stroke-dasharray="48" stroke-dashoffset="48" d="M17 9v9c0 1.66 -1.34 3 -3 3h-6c-1.66 0 -3 -1.34 -3 -3v-9Z"><animate fill="freeze" attributeName="stroke-dashoffset" dur="0.6s" values="48;0"/></path><path stroke-dasharray="14" stroke-dashoffset="14" d="M17 9h3c0.55 0 1 0.45 1 1v3c0 0.55 -0.45 1 -1 1h-3"><animate fill="freeze" attributeName="stroke-dashoffset" begin="0.6s" dur="0.2s" values="14;0"/></path><mask id="lineMdCoffeeHalfEmptyFilledLoop0"><path stroke="#fff" d="M8 0c0 2-2 2-2 4s2 2 2 4-2 2-2 4 2 2 2 4M12 0c0 2-2 2-2 4s2 2 2 4-2 2-2 4 2 2 2 4M16 0c0 2-2 2-2 4s2 2 2 4-2 2-2 4 2 2 2 4"><animateMotion calcMode="linear" dur="3s" path="M0 0v-8" repeatCount="indefinite"/></path></mask><rect width="24" height="0" y="7" fill="currentColor" mask="url(#lineMdCoffeeHalfEmptyFilledLoop0)"><animate fill="freeze" attributeName="y" begin="0.8s" dur="0.6s" values="7;2"/><animate fill="freeze" attributeName="height" begin="0.8s" dur="0.6s" values="0;5"/></rect></g></svg></a></p>
-			</div>
-		</div><!-- End Plugin -->';
+// Ensure cache directory exists
+if (!file_exists($cacheDir)) {
+	mkdir($cacheDir, 0755, true);
+}
+
+// Default fallback (local)
+$defaultFallback = GSROOTPATH . 'plugins/UpdateCE/upgrade-info/index.html';
+
+// Get info_url safely
+$info_url = !empty($value->info_url) ? $value->info_url : '';
+
+// Build cache file only if URL exists
+$cacheFile = !empty($info_url)
+	? $cacheDir . 'update_info_' . md5($info_url) . '.html'
+	: null;
+
+$content = false;
+
+// =========================
+// 1. Edge-case: already loaded
+// =========================
+if (!empty($info_url) && isset($alreadyLoaded[$info_url])) {
+	$content = $alreadyLoaded[$info_url];
+}
+
+// =========================
+// 2. Try cache
+// =========================
+if (
+	$content === false &&
+	!$forceRefresh &&
+	$cacheFile &&
+	file_exists($cacheFile) &&
+	(time() - filemtime($cacheFile) < $cacheTime)
+) {
+	$content = file_get_contents($cacheFile);
+}
+
+// =========================
+// 3. Try remote
+// =========================
+if (
+	$content === false &&
+	!empty($info_url) &&
+	strpos($info_url, $allowedBase) === 0
+) {
+	$context = stream_context_create([
+		'http' => [
+			'timeout' => 2
+		]
+	]);
+
+	$remote = @file_get_contents($info_url, false, $context);
+
+	if ($remote !== false && !empty($remote)) {
+		$content = $remote;
+
+		// Save cache if possible
+		if ($cacheFile) {
+			file_put_contents($cacheFile, $remote);
+		}
+	}
+}
+
+// =========================
+// 4. Default fallback
+// =========================
+if ($content === false && file_exists($defaultFallback)) {
+	$content = file_get_contents($defaultFallback);
+}
+
+// =========================
+// 5. Cache cleanup (lazy)
+// =========================
+if (is_dir($cacheDir)) {
+	foreach (glob($cacheDir . 'update_info_*.html') as $file) {
+		if (time() - filemtime($file) > 86400) { // 24 hours
+			@unlink($file);
+		}
+	}
+}
+
+// =========================
+// 6. Output
+// =========================
+if ($content !== false) {
+
+	// Store for reuse (edge-case fix)
+	if (!empty($info_url)) {
+		$alreadyLoaded[$info_url] = $content;
+	}
+
+	echo $content;
+
+} else {
+	echo '<p>Visit the GetSimple <a href="https://getsimple-ce.ovh/install" target="_blank">Install</a> page for more information.</p>';
+}
+
+echo '
+
+<!-- ### End Instructions ### -->
+
+	</div><!-- End Plugin -->
+	';
 
 	if (isset($_POST['download'])) {
 		$url = filter_var($_POST['url'], FILTER_VALIDATE_URL);
