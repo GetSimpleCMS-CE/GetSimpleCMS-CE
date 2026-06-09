@@ -1,4 +1,4 @@
-<?php 
+<?php
 /**
  * Reset Password
  *
@@ -8,105 +8,91 @@
  * @subpackage Login
  */
 
-# setup inclusions
 $load['plugin'] = true;
 include('inc/common.php');
 
-if(isset($_POST['submitted'])){
-	
-	// check for csrf
-	if (!defined('GSNOCSRF') || (GSNOCSRF == FALSE) ) {
-		$nonce = $_POST['nonce'];
-		if(!check_nonce($nonce, "reset_password")) {
-			die("CSRF detected!");
+define('GS_RESET_TOKEN_EXPIRY', 3600); // 1 hour
+
+if (isset($_POST['submitted'])) {
+
+	// CSRF check
+	if (!defined('GSNOCSRF') || GSNOCSRF == FALSE) {
+		$nonce = isset($_POST['nonce']) ? $_POST['nonce'] : '';
+		if (!check_nonce($nonce, 'reset_password')) {
+			die('CSRF detected!');
 		}
 	}
-	
-	$randSleep = rand(250000,2000000); // random sleep for .25 to 2 seconds
 
-	if(isset($_POST['username']) and !empty($_POST['username']))	{
+	$randSleep = random_int(250000, 2000000);
 
-		# user filename
-		$file = _id($_POST['username']).'.xml';
-		
-		# get user information from existing XML file
-		
-		if (filepath_is_safe(GSUSERSPATH . $file,GSUSERSPATH)) {
+	if (isset($_POST['username']) && !empty($_POST['username'])) {
+
+		$file = _id($_POST['username']) . '.xml';
+
+		if (filepath_is_safe(GSUSERSPATH . $file, GSUSERSPATH)) {
 			$data = simplexml_load_file(GSUSERSPATH . $file);
-			$USR = strtolower($data->USR);
-			$EMAIL = $data->EMAIL;
-			
-			if(strtolower($_POST['username']) == $USR) {
-				# create new random password
-				$random = createRandomPassword();
-				// $random = '1234';
-				
-				# create backup
-				createBak($file, GSUSERSPATH, GSBACKUSERSPATH);
-				
-				# create password change trigger file
-				$flagfile = GSUSERSPATH . _id($USR).".xml.reset";
-				copy(GSUSERSPATH . $file, $flagfile);
-				
-				# change password and resave xml file
-				$data->PWD = passhash($random); 
-				$status = XMLsave($data, GSUSERSPATH . $file);
-				
-				# send the email with the new password
-				$subject = $site_full_name .' '. i18n_r('RESET_PASSWORD') .' '. i18n_r('ATTEMPT');
-				$message = "<h2>". cl($SITENAME) ." ". i18n_r('RESET_PASSWORD') ." ". i18n_r('ATTEMPT').'</h2>';
-				$message .= "<p>". i18n_r('LABEL_USERNAME').": <strong>". $USR."</strong>";
-				$message .= "<br>". i18n_r('NEW_PASSWORD').": <strong>". $random."</strong>";
-				$message .= '<br>'. i18n_r('EMAIL_LOGIN') .': <a href="'.$SITEURL . $GSADMIN.'/">'.$SITEURL . $GSADMIN.'/</a></p>';
+			$USR   = strtolower((string)$data->USR);
+			$EMAIL = (string)$data->EMAIL;
+
+			if (strtolower($_POST['username']) === $USR) {
+
+				// Generate a cryptographically secure token
+				$rawToken   = bin2hex(random_bytes(32)); // 64 hex chars, 256-bit
+				$tokenHash  = hash('sha256', $rawToken);
+				$expiry	 = time() + GS_RESET_TOKEN_EXPIRY;
+
+				// Store hash + expiry in a sidecar reset file (never the live XML)
+				$resetFile  = GSUSERSPATH . _id($USR) . '.xml.resettoken';
+				$resetData  = $tokenHash . '|' . $expiry;
+				file_put_contents($resetFile, $resetData, LOCK_EX);
+
+				// Build the reset link
+				$resetLink = $SITEURL . $GSADMIN . '/resetpassword_confirm.php'
+						   . '?user=' . urlencode($USR)
+						   . '&token=' . urlencode($rawToken);
+
+				// Send email with link (NOT the token raw password)
+				$subject = $site_full_name . ' ' . i18n_r('RESET_PASSWORD') . ' ' . i18n_r('ATTEMPT');
+				$message  = '<h2>' . cl($SITENAME) . ' ' . i18n_r('RESET_PASSWORD') . ' ' . i18n_r('ATTEMPT') . '</h2>';
+				$message .= '<p>' . i18n_r('LABEL_USERNAME') . ': <strong>' . htmlspecialchars($USR, ENT_QUOTES, 'UTF-8') . '</strong></p>';
+				$message .= '<p>' . i18n_r('Click_the_link') . '</p>';
+				$message .= '<p><a href="' . htmlspecialchars($resetLink, ENT_QUOTES, 'UTF-8') . '">' . i18n_r('This_link_expires') . '</a></p>';
+
 				exec_action('resetpw-success');
-				$status = sendmail($EMAIL,$subject,$message);
-				# show the result of the reset attempt
-				usleep($randSleep); 
-
-				#deleting $flagfile gives you the ability to reset your password multiple times (added on CE)
-				unlink($flagfile);
-				
-				$status = 'success';
-				redirect("resetpassword.php?upd=pwd-".$status);
-			} else{
-				# username doesnt match listed xml username
-				exec_action('resetpw-error');
-				usleep($randSleep);
-				redirect("resetpassword.php?upd=pwd-success");
-			} 
-		} else {
-			# no user exists for this username, but do not show this to the submitter
-			usleep($randSleep);
-			redirect("resetpassword.php?upd=pwd-success");
+				sendmail($EMAIL, $subject, $message);
+			}
+			// Fall through — always show success (no user enumeration)
 		}
+
+		usleep($randSleep);
+		redirect('resetpassword.php?upd=pwd-success');
+
 	} else {
-		
-		# no username was submitted
-		redirect("resetpassword.php?upd=pwd-error");
+		redirect('resetpassword.php?upd=pwd-error');
 	}
-} 
+}
 
-get_template('header', cl($SITENAME).' &raquo; '.i18n_r('RESET_PASSWORD')); 
-
+get_template('header', cl($SITENAME) . ' &raquo; ' . i18n_r('RESET_PASSWORD'));
 ?>
 </div>
 </div>
 <div class="wrapper clearfix">
-	
+
 	<?php include('template/error_checking.php'); ?>
-	
+
 	<div id="maincontent">
-		<div class="main" >
+		<div class="main">
 		
-		<h3><?php i18n('RESET_PASSWORD'); ?></h3>
-		<p class="desc"><?php i18n('MSG_PLEASE_EMAIL'); ?></p>
-		
-		<form class="login" action="<?php myself(); ?>" method="post" >
-			<input name="nonce" id="nonce" type="hidden" value="<?php echo get_nonce("reset_password");?>"/>
-			<p><b><?php i18n('LABEL_USERNAME'); ?>:</b><br /><input class="text" name="username" type="text" value="" /></p>
-			<p><input class="submit" type="submit" name="submitted" value="<?php echo i18n('SEND_NEW_PWD'); ?>" /></p>
-		</form>
-		<p class="cta" ><b>&laquo;</b> <a href="<?php echo $SITEURL; ?>"><?php i18n('BACK_TO_WEBSITE'); ?></a> &nbsp; | &nbsp; <a href="index.php"><?php i18n('CONTROL_PANEL'); ?></a> &raquo;</p>
+			<h3><?php i18n('RESET_PASSWORD'); ?></h3>
+			<p class="desc"><?php i18n('MSG_PLEASE_EMAIL'); ?></p>
+
+			<form class="login" action="<?php myself(); ?>" method="post">
+				<input name="nonce" id="nonce" type="hidden" value="<?php echo get_nonce('reset_password'); ?>"/>
+				<p><b><?php i18n('LABEL_USERNAME'); ?>:</b><br /><input class="text" name="username" type="text" value="" /></p>
+				<p><input class="submit" type="submit" name="submitted" value="<?php echo i18n('SEND_NEW_PWD'); ?>" /></p>
+			</form>
+
+			<p class="cta"><b>&laquo;</b> <a href="<?php echo $SITEURL; ?>"><?php i18n('BACK_TO_WEBSITE'); ?></a> &nbsp;|&nbsp; <a href="index.php"><?php i18n('CONTROL_PANEL'); ?></a> &raquo;</p>
 		</div>
 		
 	</div>

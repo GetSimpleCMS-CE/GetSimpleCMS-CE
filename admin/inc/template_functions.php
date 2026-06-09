@@ -218,16 +218,12 @@ function restore_bak($id) {
  *
  * @return string
  */
-function createRandomPassword() {
-	$chars = "Ayz23mFGHBxPQefgnopRScdqrTU4CXYZabstuDEhijkIJKMNVWvw56789";
-	srand((double)microtime()*1000000);
-	$i = 0;
-	$pass = '' ;
-	while ($i <= 5) {
-		$num = rand() % 33;
-		$tmp = substr($chars, $num, 1);
-		$pass = $pass . $tmp;
-		$i++;
+function createRandomPassword($length = 20) {
+	$chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+	$max   = strlen($chars) - 1;
+	$pass  = '';
+	for ($i = 0; $i < $length; $i++) {
+		$pass .= $chars[random_int(0, $max)];
 	}
 	return $pass;
 }
@@ -1162,7 +1158,7 @@ function archive_targz() {
  */
 function isAuthPage(){
 	$page = get_filename_id(); 
-	return $page == 'index' || $page == 'resetpassword';
+	return $page == 'index' || $page == 'resetpassword' || $page == 'resetpassword_confirm';
 }
 
 /**

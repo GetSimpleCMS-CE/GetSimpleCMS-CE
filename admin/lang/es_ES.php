@@ -4,7 +4,7 @@
  * Spanish Language File
  *
  * Date:		2015.11.21
- * Revision:	2026.02.14
+ * Revision:	2026.06.19
  * Version:		GetSimple 3.3.23 CE
  * Translators: GS Team 
  *
@@ -629,6 +629,21 @@ $i18n = [
 	 * Additions for 3.1
 	 */
 	"DEBUG_CONSOLE" 		=>	"Consola Debug",
+
+	/*
+	 * New for 3.3.23
+	 */
+	"Click_the_link"            => "Haz clic en el siguiente enlace para establecer una nueva contraseña.",
+	"This_link_expires"         => "Este enlace caduca en 1 hora y solo puede utilizarse una vez.",
+
+	"Reset_link_expired"        => "El enlace de restablecimiento ha caducado. Solicita uno nuevo.",
+	"Invalid_already_used"      => "Enlace de restablecimiento no válido o ya utilizado.",
+	"must_be_8_characters"      => "La contraseña debe tener al menos 8 caracteres.",
+	"Passwords_do_not_match"    => "Las contraseñas no coinciden.",
+	"Enter_and_confirm"         => "Introduce y confirma tu nueva contraseña.",
+	"New_Password"              => "Nueva contraseña",
+	"Confirm_New_Password"      => "Confirmar nueva contraseña",
+	"Set_New_Password"          => "Establecer nueva contraseña",
 
 ];
 

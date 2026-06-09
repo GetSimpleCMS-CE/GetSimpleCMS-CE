@@ -4,7 +4,7 @@
  * Polish Language File
  *
  * Date: 		2011.12.06
- * Revision:	2026.02.14
+ * Revision:	2026.06.19
  * Version:		GetSimple 3.3.23 CE
  * Translators: GS Team
  *
@@ -629,6 +629,21 @@ $i18n = [
 	 * Additions for 3.1
 	 */
 	"DEBUG_CONSOLE" => 'Konsola debugowania',
+
+	/*
+	 * New for 3.3.23
+	 */
+	"Click_the_link"            => "Kliknij poniższy link, aby ustawić nowe hasło.",
+	"This_link_expires"         => "Ten link wygasa za 1 godzinę i może zostać użyty tylko raz.",
+
+	"Reset_link_expired"        => "Link do resetowania hasła wygasł. Poproś o nowy.",
+	"Invalid_already_used"      => "Nieprawidłowy lub już użyty link do resetowania hasła.",
+	"must_be_8_characters"      => "Hasło musi mieć co najmniej 8 znaków.",
+	"Passwords_do_not_match"    => "Hasła nie są zgodne.",
+	"Enter_and_confirm"         => "Wprowadź i potwierdź nowe hasło.",
+	"New_Password"              => "Nowe hasło",
+	"Confirm_New_Password"      => "Potwierdź nowe hasło",
+	"Set_New_Password"          => "Ustaw nowe hasło",
 
 ];
 

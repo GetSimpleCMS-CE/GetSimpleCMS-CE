@@ -4,7 +4,7 @@
  * Danish Language File
  *
  * Date:		2025.05.05
- * Revision:	2026.02.14
+ * Revision:	2026.06.19
  * Version:		GetSimple 3.3.23 CE
  * Translators:	Thomasgrumpy, GS Team
  *
@@ -629,6 +629,21 @@ $i18n = [
 	 * Additions for 3.1
 	 */
 	"DEBUG_CONSOLE"	=>	'Debug Console',
+
+	/*
+	 * New for 3.3.23
+	 */
+	"Click_the_link"            => "Klik på linket nedenfor for at angive en ny adgangskode.",
+	"This_link_expires"         => "Dette link udløber om 1 time og kan kun bruges én gang.",
+
+	"Reset_link_expired"        => "Nulstillingslinket er udløbet. Anmod venligst om et nyt.",
+	"Invalid_already_used"      => "Ugyldigt eller allerede brugt nulstillingslink.",
+	"must_be_8_characters"      => "Adgangskoden skal være mindst 8 tegn lang.",
+	"Passwords_do_not_match"    => "Adgangskoderne stemmer ikke overens.",
+	"Enter_and_confirm"         => "Indtast og bekræft din nye adgangskode.",
+	"New_Password"              => "Ny adgangskode",
+	"Confirm_New_Password"      => "Bekræft ny adgangskode",
+	"Set_New_Password"          => "Angiv ny adgangskode",
 
 ];
 

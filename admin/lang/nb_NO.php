@@ -4,7 +4,7 @@
  * Norwegian Language File
  *
  * Date:		2025.05.05
- * Revision:	2026.02.14
+ * Revision:	2026.06.19
  * Version:		GetSimple 3.3.23 CE
  * Translators: Thomasgrumpy, GS Team 
  *
@@ -629,6 +629,21 @@ $i18n = [
 	 * Additions for 3.1
 	 */
 	"DEBUG_CONSOLE"			=>	"Debug Console",
+
+	/*
+	 * New for 3.3.23
+	 */
+	"Click_the_link"            => "Klikk på lenken nedenfor for å angi et nytt passord.",
+	"This_link_expires"         => "Denne lenken utløper om 1 time og kan bare brukes én gang.",
+
+	"Reset_link_expired"        => "Tilbakestillingslenken har utløpt. Be om en ny.",
+	"Invalid_already_used"      => "Ugyldig eller allerede brukt tilbakestillingslenke.",
+	"must_be_8_characters"      => "Passordet må være minst 8 tegn langt.",
+	"Passwords_do_not_match"    => "Passordene samsvarer ikke.",
+	"Enter_and_confirm"         => "Skriv inn og bekreft det nye passordet ditt.",
+	"New_Password"              => "Nytt passord",
+	"Confirm_New_Password"      => "Bekreft nytt passord",
+	"Set_New_Password"          => "Angi nytt passord",
 
 ];
 

@@ -4,7 +4,7 @@
  * Ukranian Language File
  *
  * Date:		22 July 2023
- * Revision:	2026.02.14
+ * Revision:	2026.06.19
  * Version:		GetSimple 3.3.23 CE
  * Translators: VeNickov, GS Team 
  *
@@ -629,6 +629,21 @@ $i18n = [
 	 * Additions for 3.1
 	 */
 	'DEBUG_CONSOLE' => "Консоль помилок",
+	
+	/*
+	 * New for 3.3.23
+	 */
+	"Click_the_link"            => "Натисніть посилання нижче, щоб встановити новий пароль.",
+	"This_link_expires"         => "Термін дії цього посилання закінчується через 1 годину, і його можна використати лише один раз.",
+
+	"Reset_link_expired"        => "Термін дії посилання для скидання пароля закінчився. Будь ласка, запросіть нове.",
+	"Invalid_already_used"      => "Недійсне або вже використане посилання для скидання пароля.",
+	"must_be_8_characters"      => "Пароль має містити щонайменше 8 символів.",
+	"Passwords_do_not_match"    => "Паролі не збігаються.",
+	"Enter_and_confirm"         => "Введіть і підтвердьте новий пароль.",
+	"New_Password"              => "Новий пароль",
+	"Confirm_New_Password"      => "Підтвердьте новий пароль",
+	"Set_New_Password"          => "Встановити новий пароль",
 
 ];
 

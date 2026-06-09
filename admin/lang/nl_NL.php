@@ -4,7 +4,7 @@
  * Dutch Language File
  *
  * Date: 		2009.09.10
- * Revision:	2026.02.14
+ * Revision:	2026.06.19
  * Version:		GetSimple 3.3.23 CE
  * Translators: GS Team
  *
@@ -629,6 +629,21 @@ $i18n = [
 	 * Additions for 3.1
 	 */
 	"DEBUG_CONSOLE"			=>	"Debug Console",
+
+	/*
+	 * New for 3.3.23
+	 */
+	"Click_the_link"            => "Klik op de onderstaande link om een nieuw wachtwoord in te stellen.",
+	"This_link_expires"         => "Deze link verloopt over 1 uur en kan slechts één keer worden gebruikt.",
+
+	"Reset_link_expired"        => "De resetlink is verlopen. Vraag een nieuwe aan.",
+	"Invalid_already_used"      => "Ongeldige of reeds gebruikte resetlink.",
+	"must_be_8_characters"      => "Het wachtwoord moet minimaal 8 tekens bevatten.",
+	"Passwords_do_not_match"    => "De wachtwoorden komen niet overeen.",
+	"Enter_and_confirm"         => "Voer uw nieuwe wachtwoord in en bevestig het.",
+	"New_Password"              => "Nieuw wachtwoord",
+	"Confirm_New_Password"      => "Nieuw wachtwoord bevestigen",
+	"Set_New_Password"          => "Nieuw wachtwoord instellen",
 
 ];
 

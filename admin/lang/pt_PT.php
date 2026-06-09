@@ -4,7 +4,7 @@
  * Portuguese (Portugal) Language File
  *
  * Date: 		2015.05.12
- * Revision:	2026.02.14
+ * Revision:	2026.06.19
  * Version:		GetSimple 3.3.23 CE
  * Translators: GS Team
  *
@@ -629,6 +629,21 @@ $i18n = [
 	 * Additions for 3.1
 	 */
 	"DEBUG_CONSOLE" 		=> 'Consola de Depuração',
+
+	/*
+	 * New for 3.3.23
+	 */
+	"Click_the_link"            => "Clique na ligação abaixo para definir uma nova palavra-passe.",
+	"This_link_expires"         => "Esta ligação expira em 1 hora e só pode ser utilizada uma vez.",
+
+	"Reset_link_expired"        => "A ligação de reposição expirou. Solicite uma nova.",
+	"Invalid_already_used"      => "Ligação de reposição inválida ou já utilizada.",
+	"must_be_8_characters"      => "A palavra-passe deve ter pelo menos 8 caracteres.",
+	"Passwords_do_not_match"    => "As palavras-passe não coincidem.",
+	"Enter_and_confirm"         => "Introduza e confirme a sua nova palavra-passe.",
+	"New_Password"              => "Nova palavra-passe",
+	"Confirm_New_Password"      => "Confirmar nova palavra-passe",
+	"Set_New_Password"          => "Definir nova palavra-passe",
 
 ];
 

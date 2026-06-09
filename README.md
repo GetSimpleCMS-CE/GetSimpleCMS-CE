@@ -105,6 +105,8 @@ Designed to be light and agile, the base install comes to you clutter free, with
   - CVE-2026-27161 (If AllowOverride is disabled)
   - CVE-2026-27202 (Arbitrary File Read, MA)
   - CVE-2026-28495 (CSRF in gsconfig.php, MA)
+  - CVE-xxxx-xxxxx (Setup Logic Flaw)
+  - CVE-xxxx-xxxxx (Single-use reset token)
 
 ### Other:
 

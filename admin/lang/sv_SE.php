@@ -4,7 +4,7 @@
  * Swedish Language File
  *
  * Date:		2025.05.05
- * Revision:	2026.02.14
+ * Revision:	2026.06.19
  * Version:		GetSimple 3.3.23 CE
  * Translators:	Thomasgrumpy, GS Team
  *
@@ -629,6 +629,21 @@ $i18n = [
 	 * Additions for 3.1
 	 */
 	"DEBUG_CONSOLE"			=>	"Debug Console",
+
+	/*
+	 * New for 3.3.23
+	 */
+	"Click_the_link"            => "Klicka på länken nedan för att ange ett nytt lösenord.",
+	"This_link_expires"         => "Den här länken upphör att gälla om 1 timme och kan endast användas en gång.",
+
+	"Reset_link_expired"        => "Återställningslänken har gått ut. Begär en ny.",
+	"Invalid_already_used"      => "Ogiltig eller redan använd återställningslänk.",
+	"must_be_8_characters"      => "Lösenordet måste vara minst 8 tecken långt.",
+	"Passwords_do_not_match"    => "Lösenorden matchar inte.",
+	"Enter_and_confirm"         => "Ange och bekräfta ditt nya lösenord.",
+	"New_Password"              => "Nytt lösenord",
+	"Confirm_New_Password"      => "Bekräfta nytt lösenord",
+	"Set_New_Password"          => "Ange nytt lösenord",
 
 ];
 

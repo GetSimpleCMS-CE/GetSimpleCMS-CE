@@ -4,7 +4,7 @@
  * English Language File
  *
  * Date:		2009.09.10
- * Revision:	2026.02.14
+ * Revision:	2026.06.19
  * Version:		GetSimple 3.3.23 CE
  * Translators: GS Team 
  *
@@ -629,6 +629,21 @@ $i18n = [
 	 * Additions for 3.1
 	 */
 	"DEBUG_CONSOLE"			=>	"Debug Console",
+
+	/*
+	 * New for 3.3.23
+	 */
+	"Click_the_link"			=>	"Click the link below to set a new password.",
+	"This_link_expires"			=>	"This link expires in 1 hour and can only be used once.",
+	
+	"Reset_link_expired"		=>	"Reset link has expired. Please request a new one.",
+	"Invalid_already_used"		=>	"Invalid or already-used reset link.",
+	"must_be_8_characters"		=>	"Password must be at least 8 characters.",
+	"Passwords_do_not_match"	=>	"Passwords do not match.",
+	"Enter_and_confirm"			=>	"Enter and confirm your new password.",
+	"New_Password"				=>	"New Password",
+	"Confirm_New_Password"		=>	"Confirm New Password",
+	"Set_New_Password"			=>	"Set New Password",
 
 ];
 

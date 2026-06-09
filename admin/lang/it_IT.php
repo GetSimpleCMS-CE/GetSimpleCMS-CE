@@ -4,7 +4,7 @@
  * Italian Language File
  *
  * Date:		2017.07.19
- * Revision:	2026.02.14
+ * Revision:	2026.06.19
  * Version:		GetSimple 3.3.23 CE
  * Translators: GS Team 
  *
@@ -630,6 +630,21 @@ $i18n = [
 	 * Additions for 3.1
 	 */
 	"DEBUG_CONSOLE" => 'Console Debug',
+
+	/*
+	 * New for 3.3.23
+	 */
+	"Click_the_link"            => "Fai clic sul link qui sotto per impostare una nuova password.",
+	"This_link_expires"         => "Questo link scade tra 1 ora e può essere utilizzato una sola volta.",
+
+	"Reset_link_expired"        => "Il link di reimpostazione è scaduto. Richiedine uno nuovo.",
+	"Invalid_already_used"      => "Link di reimpostazione non valido o già utilizzato.",
+	"must_be_8_characters"      => "La password deve contenere almeno 8 caratteri.",
+	"Passwords_do_not_match"    => "Le password non corrispondono.",
+	"Enter_and_confirm"         => "Inserisci e conferma la tua nuova password.",
+	"New_Password"              => "Nuova password",
+	"Confirm_New_Password"      => "Conferma nuova password",
+	"Set_New_Password"          => "Imposta nuova password",
 
 ];
 

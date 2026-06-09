@@ -4,7 +4,7 @@
  * Japanese Language File
  *
  * Date:		2022-04-24
- * Revision:	2026.02.14
+ * Revision:	2026.06.19
  * Version:		GetSimple 3.3.23 CE
  * Translators: GS Team 
  *
@@ -629,6 +629,21 @@ $i18n = [
 	 * Additions for 3.1
 	 */
 	"DEBUG_CONSOLE"			=>	"Debug Console",
+
+	/*
+	 * New for 3.3.23
+	 */
+	"Click_the_link"            => "新しいパスワードを設定するには、以下のリンクをクリックしてください。",
+	"This_link_expires"         => "このリンクの有効期限は1時間で、1回のみ使用できます。",
+
+	"Reset_link_expired"        => "パスワード再設定リンクの有効期限が切れています。新しいリンクをリクエストしてください。",
+	"Invalid_already_used"      => "無効な、または既に使用されたパスワード再設定リンクです。",
+	"must_be_8_characters"      => "パスワードは8文字以上である必要があります。",
+	"Passwords_do_not_match"    => "パスワードが一致しません。",
+	"Enter_and_confirm"         => "新しいパスワードを入力して確認してください。",
+	"New_Password"              => "新しいパスワード",
+	"Confirm_New_Password"      => "新しいパスワードの確認",
+	"Set_New_Password"          => "新しいパスワードを設定",
 
 ];
 

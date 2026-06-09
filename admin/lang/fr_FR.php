@@ -4,7 +4,7 @@
  * French Language File
  *
  * Date: 		2011.12.06
- * Revision:	2026.02.14
+ * Revision:	2026.06.19
  * Version:		GetSimple 3.3.23 CE
  * Translators: GS Team 
  *
@@ -629,6 +629,21 @@ $i18n = [
 	 * Additions for 3.1
 	 */
 	"DEBUG_CONSOLE"			=>	"Debug Console",
+
+	/*
+	 * New for 3.3.23
+	 */
+	"Click_the_link"            => "Cliquez sur le lien ci-dessous pour définir un nouveau mot de passe.",
+	"This_link_expires"         => "Ce lien expire dans 1 heure et ne peut être utilisé qu'une seule fois.",
+
+	"Reset_link_expired"        => "Le lien de réinitialisation a expiré. Veuillez en demander un nouveau.",
+	"Invalid_already_used"      => "Lien de réinitialisation invalide ou déjà utilisé.",
+	"must_be_8_characters"      => "Le mot de passe doit contenir au moins 8 caractères.",
+	"Passwords_do_not_match"    => "Les mots de passe ne correspondent pas.",
+	"Enter_and_confirm"         => "Saisissez et confirmez votre nouveau mot de passe.",
+	"New_Password"              => "Nouveau mot de passe",
+	"Confirm_New_Password"      => "Confirmer le nouveau mot de passe",
+	"Set_New_Password"          => "Définir un nouveau mot de passe",
 
 ];
 

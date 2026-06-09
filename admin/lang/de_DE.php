@@ -4,7 +4,7 @@
  * German Language File / Deutsche Sprachdatei
  *
  * Date: 		2017-06-03
- * Revision:	2026.02.14
+ * Revision:	2026.06.19
  * Version:		GetSimple 3.3.23 CE
  * Translators: GS Team
  *
@@ -629,6 +629,21 @@ $i18n = [
 	 * Additions for 3.1
 	 */
 	"DEBUG_CONSOLE" => "Debug-Konsole",
+
+	/*
+	 * New for 3.3.23
+	 */
+	"Click_the_link"            => "Klicken Sie auf den untenstehenden Link, um ein neues Passwort festzulegen.",
+	"This_link_expires"         => "Dieser Link läuft in 1 Stunde ab und kann nur einmal verwendet werden.",
+
+	"Reset_link_expired"        => "Der Zurücksetzungslink ist abgelaufen. Bitte fordern Sie einen neuen an.",
+	"Invalid_already_used"      => "Ungültiger oder bereits verwendeter Zurücksetzungslink.",
+	"must_be_8_characters"      => "Das Passwort muss mindestens 8 Zeichen lang sein.",
+	"Passwords_do_not_match"    => "Die Passwörter stimmen nicht überein.",
+	"Enter_and_confirm"         => "Geben Sie Ihr neues Passwort ein und bestätigen Sie es.",
+	"New_Password"              => "Neues Passwort",
+	"Confirm_New_Password"      => "Neues Passwort bestätigen",
+	"Set_New_Password"          => "Neues Passwort festlegen",
 
 ];
 
