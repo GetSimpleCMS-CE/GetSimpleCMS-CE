@@ -73,8 +73,8 @@ Designed to be light and agile, the base install comes to you clutter free, with
 
 ### New:
 
-- Dashboard Plugin: Customizable admin dashboard shown after login.
-- GS Config GUI Plugin: Visual editor for gsconfig.php configuration settings.
+- [Dashboard](https://github.com/GetSimpleCMS-CE-plugins/plugin-Dashboard/wiki) Plugin: Customizable admin dashboard shown after login.
+- [GS Config GUI](https://github.com/GetSimpleCMS-CE-plugins/plugin-GS_Config_GUI/wiki) Plugin: Visual editor for gsconfig.php configuration settings.
 - SVG support for Uploads & Filebrowser
 - Admin Page Sorting
 - Update plugin from Plugins Tab
