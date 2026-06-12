@@ -76,26 +76,23 @@ if (isset($_POST['submitted'])) {
 	}
 
 	if (!$pwdError) {
-		// Validation passed — save the new password
 		$file = GSUSERSPATH . $user . '.xml';
 
 		if (filepath_is_safe($file, GSUSERSPATH) && file_exists($file)) {
 			$data = simplexml_load_file($file);
 
-			// Backup before modifying
 			createBak($user . '.xml', GSUSERSPATH, GSBACKUSERSPATH);
 
 			$data->PWD = passhash($newPwd);
 			XMLsave($data, $file);
-
-			// Invalidate token immediately (single-use)
-			$resetFile = GSUSERSPATH . $user . '.xml.resettoken';
-			if (file_exists($resetFile)) {
-				unlink($resetFile);
-			}
-
-			redirect('index.php?upd=success');
 		}
+		
+		$resetFile = GSUSERSPATH . $user . '.xml.resettoken';
+		if (file_exists($resetFile)) {
+			unlink($resetFile);
+		}
+
+		redirect('index.php?upd=success');
 	}
 
 	// Validation failed — re-render the form with error and back button
