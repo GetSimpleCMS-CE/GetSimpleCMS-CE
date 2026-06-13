@@ -95,6 +95,8 @@ Designed to be light and agile, the base install comes to you clutter free, with
 
 - Fix: fallback for any missing lang tokens in plugins.
 - Fix: stripslashes in components.
+- Fix: Refresh page after plugin update.
+- Fix: Generate thumbnail.
 - Improved: Image and file handling. Memory usage. Security enhancements.
 
 
