@@ -85,7 +85,7 @@ Designed to be light and agile, the base install comes to you clutter free, with
 ### Updates:
 
 - Plugin - Massive Admin v6.x (refactor, security enhancements).
-- Plugin - UpdateCE
+- Plugin - UpdateCE v1.x (refactor, security enhancements)
 - Health Check
 - Support Page
 - Sitemap UI
@@ -104,10 +104,11 @@ Designed to be light and agile, the base install comes to you clutter free, with
   - CVE-2026-27146 (CSRF in File Upload)
   - CVE-2026-27147 (XSS in SVGs)
   - CVE-2026-27161 (If AllowOverride is disabled)
-  - CVE-2026-27202 (Arbitrary File Read, MA)
-  - CVE-2026-28495 (CSRF in gsconfig.php, MA)
   - CVE-2026-53952 (Setup Logic Flaw)
   - CVE-2026-53953 (Predictable Password Reset)
+  - CVE-2026-27202 (Arbitrary File Read, `MA plugin`)
+  - CVE-2026-28495 (CSRF in gsconfig.php, `MA plugin`)
+  - CVE-tba (CSRF, SSRF, and Unrestricted Zip Extraction, `UpdateCE plugin`)
 
 ### Other:
 
