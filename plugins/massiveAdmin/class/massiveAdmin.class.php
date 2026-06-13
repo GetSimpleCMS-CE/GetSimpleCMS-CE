@@ -20,7 +20,7 @@ class MassiveAdminClass{
 
 		$afterNewDir = preg_replace('/\s+/', '-', $newDirMassive);
 
-		if (file_exists($afterNewDir) == 'true') {
+		if (file_exists($afterNewDir)) {
 			echo '<div class="massive-error">' . $fileIsHere . '</div>';
 		} else {
 			copy($oldDirMassive, $afterNewDir);
@@ -224,8 +224,8 @@ class MassiveAdminClass{
 		$newposUserwithspace = str_replace(' ', '-', $newposUser);
 		$supportUserMailMonkey = str_replace('@', '', $newposUserwithspace);
 		$supportUserMailFinal = str_replace('.', '', $supportUserMailMonkey);
-		$createUserEmail = $_POST['createuseremail'];
-		$disName = $_POST['createdisname'];
+		$createUserEmail = htmlspecialchars(trim($_POST['createuseremail']), ENT_XML1, 'UTF-8');
+		$disName         = htmlspecialchars(trim($_POST['createdisname']),   ENT_XML1, 'UTF-8');
 		$pass = $_POST['createpassword'];
 		$lang = $_POST['lang'];
 		$passhash = passhash($pass);
@@ -246,36 +246,51 @@ class MassiveAdminClass{
 
 	public function saveChangedUser(){
 		$data = new SimpleXMLElement(file_get_contents(GSUSERSPATH . $_POST['nameuser'] . '.xml'));
-		$oldPWD = (string)$data->PWD[0];
-		$oldLANG = (string)$data->LANG[0];
+		$oldPWD   = (string)$data->PWD[0];
+		$oldLANG  = (string)$data->LANG[0];
 		$oldEMAIL = (string)$data->EMAIL[0];
-		$oldNAME = (string)$data->NAME[0];
+		$oldNAME  = (string)$data->NAME[0];
 
-		$newNAME = $_POST['dname'];
-		$newEMAIL = $_POST['email'];
-		$newPWD = $_POST['password'];
-		$newLANG = $_POST['lang'];
+		$newNAME  = htmlspecialchars(trim($_POST['dname']),  ENT_XML1, 'UTF-8');
+		$newEMAIL = htmlspecialchars(trim($_POST['email']),  ENT_XML1, 'UTF-8');
+		$newPWD   = $_POST['password'];
+		$newLANG  = $_POST['lang'];
 
 		$file = file_get_contents(GSUSERSPATH . $_POST['nameuser'] . '.xml');
 
-		if ($oldNAME !== $newNAME && $oldNAME !== '') {
-			$file = str_replace($oldNAME, $newNAME, $file);
+		$file = str_replace('<NAME/>',  '<NAME></NAME>',  $file);
+		$file = str_replace('<EMAIL/>', '<EMAIL></EMAIL>', $file);
+		$file = str_replace('<LANG/>',  '<LANG></LANG>',  $file);
+
+		if ($newNAME !== '') {
+			if ($oldNAME !== '') {
+				$file = str_replace('<NAME>' . $oldNAME . '</NAME>', '<NAME>' . $newNAME . '</NAME>', $file);
+			} else {
+				$file = str_replace('<NAME></NAME>', '<NAME>' . $newNAME . '</NAME>', $file);
+			}
 		}
 
-		if ($oldEMAIL !== $newEMAIL && $newEMAIL !== '') {
-			$file = str_replace($oldEMAIL, $newEMAIL, $file);
+		if ($newEMAIL !== '') {
+			if ($oldEMAIL !== '') {
+				$file = str_replace('<EMAIL>' . $oldEMAIL . '</EMAIL>', '<EMAIL>' . $newEMAIL . '</EMAIL>', $file);
+			} else {
+				$file = str_replace('<EMAIL></EMAIL>', '<EMAIL>' . $newEMAIL . '</EMAIL>', $file);
+			}
 		}
 
-		if ($oldLANG !== $newLANG && $newLANG !== '') {
-			$file = str_replace($oldLANG, $newLANG, $file);
+		if ($newLANG !== '') {
+			if ($oldLANG !== '') {
+				$file = str_replace('<LANG>' . $oldLANG . '</LANG>', '<LANG>' . $newLANG . '</LANG>', $file);
+			} else {
+				$file = str_replace('<LANG></LANG>', '<LANG>' . $newLANG . '</LANG>', $file);
+			}
 		}
 
 		if ($newPWD !== '') {
 			$passhash = passhash($newPWD);
-			$file = str_replace($oldPWD, $passhash, $file);
+			$file = str_replace('<PWD>' . $oldPWD . '</PWD>', '<PWD>' . $passhash . '</PWD>', $file);
 		}
 
-		$file = str_replace('<NAME/>', '<NAME></NAME>', $file);
 		file_put_contents(GSUSERSPATH . $_POST['nameuser'] . '.xml', $file);
 
 		global $SITEURL, $GSADMIN;
@@ -296,6 +311,26 @@ class MassiveAdminClass{
 
 			$usrfile = pathinfo($value)['filename'];
 			$usrLangFile = (string)$username->LANG[0];
+
+			// Handle POST actions before any HTML output to avoid partial renders before redirect
+			if (isset($_POST['changeuser-' . $newValue])) {
+				$this->saveChangedUser();
+				return;
+			}
+
+			if (isset($_POST['deleteuser-' . $newValue])) {
+				global $USR;
+				if ($usrfile !== $USR) {
+					unlink($value);
+					global $SITEURL, $GSADMIN;
+					$redirectUrl = $SITEURL . $GSADMIN . "/load.php?id=massiveAdmin&usermanager";
+					echo '<script>window.location.href = "' . addslashes($redirectUrl) . '";</script>';
+					echo '<noscript><meta http-equiv="refresh" content="0;url=' . htmlspecialchars($redirectUrl, ENT_QUOTES) . '"></noscript>';
+					return;
+				} else {
+					echo '<div class="error" style="padding:10px;background:#f44336;color:white;margin:10px 0;">Cannot delete currently logged-in user!</div>';
+				}
+			}
 
 			echo '
 			<li> 
@@ -346,25 +381,6 @@ class MassiveAdminClass{
 
 				</form>
 			</li>';
-
-			if (isset($_POST['changeuser-' . $newValue])) {
-				$this->saveChangedUser();
-				return;
-			}
-
-			if (isset($_POST['deleteuser-' . $newValue])) {
-				global $USR;
-				if ($usrfile !== $USR) {
-					unlink($value);
-					global $SITEURL, $GSADMIN;
-					$redirectUrl = $SITEURL . $GSADMIN . "/load.php?id=massiveAdmin&usermanager";
-					echo '<script>window.location.href = "' . addslashes($redirectUrl) . '";</script>';
-					echo '<noscript><meta http-equiv="refresh" content="0;url=' . htmlspecialchars($redirectUrl, ENT_QUOTES) . '"></noscript>';
-					return;
-				} else {
-					echo '<div class="error" style="padding:10px;background:#f44336;color:white;margin:10px 0;">Cannot delete currently logged-in user!</div>';
-				}
-			}
 		}
 	}
 
