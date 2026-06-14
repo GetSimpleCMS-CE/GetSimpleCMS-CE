@@ -86,7 +86,7 @@ Designed to be light and agile, the base install comes to you clutter free, with
 ### Updates:
 
 - Plugin - Massive Admin v6.x (refactor, security enhancements).
-- Plugin - UpdateCE v1.x (refactor, security enhancements)
+- Plugin - UpdateCE v1.x (refactor, security enhancements).
 - Health Check
 - Support Page
 - Sitemap UI
