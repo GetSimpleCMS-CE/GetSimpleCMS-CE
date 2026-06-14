@@ -296,7 +296,7 @@ function serviceUnavailable(){
 /**
  * Check to make sure site is already installed
  */
-if (get_filename_id() != 'install' && get_filename_id() != 'setup' && get_filename_id() != 'update') {
+if (get_filename_id() != 'install' && get_filename_id() != 'setup') {
 	$fullpath = suggest_site_path();
 	
 	// if there is no SITEURL set, then it's a fresh install. Start installation process
@@ -304,13 +304,6 @@ if (get_filename_id() != 'install' && get_filename_id() != 'setup' && get_filena
 	if ($SITEURL == '' && version_compare(get_gs_version(), '3.0', '>=')) {
 		serviceUnavailable();
 		redirect($fullpath . $GSADMIN.'/install.php');
-	} 
-	else {	
-		// if an update file was included in the install package, redirect there first	
-		if (file_exists(GSADMINPATH.'update.php') && !isset($_GET['updated']) && !getDef('GSDEBUGINSTALL'))	{
-			serviceUnavailable();
-			redirect($fullpath . $GSADMIN.'/update.php');
-		}
 	}
 
 	if (!getDef('GSDEBUGINSTALL', true)) {
