@@ -633,6 +633,8 @@ $i18n = [
 	/*
 	 * New for 3.3.23
 	 */
+	 
+	// Token based password reset
 	"Click_the_link"            => "Haz clic en el siguiente enlace para establecer una nueva contraseña.",
 	"This_link_expires"         => "Este enlace caduca en 1 hora y solo puede utilizarse una vez.",
 
@@ -644,7 +646,40 @@ $i18n = [
 	"New_Password"              => "Nueva contraseña",
 	"Confirm_New_Password"      => "Confirmar nueva contraseña",
 	"Set_New_Password"          => "Establecer nueva contraseña",
+	
+	// SMTP settings
+	"SMTP_OPTIONAL"             => "Envío de correo electrónico (opcional)",
+	"SMTP_SETUP_DESC"           => "Configure SMTP ahora para utilizarlo en el correo de confirmación de instalación y en todos los correos futuros. También puede activarlo más adelante desde Configuración.",
 
+	"SMTP_SETTINGS"             => "Correo electrónico / SMTP",
+	"SMTP_SETTINGS_DESC"        => "Configure SMTP para los correos salientes. Déjelo desactivado para utilizar la función PHP mail() predeterminada del servidor.",
+
+	"SMTP_ENABLE"               => "Activar SMTP",
+	"SMTP_HOST"                 => "Servidor SMTP",
+	"SMTP_PORT"                 => "Puerto",
+	"SMTP_ENCRYPTION"           => "Cifrado",
+	"SMTP_ENC_NONE"             => "Ninguno",
+	"SMTP_USERNAME"             => "Nombre de usuario",
+	"SMTP_PASSWORD"             => "Contraseña",
+	"SMTP_PASS_PLACEHOLDER"     => "(sin cambios)",
+	"SMTP_FROM_EMAIL"           => "Correo del remitente",
+	"SMTP_FROM_NAME"            => "Nombre del remitente",
+	"SMTP_TEST_LABEL"           => "Probar conexión",
+	"SMTP_TEST_BTN"             => "Enviar correo de prueba",
+	"SMTP_TEST_SENDING"         => "Enviando...",
+
+	"SMTP_VERIFY_PEER"          => "Verificar certificado SSL",
+	"SMTP_VERIFY_PEER_DESC"     => "Desactívelo únicamente para desarrollo local con certificados autofirmados. Manténgalo siempre activado en servidores de producción.",
+
+	"SMTP_TEST_ERROR"           => "La solicitud ha fallado",
+	"SMTP_TEST_ERROR_CSRF"      => "La comprobación de seguridad ha fallado. Recargue la página e inténtelo de nuevo.",
+	"SMTP_TEST_NOT_CONFIGURED"  => "SMTP no está activado. Guarde primero la configuración.",
+	"SMTP_TEST_NO_RECIPIENT"    => "No se encontró una dirección de correo válida para su cuenta.",
+	"SMTP_TEST_SUBJECT"         => "Prueba SMTP de GetSimple CMS CE",
+	"SMTP_TEST_BODY"            => "Este es un correo de prueba de GetSimple CMS CE. <br>Si lo ha recibido, su configuración SMTP funciona correctamente.",
+	"SMTP_TEST_SUCCESS"         => "Correo de prueba enviado a %s",
+	"SMTP_TEST_FAILED"          => "Error al enviar. Consulte la salida de depuración a continuación para más detalles.",
+	
 ];
 
 ?>

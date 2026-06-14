@@ -633,6 +633,8 @@ $i18n = [
 	/*
 	 * New for 3.3.23
 	 */
+	 
+	// Token based password reset
 	"Click_the_link"            => "Clique na ligação abaixo para definir uma nova palavra-passe.",
 	"This_link_expires"         => "Esta ligação expira em 1 hora e só pode ser utilizada uma vez.",
 
@@ -644,7 +646,40 @@ $i18n = [
 	"New_Password"              => "Nova palavra-passe",
 	"Confirm_New_Password"      => "Confirmar nova palavra-passe",
 	"Set_New_Password"          => "Definir nova palavra-passe",
-
+	
+	// SMTP settings
+	"SMTP_OPTIONAL"				=> "Envio de e-mails (opcional)",
+	"SMTP_SETUP_DESC"			=> "Configure o SMTP agora para o utilizar no e-mail de confirmação da instalação e em todos os e-mails futuros. Também o pode ativar mais tarde em Definições.",
+	
+	"SMTP_SETTINGS"				=> "E-mail / SMTP",
+	"SMTP_SETTINGS_DESC"		=> "Configure o SMTP para os e-mails enviados. Deixe desativado para utilizar a função PHP mail() predefinida do servidor.",
+	
+	"SMTP_ENABLE"				=> "Ativar SMTP",
+	"SMTP_HOST"					=> "Servidor SMTP",
+	"SMTP_PORT"					=> "Porta",
+	"SMTP_ENCRYPTION"			=> "Encriptação",
+	"SMTP_ENC_NONE"				=> "Nenhuma",
+	"SMTP_USERNAME"				=> "Nome de utilizador",
+	"SMTP_PASSWORD"				=> "Palavra-passe",
+	"SMTP_PASS_PLACEHOLDER"		=> "(inalterada)",
+	"SMTP_FROM_EMAIL"			=> "E-mail do remetente",
+	"SMTP_FROM_NAME"			=> "Nome do remetente",
+	"SMTP_TEST_LABEL"			=> "Testar ligação",
+	"SMTP_TEST_BTN"				=> "Enviar e-mail de teste",
+	"SMTP_TEST_SENDING"			=> "A enviar...",
+	
+	"SMTP_VERIFY_PEER"			=> "Verificar certificado SSL",
+	"SMTP_VERIFY_PEER_DESC"		=> "Desative apenas para desenvolvimento local com certificados autoassinados. Mantenha sempre ativado em servidores de produção.",
+	
+	"SMTP_TEST_ERROR"			=> "Pedido falhou",
+	"SMTP_TEST_ERROR_CSRF"		=> "A verificação de segurança falhou. Recarregue a página e tente novamente.",
+	"SMTP_TEST_NOT_CONFIGURED"	=> "O SMTP não está ativado. Guarde primeiro as suas definições.",
+	"SMTP_TEST_NO_RECIPIENT"	=> "Não foi encontrado um endereço de e-mail válido para a sua conta.",
+	"SMTP_TEST_SUBJECT"			=> "Teste SMTP do GetSimple CMS CE",
+	"SMTP_TEST_BODY"			=> "Este é um e-mail de teste do GetSimple CMS CE. <br>Se o recebeu, as suas definições SMTP estão a funcionar corretamente.",
+	"SMTP_TEST_SUCCESS"			=> "E-mail de teste enviado para %s",
+	"SMTP_TEST_FAILED"			=> "Falha no envio. Consulte a informação de depuração abaixo para mais detalhes.",
+	
 ];
 
 ?>

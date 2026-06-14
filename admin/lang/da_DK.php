@@ -633,6 +633,8 @@ $i18n = [
 	/*
 	 * New for 3.3.23
 	 */
+	 
+	// Token based password reset
 	"Click_the_link"            => "Klik på linket nedenfor for at angive en ny adgangskode.",
 	"This_link_expires"         => "Dette link udløber om 1 time og kan kun bruges én gang.",
 
@@ -644,7 +646,40 @@ $i18n = [
 	"New_Password"              => "Ny adgangskode",
 	"Confirm_New_Password"      => "Bekræft ny adgangskode",
 	"Set_New_Password"          => "Angiv ny adgangskode",
+	
+	// SMTP settings
+	"SMTP_OPTIONAL"             => "E-maillevering (valgfrit)",
+	"SMTP_SETUP_DESC"           => "Konfigurer SMTP nu for at bruge det til opsætningsbekræftelsen og alle fremtidige e-mails. Du kan også aktivere det senere under Indstillinger.",
 
+	"SMTP_SETTINGS"             => "E-mail / SMTP",
+	"SMTP_SETTINGS_DESC"        => "Konfigurer SMTP til udgående e-mails. Lad det være deaktiveret for at bruge serverens standard PHP mail().",
+
+	"SMTP_ENABLE"               => "Aktivér SMTP",
+	"SMTP_HOST"                 => "SMTP-vært",
+	"SMTP_PORT"                 => "Port",
+	"SMTP_ENCRYPTION"           => "Kryptering",
+	"SMTP_ENC_NONE"             => "Ingen",
+	"SMTP_USERNAME"             => "Brugernavn",
+	"SMTP_PASSWORD"             => "Adgangskode",
+	"SMTP_PASS_PLACEHOLDER"     => "(uændret)",
+	"SMTP_FROM_EMAIL"           => "Fra e-mail",
+	"SMTP_FROM_NAME"            => "Fra navn",
+	"SMTP_TEST_LABEL"           => "Test forbindelse",
+	"SMTP_TEST_BTN"             => "Send testmail",
+	"SMTP_TEST_SENDING"         => "Sender...",
+
+	"SMTP_VERIFY_PEER"          => "Bekræft SSL-certifikat",
+	"SMTP_VERIFY_PEER_DESC"     => "Deaktivér kun ved lokal udvikling med selvsignerede certifikater. Lad det altid være aktiveret på produktionsservere.",
+
+	"SMTP_TEST_ERROR"           => "Anmodning mislykkedes",
+	"SMTP_TEST_ERROR_CSRF"      => "Sikkerhedskontrol mislykkedes. Genindlæs siden og prøv igen.",
+	"SMTP_TEST_NOT_CONFIGURED"  => "SMTP er ikke aktiveret. Gem først dine indstillinger.",
+	"SMTP_TEST_NO_RECIPIENT"    => "Ingen gyldig e-mailadresse fundet for din konto.",
+	"SMTP_TEST_SUBJECT"         => "GetSimple CMS CE SMTP-test",
+	"SMTP_TEST_BODY"            => "Dette er en testmail fra GetSimple CMS CE. <br>Hvis du har modtaget den, fungerer dine SMTP-indstillinger korrekt.",
+	"SMTP_TEST_SUCCESS"         => "Testmail sendt til %s",
+	"SMTP_TEST_FAILED"          => "Afsendelse mislykkedes. Se fejlfindingsoplysningerne nedenfor for detaljer.",
+	
 ];
 
 ?>

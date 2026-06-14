@@ -633,6 +633,8 @@ $i18n = [
 	/*
 	 * New for 3.3.23
 	 */
+	 
+	// Token based password reset
 	"Click_the_link"            => "انقر على الرابط أدناه لتعيين كلمة مرور جديدة.",
 	"This_link_expires"         => "تنتهي صلاحية هذا الرابط خلال ساعة واحدة ولا يمكن استخدامه إلا مرة واحدة.",
 
@@ -644,7 +646,40 @@ $i18n = [
 	"New_Password"              => "كلمة المرور الجديدة",
 	"Confirm_New_Password"      => "تأكيد كلمة المرور الجديدة",
 	"Set_New_Password"          => "تعيين كلمة مرور جديدة",
+	
+	// SMTP settings
+	"SMTP_OPTIONAL"             => "إرسال البريد الإلكتروني (اختياري)",
+	"SMTP_SETUP_DESC"           => "قم بإعداد SMTP الآن لاستخدامه في رسالة تأكيد الإعداد وجميع الرسائل المستقبلية. يمكنك أيضًا تفعيله لاحقًا من خلال الإعدادات.",
 
+	"SMTP_SETTINGS"             => "البريد الإلكتروني / SMTP",
+	"SMTP_SETTINGS_DESC"        => "قم بتكوين SMTP للبريد الإلكتروني الصادر. اتركه معطلاً لاستخدام دالة PHP mail() الافتراضية للخادم.",
+
+	"SMTP_ENABLE"               => "تمكين SMTP",
+	"SMTP_HOST"                 => "خادم SMTP",
+	"SMTP_PORT"                 => "المنفذ",
+	"SMTP_ENCRYPTION"           => "التشفير",
+	"SMTP_ENC_NONE"             => "بدون",
+	"SMTP_USERNAME"             => "اسم المستخدم",
+	"SMTP_PASSWORD"             => "كلمة المرور",
+	"SMTP_PASS_PLACEHOLDER"     => "(بدون تغيير)",
+	"SMTP_FROM_EMAIL"           => "البريد الإلكتروني للمرسل",
+	"SMTP_FROM_NAME"            => "اسم المرسل",
+	"SMTP_TEST_LABEL"           => "اختبار الاتصال",
+	"SMTP_TEST_BTN"             => "إرسال رسالة اختبار",
+	"SMTP_TEST_SENDING"         => "جارٍ الإرسال...",
+
+	"SMTP_VERIFY_PEER"          => "التحقق من شهادة SSL",
+	"SMTP_VERIFY_PEER_DESC"     => "قم بالتعطيل فقط أثناء التطوير المحلي باستخدام شهادات موقعة ذاتيًا. اتركه ممكّنًا دائمًا على خوادم الإنتاج.",
+
+	"SMTP_TEST_ERROR"           => "فشل الطلب",
+	"SMTP_TEST_ERROR_CSRF"      => "فشل التحقق الأمني. يرجى إعادة تحميل الصفحة والمحاولة مرة أخرى.",
+	"SMTP_TEST_NOT_CONFIGURED"  => "SMTP غير مفعّل. احفظ الإعدادات أولاً.",
+	"SMTP_TEST_NO_RECIPIENT"    => "لم يتم العثور على عنوان بريد إلكتروني صالح لحسابك.",
+	"SMTP_TEST_SUBJECT"         => "اختبار SMTP لـ GetSimple CMS CE",
+	"SMTP_TEST_BODY"            => "هذه رسالة اختبار من GetSimple CMS CE. <br>إذا وصلتك هذه الرسالة، فإن إعدادات SMTP تعمل بشكل صحيح.",
+	"SMTP_TEST_SUCCESS"         => "تم إرسال رسالة الاختبار إلى %s",
+	"SMTP_TEST_FAILED"          => "فشل الإرسال. تحقق من معلومات التصحيح أدناه لمزيد من التفاصيل.",
+	
 ];
 
 ?>

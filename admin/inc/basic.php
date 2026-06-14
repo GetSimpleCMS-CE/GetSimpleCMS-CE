@@ -217,7 +217,7 @@ function email_template($message) {
 
 
 /**
- * Send Email
+ * Send Email via SMTP (if smtp.xml is present and enabled) or PHP mail().
  *
  * @since 1.0
  * @uses GSFROMEMAIL
@@ -226,12 +226,22 @@ function email_template($message) {
  * @param string $to
  * @param string $subject
  * @param string $message
- * @return string
+ * @return string 'success' or 'error'
  */
 function sendmail($to,$subject,$message) {
-	
+
 	$message = email_template($message);
 
+	// --- SMTP path ---.
+	if (function_exists('gs_load_smtp_config')) {
+		$smtp_cfg = gs_load_smtp_config();
+		if ($smtp_cfg !== null) {
+			$encoded_subject = '=?UTF-8?B?' . base64_encode($subject) . '?=';
+			return gs_sendmail_smtp($to, $encoded_subject, $message, $smtp_cfg);
+		}
+	}
+
+	// --- PHP mail() path  ---
 	if (defined('GSFROMEMAIL')){
 		$fromemail = GSFROMEMAIL; 
 	} else {

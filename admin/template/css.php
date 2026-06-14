@@ -1825,11 +1825,39 @@ body#index {
 }
 
 #setup #maincontent .main {
-	width: 270px;
+	width: 300px;
+	max-height: 500px;
+	overflow-y: auto;
+	scrollbar-width: none;
+}
+#setup #maincontent .main:hover {
+	scrollbar-width: thin;
+	scrollbar-color: #888 transparent;
+}
+#setup #maincontent .main::-webkit-scrollbar {
+	width: 0px;
+	transition: width 0.2s;
+}
+#setup #maincontent .main:hover::-webkit-scrollbar {
+	width: 6px;
+}
+#setup #maincontent .main::-webkit-scrollbar-track {
+  background: transparent;
+}
+#setup #maincontent .main::-webkit-scrollbar-thumb {
+	background: transparent;
+	border-radius: 10px;
+}
+#setup #maincontent .main:hover::-webkit-scrollbar-thumb {
+	background: #888;
 }
 
 #setup input.text {
 	width: 250px;
+}
+#setup select {
+	width: 250px;
+	background-color:white;
 }
 
 #index #maincontent .main,

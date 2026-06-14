@@ -633,6 +633,8 @@ $i18n = [
 	/*
 	 * New for 3.3.23
 	 */
+	 
+	// Token based password reset
 	"Click_the_link"            => "Klik op de onderstaande link om een nieuw wachtwoord in te stellen.",
 	"This_link_expires"         => "Deze link verloopt over 1 uur en kan slechts één keer worden gebruikt.",
 
@@ -644,7 +646,40 @@ $i18n = [
 	"New_Password"              => "Nieuw wachtwoord",
 	"Confirm_New_Password"      => "Nieuw wachtwoord bevestigen",
 	"Set_New_Password"          => "Nieuw wachtwoord instellen",
-
+	
+	// SMTP settings
+	"SMTP_OPTIONAL"				=> "E-mailverzending (optioneel)",
+	"SMTP_SETUP_DESC"			=> "Configureer SMTP nu om het te gebruiken voor de installatiebevestiging en alle toekomstige e-mails. U kunt dit later ook inschakelen via Instellingen.",
+	
+	"SMTP_SETTINGS"				=> "E-mail / SMTP",
+	"SMTP_SETTINGS_DESC"		=> "Configureer SMTP voor uitgaande e-mails. Laat dit uitgeschakeld om de standaard PHP mail()-functie van de server te gebruiken.",
+	
+	"SMTP_ENABLE"				=> "SMTP inschakelen",
+	"SMTP_HOST"					=> "SMTP-host",
+	"SMTP_PORT"					=> "Poort",
+	"SMTP_ENCRYPTION"			=> "Versleuteling",
+	"SMTP_ENC_NONE"				=> "Geen",
+	"SMTP_USERNAME"				=> "Gebruikersnaam",
+	"SMTP_PASSWORD"				=> "Wachtwoord",
+	"SMTP_PASS_PLACEHOLDER"		=> "(ongewijzigd)",
+	"SMTP_FROM_EMAIL"			=> "Afzender e-mail",
+	"SMTP_FROM_NAME"			=> "Afzendernaam",
+	"SMTP_TEST_LABEL"			=> "Verbinding testen",
+	"SMTP_TEST_BTN"				=> "Testmail verzenden",
+	"SMTP_TEST_SENDING"			=> "Bezig met verzenden...",
+	
+	"SMTP_VERIFY_PEER"			=> "SSL-certificaat controleren",
+	"SMTP_VERIFY_PEER_DESC"		=> "Schakel dit alleen uit voor lokale ontwikkeling met zelfondertekende certificaten. Laat het altijd ingeschakeld op productieservers.",
+	
+	"SMTP_TEST_ERROR"			=> "Aanvraag mislukt",
+	"SMTP_TEST_ERROR_CSRF"		=> "Beveiligingscontrole mislukt. Laad de pagina opnieuw en probeer het opnieuw.",
+	"SMTP_TEST_NOT_CONFIGURED"	=> "SMTP is niet ingeschakeld. Sla eerst uw instellingen op.",
+	"SMTP_TEST_NO_RECIPIENT"	=> "Geen geldig e-mailadres gevonden voor uw account.",
+	"SMTP_TEST_SUBJECT"			=> "GetSimple CMS CE SMTP-test",
+	"SMTP_TEST_BODY"			=> "Dit is een testmail van GetSimple CMS CE. <br>Als u deze heeft ontvangen, werken uw SMTP-instellingen correct.",
+	"SMTP_TEST_SUCCESS"			=> "Testmail verzonden naar %s",
+	"SMTP_TEST_FAILED"			=> "Verzenden mislukt. Controleer de debug-uitvoer hieronder voor details.",
+	
 ];
 
 ?>

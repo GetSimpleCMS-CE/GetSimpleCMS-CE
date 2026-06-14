@@ -633,6 +633,8 @@ $i18n = [
 	/*
 	 * New for 3.3.23
 	 */
+	 
+	// Token based password reset
 	"Click_the_link"            => "Klikk på lenken nedenfor for å angi et nytt passord.",
 	"This_link_expires"         => "Denne lenken utløper om 1 time og kan bare brukes én gang.",
 
@@ -644,7 +646,40 @@ $i18n = [
 	"New_Password"              => "Nytt passord",
 	"Confirm_New_Password"      => "Bekreft nytt passord",
 	"Set_New_Password"          => "Angi nytt passord",
-
+	
+	// SMTP settings
+	"SMTP_OPTIONAL"				=> "E-postlevering (valgfritt)",
+	"SMTP_SETUP_DESC"			=> "Konfigurer SMTP nå for å bruke det til oppsettbekreftelsen og alle fremtidige e-poster. Du kan også aktivere det senere under Innstillinger.",
+	
+	"SMTP_SETTINGS"				=> "E-post / SMTP",
+	"SMTP_SETTINGS_DESC"		=> "Konfigurer SMTP for utgående e-poster. La det være deaktivert for å bruke serverens standard PHP mail().",
+	
+	"SMTP_ENABLE"				=> "Aktiver SMTP",
+	"SMTP_HOST"					=> "SMTP-vert",
+	"SMTP_PORT"					=> "Port",
+	"SMTP_ENCRYPTION"			=> "Kryptering",
+	"SMTP_ENC_NONE"				=> "Ingen",
+	"SMTP_USERNAME"				=> "Brukernavn",
+	"SMTP_PASSWORD"				=> "Passord",
+	"SMTP_PASS_PLACEHOLDER"		=> "(uendret)",
+	"SMTP_FROM_EMAIL"			=> "Fra e-post",
+	"SMTP_FROM_NAME"			=> "Fra navn",
+	"SMTP_TEST_LABEL"			=> "Test tilkobling",
+	"SMTP_TEST_BTN"				=> "Send test-e-post",
+	"SMTP_TEST_SENDING"			=> "Sender...",
+	
+	"SMTP_VERIFY_PEER"			=> "Bekreft SSL-sertifikat",
+	"SMTP_VERIFY_PEER_DESC"		=> "Deaktiver kun ved lokal utvikling med selvsignerte sertifikater. La det alltid være aktivert på produksjonsservere.",
+	
+	"SMTP_TEST_ERROR"			=> "Forespørselen mislyktes",
+	"SMTP_TEST_ERROR_CSRF"		=> "Sikkerhetskontrollen mislyktes. Last inn siden på nytt og prøv igjen.",
+	"SMTP_TEST_NOT_CONFIGURED"	=> "SMTP er ikke aktivert. Lagre innstillingene først.",
+	"SMTP_TEST_NO_RECIPIENT"	=> "Ingen gyldig e-postadresse funnet for kontoen din.",
+	"SMTP_TEST_SUBJECT"			=> "GetSimple CMS CE SMTP-test",
+	"SMTP_TEST_BODY"			=> "Dette er en test-e-post fra GetSimple CMS CE. <br>Hvis du mottok den, fungerer SMTP-innstillingene riktig.",
+	"SMTP_TEST_SUCCESS"			=> "Test-e-post sendt til %s",
+	"SMTP_TEST_FAILED"			=> "Sending mislyktes. Sjekk feilsøkingsutdataene nedenfor for detaljer.",
+	
 ];
 
 ?>

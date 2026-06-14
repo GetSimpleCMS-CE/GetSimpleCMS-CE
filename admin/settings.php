@@ -181,6 +181,25 @@ if(isset($_POST['submitted'])) {
 			$error = i18n_r('CHMOD_ERROR');
 		}
 
+		# save SMTP config if present
+		if (function_exists('gs_save_smtp_config')) {
+			$smtp_cfg_save = [
+				'enabled'    => isset($_POST['smtp_enabled']) ? '1' : '0',
+				'host'       => trim($_POST['smtp_host']       ?? ''),
+				'port'       => (int)($_POST['smtp_port']       ?? 587),
+				'enc'        => $_POST['smtp_enc']              ?? 'tls',
+				'user'       => trim($_POST['smtp_user']        ?? ''),
+				'from_email' => trim($_POST['smtp_from_email']  ?? ''),
+				'from_name'  => trim($_POST['smtp_from_name']   ?? ''),
+				'verify_peer'=> isset($_POST['smtp_verify_peer']) ? '1' : '0',
+			];
+			// Only re-encrypt if a new password was submitted; empty = keep existing
+			$smtp_new_pass = $_POST['smtp_pass'] ?? '';
+			if (!gs_save_smtp_config($smtp_cfg_save, $smtp_new_pass)) {
+				$error = i18n_r('CHMOD_ERROR');
+			}
+		}
+
 		# see new language file immediately
 		include(GSLANGPATH.$LANG.'.php');
 		
@@ -296,7 +315,102 @@ get_template('header', cl($SITENAME).' &raquo; '.i18n_r('GENERAL_SETTINGS'));
 			<p><label for="sitepwd_confirm" ><?php i18n('CONFIRM_PASSWORD');?>:</label><input autocomplete="off" class="text" id="sitepwd_confirm" name="sitepwd_confirm" type="password" value="" /></p>
 		</div>
 		<div class="clear"></div>
-		
+
+		</div><!-- /section -->
+
+		<div id="smtp-settings" class="section" >
+		<h3><?php i18n('SMTP_SETTINGS'); ?></h3>
+		<p class="desc" style="margin:0px 0 5px 0;font-size:12px;color:#999;"><?php i18n('SMTP_SETTINGS_DESC'); ?></p>
+
+		<?php
+		// Load current SMTP config for display (password never echoed)
+		$smtp_display = function_exists('gs_load_smtp_config_raw') ? gs_load_smtp_config_raw() : [];
+		$smtp_enabled_chk   = !empty($smtp_display['enabled']) && $smtp_display['enabled'] === '1' ? 'checked' : '';
+		$smtp_host_val      = htmlspecialchars($smtp_display['host']       ?? '');
+		$smtp_port_val      = htmlspecialchars($smtp_display['port']       ?? '587');
+		$smtp_user_val      = htmlspecialchars($smtp_display['user']       ?? '');
+		$smtp_from_email_val= htmlspecialchars($smtp_display['from_email'] ?? '');
+		$smtp_from_name_val = htmlspecialchars($smtp_display['from_name']  ?? '');
+		$smtp_enc_val       = $smtp_display['enc'] ?? 'tls';
+		$smtp_verify_chk    = !isset($smtp_display['verify_peer']) || $smtp_display['verify_peer'] !== '0' ? 'checked' : '';
+		?>
+
+		<div class="leftsec">
+			<p class="inline">
+				<input type="checkbox" name="smtp_enabled" id="smtp_enabled" value="1" <?php echo $smtp_enabled_chk; ?> />
+				&nbsp;<label for="smtp_enabled"><?php i18n('SMTP_ENABLE'); ?></label>
+			</p>
+		</div>
+		<div class="clear"></div>
+
+		<div id="smtp_fields"<?php echo empty($smtp_enabled_chk) ? ' style="display:none"' : ''; ?>>
+
+		<div class="leftsec">
+			<p><label for="smtp_host"><?php i18n('SMTP_HOST'); ?>:</label>
+			<input class="text" id="smtp_host" name="smtp_host" type="text"
+				value="<?php echo $smtp_host_val; ?>" placeholder="smtp.example.com" /></p>
+		</div>
+		<div class="rightsec">
+			<p><label for="smtp_port"><?php i18n('SMTP_PORT'); ?>:</label>
+			<input class="text" id="smtp_port" name="smtp_port" type="number"
+				value="<?php echo $smtp_port_val; ?>" min="1" max="65535" /></p>
+		</div>
+		<div class="clear"></div>
+
+		<div class="leftsec">
+			<p><label for="smtp_enc"><?php i18n('SMTP_ENCRYPTION'); ?>:</label>
+			<select class="text" id="smtp_enc" name="smtp_enc">
+				<option value="tls"<?php echo $smtp_enc_val === 'tls' ? ' selected' : ''; ?>>STARTTLS (587)</option>
+				<option value="ssl"<?php echo $smtp_enc_val === 'ssl' ? ' selected' : ''; ?>>SSL/TLS (465)</option>
+				<option value=""<?php echo $smtp_enc_val === ''    ? ' selected' : ''; ?>><?php i18n('SMTP_ENC_NONE'); ?></option>
+			</select></p>
+		</div>
+		<div class="rightsec">
+			<p><label for="smtp_user"><?php i18n('SMTP_USERNAME'); ?>:</label>
+			<input class="text" id="smtp_user" name="smtp_user" type="text"
+				value="<?php echo $smtp_user_val; ?>" autocomplete="off" /></p>
+		</div>
+		<div class="clear"></div>
+
+		<div class="leftsec">
+			<p><label for="smtp_pass"><?php i18n('SMTP_PASSWORD'); ?>:</label>
+			<input class="text" id="smtp_pass" name="smtp_pass" type="password"
+				value="" placeholder="<?php i18n('SMTP_PASS_PLACEHOLDER'); ?>" autocomplete="new-password" /></p>
+		</div>
+		<div class="rightsec">
+			<p><label for="smtp_from_email"><?php i18n('SMTP_FROM_EMAIL'); ?>:</label>
+			<input class="text" id="smtp_from_email" name="smtp_from_email" type="email"
+				value="<?php echo $smtp_from_email_val; ?>" /></p>
+		</div>
+		<div class="clear"></div>
+
+		<div class="leftsec">
+			<p><label for="smtp_from_name"><?php i18n('SMTP_FROM_NAME'); ?>:</label>
+			<input class="text" id="smtp_from_name" name="smtp_from_name" type="text"
+				value="<?php echo $smtp_from_name_val; ?>" /></p>
+		</div>
+		<div class="clear"></div>
+
+		<div class="leftsec">
+			<p class="inline">
+				<input type="checkbox" name="smtp_verify_peer" id="smtp_verify_peer" value="1" <?php echo $smtp_verify_chk; ?> />
+				&nbsp;<label for="smtp_verify_peer"><?php i18n('SMTP_VERIFY_PEER'); ?></label>
+			</p>
+			<p style="margin:2px 0 0 22px;font-size:11px;color:#999;"><?php i18n('SMTP_VERIFY_PEER_DESC'); ?></p>
+		</div>
+		<div class="rightsec">
+			<p><label><?php i18n('SMTP_TEST_LABEL'); ?>:</label>
+			<button type="button" id="smtp_test_btn" class="button"><?php i18n('SMTP_TEST_BTN'); ?></button>
+			<span id="smtp_test_result" style="margin-left:10px;font-size:12px;"></span></p>
+			<pre id="smtp_debug_output" style="display:none;margin-top:8px;padding:8px;background:#f4f4f4;border:1px solid #ddd;font-size:11px;line-height:1.4;white-space:pre-wrap;word-break:break-all;max-height:200px;overflow-y:auto;"></pre>
+		</div>
+		<div class="clear"></div>
+
+		</div><!-- /#smtp_fields -->
+		</div><!-- /#smtp-settings .section -->
+
+		<div class="section">
+
 		<p id="submit_line" >
 			<span><input class="submit" type="submit" name="submitted" value="<?php i18n('BTN_SAVESETTINGS');?>" /></span> &nbsp;&nbsp;<?php i18n('OR'); ?>&nbsp;&nbsp; <a class="cancel" href="settings.php?cancel"><?php i18n('CANCEL'); ?></a>
 		</p>
@@ -312,4 +426,50 @@ get_template('header', cl($SITENAME).' &raquo; '.i18n_r('GENERAL_SETTINGS'));
 	</div>
 
 </div>
+<script>
+(function() {
+	// Toggle SMTP fields visibility
+	var chk = document.getElementById('smtp_enabled');
+	var fields = document.getElementById('smtp_fields');
+	if (chk && fields) {
+		chk.addEventListener('change', function() {
+			fields.style.display = this.checked ? '' : 'none';
+		});
+	}
+
+	// Test button
+	var btn = document.getElementById('smtp_test_btn');
+	var result = document.getElementById('smtp_test_result');
+	if (btn && result) {
+		btn.addEventListener('click', function() {
+			result.textContent = '<?php echo addslashes(i18n_r("SMTP_TEST_SENDING")); ?>...';
+			result.style.color = '#999';
+			var data = new FormData();
+			data.append('nonce', '<?php echo get_nonce("smtp_test", "gs-mailer-test"); ?>');
+			fetch('<?php echo rtrim($SITEURL, '/') . '/' . $GSADMIN; ?>/inc/gs-mailer-test.php', { method: 'POST', body: data, credentials: 'same-origin' })
+				.then(function(r) {
+					if (!r.ok) {
+						return r.text().then(function(t) {
+							throw new Error('HTTP ' + r.status + (t ? ': ' + t.substring(0, 120) : ''));
+						});
+					}
+					return r.json();
+				})
+				.then(function(j) {
+					result.textContent = j.message;
+					result.style.color = j.status === 'success' ? '#3a3' : '#c33';
+					var dbg = document.getElementById('smtp_debug_output');
+					if (dbg) {
+						dbg.style.display = j.debug ? '' : 'none';
+						dbg.textContent   = j.debug || '';
+					}
+				})
+				.catch(function(e) {
+					result.textContent = e.message || '<?php echo addslashes(i18n_r("SMTP_TEST_ERROR")); ?>';
+					result.style.color = '#c33';
+				});
+		});
+	}
+}());
+</script>
 <?php get_template('footer'); ?>

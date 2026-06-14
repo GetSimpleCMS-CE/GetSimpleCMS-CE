@@ -633,6 +633,8 @@ $i18n = [
 	/*
 	 * New for 3.3.23
 	 */
+	 
+	// Token based password reset
 	"Click_the_link"			=>	"Click the link below to set a new password.",
 	"This_link_expires"			=>	"This link expires in 1 hour and can only be used once.",
 	
@@ -644,7 +646,40 @@ $i18n = [
 	"New_Password"				=>	"New Password",
 	"Confirm_New_Password"		=>	"Confirm New Password",
 	"Set_New_Password"			=>	"Set New Password",
-
+	
+	// SMTP settings
+	"SMTP_OPTIONAL"				=> "Email Delivery (optional)",
+	"SMTP_SETUP_DESC"			=> "Configure SMTP now to use it for the setup confirmation email and all future emails. You can also enable this later under Settings.",
+	
+	"SMTP_SETTINGS"				=> "Email / SMTP",
+	"SMTP_SETTINGS_DESC"		=> "Configure SMTP for outgoing emails. Leave disabled to use the server's default PHP mail().",
+	
+	"SMTP_ENABLE"				=> "Enable SMTP",
+	"SMTP_HOST"					=> "SMTP Host",
+	"SMTP_PORT"					=> "Port",
+	"SMTP_ENCRYPTION"			=> "Encryption",
+	"SMTP_ENC_NONE"				=> "None",
+	"SMTP_USERNAME"				=> "Username",
+	"SMTP_PASSWORD"				=> "Password",
+	"SMTP_PASS_PLACEHOLDER"		=> "(unchanged)",
+	"SMTP_FROM_EMAIL"			=> "From Email",
+	"SMTP_FROM_NAME"			=> "From Name",
+	"SMTP_TEST_LABEL"			=> "Test Connection",
+	"SMTP_TEST_BTN"				=> "Send Test Email",
+	"SMTP_TEST_SENDING"			=> "Sending...",
+	
+	"SMTP_VERIFY_PEER"			=> "Verify SSL Certificate",
+	"SMTP_VERIFY_PEER_DESC"		=> "Disable only for local development with self-signed certificates. Always leave enabled on production servers.",
+	
+	"SMTP_TEST_ERROR"			=> "Request failed",
+	"SMTP_TEST_ERROR_CSRF"		=> "Security check failed. Please reload the page and try again.",
+	"SMTP_TEST_NOT_CONFIGURED"	=> "SMTP is not enabled. Save your settings first.",
+	"SMTP_TEST_NO_RECIPIENT"	=> "No valid email address found for your account.",
+	"SMTP_TEST_SUBJECT"			=> "GetSimple CMS CE SMTP Test",
+	"SMTP_TEST_BODY"			=> "This is a test email from GetSimple CMS CE. <br>If you received it, your SMTP settings are working correctly.",
+	"SMTP_TEST_SUCCESS"			=> "Test email sent to %s",
+	"SMTP_TEST_FAILED"			=> "Send failed. Check the debug output below for details.",
+	
 ];
 
 ?>

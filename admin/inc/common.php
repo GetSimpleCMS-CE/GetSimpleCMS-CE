@@ -127,6 +127,11 @@ $reservedSlugs = [$GSADMIN, 'data', 'theme', 'plugins', 'backups'];
 
 require_once(GSADMININCPATH.'configuration.php');
 
+// Load SMTP mailer
+if (file_exists(GSADMININCPATH . 'gs-mailer.php')) {
+	require_once GSADMININCPATH . 'gs-mailer.php';
+}
+
 /**
  * Debugging
  */
@@ -205,7 +210,7 @@ i18n_merge(null); // load $LANG file into $i18n
 
 // Merge fallback language to fill any missing tokens
 if( !getDef('GSMERGELANG') ) {
-	// No custom merge lang defined — fall back to en_US
+	// No custom merge lang defined - fall back to en_US
 	if( $LANG != 'en_US' ) i18n_merge(null, 'en_US');
 } else {
 	// Merge the custom defined fallback lang if different from current

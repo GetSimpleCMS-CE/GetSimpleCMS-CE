@@ -634,6 +634,8 @@ $i18n = [
 	/*
 	 * New for 3.3.23
 	 */
+	 
+	// Token based password reset
 	"Click_the_link"            => "Fai clic sul link qui sotto per impostare una nuova password.",
 	"This_link_expires"         => "Questo link scade tra 1 ora e può essere utilizzato una sola volta.",
 
@@ -645,7 +647,40 @@ $i18n = [
 	"New_Password"              => "Nuova password",
 	"Confirm_New_Password"      => "Conferma nuova password",
 	"Set_New_Password"          => "Imposta nuova password",
-
+	
+	// SMTP settings
+	"SMTP_OPTIONAL"             => "Invio email (opzionale)",
+	"SMTP_SETUP_DESC"           => "Configura SMTP ora per usarlo nell'email di conferma della configurazione e in tutte le email future. Puoi anche attivarlo più tardi nelle Impostazioni.",
+	
+	"SMTP_SETTINGS"             => "Email / SMTP",
+	"SMTP_SETTINGS_DESC"        => "Configura SMTP per le email in uscita. Lascia disabilitato per usare la funzione PHP mail() predefinita del server.",
+	
+	"SMTP_ENABLE"               => "Abilita SMTP",
+	"SMTP_HOST"                 => "Host SMTP",
+	"SMTP_PORT"                 => "Porta",
+	"SMTP_ENCRYPTION"           => "Crittografia",
+	"SMTP_ENC_NONE"             => "Nessuna",
+	"SMTP_USERNAME"             => "Nome utente",
+	"SMTP_PASSWORD"             => "Password",
+	"SMTP_PASS_PLACEHOLDER"     => "(invariata)",
+	"SMTP_FROM_EMAIL"           => "Email del mittente",
+	"SMTP_FROM_NAME"            => "Nome del mittente",
+	"SMTP_TEST_LABEL"           => "Test connessione",
+	"SMTP_TEST_BTN"             => "Invia email di test",
+	"SMTP_TEST_SENDING"         => "Invio in corso...",
+	
+	"SMTP_VERIFY_PEER"          => "Verifica certificato SSL",
+	"SMTP_VERIFY_PEER_DESC"     => "Disattiva solo per lo sviluppo locale con certificati autofirmati. Lascia sempre attivo sui server di produzione.",
+	
+	"SMTP_TEST_ERROR"           => "Richiesta non riuscita",
+	"SMTP_TEST_ERROR_CSRF"      => "Controllo di sicurezza non riuscito. Ricarica la pagina e riprova.",
+	"SMTP_TEST_NOT_CONFIGURED"  => "SMTP non è abilitato. Salva prima le impostazioni.",
+	"SMTP_TEST_NO_RECIPIENT"    => "Nessun indirizzo email valido trovato per il tuo account.",
+	"SMTP_TEST_SUBJECT"         => "Test SMTP di GetSimple CMS CE",
+	"SMTP_TEST_BODY"            => "Questa è un'email di test da GetSimple CMS CE. <br>Se l'hai ricevuta, le impostazioni SMTP funzionano correttamente.",
+	"SMTP_TEST_SUCCESS"         => "Email di test inviata a %s",
+	"SMTP_TEST_FAILED"          => "Invio non riuscito. Controlla l'output di debug qui sotto per i dettagli.",
+	
 ];
 
 ?>

@@ -633,6 +633,8 @@ $i18n = [
 	/*
 	 * New for 3.3.23
 	 */
+	 
+	// Token based password reset
 	"Click_the_link"            => "新しいパスワードを設定するには、以下のリンクをクリックしてください。",
 	"This_link_expires"         => "このリンクの有効期限は1時間で、1回のみ使用できます。",
 
@@ -645,6 +647,40 @@ $i18n = [
 	"Confirm_New_Password"      => "新しいパスワードの確認",
 	"Set_New_Password"          => "新しいパスワードを設定",
 
+	
+	// SMTP settings
+	"SMTP_OPTIONAL"				=> "メール送信（任意）",
+	"SMTP_SETUP_DESC"			=> "セットアップ確認メールおよび今後のすべてのメールに使用するため、今すぐ SMTP を設定してください。後から設定画面で有効にすることもできます。",
+	
+	"SMTP_SETTINGS"				=> "メール / SMTP",
+	"SMTP_SETTINGS_DESC"		=> "送信メール用の SMTP を設定します。無効のままにすると、サーバーの標準 PHP mail() を使用します。",
+	
+	"SMTP_ENABLE"				=> "SMTP を有効にする",
+	"SMTP_HOST"					=> "SMTP ホスト",
+	"SMTP_PORT"					=> "ポート",
+	"SMTP_ENCRYPTION"			=> "暗号化",
+	"SMTP_ENC_NONE"				=> "なし",
+	"SMTP_USERNAME"				=> "ユーザー名",
+	"SMTP_PASSWORD"				=> "パスワード",
+	"SMTP_PASS_PLACEHOLDER"		=> "（変更なし）",
+	"SMTP_FROM_EMAIL"			=> "送信元メールアドレス",
+	"SMTP_FROM_NAME"			=> "送信元名",
+	"SMTP_TEST_LABEL"			=> "接続テスト",
+	"SMTP_TEST_BTN"				=> "テストメールを送信",
+	"SMTP_TEST_SENDING"			=> "送信中...",
+	
+	"SMTP_VERIFY_PEER"			=> "SSL 証明書を検証する",
+	"SMTP_VERIFY_PEER_DESC"		=> "自己署名証明書を使用するローカル開発時のみ無効にしてください。本番サーバーでは常に有効のままにしてください。",
+	
+	"SMTP_TEST_ERROR"			=> "リクエストに失敗しました",
+	"SMTP_TEST_ERROR_CSRF"		=> "セキュリティチェックに失敗しました。ページを再読み込みしてもう一度お試しください。",
+	"SMTP_TEST_NOT_CONFIGURED"	=> "SMTP が有効になっていません。先に設定を保存してください。",
+	"SMTP_TEST_NO_RECIPIENT"	=> "アカウントに有効なメールアドレスが見つかりません。",
+	"SMTP_TEST_SUBJECT"			=> "GetSimple CMS CE SMTP テスト",
+	"SMTP_TEST_BODY"			=> "これは GetSimple CMS CE からのテストメールです。<br>受信できた場合、SMTP 設定は正しく動作しています。",
+	"SMTP_TEST_SUCCESS"			=> "%s にテストメールを送信しました",
+	"SMTP_TEST_FAILED"			=> "送信に失敗しました。詳細は以下のデバッグ出力を確認してください。",
+	
 ];
 
 ?>

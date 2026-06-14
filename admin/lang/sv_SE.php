@@ -633,6 +633,8 @@ $i18n = [
 	/*
 	 * New for 3.3.23
 	 */
+	 
+	// Token based password reset
 	"Click_the_link"            => "Klicka på länken nedan för att ange ett nytt lösenord.",
 	"This_link_expires"         => "Den här länken upphör att gälla om 1 timme och kan endast användas en gång.",
 
@@ -644,6 +646,39 @@ $i18n = [
 	"New_Password"              => "Nytt lösenord",
 	"Confirm_New_Password"      => "Bekräfta nytt lösenord",
 	"Set_New_Password"          => "Ange nytt lösenord",
+	
+	// SMTP settings
+	"SMTP_OPTIONAL"				=> "E-postleverans (valfritt)",
+	"SMTP_SETUP_DESC"			=> "Konfigurera SMTP nu för att använda det för installationsbekräftelsen och alla framtida e-postmeddelanden. Du kan även aktivera det senare under Inställningar.",
+	
+	"SMTP_SETTINGS"				=> "E-post / SMTP",
+	"SMTP_SETTINGS_DESC"		=> "Konfigurera SMTP för utgående e-post. Låt det vara inaktiverat för att använda serverns standardfunktion PHP mail().",
+	
+	"SMTP_ENABLE"				=> "Aktivera SMTP",
+	"SMTP_HOST"					=> "SMTP-värd",
+	"SMTP_PORT"					=> "Port",
+	"SMTP_ENCRYPTION"			=> "Kryptering",
+	"SMTP_ENC_NONE"				=> "Ingen",
+	"SMTP_USERNAME"				=> "Användarnamn",
+	"SMTP_PASSWORD"				=> "Lösenord",
+	"SMTP_PASS_PLACEHOLDER"		=> "(oförändrat)",
+	"SMTP_FROM_EMAIL"			=> "Avsändarens e-post",
+	"SMTP_FROM_NAME"			=> "Avsändarnamn",
+	"SMTP_TEST_LABEL"			=> "Testa anslutning",
+	"SMTP_TEST_BTN"				=> "Skicka testmeddelande",
+	"SMTP_TEST_SENDING"			=> "Skickar...",
+	
+	"SMTP_VERIFY_PEER"			=> "Verifiera SSL-certifikat",
+	"SMTP_VERIFY_PEER_DESC"		=> "Inaktivera endast för lokal utveckling med självsignerade certifikat. Låt alltid vara aktiverat på produktionsservrar.",
+	
+	"SMTP_TEST_ERROR"			=> "Begäran misslyckades",
+	"SMTP_TEST_ERROR_CSRF"		=> "Säkerhetskontrollen misslyckades. Ladda om sidan och försök igen.",
+	"SMTP_TEST_NOT_CONFIGURED"	=> "SMTP är inte aktiverat. Spara först dina inställningar.",
+	"SMTP_TEST_NO_RECIPIENT"	=> "Ingen giltig e-postadress hittades för ditt konto.",
+	"SMTP_TEST_SUBJECT"			=> "GetSimple CMS CE SMTP-test",
+	"SMTP_TEST_BODY"			=> "Detta är ett testmeddelande från GetSimple CMS CE. <br>Om du har mottagit det fungerar dina SMTP-inställningar korrekt.",
+	"SMTP_TEST_SUCCESS"			=> "Testmeddelande skickat till %s",
+	"SMTP_TEST_FAILED"			=> "Skickandet misslyckades. Kontrollera felsökningsutdata nedan för mer information.",
 
 ];
 

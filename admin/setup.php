@@ -159,6 +159,23 @@ if(isset($_POST['submitted'])) {
 			}
 		}
 		
+		# write smtp.xml if SMTP was configured in the setup form
+		if (!empty($_POST['smtp_enabled']) && function_exists('gs_save_smtp_config')) {
+			$smtp_cfg_setup = [
+				'enabled'    => '1',
+				'host'       => trim($_POST['smtp_host']       ?? ''),
+				'port'       => (int)($_POST['smtp_port']       ?? 587),
+				'enc'        => $_POST['smtp_enc']              ?? 'tls',
+				'user'       => trim($_POST['smtp_user']        ?? ''),
+				'from_email' => trim($_POST['smtp_from_email']  ?? $EMAIL),
+				'from_name'  => trim($_POST['smtp_from_name']   ?? $SITENAME),
+			];
+			$smtp_setup_pass = $_POST['smtp_pass'] ?? '';
+			if (!gs_save_smtp_config($smtp_cfg_setup, $smtp_setup_pass)) {
+				$err .= i18n_r('CHMOD_ERROR') . '<br />';
+			}
+		}
+		
 		# send email to new administrator
 		$subject  = $site_full_name .' '. i18n_r('EMAIL_COMPLETE');
 		$message .= '<h2>'. cl($SITENAME) .' '. i18n_r('EMAIL_COMPLETE').'</h2>';
@@ -237,6 +254,56 @@ get_template('header', $site_full_name.' &raquo; '. i18n_r('INSTALLATION'));
 				<p><label for="sitename" ><?php i18n('LABEL_WEBSITE'); ?>:</label><input class="text" id="sitename" name="sitename" type="text" value="<?php if(isset($_POST['sitename'])) { echo $_POST['sitename']; } ?>" /></p>
 				<p><label for="user" ><?php i18n('LABEL_USERNAME'); ?>:</label><input class="text" name="user" id="user" type="text" value="<?php if(isset($_POST['user'])) { echo $_POST['user']; } ?>" /></p>
 				<p><label for="email" ><?php i18n('LABEL_EMAIL'); ?>:</label><input class="text" name="email" id="email" type="email" value="<?php if(isset($_POST['email'])) { echo $_POST['email']; } ?>" /></p>
+				
+				<details id="smtp_setup" style="margin:15px 0;">
+					<summary style="cursor:pointer;font-weight:600;"><?php i18n('SMTP_OPTIONAL'); ?></summary>
+					<p style="margin:8px 0 12px;color:#666;font-size:12px;"><?php i18n('SMTP_SETUP_DESC'); ?></p>
+
+					<p class="inline">
+						<input type="checkbox" name="smtp_enabled" id="smtp_enabled" value="1" />
+						&nbsp;<label for="smtp_enabled"><?php i18n('SMTP_ENABLE'); ?></label>
+					</p>
+
+					<div id="smtp_setup_fields" style="display:none;margin-top:10px;">
+						<p><label for="smtp_host"><?php i18n('SMTP_HOST'); ?>:</label>
+						<input class="text" id="smtp_host" name="smtp_host" type="text" placeholder="smtp.example.com" value="<?php if(isset($_POST['smtp_host'])) echo htmlspecialchars($_POST['smtp_host']); ?>" /></p>
+
+						<p><label for="smtp_port"><?php i18n('SMTP_PORT'); ?>:</label>
+						<input class="text" id="smtp_port" name="smtp_port" type="number" value="<?php echo isset($_POST['smtp_port']) ? (int)$_POST['smtp_port'] : 587; ?>" min="1" max="65535" /></p>
+
+						<p><label for="smtp_enc"><?php i18n('SMTP_ENCRYPTION'); ?>:</label>
+						<select class="text" id="smtp_enc" name="smtp_enc">
+							<option value="tls"<?php echo (!isset($_POST['smtp_enc']) || $_POST['smtp_enc']==='tls') ? ' selected' : ''; ?>>STARTTLS (587)</option>
+							<option value="ssl"<?php echo (isset($_POST['smtp_enc']) && $_POST['smtp_enc']==='ssl') ? ' selected' : ''; ?>>SSL/TLS (465)</option>
+							<option value=""<?php echo (isset($_POST['smtp_enc']) && $_POST['smtp_enc']==='')   ? ' selected' : ''; ?>><?php i18n('SMTP_ENC_NONE'); ?></option>
+						</select></p>
+
+						<p><label for="smtp_user"><?php i18n('SMTP_USERNAME'); ?>:</label>
+						<input class="text" id="smtp_user" name="smtp_user" type="text" autocomplete="off" value="<?php if(isset($_POST['smtp_user'])) echo htmlspecialchars($_POST['smtp_user']); ?>" /></p>
+
+						<p><label for="smtp_pass"><?php i18n('SMTP_PASSWORD'); ?>:</label>
+						<input class="text" id="smtp_pass" name="smtp_pass" type="password" autocomplete="new-password" value="" /></p>
+
+						<p><label for="smtp_from_email"><?php i18n('SMTP_FROM_EMAIL'); ?>:</label>
+						<input class="text" id="smtp_from_email" name="smtp_from_email" type="email" value="<?php if(isset($_POST['smtp_from_email'])) echo htmlspecialchars($_POST['smtp_from_email']); ?>" /></p>
+
+						<p><label for="smtp_from_name"><?php i18n('SMTP_FROM_NAME'); ?>:</label>
+						<input class="text" id="smtp_from_name" name="smtp_from_name" type="text" value="<?php if(isset($_POST['smtp_from_name'])) echo htmlspecialchars($_POST['smtp_from_name']); ?>" /></p>
+					</div><!-- /#smtp_setup_fields -->
+				</details><!-- /#smtp_setup -->
+
+<script>
+(function() {
+	var chk    = document.getElementById('smtp_enabled');
+	var fields = document.getElementById('smtp_setup_fields');
+	if (chk && fields) {
+		chk.addEventListener('change', function() {
+			fields.style.display = this.checked ? '' : 'none';
+		});
+	}
+}());
+</script>
+
 				<p><input class="submit" type="submit" name="submitted" value="<?php i18n('LABEL_INSTALL'); ?>" /></p>
 			</form>
 		</div>

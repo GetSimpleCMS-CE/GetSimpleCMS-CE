@@ -633,6 +633,8 @@ $i18n = [
 	/*
 	 * New for 3.3.23
 	 */
+	 
+	// Token based password reset
 	"Click_the_link"            => "Klicken Sie auf den untenstehenden Link, um ein neues Passwort festzulegen.",
 	"This_link_expires"         => "Dieser Link läuft in 1 Stunde ab und kann nur einmal verwendet werden.",
 
@@ -644,7 +646,40 @@ $i18n = [
 	"New_Password"              => "Neues Passwort",
 	"Confirm_New_Password"      => "Neues Passwort bestätigen",
 	"Set_New_Password"          => "Neues Passwort festlegen",
+	
+	// SMTP settings
+	"SMTP_OPTIONAL"             => "E-Mail-Versand (optional)",
+	"SMTP_SETUP_DESC"           => "Konfigurieren Sie SMTP jetzt, um es für die Einrichtungsbestätigung und alle zukünftigen E-Mails zu verwenden. Sie können dies auch später unter Einstellungen aktivieren.",
 
+	"SMTP_SETTINGS"             => "E-Mail / SMTP",
+	"SMTP_SETTINGS_DESC"        => "Konfigurieren Sie SMTP für ausgehende E-Mails. Lassen Sie es deaktiviert, um die Standardfunktion PHP mail() des Servers zu verwenden.",
+
+	"SMTP_ENABLE"               => "SMTP aktivieren",
+	"SMTP_HOST"                 => "SMTP-Host",
+	"SMTP_PORT"                 => "Port",
+	"SMTP_ENCRYPTION"           => "Verschlüsselung",
+	"SMTP_ENC_NONE"             => "Keine",
+	"SMTP_USERNAME"             => "Benutzername",
+	"SMTP_PASSWORD"             => "Passwort",
+	"SMTP_PASS_PLACEHOLDER"     => "(unverändert)",
+	"SMTP_FROM_EMAIL"           => "Absender-E-Mail",
+	"SMTP_FROM_NAME"            => "Absendername",
+	"SMTP_TEST_LABEL"           => "Verbindung testen",
+	"SMTP_TEST_BTN"             => "Test-E-Mail senden",
+	"SMTP_TEST_SENDING"         => "Wird gesendet...",
+
+	"SMTP_VERIFY_PEER"          => "SSL-Zertifikat prüfen",
+	"SMTP_VERIFY_PEER_DESC"     => "Nur für lokale Entwicklung mit selbstsignierten Zertifikaten deaktivieren. Auf Produktivservern immer aktiviert lassen.",
+
+	"SMTP_TEST_ERROR"           => "Anfrage fehlgeschlagen",
+	"SMTP_TEST_ERROR_CSRF"      => "Sicherheitsprüfung fehlgeschlagen. Bitte laden Sie die Seite neu und versuchen Sie es erneut.",
+	"SMTP_TEST_NOT_CONFIGURED"  => "SMTP ist nicht aktiviert. Speichern Sie zuerst Ihre Einstellungen.",
+	"SMTP_TEST_NO_RECIPIENT"    => "Für Ihr Konto wurde keine gültige E-Mail-Adresse gefunden.",
+	"SMTP_TEST_SUBJECT"         => "GetSimple CMS CE SMTP-Test",
+	"SMTP_TEST_BODY"            => "Dies ist eine Test-E-Mail von GetSimple CMS CE. <br>Wenn Sie diese E-Mail erhalten haben, funktionieren Ihre SMTP-Einstellungen korrekt.",
+	"SMTP_TEST_SUCCESS"         => "Test-E-Mail an %s gesendet",
+	"SMTP_TEST_FAILED"          => "Senden fehlgeschlagen. Überprüfen Sie die Debug-Ausgabe unten für weitere Details.",
+	
 ];
 
 ?>
