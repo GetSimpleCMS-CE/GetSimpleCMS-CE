@@ -81,6 +81,7 @@ Designed to be light and agile, the base install comes to you clutter free, with
 - Added Twig support to theme editor
 - Added new theme functions: [Wiki](https://github.com/GetSimpleCMS-CE/GetSimpleCMS-CE/wiki/Template-Tags#new-theme-functions-v34)
 - Single-use password reset token.
+- Add SMTP for outgoing emails option.
 
 ### Updates:
 
