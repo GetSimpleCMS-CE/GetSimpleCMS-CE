@@ -100,7 +100,24 @@ if (isset($_POST['submitted'])) {
 		if(isset($_POST['post-metak'])) 			{	$metak = safe_slash_html(strip_tags($_POST['post-metak']));	}
 		if(isset($_POST['post-metad'])) 			{	$metad = safe_slash_html(strip_tags($_POST['post-metad']));	}
 		if(isset($_POST['post-author'])) 			{	$author = safe_slash_html($_POST['post-author']);	}
-		if(isset($_POST['post-template'])) 		{ $template = $_POST['post-template']; }
+		if(isset($_POST['post-template'])) 		{
+			// strip any path component outright - a template is always a bare filename
+			$template = basename(str_replace("\0", '', $_POST['post-template']));
+
+			// must be a .php file, and not one of the theme's internal/support files
+			$isValidName = ( $template !== ''
+				&& strtolower(pathinfo($template, PATHINFO_EXTENSION)) === 'php'
+				&& strtolower($template) !== 'functions.php'
+				&& !preg_match('/\.inc\.php$/i', $template) );
+
+			// must actually exist inside the currently active theme's folder (allow-list, not just a name check)
+			$themeDir     = realpath(GSTHEMESPATH . $TEMPLATE);
+			$templatePath = $isValidName ? realpath(GSTHEMESPATH . $TEMPLATE . '/' . $template) : false;
+
+			if ( !$isValidName || $themeDir === false || $templatePath === false || strpos($templatePath, $themeDir . DIRECTORY_SEPARATOR) !== 0 ) {
+				$template = ''; // falls back to the theme's default template.php on render, same as an unset value
+			}
+		}
 		if(isset($_POST['post-parent'])) 			{ $parent = $_POST['post-parent']; }
 		if(isset($_POST['post-menu'])) 				{ $menu = var_out(xss_clean($_POST['post-menu'])); }
 		if(isset($_POST['post-menu-enable'])) { $menuStatus = "Y"; } else { $menuStatus = ""; }
