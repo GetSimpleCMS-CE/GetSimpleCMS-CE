@@ -75,21 +75,21 @@ Designed to be light and agile, the base install comes to you clutter free, with
 
 - [Dashboard](https://github.com/GetSimpleCMS-CE-plugins/plugin-Dashboard/wiki) Plugin: Customizable admin dashboard shown after login.
 - [GS Config GUI](https://github.com/GetSimpleCMS-CE-plugins/plugin-GS_Config_GUI/wiki) Plugin: Visual editor for gsconfig.php configuration settings.
-- SVG support for Uploads & Filebrowser
-- Admin Page Sorting
-- Update plugin from Plugins Tab
-- Added Twig support to theme editor
+- SVG support for Uploads & Filebrowser.
+- Admin Page Sorting.
+- Update plugins directly from Plugins Tab.
+- Added Twig support to theme editor.
 - Added new theme functions: [Wiki](https://github.com/GetSimpleCMS-CE/GetSimpleCMS-CE/wiki/Template-Tags#new-theme-functions-v34)
 - Single-use password reset token.
-- Add SMTP for outgoing emails option.
+- Added SMTP option for outgoing emails.
 
 ### Updates:
 
 - Plugin - Massive Admin v6.x (refactor, security enhancements).
 - Plugin - UpdateCE v1.x (refactor, security enhancements).
-- Health Check
-- Support Page
-- Sitemap UI
+- Health Check.
+- Support Page.
+- Sitemap UI.
 
 
 ### Fixes:
