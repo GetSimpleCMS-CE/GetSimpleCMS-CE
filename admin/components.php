@@ -175,7 +175,7 @@ if (count($componentsec) != 0) {
 				}
 			</script>
 		</td><td class="delete" >';
-		$table .= '<a href="#" title="'.i18n_r('DELETE_COMPONENT').': '. cl($component->title).'?" class="delcomponent" rel="'.$count.'" >&times;</a></td></tr></table>';
+		$table .= '<a href="#" title="'.i18n_r('DELETE_COMPONENT').': '. encode_quotes(cl($component->title)).'?" class="delcomponent" rel="'.$count.'" >&times;</a></td></tr></table>';
 		$table .= '<textarea name="val[]">'. $component->value .'</textarea>';
 		$table .= '<input type="hidden" class="compslug" name="slug[]" value="'. $component->slug .'" />';
 		$table .= '<input type="hidden" class="comptitle" name="title[]" value="'. stripslashes($component->title) .'" />';
