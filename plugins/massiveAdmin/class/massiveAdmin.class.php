@@ -598,7 +598,22 @@ class MassiveAdminClass{
 
 	// remover
 	public function unistaller(){
-		$delPlug = $_GET['delPlugin'];
+		$delPlug = $_POST['delPlugin'] ?? '';
+
+		if ($delPlug === '') {
+			return ['deleted' => false, 'reason' => 'No plugin was specified.'];
+		}
+
+		$rawDelPlug = $delPlug;
+		$delPlug = basename($delPlug);
+		if (!preg_match('/^[A-Za-z0-9_\-]+$/', $delPlug)) {
+			return ['deleted' => false, 'reason' => 'Plugin name "' . $rawDelPlug . '" contains characters that are not allowed (only letters, numbers, "-", and "_" are permitted).'];
+		}
+
+		$pluginRoot = realpath(GSPLUGINPATH);
+		if ($pluginRoot === false) {
+			return ['deleted' => false, 'reason' => 'Could not resolve the plugins directory (GSPLUGINPATH: ' . GSPLUGINPATH . ').'];
+		}
 
 		function delete_directory($dirname){
 			if (file_exists($dirname)) {
@@ -620,12 +635,32 @@ class MassiveAdminClass{
 			}
 		};
 
-		if (GSPLUGINPATH . $delPlug) {
-			delete_directory(GSPLUGINPATH . $delPlug);
-		};
+		$didDelete = false;
 
-		if (file_exists(GSPLUGINPATH . $delPlug . '.php')) {
-			unlink(GSPLUGINPATH . $delPlug . '.php');
+		$targetDirRaw = GSPLUGINPATH . $delPlug;
+		$targetDir = realpath($targetDirRaw);
+		if ($targetDir !== false && is_dir($targetDir)) {
+			if (strpos($targetDir, $pluginRoot . DIRECTORY_SEPARATOR) === 0) {
+				delete_directory($targetDir);
+				$didDelete = true;
+			} else {
+				return ['deleted' => false, 'reason' => 'Resolved path "' . $targetDir . '" is outside the plugins directory "' . $pluginRoot . '" — refusing to delete.'];
+			}
+		}
+
+		$targetFileRaw = GSPLUGINPATH . $delPlug . '.php';
+		$targetFile = realpath($targetFileRaw);
+		if ($targetFile !== false && is_file($targetFile)) {
+			if (strpos($targetFile, $pluginRoot . DIRECTORY_SEPARATOR) === 0) {
+				unlink($targetFile);
+				$didDelete = true;
+			} else {
+				return ['deleted' => false, 'reason' => 'Resolved path "' . $targetFile . '" is outside the plugins directory "' . $pluginRoot . '" — refusing to delete.'];
+			}
+		}
+
+		if (!$didDelete) {
+			return ['deleted' => false, 'reason' => 'Nothing matching "' . $delPlug . '" (looked for "' . $targetDirRaw . '" and "' . $targetFileRaw . '") was found to delete.'];
 		}
 
 		global $GSADMIN;
@@ -642,7 +677,10 @@ class MassiveAdminClass{
 			window.location.href = '" . $url . "';
 		},1000);
 		</script>");
+
+		return ['deleted' => true, 'reason' => null];
 	}
+
 
 	// snippet save
 	public function snippetSave() {
