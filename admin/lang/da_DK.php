@@ -634,6 +634,10 @@ $i18n = [
 	 * New for 3.3.23
 	 */
 	 
+	// pages.php
+	"IS_TEMPLATE"				=>	"Skabelon",
+	"IN_MENU"					=>	"I menu",
+	 
 	// Token based password reset
 	"Click_the_link"            => "Klik på linket nedenfor for at angive en ny adgangskode.",
 	"This_link_expires"         => "Dette link udløber om 1 time og kan kun bruges én gang.",

@@ -634,6 +634,10 @@ $i18n = [
 	 * New for 3.3.23
 	 */
 	 
+	// pages.php
+	"IS_TEMPLATE"				=>	"Sjabloon",
+	"IN_MENU"					=>	"In menu",
+	 
 	// Token based password reset
 	"Click_the_link"            => "Klik op de onderstaande link om een nieuw wachtwoord in te stellen.",
 	"This_link_expires"         => "Deze link verloopt over 1 uur en kan slechts één keer worden gebruikt.",

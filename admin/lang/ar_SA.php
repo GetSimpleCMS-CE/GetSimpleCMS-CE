@@ -634,6 +634,10 @@ $i18n = [
 	 * New for 3.3.23
 	 */
 	 
+	// pages.php
+	"IS_TEMPLATE"				=>	"القالب",
+	"IN_MENU"					=>	"في القائمة",
+	 
 	// Token based password reset
 	"Click_the_link"            => "انقر على الرابط أدناه لتعيين كلمة مرور جديدة.",
 	"This_link_expires"         => "تنتهي صلاحية هذا الرابط خلال ساعة واحدة ولا يمكن استخدامه إلا مرة واحدة.",

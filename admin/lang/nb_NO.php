@@ -1,4 +1,8 @@
-<?php
+
+	 
+	// pages.php
+	"IS_TEMPLATE"				=>	"Template",
+	"IN_MENU"					=>	"In Menu",<?php
 
 /**
  * Norwegian Language File
@@ -633,6 +637,10 @@ $i18n = [
 	/*
 	 * New for 3.3.23
 	 */
+	 
+	// pages.php
+	"IS_TEMPLATE"				=>	"Mal",
+	"IN_MENU"					=>	"I meny",
 	 
 	// Token based password reset
 	"Click_the_link"            => "Klikk på lenken nedenfor for å angi et nytt passord.",

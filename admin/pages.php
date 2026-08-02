@@ -136,6 +136,8 @@ get_template('header', cl($SITENAME).' &raquo; '.i18n_r('PAGE_MANAGEMENT'));
 							<?php endif; ?>
 						</a>
 					</th>
+					<th style="text-align:center;"><?php i18n('IS_TEMPLATE'); ?></th>
+					<th style="text-align:center;"><?php i18n('IN_MENU'); ?></th>
 					<th class="sortable" style="text-align:right;" data-sort="date">
 						<a href="?sortby=date&sortorder=<?php echo ($sortby == 'date' && $sortorder == 'asc') ? 'desc' : 'asc'; ?>">
 							<?php i18n('DATE'); ?>

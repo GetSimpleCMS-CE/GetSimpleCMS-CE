@@ -634,6 +634,10 @@ $i18n = [
 	 * New for 3.3.23
 	 */
 	 
+	// pages.php
+	"IS_TEMPLATE"				=>	"Mall",
+	"IN_MENU"					=>	"I meny",
+	 
 	// Token based password reset
 	"Click_the_link"            => "Klicka på länken nedan för att ange ett nytt lösenord.",
 	"This_link_expires"         => "Den här länken upphör att gälla om 1 timme och kan endast användas en gång.",
