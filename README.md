@@ -109,9 +109,10 @@ Designed to be light and agile, the base install comes to you clutter free, with
   - CVE-2026-27161 (If AllowOverride is disabled)
   - CVE-2026-53952 (Setup Logic Flaw)
   - CVE-2026-53953 (Predictable Password Reset)
+  - CVE-2026-70650 (XSS in backup viewer)
   - CVE-2026-27202 (Arbitrary File Read, `MA plugin`)
   - CVE-2026-28495 (CSRF in gsconfig.php, `MA plugin`)
-  - CVE-tba (CSRF, SSRF, and Unrestricted Zip Extraction, `UpdateCE plugin`)
+  - CVE-2026-56660 (CSRF, SSRF, and Unrestricted Zip Extraction, `UpdateCE plugin`)
 
 ### Other:
 
