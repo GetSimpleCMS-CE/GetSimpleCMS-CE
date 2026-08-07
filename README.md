@@ -106,10 +106,11 @@ Designed to be light and agile, the base install comes to you clutter free, with
 - Hotfixes: Numerous issues patched/enhanced 
   - CVE-2026-27146 (CSRF in File Upload)
   - CVE-2026-27147 (XSS in SVGs)
+  - CVE-2026-70650 (XSS in backup viewer)
+  - CVE-2026-71542 (XSS via the "title" in components)
   - CVE-2026-27161 (If AllowOverride is disabled)
   - CVE-2026-53952 (Setup Logic Flaw)
   - CVE-2026-53953 (Predictable Password Reset)
-  - CVE-2026-70650 (XSS in backup viewer)
   - CVE-2026-71426 (Authenticated Stored LFI)
   - CVE-2026-27202 (Arbitrary File Read, `MA plugin`)
   - CVE-2026-28495 (CSRF in gsconfig.php, `MA plugin`)
