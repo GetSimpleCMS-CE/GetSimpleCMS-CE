@@ -9,7 +9,7 @@ i18n_merge($Dashboard) || i18n_merge($Dashboard, 'en_US');
 register_plugin(
 	$Dashboard,
 	'Dashboard',
-	'1.0',
+	'1.1',
 	'risingisland',
 	'https://www.getsimple-ce.ovh/',
 	'Customizable admin dashboard shown after login.',
@@ -647,11 +647,17 @@ function dash_settings() {
 			var status = document.getElementById('dash-save-status');
 			try {
 				var res = JSON.parse(xhr.responseText);
-				status.textContent = res.status === 'ok' ? '✓ <?php echo i18n_r("Dashboard/lang_Saved");?>' : '✗ <?php echo i18n_r("Dashboard/lang_Error_saving");?>';
+				if (res.status === 'ok') {
+					status.textContent = '✓ <?php echo i18n_r("Dashboard/lang_Saved");?>';
+					setTimeout(function(){ window.location.href = 'load.php?id=Dashboard'; }, 2000);
+				} else {
+					status.textContent = '✗ <?php echo i18n_r("Dashboard/lang_Error_saving");?>';
+					setTimeout(function(){ status.textContent = ''; }, 3000);
+				}
 			} catch(e) {
 				status.textContent = '✗ <?php echo i18n_r("Dashboard/lang_Unexpected_response");?>';
+				setTimeout(function(){ status.textContent = ''; }, 3000);
 			}
-			setTimeout(function(){ status.textContent = ''; }, 3000);
 		};
 		xhr.send('dash_save_layout=1&layout=' + encodeURIComponent(payload));
 	});
