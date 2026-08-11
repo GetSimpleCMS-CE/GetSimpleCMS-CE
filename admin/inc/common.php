@@ -323,6 +323,7 @@ if (get_filename_id() != 'install' && get_filename_id() != 'setup' && get_filena
 			GSADMINPATH . 'install.php',
 			GSADMINPATH . 'option.txt',
 			GSADMINPATH . 'setup.php',
+			GSADMINPATH . 'share.php',
 			GSADMINPATH . 'update.php',
 			GSADMINPATH . 'uploadify-check-exists.php',
 			GSADMINPATH . 'upload-uploadify.php',
