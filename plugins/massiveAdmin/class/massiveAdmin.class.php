@@ -1,47 +1,198 @@
 <?php
 
 class MassiveAdminClass{
+    
+    // ========== SECURITY METHODS ==========
+    
+    /**
+     * Generate CSRF token
+     */
+    public static function generate_nonce($action) {
+        $salt = defined('GS_SALT') ? GS_SALT : '';
+        if (empty($salt)) {
+            $auth_file = GSDATAOTHERPATH . 'authorization.xml';
+            if (file_exists($auth_file)) {
+                $xml = simplexml_load_file($auth_file);
+                if ($xml && isset($xml->apikey)) {
+                    $salt = (string)$xml->apikey;
+                }
+            }
+        }
+        $user = isset($_SESSION['user']) ? $_SESSION['user'] : 'guest';
+        $session_id = session_id();
+        $timestamp = floor(time() / 3600);
+        return hash_hmac('sha256', $action . $user . $session_id . $timestamp, $salt);
+    }
+    
+    /**
+     * Verify CSRF token
+     */
+    public static function verify_nonce($nonce, $action) {
+        if (empty($nonce)) return false;
+        $expected = self::generate_nonce($action);
+        return hash_equals($expected, $nonce);
+    }
+    
+    /**
+     * Security: Validate path is safe (prevents path traversal)
+     */
+    public static function is_safe_path($path, $base_path) {
+        // Remove null bytes and control characters
+        $path = preg_replace('/[\x00-\x1F]/', '', $path);
+        // Normalize path
+        $path = str_replace('\\', '/', $path);
+        // Get real base path
+        $real_base = realpath($base_path);
+        if ($real_base === false) return false;
+        // Build full path
+        $full_path = $base_path . '/' . ltrim($path, '/');
+        $real_path = realpath($full_path);
+        if ($real_path === false) return false;
+        // Ensure path is within base directory
+        return strpos($real_path, $real_base) === 0;
+    }
+    
+    /**
+     * Security: Check if file extension is allowed
+     */
+    public static function is_allowed_extension($filename) {
+        $allowed = ['jpg', 'jpeg', 'png', 'gif', 'pdf', 'txt', 'zip', 'css', 'js'];
+        $ext = strtolower(pathinfo($filename, PATHINFO_EXTENSION));
+        return in_array($ext, $allowed);
+    }
+    
+    /**
+     * Security: Scan file for malicious content
+     */
+    public static function scan_file_safety($filepath) {
+        if (!file_exists($filepath)) return true;
+        
+        $content = file_get_contents($filepath);
+        
+        // Check for PHP code
+        if (preg_match('/<\?php/i', $content)) {
+            return false;
+        }
+        
+        // Check for dangerous functions
+        $dangerous = ['exec', 'system', 'shell_exec', 'passthru', 'eval', 'base64_decode'];
+        foreach ($dangerous as $func) {
+            if (stripos($content, $func) !== false) {
+                return false;
+            }
+        }
+        
+        return true;
+    }
+    
+    /**
+	 * Security: Log security events
+	 */
+	private static function log_action($action, $details) {
+		$log_file = GSDATAOTHERPATH . 'massive_admin.log';
+		$timestamp = date('Y-m-d H:i:s');
+		$ip = $_SERVER['REMOTE_ADDR'] ?? 'unknown';
+		
+		// Try to get the username from various sources
+		$user = 'guest';
+		if (isset($_SESSION['username'])) {
+			$user = $_SESSION['username'];
+		} elseif (isset($_COOKIE['GS_ADMIN_USERNAME'])) {
+			$user = $_COOKIE['GS_ADMIN_USERNAME'];
+		} elseif (isset($_SESSION['user'])) {
+			$user = $_SESSION['user'];
+		}
+		
+		$log_entry = "[{$timestamp}] [{$user}] [{$ip}] [{$action}] {$details}\n";
+		@file_put_contents($log_file, $log_entry, FILE_APPEND | LOCK_EX);
+	}
 
 	/* massive Options */
 	public function deleteFileList(){
+		if (!isset($_POST['nonce']) || !self::verify_nonce($_POST['nonce'], 'delete_file')) {
+			die('CSRF validation failed');
+		}
+		
 		$list = $_POST['delFileList'];
 		$ar = explode(",", $list);
 		foreach ($ar as $key => $value) {
-			unlink(GSDATAUPLOADPATH . $value);
+			$value = trim($value);
+			$value = preg_replace('/\s+/', '-', $value);
+			if (self::is_safe_path($value, GSDATAUPLOADPATH)) {
+				$filepath = GSDATAUPLOADPATH . $value;
+				if (is_file($filepath)) {
+					@unlink($filepath);
+					self::log_action('delete_file', "Deleted: {$value}");
+				}
+			}
 			echo ("<meta http-equiv='refresh' content='1'>");
 		};
 	}
 
 	public function copyRename(){
+		if (!isset($_POST['nonce']) || !self::verify_nonce($_POST['nonce'], 'copy_rename')) {
+			die('CSRF validation failed');
+		}
+		
 		$fileIsHere = i18n_r("massiveAdmin/INFOERROR");
 
 		$oldDirMassive = '../data/uploads/' . $_POST['rename-massive-hide'];
 		$newDirMassive = '../data/uploads/' . $_POST['rename-massive'];
 
 		$afterNewDir = preg_replace('/\s+/', '-', $newDirMassive);
+		
+		$sourcePath = GSDATAUPLOADPATH . $_POST['rename-massive-hide'];
+		$destPath = GSDATAUPLOADPATH . $afterNewDir;
+		
+		if (!self::is_safe_path($_POST['rename-massive-hide'], GSDATAUPLOADPATH) || 
+		    !self::is_safe_path($afterNewDir, GSDATAUPLOADPATH)) {
+			echo '<div class="massive-error">Path traversal detected</div>';
+			return;
+		}
 
-		if (file_exists($afterNewDir)) {
+		if (file_exists($destPath)) {
 			echo '<div class="massive-error">' . $fileIsHere . '</div>';
 		} else {
-			copy($oldDirMassive, $afterNewDir);
+			copy($sourcePath, $destPath);
+			self::log_action('copy_rename', "Copied: {$_POST['rename-massive-hide']} -> {$afterNewDir}");
 			echo ("<meta http-equiv='refresh' content='1'>");
 			echo '<div class="massive-done">' . i18n_r("massiveAdmin/INFOCOPY") . $afterNewDir . '</div>';
 		}
 	}
 
 	public function saveRename(){
+		if (!isset($_POST['nonce']) || !self::verify_nonce($_POST['nonce'], 'save_rename')) {
+			die('CSRF validation failed');
+		}
+		
 		$oldDirMassive = '../data/uploads/' . $_POST['rename-massive-hide'];
 		$newDirMassive = '../data/uploads/' . $_POST['rename-massive'];
 
 		$afterNewDir = preg_replace('/\s+/', '-', $newDirMassive);
-
-		rename($oldDirMassive, $afterNewDir);
-		echo '<div class="massive-done">' . i18n_r("massiveAdmin/FILENOW") . $afterNewDir . '</div>';
-		echo ("<meta http-equiv='refresh' content='1'>");
+		
+		if (!self::is_safe_path($_POST['rename-massive-hide'], GSDATAUPLOADPATH) || 
+		    !self::is_safe_path($afterNewDir, GSDATAUPLOADPATH)) {
+			echo '<div class="massive-error">Path traversal detected</div>';
+			return;
+		}
+		
+		$oldPath = GSDATAUPLOADPATH . $_POST['rename-massive-hide'];
+		$newPath = GSDATAUPLOADPATH . $afterNewDir;
+		
+		if (file_exists($oldPath)) {
+			rename($oldPath, $newPath);
+			self::log_action('save_rename', "Renamed: {$_POST['rename-massive-hide']} -> {$afterNewDir}");
+			echo '<div class="massive-done">' . i18n_r("massiveAdmin/FILENOW") . $afterNewDir . '</div>';
+			echo ("<meta http-equiv='refresh' content='1'>");
+		}
 	}
 
 	/* massive uploader */
 	public function massiveUpload(){
+		if (isset($_POST['massiveUpload']) && (!isset($_POST['nonce']) || !self::verify_nonce($_POST['nonce'], 'upload_file'))) {
+			die('CSRF validation failed');
+		}
+		
 		echo '
 		<li style="margin: 0 0 3px 0;" class="masive-uploader">
 			<h3>' . i18n_r("massiveAdmin/UPLOADFILE") . '</h3>
@@ -58,13 +209,26 @@ class MassiveAdminClass{
 			$tempFile = $_FILES['file']['tmp_name'];
 			$targetPath = GSDATAUPLOADPATH;
 			$nameFile = preg_replace('/[^0-9a-z-]+/', '', pathinfo($_FILES['file']['name'])['filename']) . '.' . pathinfo($_FILES['file']['name'])['extension'];
+			
+			if (!self::is_allowed_extension($_FILES['file']['name'])) {
+				echo '<div class="massive-error">File type not allowed</div>';
+				return;
+			}
+			
+			if (!self::scan_file_safety($tempFile)) {
+				echo '<div class="massive-error">File content not allowed</div>';
+				return;
+			}
+			
 			$targetFile =  $targetPath . $nameFile;
 
 			if (file_exists($targetFile)) {
 				$targetFile =  $targetPath . rand(0, 3432423) . $nameFile;
 			};
 
-			move_uploaded_file($tempFile, $targetFile);
+			if (move_uploaded_file($tempFile, $targetFile)) {
+				self::log_action('upload_file', "Uploaded: {$nameFile}");
+			}
 		};
 	}
 
@@ -548,6 +712,11 @@ class MassiveAdminClass{
 
 	//download plugin 
 	public function downloadPlugin(){
+		// ADDED: CSRF check
+		if (!isset($_POST['nonce']) || !self::verify_nonce($_POST['nonce'], 'download_plugin')) {
+			die('CSRF validation failed');
+		}
+		
 		function delete_directory($dirname)
 		{
 			if (is_dir($dirname))
@@ -568,6 +737,14 @@ class MassiveAdminClass{
 		};
 
 		$url = $_POST['url'];
+		
+		// ADDED: Validate URL - only allow specific domains
+		$parsed_url = parse_url($url);
+		$allowed_hosts = ['github.com', 'raw.githubusercontent.com', 'getsimple-ce.ovh'];
+		if (!in_array($parsed_url['host'], $allowed_hosts)) {
+			echo '<div class="error">Download source not allowed</div>';
+			return;
+		}
 
 		file_put_contents(GSPLUGINPATH . "Tmpfile.zip", fopen("$url", 'r'));
 		$path = GSPLUGINPATH . "Tmpfile.zip";
@@ -590,6 +767,8 @@ class MassiveAdminClass{
 			delete_directory(GSPLUGINPATH . "tmp_plugin");
 
 			unlink($path);
+			
+			self::log_action('download_plugin', "Downloaded plugin from: {$url}");
 		};
 
 		echo '<div class="success" style="position:absolute;top:0;left:0;">Installed!</div>';
@@ -598,6 +777,11 @@ class MassiveAdminClass{
 
 	// remover
 	public function unistaller(){
+		// ADDED: CSRF check
+		if (!isset($_POST['nonce']) || !self::verify_nonce($_POST['nonce'], 'uninstall')) {
+			die('CSRF validation failed');
+		}
+		
 		$delPlug = $_POST['delPlugin'] ?? '';
 
 		if ($delPlug === '') {
@@ -644,7 +828,7 @@ class MassiveAdminClass{
 				delete_directory($targetDir);
 				$didDelete = true;
 			} else {
-				return ['deleted' => false, 'reason' => 'Resolved path "' . $targetDir . '" is outside the plugins directory "' . $pluginRoot . '" â€” refusing to delete.'];
+				return ['deleted' => false, 'reason' => 'Resolved path "' . $targetDir . '" is outside the plugins directory "' . $pluginRoot . '" — refusing to delete.'];
 			}
 		}
 
@@ -655,13 +839,15 @@ class MassiveAdminClass{
 				unlink($targetFile);
 				$didDelete = true;
 			} else {
-				return ['deleted' => false, 'reason' => 'Resolved path "' . $targetFile . '" is outside the plugins directory "' . $pluginRoot . '" â€” refusing to delete.'];
+				return ['deleted' => false, 'reason' => 'Resolved path "' . $targetFile . '" is outside the plugins directory "' . $pluginRoot . '" — refusing to delete.'];
 			}
 		}
 
 		if (!$didDelete) {
 			return ['deleted' => false, 'reason' => 'Nothing matching "' . $delPlug . '" (looked for "' . $targetDirRaw . '" and "' . $targetFileRaw . '") was found to delete.'];
 		}
+
+		self::log_action('uninstall_plugin', "Uninstalled plugin: {$delPlug}");
 
 		global $GSADMIN;
 		global $SITEURL;
@@ -701,7 +887,7 @@ class MassiveAdminClass{
 				$cleanTitle = preg_replace('/[^\p{L}0-9_ -]/u', '', trim($value));
 	
 				if (!empty($cleanTitle) && isset($content[$key])) {
-					// Decode HTML entities to avoid issues like Ã³
+					// Decode HTML entities to avoid issues like ó
 					$cleanContent = html_entity_decode($content[$key], ENT_QUOTES | ENT_HTML5, 'UTF-8');
 					$snippets[] = [
 						'title' => $cleanTitle,
@@ -774,7 +960,40 @@ class MassiveAdminClass{
 
 	// gsconfig edit
 	public function gsConfigEdit(){
-		file_put_contents(GSROOTPATH . 'gsconfig.php', $_POST['content']);
+		// Check for either our nonce OR the gsconfig module's token
+		$valid = false;
+		
+		// Check our nonce first
+		if (isset($_POST['nonce']) && self::verify_nonce($_POST['nonce'], 'edit_gsconfig')) {
+			$valid = true;
+		}
+		
+		// Check the gsconfig module's token
+		if (!$valid && isset($_POST['gs_csrf_token'])) {
+			$expected = hash_hmac('sha256', 'gsconfig_edit', session_id());
+			if (hash_equals($expected, $_POST['gs_csrf_token'])) {
+				$valid = true;
+			}
+		}
+		
+		if (!$valid) {
+			die('CSRF validation failed');
+		}
+		
+		// Now save the file
+		$content = $_POST['content'];
+		
+		// Create backup before saving
+		$backup_path = GSROOTPATH . 'gsconfig.backup.' . date('Y-m-d-H-i-s') . '.php';
+		@copy(GSROOTPATH . 'gsconfig.php', $backup_path);
+		
+		// Save the file
+		if (file_put_contents(GSROOTPATH . 'gsconfig.php', $content) !== false) {
+			self::log_action('edit_gsconfig', "gsconfig.php updated");
+			echo '<div class="massive-done">gsconfig.php updated successfully. Backup created: ' . basename($backup_path) . '</div>';
+		} else {
+			echo '<div class="massive-error">Failed to save gsconfig.php</div>';
+		}
 	}
 
 	//create option for toper
@@ -857,3 +1076,4 @@ class MassiveAdminClass{
 		echo ("<meta http-equiv='refresh' content='0'>");
 	}
 };
+?>
