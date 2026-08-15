@@ -2,7 +2,7 @@
 /*
 Plugin Name: GS Config GUI
 Description: Visual editor for gsconfig.php configuration settings.
-Version: 1.0
+Version: 1.2
 Author: risingisland
 Author URI: https://www.getsimple-ce.ovh
 */
@@ -17,7 +17,7 @@ i18n_merge($gsConfigGUI) || i18n_merge($gsConfigGUI, 'en_US');
 register_plugin(
 	$gsConfigGUI,
 	'GS Config GUI',
-	'1.1',
+	'1.2',
 	'risingisland',
 	'https://www.getsimple-ce.ovh/',
 	'Visual editor for gsconfig.php configuration settings.',
@@ -26,7 +26,7 @@ register_plugin(
 );
 
 # add sidebar link
-add_action('settings-sidebar', 'createSideMenu', array($gsConfigGUI, i18n_r('gsConfigGUI/lang_Menu_Title') . ' <svg xmlns="http://www.w3.org/2000/svg" style="vertical-align:middle;" width="18px" height="18px" viewBox="0 0 24 24"><rect width="24" height="24" fill="none"/><path fill="#0" fill-rule="evenodd" d="M7 3a4 4 0 0 1 3.874 3H19v2h-8.126A4.002 4.002 0 0 1 3 7a4 4 0 0 1 4-4m0 6a2 2 0 1 0 0-4a2 2 0 0 0 0 4m10 11a4 4 0 0 1-3.874-3H5v-2h8.126A4.002 4.002 0 0 1 21 16a4 4 0 0 1-4 4m0-2a2 2 0 1 0 0-4a2 2 0 0 0 0 4" clip-rule="evenodd"/></svg>'));
+add_action('settings-sidebar', 'createSideMenu', array($gsConfigGUI, i18n_r('gsConfigGUI/lang_Menu_Title') . ' <svg xmlns="http://www.w3.org/2000/svg" style="vertical-align:middle;" width="18px" height="18px" viewBox="0 0 24 24"><rect width="24" height="24" fill="none"/><path fill="#3B82F6" fill-rule="evenodd" d="M7 3a4 4 0 0 1 3.874 3H19v2h-8.126A4.002 4.002 0 0 1 3 7a4 4 0 0 1 4-4m0 6a2 2 0 1 0 0-4a2 2 0 0 0 0 4m10 11a4 4 0 0 1-3.874-3H5v-2h8.126A4.002 4.002 0 0 1 21 16a4 4 0 0 1-4 4m0-2a2 2 0 1 0 0-4a2 2 0 0 0 0 4" clip-rule="evenodd"/></svg>'));
 
 
 # ----------------------------------------------------------
@@ -100,6 +100,8 @@ function gscfg_known() {
 		'I18N_SINGLE_LANGUAGE'      => array('type' => 'bool',     'label' => i18n_r('gsConfigGUI/lang_i18n_Language'),      'desc' => i18n_r('gsConfigGUI/lang_i18n_Language_info').'.'),
 		
 		'I18N_IGNORE_USER_LANGUAGE' => array('type' => 'bool',     'label' => i18n_r('gsConfigGUI/lang_i18n_Ignore'),  'desc' => i18n_r('gsConfigGUI/lang_i18n_Ignore_info').'.'),
+		
+		'GSCOMPONENTSECURITY'       => array('type' => 'bool',     'label' => i18n_r('gsConfigGUI/lang_Component_Security'), 'desc' => i18n_r('gsConfigGUI/lang_Component_Security_info').'.', 'default' => 'TRUE'),
 	);
 }
 
@@ -115,7 +117,7 @@ function gscfg_groups() {
 
 		i18n_r('gsConfigGUI/lang_Debugging')			=> array('GSDEBUG', 'GSSUPPRESSERRORS'),
 
-		i18n_r('gsConfigGUI/lang_Security')				=> array('GSLOGINSALT', 'GSUSECUSTOMSALT', 'GSNOCSRF', 'GSNOFRAME', 'GSNOAPACHECHECK', 'GSFROMEMAIL'),
+		i18n_r('gsConfigGUI/lang_Security')				=> array('GSLOGINSALT', 'GSUSECUSTOMSALT', 'GSNOCSRF', 'GSNOFRAME', 'GSNOAPACHECHECK', 'GSFROMEMAIL', 'GSCOMPONENTSECURITY'),
 
 		i18n_r('gsConfigGUI/lang_Plugins')				=> array('I18N_SINGLE_LANGUAGE', 'I18N_IGNORE_USER_LANGUAGE'),
 	);
@@ -180,7 +182,7 @@ function gscfg_parse($content) {
 		// If not found in the file at all, fall back to the declared default (if any)
 		if (!$enabled && $value === '' && isset($meta['default'])) {
 			$entry['value']   = $meta['default'];
-			$entry['enabled'] = true;
+			$entry['enabled'] = isset($meta['default_enabled']) ? $meta['default_enabled'] : true;
 		}
 		$settings[$key]   = $entry;
 	}
@@ -259,8 +261,7 @@ function gscfg_write($content, $settings) {
 			if ($val === '' && isset($meta['default'])) {
 				$defaultVal = $meta['default'];
 				if ($meta['type'] === 'bool') {
-					$u = strtoupper(trim($defaultVal));
-					$defaultStr = ($u === 'FALSE' || $u === '0') ? $defaultVal : $defaultVal;
+					$defaultStr = $defaultVal;
 				} elseif ($meta['type'] === 'rawval') {
 					$defaultStr = $defaultVal;
 				} elseif ($meta['type'] === 'number') {
@@ -268,8 +269,9 @@ function gscfg_write($content, $settings) {
 				} else {
 					$defaultStr = "'" . addslashes($defaultVal) . "'";
 				}
-				// Always write enabled when a default exists
-				$newLine = "define('" . $key . "', " . $defaultStr . ");";
+				// Honour default_enabled — if false, write commented out
+				$defaultActive = isset($meta['default_enabled']) ? $meta['default_enabled'] : true;
+				$newLine = ($defaultActive ? '' : '# ') . "define('" . $key . "', " . $defaultStr . ");";
 			}
 			$insert = "\n# " . $meta['label'] . "\n" . $newLine . "\n";
 			if (preg_match('/\?>\s*$/', $content)) {
@@ -371,10 +373,12 @@ function gscfg_handle_save() {
 
 	$newContent = gscfg_write($content, $toWrite);
 
-	copy($path, $path . '.bak');
+	// Create timestamped backup: gsconfig.php.2026-08-12-09-52-21.bak
+	$backup_path = $path . '.' . date('Y-m-d-H-i-s') . '.bak';
+	@copy($path, $backup_path);
 
 	if (file_put_contents($path, $newContent) !== false) {
-		return array('success', i18n_r('gsConfigGUI/lang_Settings_saved'));
+		return array('success', i18n_r('gsConfigGUI/lang_Settings_saved') . ' <span style="font-size:11px;color:#64748b;">(' . basename($backup_path) . ')</span>');
 	}
 	return array('error', i18n_r('gsConfigGUI/lang_Failed_to_write'));
 }
@@ -859,17 +863,18 @@ pre {color: #3B82F6;}
 
 		<?php foreach ($keys as $key): ?>
 		<?php
-			$s        = $settings[$key];
-			$type     = $s['type'];
-			$enabled  = !empty($s['enabled']);
-			$val      = isset($s['value']) ? $s['value'] : '';
-			$formKey  = str_replace(array('$', '(', ')'), array('_d_', '', ''), $key);
-			$boolOnly = ($type === 'bool');
-			$isTA     = ($type === 'textarea');
-			$isLang   = ($type === 'lang');
-			$isRaw    = ($type === 'rawval'); // like text but written without quotes
-			$noToggle = ($key === '$LANG');
-			$cardCls  = 'gscfg-card' . ($enabled ? '' : ' gscfg-off');
+			$s			= $settings[$key];
+			$type		= $s['type'];
+			$enabled	= !empty($s['enabled']);
+			$val		= isset($s['value']) ? $s['value'] : '';
+			$formKey	= str_replace(array('$', '(', ')'), array('_d_', '', ''), $key);
+			$boolOnly	= ($type === 'bool');
+			$isTA		= ($type === 'textarea');
+			$isLang		= ($type === 'lang');
+			$isRaw		= ($type === 'rawval');
+			$noToggle	= ($key === '$LANG');
+			$toggleOnly	= !empty($s['toggle_only']);
+			$cardCls	= 'gscfg-card' . ($enabled ? '' : ' gscfg-off');
 		?>
 		<div class="<?php echo $cardCls; ?>" id="gscfg-card-<?php echo htmlspecialchars($formKey, ENT_QUOTES, 'UTF-8'); ?>">
 
@@ -897,7 +902,7 @@ pre {color: #3B82F6;}
 					<?php if (!empty($s['link'])): ?><?php echo $s['link']; ?><?php endif; ?>
 				</div>
 
-				<?php if (!$boolOnly): ?>
+				<?php if (!$boolOnly && !$toggleOnly): ?>
 
 				<?php if ($isTA): ?>
 					<div class="gscfg-input-lbl">Value</div>
@@ -942,6 +947,9 @@ pre {color: #3B82F6;}
 					</div>
 				<?php endif; ?>
 
+				<?php endif; ?>
+				<?php if ($toggleOnly): ?>
+				<input type="hidden" name="val_<?php echo $formKey; ?>" value="<?php echo htmlspecialchars($val, ENT_QUOTES, 'UTF-8'); ?>">
 				<?php endif; ?>
 			</div>
 

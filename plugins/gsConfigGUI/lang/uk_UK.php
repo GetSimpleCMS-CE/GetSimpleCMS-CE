@@ -87,6 +87,9 @@ $i18n = [
 	'lang_Disable_CDN'			=>	'Вимкнути зовнішній CDN',
 	'lang_Disable_CDN_info'		=>	'Вимкнути завантаження зовнішніх CDN-версій jQuery та jQueryUI',
 	
+	'lang_Disable_Driver'		=>	'Драйвер бази даних',
+	'lang_Disable_Driver_info'	=>	'Використовуйте SQLite3 замість XML-файлів для зберігання даних.',
+	
 	'lang_Server_Timezone'		=>	'Часовий пояс сервера',
 	'lang_Server_Timezone_info'	=>	'Рядок часового поясу за замовчуванням, наприклад America/Chicago або Europe/London',
 	'lang_PHP_Timezones'		=>	'Часові пояси PHP',
@@ -123,6 +126,9 @@ $i18n = [
 	'lang_Email_Address'		=>	'Електронна адреса відправника',
 	'lang_Email_Address_info'	=>	'Встановити адресу відправника для вихідної електронної пошти',
 	
+	'lang_Component_Security'	=> 'Перевірка безпеки компонентів',
+	'lang_Component_Security_info' => 'Перевірка безпеки компонентів під час виконання (повторно перевіряє наявність небезпечного PHP-коду під час відображення). Вимикайте лише в тому разі, якщо довіряєте всім наявним компонентам',
+
 	'lang_i18n_Language'		=>	'i18n одна мова',
 	'lang_i18n_Language_info'	=>	'Приховати текст I18N на екрані Переглянути всі сторінки',
 	

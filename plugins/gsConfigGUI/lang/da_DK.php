@@ -87,6 +87,9 @@ $i18n = [
 	'lang_Disable_CDN'			=>	'Deaktiver eksternt CDN',
 	'lang_Disable_CDN_info'		=>	'Deaktiver indlæsning af eksterne CDN-versioner af jQuery og jQueryUI',
 	
+	'lang_Disable_Driver'		=>	'Database-driver',
+	'lang_Disable_Driver_info'	=>	'Brug SQLite3 i stedet for XML-filer til datalagring.',
+	
 	'lang_Server_Timezone'		=>	'Server-tidszone',
 	'lang_Server_Timezone_info'	=>	'Standard tidszonestreng, f.eks. America/Chicago eller Europe/London',
 	'lang_PHP_Timezones'		=>	'PHP-tidszoner',
@@ -123,6 +126,9 @@ $i18n = [
 	'lang_Email_Address'		=>	'Fra e-mail-adresse',
 	'lang_Email_Address_info'	=>	'Indstil afsenderadresse for udgående e-mail',
 	
+	'lang_Component_Security'	 =>	'Sikkerhedskontrol af komponenter',
+	'lang_Component_Security_info' =>	'Sikkerhedskontrol af komponenter under kørsel (dobbeltkontrollerer farlig PHP-kode ved visning). Deaktivér kun, hvis du har tillid til alle eksisterende komponenter',
+
 	'lang_i18n_Language'		=>	'i18n enkelt sprog',
 	'lang_i18n_Language_info'	=>	'Skjul I18N-tekst på skærmen Vis alle sider',
 	

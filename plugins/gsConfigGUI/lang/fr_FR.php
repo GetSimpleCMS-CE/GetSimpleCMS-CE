@@ -87,6 +87,9 @@ $i18n = [
 	'lang_Disable_CDN'			=>	'Désactiver le CDN externe',
 	'lang_Disable_CDN_info'		=>	'Désactiver le chargement des versions CDN externes de jQuery et jQueryUI',
 	
+	'lang_Disable_Driver'		=>	'Pilote de base de données',
+	'lang_Disable_Driver_info'	=>	'Utilisez SQLite3 au lieu de fichiers XML pour le stockage des données.',
+	
 	'lang_Server_Timezone'		=>	'Fuseau horaire du serveur',
 	'lang_Server_Timezone_info'	=>	'Chaîne du fuseau horaire par défaut, ex. America/Chicago ou Europe/London',
 	'lang_PHP_Timezones'		=>	'Fuseaux horaires PHP',
@@ -123,6 +126,9 @@ $i18n = [
 	'lang_Email_Address'		=>	'Adresse e-mail de l’expéditeur',
 	'lang_Email_Address_info'	=>	'Définir l’adresse d’expédition pour les e-mails sortants',
 	
+	'lang_Component_Security'	=>	'Contrôle de sécurité des composants',
+	'lang_Component_Security_info'	=>	'Contrôle de sécurité des composants à l’exécution (vérifie à nouveau la présence de code PHP dangereux lors de l’affichage). Désactivez cette option uniquement si vous faites confiance à tous les composants existants',
+
 	'lang_i18n_Language'		=>	'i18n langue unique',
 	'lang_i18n_Language_info'	=>	'Masquer le texte I18N sur l’écran Voir toutes les pages',
 	

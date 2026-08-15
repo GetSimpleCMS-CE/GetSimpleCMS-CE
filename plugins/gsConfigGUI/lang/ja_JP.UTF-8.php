@@ -87,6 +87,9 @@ $i18n = [
 	'lang_Disable_CDN'			=>	'外部CDNを無効にする',
 	'lang_Disable_CDN_info'		=>	'jQueryとjQueryUIの外部CDNバージョンの読み込みを無効にする',
 	
+	'lang_Disable_Driver'		=>	'データベースドライバ',
+	'lang_Disable_Driver_info'	=>	'データ保存にXMLファイルの代わりにSQLite3を使用します。',
+	
 	'lang_Server_Timezone'		=>	'サーバータイムゾーン',
 	'lang_Server_Timezone_info'	=>	'デフォルトのタイムゾーン文字列（例: America/Chicago または Europe/London）',
 	'lang_PHP_Timezones'		=>	'PHPタイムゾーン',
@@ -123,6 +126,9 @@ $i18n = [
 	'lang_Email_Address'		=>	'送信元メールアドレス',
 	'lang_Email_Address_info'	=>	'送信メールの送信元アドレスを設定',
 	
+	'lang_Component_Security'	=>	'コンポーネントのセキュリティチェック',
+	'lang_Component_Security_info'	=>	'コンポーネントの実行時セキュリティチェック（表示時に危険なPHPコードがないか再確認します）。既存のすべてのコンポーネントを信頼できる場合のみ無効にしてください',
+
 	'lang_i18n_Language'		=>	'i18n シングル言語',
 	'lang_i18n_Language_info'	=>	'全ページ表示画面でI18Nテキストを非表示にする',
 	

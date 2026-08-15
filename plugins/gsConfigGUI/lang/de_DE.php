@@ -87,6 +87,9 @@ $i18n = [
 	'lang_Disable_CDN'			=>	'Externes CDN deaktivieren',
 	'lang_Disable_CDN_info'		=>	'Externe jQuery/CDN-Dateien deaktivieren',
 	
+	'lang_Disable_Driver'		=>	'Datenbanktreiber',
+	'lang_Disable_Driver_info'	=>	'Verwenden Sie SQLite3 anstelle von XML-Dateien zur Datenspeicherung.',
+	
 	'lang_Server_Timezone'		=>	'Server-Zeitzone',
 	'lang_Server_Timezone_info'	=>	'Standard-Zeitzone (z. B. Europe/Berlin)',
 	'lang_PHP_Timezones'		=>	'PHP-Zeitzonen',
@@ -123,6 +126,9 @@ $i18n = [
 	'lang_Email_Address'		=>	'Absenderadresse',
 	'lang_Email_Address_info'	=>	'E-Mail-Absender festlegen',
 	
+	'lang_Component_Security'	=>	'Sicherheitsprüfung der Komponenten',
+	'lang_Component_Security_info' =>	'Laufzeit-Sicherheitsprüfung für Komponenten (überprüft bei der Anzeige zusätzlich auf gefährlichen PHP-Code). Nur deaktivieren, wenn Sie allen vorhandenen Komponenten vertrauen',
+
 	'lang_i18n_Language'		=>	'i18n Einzelsprache',
 	'lang_i18n_Language_info'	=>	'I18N Texte ausblenden',
 	
