@@ -594,8 +594,20 @@ function get_component($id, $ret=false) {
 	if (count($components) > 0) {
 		foreach ($components as $component) {
 			if ($id == $component->slug) {
-				if ($ret) return strip_decode($component->value);
-				else eval("?>" . strip_decode($component->value) . "<?php "); 
+				$component_value = strip_decode($component->value);
+				
+				// Runtime safety check - block dangerous code before execution
+				if (getDef('GSCOMPONENTSECURITY', true)) {
+					// Re-check for dangerous patterns at runtime
+					if (containsDangerousPHP($component_value)) {
+						if ($ret) return "<!-- Component execution blocked due to security policy -->";
+						else echo "<!-- Component execution blocked due to security policy -->";
+						return;
+					}
+				}
+				
+				if ($ret) return $component_value;
+				else eval("?>" . $component_value . "<?php "); 
 			}
 		}
 	}

@@ -21,41 +21,71 @@ $bakpath 	= GSBACKUPSPATH .'other/';
 $update 	= ''; $table = ''; $list='';
 
 # Security function to check for dangerous PHP
-function containsDangerousPHP($content) { 
+function containsDangerousPHP($content) {
+	// Strip out harmless whitespace and comments for better detection
+	$content = preg_replace('/\s+/', ' ', $content);
+	$content = preg_replace('/\/\*.*?\*\//s', '', $content);
+	$content = preg_replace('/\/\/.*$/m', '', $content);
+	$content = preg_replace('/#.*$/m', '', $content);
+	
+	// Dangerous functions to block
 	$dangerousFunctions = array(
-	// Code execution
+		// Code execution
 		'eval', 'assert', 'create_function', 'assert_options',
-	// Shell/system execution
+		// Shell/system execution
 		'exec', 'passthru', 'shell_exec', 'system', 'popen', 'proc_open',
 		'pcntl_exec', 'proc_nice', 'proc_terminate', 'proc_close',
 		'apache_child_terminate',
-	// Dynamic calls (can wrap any of the above)
+		// Dynamic calls (can wrap any of the above)
 		'call_user_func', 'call_user_func_array', 'ReflectionFunction',
-	// File inclusion (arbitrary code execution)
+		// File inclusion (arbitrary code execution)
 		'include', 'include_once', 'require', 'require_once', 'dl',
-	// Write/destructive filesystem ops
+		// Write/destructive filesystem ops
 		'file_put_contents', 'unlink', 'rename', 'mkdir', 'rmdir',
 		'chmod', 'chown', 'chgrp', 'lchown', 'lchgrp', 'copy',
 		'move_uploaded_file', 'symlink', 'link', 'tempnam', 'touch',
-	// File open (can write)
+		// File open (can write)
 		'fopen', 'tmpfile', 'bzopen', 'gzopen', 'SplFileObject',
-	// Network sockets
+		// Network sockets
 		'fsockopen', 'pfsockopen',
-	// FTP
+		// FTP
 		'ftp_get', 'ftp_nb_get', 'ftp_put', 'ftp_nb_put',
-	// POSIX process manipulation
+		// POSIX process manipulation
 		'posix_kill', 'posix_mkfifo', 'posix_setpgid',
 		'posix_setsid', 'posix_setuid',
-	// Environment/config tampering
+		// Environment/config tampering
 		'putenv', 'ini_set',
-	// Config/source disclosure
+		// Config/source disclosure
 		'parse_ini_file', 'highlight_file', 'show_source', 'php_strip_whitespace',
+		// Backtick execution (shell_exec)
+		'`',
 	);
 	
-	foreach ($dangerousFunctions as $func) {
-		if (stripos($content, $func . '(') !== false) {
-			return true;
+	// Check for danger patterns beyond simple function calls
+	
+	if (preg_match('/`[^`]+`/', $content)) {
+		return true;
+	}
+	
+	if (preg_match('/\$[a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*\s*=\s*[\'"](' . implode('|', array_map('preg_quote', $dangerousFunctions)) . ')[\'"]/', $content)) {
+		return true;
+	}
+	
+	if (preg_match('/(' . implode('|', array_map('preg_quote', $dangerousFunctions)) . ')\s*\(/', $content)) {
+		return true;
+	}
+	
+	if (preg_match('/\$[a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*\s*=\s*[\'"]?[^\'";]*[\'"]?\s*\.\s*[\'"]/', $content)) {
+		// Additional check: does it look like a function name being constructed?
+		foreach ($dangerousFunctions as $func) {
+			if (stripos($content, substr($func, 0, 3)) !== false) {
+				return true;
+			}
 		}
+	}
+	
+	if (preg_match('/preg_replace\s*\(.*?\/e/i', $content)) {
+		return true;
 	}
 	
 	return false;

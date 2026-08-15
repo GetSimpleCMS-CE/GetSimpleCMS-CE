@@ -42,6 +42,10 @@ define('GSDONOTPING',1);
 # Disable chmod operations
 # define('GSDOCHMOD',FALSE);
 
+# Runtime security check for components (double-check dangerous PHP on display). 
+# Disable only if you trust all existing components.
+define('GSCOMPONENTSECURITY', TRUE);
+
 # Enable Canonical Redirects?
 # define('GSCANONICAL',1);
 
