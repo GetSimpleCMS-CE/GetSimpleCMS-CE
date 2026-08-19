@@ -148,10 +148,10 @@ If you have renamed the default `/admin/` folder, this needs to be reverted back
 > Alternativly, you can download the full [Update](https://github.com/GetSimpleCMS-CE/update-GetSimpleCMS-CE) package and extract, overwriting existing files.
 
 **2.** After updating, you may need to Activate the following **[ :electric_plug: Plugins ]**:
-- :electric_plug: Dashboard
-- :electric_plug: GS Config GUI
-- :electric_plug: Massive Admin Theme
-- :electric_plug: Update CE
+- :electric_plug: Dashboard [🔗](https://github.com/GetSimpleCMS-CE-plugins/plugin-Dashboard/wiki)
+- :electric_plug: GS Config GUI [🔗](https://github.com/GetSimpleCMS-CE-plugins/plugin-GS_Config_GUI/wiki)
+- :electric_plug: Massive Admin Theme [🔗](https://github.com/GetSimpleCMS-CE-plugins/plugin-Massive_Admin_Theme/wiki)
+- :electric_plug: Update CE [🔗](https://github.com/GetSimpleCMS-CE-plugins/plugin-UpdateCE/wiki)
 
 **3.** After activating, visit the **(GS Config GUI <img width="18" height="18" alt="gui" src="https://github.com/user-attachments/assets/ca82a560-a7fe-42d5-b23e-9b0bfcc485da" />
 )** settings page, found in the **[ ⚙️ Settings ]** tab, sidebar menu.     
