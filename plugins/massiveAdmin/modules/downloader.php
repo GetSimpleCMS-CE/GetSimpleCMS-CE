@@ -27,6 +27,9 @@
 	$jsondb = json_decode($db);
 
 	global $SITEURL;
+	
+	// Generate CSRF nonce for download
+	$download_nonce = MassiveAdminClass::generate_nonce('download_plugin');
 
 	echo '
 	<div class="scroll">
@@ -53,6 +56,7 @@
 					
 					<form action="#" method="POST" class="w3-center" style="margin:10px 0">
 						<input type="hidden" name="url" value="' . $value->url . '">
+						<input type="hidden" name="nonce" value="' . $download_nonce . '">
 						<button type="submit" name="download" class="w3-btn w3-green w3-round w3-center download" value="' . i18n_r('massiveAdmin/DOWNLOAD') . '">' . i18n_r('massiveAdmin/DOWNLOAD') . '</button>
 					</form>
 				</div>
