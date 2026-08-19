@@ -163,6 +163,10 @@ If you have renamed the default `/admin/` folder, this needs to be reverted back
 > + Scroll to bottom of page and click the **Save Changes** button.  
 
 #### :tada: Congratulations, update complete!
+
+> It is reccomended that you check for plugin updates to maintain PHP compatibility, security, bug fixes, and new features.
+
+
 <hr><hr>
 
 
