@@ -142,18 +142,18 @@ Designed to be light and agile, the base install comes to you clutter free, with
 > Always create a backup to protect against the unexpected!  
 If you have renamed the default `/admin/` folder, this needs to be reverted back before applying this update. (After you have applied the update, you may again personalize this.)
 
-**1.** In the **[ Support ]** tab within the admin, visit the **Update CE** plugin from the side-menu and follow instructions.  
+**1.** In the **[ 🛟 Support ]** tab within the admin, visit the **Update CE** plugin from the side-menu and follow instructions.  
 - If you do not have this plugin, it is available from the plugins repo.  
 
 > Alternativly, you can download the full [Update](https://github.com/GetSimpleCMS-CE/update-GetSimpleCMS-CE) package and extract, overwriting existing files.
 
-**2.** After updating, you may need to Activate the following **[ Plugins ]**:
+**2.** After updating, you may need to Activate the following **[ :electric_plug: Plugins ]**:
 - :electric_plug: Dashboard
-- GS Config GUI
-- Massive Admin Theme
-- Update CE
+- :electric_plug: GS Config GUI
+- :electric_plug: Massive Admin Theme
+- :electric_plug: Update CE
 
-**3.** After activating, visit the **GS Config GUI** settings page, found in the **[ Settings ]** tab, sidebar menu.    
+**3.** After activating, visit the **GS Config GUI** settings page, found in the **[ ⚙️ Settings ]** tab, sidebar menu.    
 
 - In the **_Editor_** section:
 
@@ -162,7 +162,7 @@ If you have renamed the default `/admin/` folder, this needs to be reverted back
 > If the [textarea] is blank, click the "Restor defaults" option.  
 > + Scroll to bottom of page and click the **Save Changes** button.  
 
-#### Congratulations, update complete!
+#### :tada: Congratulations, update complete!
 <hr><hr>
 
 
