@@ -139,47 +139,30 @@ Designed to be light and agile, the base install comes to you clutter free, with
 
 > ⚠️ GetSimple v3.3.16 or newer required.
 > 
-> Always create a backup to protect against the unexpected!
+> Always create a backup to protect against the unexpected!  
+If you have renamed the default `/admin/` folder, this needs to be reverted back before applying this update. (After you have applied the update, you may again personalize this.)
 
-- Download [Update](https://github.com/GetSimpleCMS-CE/update-GetSimpleCMS-CE) package.
-- Overwrite existing files.
-- If you have renamed the default `/admin/` folder, this needs to be reverted back before applying this update. 
-After you have applied the update, you may again personalize this.
-- Update your existing `gsconfig.php` with the following:
+**1.** In the **[ Support ]** tab within the admin, visit the **Update CE** plugin from the side-menu and follow instructions.  
+- If you do not have this plugin, it is available from the plugins repo.  
 
-Add New:
-```
-# Login Page Default Language;
-$LANG = 'en_US'; // es_ES, pl_PL, de_DE, uk_UK, etc.
+> Alternativly, you can download the full [Update](https://github.com/GetSimpleCMS-CE/update-GetSimpleCMS-CE) package and extract, overwriting existing files.
 
-# Sort admin page list by title or menu
-define('GSSORTPAGELISTBY','menu');
+**2.** After updating, you may need to Activate the following **[ Plugins ]**:
+- :electric_plug: Dashboard
+- GS Config GUI
+- Massive Admin Theme
+- Update CE
 
-# Set CodeMirror Theme (blackboard or default)
-define('GSCMTHEME','blackboard');
-```
+**3.** After activating, visit the **GS Config GUI** settings page, found in the **[ Settings ]** tab, sidebar menu.    
 
-Replace section:
-```
-# WYSIWYG toolbars (advanced, basic or [custom config]) 
-# define('GSEDITORTOOL', 'advanced');
+- In the **_Editor_** section:
 
-# WYSIWYG Editor Options
-# define('GSEDITOROPTIONS', '');
-```
-With updated:
-```
-# WYSIWYG toolbars (advanced, basic, advanced, island, CEbar or [custom config])
-define('GSEDITORTOOL', "CEbar");
+> + Activate **GSEDITORTOOL** Editor Toolbar, if not already activated.  
+> + Activate **GSEDITOROPTIONS** Editor Options, if not already activated.  
+> If the [textarea] is blank, click the "Restor defaults" option.  
+> + Scroll to bottom of page and click the **Save Changes** button.  
 
-# WYSIWYG Editor Options
-define('GSEDITOROPTIONS', '
-extraPlugins:"fontawesome5,youtube,codemirror,cmsgrid,colorbutton,oembed,simplebutton,spacingsliders",
-disableNativeSpellChecker : false,
-forcePasteAsPlainText : true
-');
-```
-
+#### Congratulations, update complete!
 <hr><hr>
 
 
