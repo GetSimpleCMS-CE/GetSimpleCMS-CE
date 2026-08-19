@@ -153,7 +153,8 @@ If you have renamed the default `/admin/` folder, this needs to be reverted back
 - :electric_plug: Massive Admin Theme
 - :electric_plug: Update CE
 
-**3.** After activating, visit the **(GS Config GUI <svg xmlns="http://www.w3.org/2000/svg" style="vertical-align:middle;" width="18px" height="18px" viewBox="0 0 24 24"><rect width="24" height="24" fill="none"></rect><path fill="#0" fill-rule="evenodd" d="M7 3a4 4 0 0 1 3.874 3H19v2h-8.126A4.002 4.002 0 0 1 3 7a4 4 0 0 1 4-4m0 6a2 2 0 1 0 0-4a2 2 0 0 0 0 4m10 11a4 4 0 0 1-3.874-3H5v-2h8.126A4.002 4.002 0 0 1 21 16a4 4 0 0 1-4 4m0-2a2 2 0 1 0 0-4a2 2 0 0 0 0 4" clip-rule="evenodd"></path></svg>)** settings page, found in the **[ ⚙️ Settings ]** tab, sidebar menu.     
+**3.** After activating, visit the **(GS Config GUI <img width="18" height="18" alt="gui" src="https://github.com/user-attachments/assets/ca82a560-a7fe-42d5-b23e-9b0bfcc485da" />
+)** settings page, found in the **[ ⚙️ Settings ]** tab, sidebar menu.     
 
 - In the **_Editor_** section:
 
