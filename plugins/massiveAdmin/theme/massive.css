@@ -673,7 +673,8 @@ tr .linker {
 	width: 100%;
 	margin: 20px 0;
 	color: #fff;
-	background: var(--main-color);
+	border-color: var(--main-color);
+	background: #F3F3F3;
 	padding: 10px;
 }
 
