@@ -37,7 +37,24 @@ $i18n = [
 	'lang_Seconds_remaining'	=>	'seconds remaining',
 	'lang_Finished'				=>	'Finished... Redirecting...',
 	
-	'lang_No_Updates'				=>	'No updates are needed. You are using the current version.',
+	'lang_No_Updates'			=>	'No updates are needed. You are using the current version.',
+	
+# Backup option
+	'lang_Backup_Option'		=>	'Créer une sauvegarde avant la mise à jour',
+	'lang_Backup_Info'			=>	'Une sauvegarde complète du site sera enregistrée dans backups/zip/ avant le début de la mise à jour.',
+	'lang_Backup_Success'		=>	'Sauvegarde créée avec succès :',
+	'lang_Backup_Failed'		=>	'Échec de la sauvegarde :',
+	'lang_Backup_Aborted'		=>	'Mise à jour interrompue pour des raisons de sécurité. Résolvez le problème de sauvegarde et réessayez, ou réessayez sans l’option de sauvegarde.',
+	
+# Progress bar
+	'lang_Progress_Backup'		=>	'💾 Création de la sauvegarde...',
+	'lang_Progress_Downloading'	=>	'📥 Téléchargement de la mise à jour...',
+	'lang_Progress_Extracting'	=>	'📦 Extraction des fichiers...',
+	'lang_Progress_Installing'	=>	'⚙️ Installation de la mise à jour...',
+	'lang_Progress_Finishing'	=>	'🧹 Finalisation...',
+	'lang_Progress_Complete'	=>	'Mise à jour terminée ! Redirection...',
+	'lang_Update_Failed'		=>	'Échec de la mise à jour :',
+	'lang_Reload_Page'			=>	'Recharger cette page',
 	
 	'lang_Icon'					=>	'<svg xmlns="http://www.w3.org/2000/svg" style="vertical-align:middle;" width="2em" height="2em" viewBox="0 0 24 24"><path fill="#CF3805" d="M4 16h4v4H4V16z" class="st0"><animate fill="remove" accumulate="none" additive="replace" attributeName="opacity" begin=".2" calcMode="linear" dur="3s" keyTimes="0;0.9;1" repeatCount="indefinite" restart="always" values="1;0;0"/></path><path fill="#CF3805" d="M10 16h4v4h-4V16z" class="st0"><animate fill="remove" accumulate="none" additive="replace" attributeName="opacity" begin=".4" calcMode="linear" dur="3s" keyTimes="0;0.9;1" repeatCount="indefinite" restart="always" values="1;0;0"/></path><path fill="#CF3805" d="M16 16h4v4h-4V16z" class="st0"><animate fill="remove" accumulate="none" additive="replace" attributeName="opacity" begin=".6" calcMode="linear" dur="3s" keyTimes="0;0.9;1" repeatCount="indefinite" restart="always" values="1;0;0"/></path><path fill="#CF3805" d="M4 10h4v4H4V10z" class="st0"><animate fill="remove" accumulate="none" additive="replace" attributeName="opacity" begin=".8" calcMode="linear" dur="3s" keyTimes="0;0.9;1" repeatCount="indefinite" restart="always" values="1;0;0"/></path><path fill="#CF3805" d="M10 10h4v4h-4V10z" class="st0"><animate fill="remove" accumulate="none" additive="replace" attributeName="opacity" begin="1" calcMode="linear" dur="3s" keyTimes="0;0.9;1" repeatCount="indefinite" restart="always" values="1;0;0"/></path><path fill="#CF3805" d="M16 10h4v4h-4V10z" class="st0"><animate fill="remove" accumulate="none" additive="replace" attributeName="opacity" begin="1.2" calcMode="linear" dur="3s" keyTimes="0;0.9;1" repeatCount="indefinite" restart="always" values="1;0;0"/></path><path fill="#CF3805" d="M4 4h4v4H4V4z" class="st0"><animate fill="remove" accumulate="none" additive="replace" attributeName="opacity" begin="1.4" calcMode="linear" dur="3s" keyTimes="0;0.9;1" repeatCount="indefinite" restart="always" values="1;0;0"/></path><path fill="#CF3805" d="M10 4h4v4h-4V4z" class="st0"><animate fill="remove" accumulate="none" additive="replace" attributeName="opacity" begin="1.6" calcMode="linear" dur="3s" keyTimes="0;0.9;1" repeatCount="indefinite" restart="always" values="1;0;0"/></path><path fill="#CF3805" d="M16 4h4v4h-4V4z" class="st0"><animate fill="remove" accumulate="none" additive="replace" attributeName="opacity" begin="1.8" calcMode="linear" dur="3s" keyTimes="0;0.9;1" repeatCount="indefinite" restart="always" values="1;0;0"/></path></svg> ',
 	

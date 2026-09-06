@@ -37,7 +37,24 @@ $i18n = [
 	'lang_Seconds_remaining'	=>	'seconden overblijven',
 	'lang_Finished'				=>	'Klaar...Het doorverwijzen...',
 	
-	'lang_No_Updates'				=>	'No updates are needed. You are using the current version.',
+	'lang_No_Updates'			=>	'No updates are needed. You are using the current version.',
+	
+# Backup option
+	'lang_Backup_Option'		=>	'Een back-up maken vóór het bijwerken',
+	'lang_Backup_Info'			=>	'Voordat de update begint, wordt een volledige back-up van de website opgeslagen in backups/zip/.',
+	'lang_Backup_Success'		=>	'Back-up succesvol aangemaakt:',
+	'lang_Backup_Failed'		=>	'Back-up mislukt:',
+	'lang_Backup_Aborted'		=>	'Update uit veiligheidsoverwegingen afgebroken. Los het probleem met de back-up op en probeer het opnieuw, of probeer het opnieuw zonder de back-upoptie.',
+	
+# Progress bar
+	'lang_Progress_Backup'		=>	'💾 Back-up maken...',
+	'lang_Progress_Downloading'	=>	'📥 Update downloaden...',
+	'lang_Progress_Extracting'	=>	'📦 Bestanden uitpakken...',
+	'lang_Progress_Installing'	=>	'⚙️ Update installeren...',
+	'lang_Progress_Finishing'	=>	'🧹 Afronden...',
+	'lang_Progress_Complete'	=>	'Update voltooid! Doorsturen...',
+	'lang_Update_Failed'		=>	'Update mislukt:',
+	'lang_Reload_Page'			=>	'Deze pagina opnieuw laden',
 	
 	'lang_Icon'					=>	'<svg xmlns="http://www.w3.org/2000/svg" style="vertical-align:middle;" width="2em" height="2em" viewBox="0 0 24 24"><path fill="#CF3805" d="M4 16h4v4H4V16z" class="st0"><animate fill="remove" accumulate="none" additive="replace" attributeName="opacity" begin=".2" calcMode="linear" dur="3s" keyTimes="0;0.9;1" repeatCount="indefinite" restart="always" values="1;0;0"/></path><path fill="#CF3805" d="M10 16h4v4h-4V16z" class="st0"><animate fill="remove" accumulate="none" additive="replace" attributeName="opacity" begin=".4" calcMode="linear" dur="3s" keyTimes="0;0.9;1" repeatCount="indefinite" restart="always" values="1;0;0"/></path><path fill="#CF3805" d="M16 16h4v4h-4V16z" class="st0"><animate fill="remove" accumulate="none" additive="replace" attributeName="opacity" begin=".6" calcMode="linear" dur="3s" keyTimes="0;0.9;1" repeatCount="indefinite" restart="always" values="1;0;0"/></path><path fill="#CF3805" d="M4 10h4v4H4V10z" class="st0"><animate fill="remove" accumulate="none" additive="replace" attributeName="opacity" begin=".8" calcMode="linear" dur="3s" keyTimes="0;0.9;1" repeatCount="indefinite" restart="always" values="1;0;0"/></path><path fill="#CF3805" d="M10 10h4v4h-4V10z" class="st0"><animate fill="remove" accumulate="none" additive="replace" attributeName="opacity" begin="1" calcMode="linear" dur="3s" keyTimes="0;0.9;1" repeatCount="indefinite" restart="always" values="1;0;0"/></path><path fill="#CF3805" d="M16 10h4v4h-4V10z" class="st0"><animate fill="remove" accumulate="none" additive="replace" attributeName="opacity" begin="1.2" calcMode="linear" dur="3s" keyTimes="0;0.9;1" repeatCount="indefinite" restart="always" values="1;0;0"/></path><path fill="#CF3805" d="M4 4h4v4H4V4z" class="st0"><animate fill="remove" accumulate="none" additive="replace" attributeName="opacity" begin="1.4" calcMode="linear" dur="3s" keyTimes="0;0.9;1" repeatCount="indefinite" restart="always" values="1;0;0"/></path><path fill="#CF3805" d="M10 4h4v4h-4V4z" class="st0"><animate fill="remove" accumulate="none" additive="replace" attributeName="opacity" begin="1.6" calcMode="linear" dur="3s" keyTimes="0;0.9;1" repeatCount="indefinite" restart="always" values="1;0;0"/></path><path fill="#CF3805" d="M16 4h4v4h-4V4z" class="st0"><animate fill="remove" accumulate="none" additive="replace" attributeName="opacity" begin="1.8" calcMode="linear" dur="3s" keyTimes="0;0.9;1" repeatCount="indefinite" restart="always" values="1;0;0"/></path></svg> ',
 	
