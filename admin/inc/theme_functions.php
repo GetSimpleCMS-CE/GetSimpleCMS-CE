@@ -671,7 +671,7 @@ function split_component($sec) {
  * @param string $classPrefix Prefix that gets added to the parent and slug classnames
  * @return string 
  */ 
-function build_menu($parentId, $menuTree, $currentpage, $classPrefix, $isSubmenu = false) {
+function build_menu($parentId, $menuTree, $currentpage, $classPrefix, $isSubmenu = false, $disableParentLinks = false) {
 	if (!isset($menuTree[$parentId])) {
 		return '';
 	}
@@ -718,10 +718,22 @@ function build_menu($parentId, $menuTree, $currentpage, $classPrefix, $isSubmenu
 			$linkClasses[] = " cur-act-a "; // Add class to active <a>
 		}
 
-		$menu .= '<li class="' . trim($classes) . '"><a href="' . find_url($page['url'], $page['parent']) . '" class="' . implode(" ", $linkClasses) . '" title="' . encode_quotes(cl($pageTitle)) . '">' . strip_decode($menuText) . '</a>';
+		// Determine if this link should be disabled (parent with children and setting is enabled)
+		$isDisabledLink = ($disableParentLinks && $hasSubmenu && !$isSubmenu);
+		
+		// Build the link
+		if ($isDisabledLink) {
+			// For disabled parent links, use a span or # with javascript:void(0)
+			$href = 'javascript:void(0)';
+			$linkClasses[] = " disabled-link ";
+		} else {
+			$href = find_url($page['url'], $page['parent']);
+		}
+
+		$menu .= '<li class="' . trim($classes) . '"><a href="' . $href . '" class="' . implode(" ", $linkClasses) . '" title="' . encode_quotes(cl($pageTitle)) . '"' . ($isDisabledLink ? ' onclick="return false;"' : '') . '>' . strip_decode($menuText) . '</a>';
 
 		// Add submenu if exists
-		$subMenu = build_menu($url_nav, $menuTree, $currentpage, $classPrefix, true);
+		$subMenu = build_menu($url_nav, $menuTree, $currentpage, $classPrefix, true, $disableParentLinks);
 		if (!empty($subMenu)) {
 			$menu .= $subMenu;
 		}
@@ -732,7 +744,7 @@ function build_menu($parentId, $menuTree, $currentpage, $classPrefix, $isSubmenu
 	return $menu;
 }
 
-function get_navigation($currentpage = "", $classPrefix = "") {
+function get_navigation($currentpage = "", $classPrefix = "", $disableParentLinks = false) { // true/false, Disables parent links
 	global $pagesArray, $id;
 	if (empty($currentpage)) {
 		$currentpage = $id;
@@ -749,7 +761,7 @@ function get_navigation($currentpage = "", $classPrefix = "") {
 	}
 
 	if (!empty($menuTree)) {
-		$menuHtml = build_menu(0, $menuTree, $currentpage, $classPrefix, false);
+		$menuHtml = build_menu(0, $menuTree, $currentpage, $classPrefix, false, $disableParentLinks);
 		echo exec_filter('menuitems', $menuHtml);
 	} else {
 		echo "<!-- No menu items -->";
