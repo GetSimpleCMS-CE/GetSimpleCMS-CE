@@ -1406,3 +1406,7 @@ input.submit{
 h1#sitename {
 	text-align: center;
 }
+
+/* Dashboard menu icon */
+#header .nav a {color:var(--main-color); !important;}
+ul.nav.dashboard li#nav_Dashboard.plugin_tab a.current span svg path{fill:#fff !important;}
