@@ -2,9 +2,9 @@
 
 $i18n	= [
 
-	'lang_Title'				=> 'Pannello di controllo',
+	'lang_Title'				=> 'Bacheca',
 	'lang_Description'			=> 'Pannello di controllo amministratore visualizzato dopo il login.',
-	'lang_Settings'				=> 'Impostazioni del pannello',
+	'lang_Settings'				=> 'Impostazioni del bacheca',
 
 	'lang_No_modules_enabled' 	=> 'Nessun modulo è abilitato. Visita le <a href="load.php?id=Dashboard&dashboard-settings">Impostazioni del pannello</a> per aggiungerne.',
 	

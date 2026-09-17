@@ -2,9 +2,9 @@
 
 $i18n = [
 
-	'lang_Title'                =>	'Tablero',
+	'lang_Title'                =>	'Escritorio',
 	'lang_Description'          =>	'Tablero de administración mostrado después de iniciar sesión.',
-	'lang_Settings'             =>	'Tablero Config.',
+	'lang_Settings'             =>	'Escritorio Config.',
 	
 	'lang_No_modules_enabled'   =>	'No hay módulos habilitados. Visita <a href="load.php?id=Dashboard&dashboard-settings">Tablero Config.</a>	para añadir algunos.',
 	

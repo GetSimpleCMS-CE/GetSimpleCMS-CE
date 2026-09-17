@@ -2,9 +2,9 @@
 
 $i18n = [
 
-	'lang_Title'				=>	'Panel',
+	'lang_Title'				=>	'Kokpit',
 	'lang_Description'			=>	'Panel administracyjny wyświetlany po zalogowaniu.',
-	'lang_Settings'				=>	'Ustawienia panelu',
+	'lang_Settings'				=>	'Ustawienia Kokpit',
 	
 	'lang_No_modules_enabled'	=>	'Żadne moduły nie są włączone. Przejdź do <a href="load.php?id=Dashboard&dashboard-settings">Ustawień panelu</a>, aby dodać moduły.',
 	

@@ -2,7 +2,7 @@
 
 $i18n = [
 
-	'lang_Title'				=> 'Instrumentpanel',
+	'lang_Title'				=> 'Kontrollpanel',
 	'lang_Description'			=> 'Admin-instrumentpanel som visas efter inloggning.',
 	'lang_Settings'				=> 'Panelinställningar',
 
