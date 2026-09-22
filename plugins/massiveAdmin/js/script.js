@@ -202,8 +202,19 @@ if (document.querySelector('#imageTable') !== null) {
 			// Get the actual filename from the link text
 			const fileName = primaryLink.textContent.trim();
 			
+			const thumbPath = `../data/thumbs/thumbnail.${pathParam}${fileName}`;
 			const fullPath = `../data/uploads/${pathParam}${fileName}`;
 			
+			// Handle jpg files
+			if (fileName.toLowerCase().indexOf('.jpg') >= 0) {
+				thumb.innerHTML = `<a href="${thumbPath}" rel=" facybox_i">
+					<img src="${thumbPath}" width="40" height="40" style="vertical-align:middle"></a>`;
+			}
+			// Handle png files
+			if (fileName.toLowerCase().indexOf('.png') >= 0) {
+				thumb.innerHTML = `<a href="${thumbPath}" rel=" facybox_i">
+					<img src="${thumbPath}" width="40" height="40" style="vertical-align:middle"></a>`;
+			}
 			// Handle SVG files
 			if (fileName.toLowerCase().indexOf('.svg') >= 0) {
 				thumb.innerHTML = `<a href="${fullPath}" rel=" facybox_i">
@@ -211,8 +222,8 @@ if (document.querySelector('#imageTable') !== null) {
 			}
 			// Handle WebP files
 			else if (fileName.toLowerCase().indexOf('.webp') >= 0) {
-				thumb.innerHTML = `<a href="${fullPath}" rel=" facybox_i">
-					<img src="${fullPath}" style="max-width:640px; max-height:480px; vertical-align:middle"></a>`;
+				thumb.innerHTML = `<a href="${thumbPath}" rel=" facybox_i">
+					<img src="${thumbPath}" style="max-width:640px; max-height:480px; vertical-align:middle"></a>`;
 			}
 		}
 	});

@@ -225,6 +225,7 @@ function dash_main() {
 	<style>
 		#maincontent {width: 100% !important;}
 		#sidebar {display:none;}
+		
 		.bodycontent { display: inline; }
 		h2, span#dashGreeting{color:#607D8B!important;}
 		h3{color:#607D8B; margin:0 0 10px 0;}
@@ -446,7 +447,9 @@ function dash_settings() {
 	?>
 	<link rel="stylesheet" href="<?php echo $SITEURL ?>plugins/Dashboard/assets/css/gridstack.min.css"/>
 	<style>
+		#maincontent {width: 100% !important;}
 		#sidebar { display: none; }
+		
 		.bodycontent { display: inline; }
 		h3 { font-style: normal; font-weight: 600 !important; }
 
