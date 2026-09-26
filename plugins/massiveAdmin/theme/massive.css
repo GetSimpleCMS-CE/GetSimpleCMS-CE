@@ -672,7 +672,7 @@ tr .linker {
 #components #maincontent textarea {
 	width: 100%;
 	margin: 20px 0;
-	color: #fff;
+	color: #000;
 	border-color: var(--main-color);
 	background: #F3F3F3;
 	padding: 10px;
