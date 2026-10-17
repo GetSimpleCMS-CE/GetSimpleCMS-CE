@@ -6,10 +6,10 @@ $i18n = [
 	'CONTENT_MAINTENANCE_MODE' 		=> 'メンテナンス モードの内容:',
 	'TURNONBOOTSTRAPGRID' 			=> 'Bootstrap-Grid 4.0 をオンにしますか?',
 	'TURNONBOOTSTRAPGRIDONTHEME' 	=> 'Bootstrap-Grid CSS をフロントエンド テーマに追加しますか?',
-	'YES' 							=> 'はい'、
-	'NO' 							=> 'いいえ'、
+	'YES' 							=> 'はい',
+	'NO' 							=> 'いいえ',
 	'SAVEOPTION' 					=> '変更を保存',
-	'SUPPORT' 						=> 'PayPal 経由で私の仕事をサポートしたい場合:) ありがとう! '、
+	'SUPPORT' 						=> 'PayPal 経由で私の仕事をサポートしたい場合:) ありがとう! ',
 	'UPLOADFILE' 					=> 'ファイルをアップロード',
 	'ANOTHERPAGE' 					=> '<strong>変更が保存されました!</strong> 別のページに移動します:)',
 	'EDITCOMPONENTS' 				=> 'コンポーネントの編集',
@@ -34,8 +34,8 @@ $i18n = [
 
 	//options hidden section
 	'HIDEMENUTITLE' 				=> 'ユーザーマネージャーとセクション',
-	'SHOW' 							=> '表示'、
-	'HIDE' 							=> '隠す'、
+	'SHOW' 							=> '表示',
+	'HIDE' 							=> '隠す',
 	'HIDSECTIONTITLE' 				=> 'どのセクションを非表示にしますか?',
 	'HIDEPAGES' 					=> '<strong>ページ</strong>セクションを非表示にしますか?',
 	'HIDEFILES' 					=> '<strong>ファイル</strong>セクションを非表示にしますか?',
@@ -54,7 +54,7 @@ $i18n = [
 	//user help settings
 	'USERHELPTITLE' 				=> 'ユーザーヘルプ設定',
 	'TURNON' 						=> 'オンにしますか?',
-	'HELP' 							=> 'ヘルプ'、
+	'HELP' 							=> 'ヘルプ',
 	'USERHELP' 						=> 'ユーザーヘルプ',
 
 	//menu external
@@ -82,7 +82,7 @@ $i18n = [
 	'CHANGENAME' 					=> 'ニックネームを管理者のニックネーム以外の名前に変更します',
 
 	//snippet
-	'SNIPPET' 						=> 'スニペット'、
+	'SNIPPET' 						=> 'スニペット',
 	'ADDSNIPPET' 					=> 'スニペットを追加',
 	'EDITSNIPPET' 					=> 'スニペットの編集',
 	'TITLESNIPPET' 					=> 'タイトル (スペースなし)',
@@ -102,7 +102,7 @@ $i18n = [
 	'PLUGINDOWNLOADER' 				=> 'CE プラグインをダウンロード',
 	'DOWNLOADERBASED' 				=> 'Get Simple CMS CE プラグイン リポジトリに基づいています。',
 	'SEARCHPLUGIN' 					=> 'プラグインを検索...',
-	'DOWNLOAD' 						=> 'ダウンロード'、
+	'DOWNLOAD' 						=> 'ダウンロード',
 
 	//login options
 	'LOGINOPTIONS' 					=> 'ログイン オプション',
@@ -162,7 +162,7 @@ $i18n = [
 
 	'BACKUPCREATOR' 				=> 'バックアップ作成者',
 	'CREATEBACKUP' 					=> 'バックアップの作成',
-	'SETTINGS' 						=> '設定'、
+	'SETTINGS' 						=> '設定',
 	'NOSETTINGSCREATED' 			=> 'settings.json は作成されませんでした。',
 	'SHOWPASSWORD' 					=> 'パスワードを表示'
 
