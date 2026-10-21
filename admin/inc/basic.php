@@ -542,7 +542,7 @@ function find_url($slug, $parent, $type='full') {
 		$full = $SITEURL;
 	} elseif($type == 'relative') {
 		$s = pathinfo(htmlentities($_SERVER['PHP_SELF'], ENT_QUOTES));
-		$full = $s['dirname'] .'/';
+		$full = str_replace(DIRECTORY_SEPARATOR, '/', $s['dirname']) .'/';
 		$full = str_replace('//', '/', $full);
 	} else {
 		$full = '/';
