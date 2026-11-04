@@ -202,7 +202,7 @@ if (document.querySelector('#imageTable') !== null) {
 			// Get the actual filename from the link text
 			const fileName = primaryLink.textContent.trim();
 			
-			const thumbPath = `../data/thumbs/thumbnail.${pathParam}${fileName}`;
+			const thumbPath = `../data/thumbs/${pathParam}thumbnail.${fileName}`;
 			const fullPath = `../data/uploads/${pathParam}${fileName}`;
 			
 			// Handle jpg files
