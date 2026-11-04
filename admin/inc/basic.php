@@ -283,7 +283,7 @@ function sendmail($to,$subject,$message) {
  * @return array
  */
 function subval_sort($a,$subkey, $order='asc',$natural = true) {
-	if (count($a) != 0 || (!empty($a))) { 
+	if ((is_array($a) || $a instanceof Countable) && count($a) != 0) { 
 		foreach($a as $k=>$v) {
 			if(isset($v[$subkey])) $b[$k] = lowercase($v[$subkey]);
 		}

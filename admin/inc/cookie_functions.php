@@ -85,8 +85,14 @@ function kill_cookie($identifier) {
 function cookie_check() {
 	global $USR,$SALT,$cookie_name;
 	$saltUSR = $USR.$SALT;
+	if ((string)$USR === '' || (string)$SALT === '') {
+		return FALSE;
+	}
+
 	$saltCOOKIE = sha1($cookie_name.$SALT);
-	if(isset($_COOKIE[$saltCOOKIE])&&$_COOKIE[$saltCOOKIE]==sha1($saltUSR)) {
+	$expected   = sha1($USR.$SALT);
+
+	if (isset($_COOKIE[$saltCOOKIE]) && is_string($_COOKIE[$saltCOOKIE]) && hash_equals($expected, $_COOKIE[$saltCOOKIE])) {
 		return TRUE; // Cookie proves logged in status.
 	} else { 
 		return FALSE; 

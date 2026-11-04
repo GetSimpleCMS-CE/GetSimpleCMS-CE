@@ -600,8 +600,11 @@ function passhash($p) {
  */
 function get_available_pages() {
 	$menu_extract = '';
+	$extract = [];
 	
 	global $pagesArray;
+	
+	if (empty($pagesArray) && function_exists('getPagesXmlValues')) getPagesXmlValues();
 	
 	$pagesSorted = subval_sort($pagesArray,'title');
 	if (count($pagesSorted) != 0) {
@@ -624,8 +627,8 @@ function get_available_pages() {
 				$extract[] = $specific;
 			} 
 		} 
-		return $extract;
 	}
+	return $extract; // always an array (empty if there are no public pages)
 }
 
 /**
