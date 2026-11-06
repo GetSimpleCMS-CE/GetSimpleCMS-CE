@@ -9,7 +9,7 @@ i18n_merge($Dashboard) || i18n_merge($Dashboard, 'en_US');
 register_plugin(
 	$Dashboard,
 	'Dashboard',
-	'1.1',
+	'1.2',
 	'risingisland',
 	'https://www.getsimple-ce.ovh/',
 	'Customizable admin dashboard shown after login.',
