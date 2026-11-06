@@ -39,7 +39,9 @@ get_template('header', cl($SITENAME).' &raquo; '.i18n_r('SUPPORT').' &raquo; '.i
 						curl_setopt($ch, CURLOPT_TIMEOUT, 5); // 5 second timeout
 						curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 3); // 3 second connection timeout
 						$db = curl_exec($ch);
-						curl_close($ch);
+						if (PHP_VERSION_ID < 80000) {
+							curl_close($ch);
+						}
 					} else {
 						// Fall back to file_get_contents if cURL not available
 						$context = stream_context_create([
@@ -55,8 +57,13 @@ get_template('header', cl($SITENAME).' &raquo; '.i18n_r('SUPPORT').' &raquo; '.i
 						$updateAvailable = false;
 						$latestVersion = '';
 						
+						if (!is_array($jsondb) && !is_object($jsondb)) {
+							// invalid JSON, or an HTML error page came back
+							throw new Exception('Invalid upgrade data');
+						}
+						
 						foreach ($jsondb as $key => $value) {
-							if (version_compare($value->version, $site_version_no, '>')) {
+							if (isset($value->version) && version_compare($value->version, $site_version_no, '>')) {
 								$updateAvailable = true;
 								$latestVersion = $value->version;
 								break;
@@ -419,10 +426,20 @@ get_template('header', cl($SITENAME).' &raquo; '.i18n_r('SUPPORT').' &raquo; '.i
 				 * If the file is accessible, .htaccess is NOT working (AllowOverride likely disabled).
 				 */
 				
-				// Construct the base URL for testing
+				// Construct the base URL for testing (normalized & guarded against missing HTTP_HOST)
 				$protocol = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? 'https' : 'http';
-				$host = $_SERVER['HTTP_HOST'];
-				$base_url = $protocol . '://' . $host . dirname(dirname($_SERVER['SCRIPT_NAME']));
+				$host = isset($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] : '';
+				$script_name = isset($_SERVER['SCRIPT_NAME']) ? str_replace('\\', '/', dirname(dirname($_SERVER['SCRIPT_NAME']))) : '';
+				$base_dir = rtrim($script_name, '/');
+				$base_url = !empty($host) ? $protocol . '://' . $host . $base_dir : '';
+				
+				// Only skip TLS certificate verification for local/dev hosts, or when explicitly enabled
+				$host_only = strtolower(preg_replace('/:\d+$/', '', $host));
+				$is_local_host = in_array($host_only, array('localhost', '127.0.0.1', '[::1]'), true)
+					|| (bool) preg_match('/\.(localhost|local|test)$/', $host_only);
+				$allow_insecure_ssl = $is_local_host
+					|| (defined('GS_HEALTHCHECK_INSECURE_SSL') && GS_HEALTHCHECK_INSECURE_SSL);
+				$ssl_cert_error = defined('CURLE_PEER_FAILED_VERIFICATION') ? CURLE_PEER_FAILED_VERIFICATION : 60;
 				
 				// Test critical files
 				$test_files = array(
@@ -438,37 +455,102 @@ get_template('header', cl($SITENAME).' &raquo; '.i18n_r('SUPPORT').' &raquo; '.i
 					
 					echo '<tr><td style="width:445px;">/' . htmlspecialchars($test_path) . '<br><small style="color:#666;">' . htmlspecialchars($description) . '</small></td><td>';
 					
-					// Attempt to access the file/directory
-					$context = stream_context_create(array(
-						'http' => array(
-							'timeout' => 3,
-							'ignore_errors' => true,
-							'header' => "User-Agent: GetSimple-HealthCheck\r\n"
-						)
-					));
-					
-					$response = @file_get_contents($test_url, false, $context);
-					
-					// Check HTTP response code
-					if (isset($http_response_header)) {
-						$status_line = $http_response_header[0];
-						preg_match('/\d{3}/', $status_line, $matches);
-						$status_code = isset($matches[0]) ? intval($matches[0]) : 0;
-						
-						if ($status_code === 403 || $status_code === 404) {
-							// Protected - Good!
-							echo '<span class="OKmsg"><b>✓ Protected</b> - HTTP ' . $status_code . ' - ' . i18n_r('OK') . '</span>';
-						} elseif ($status_code === 200) {
-							// Accessible - BAD!
-							echo '<span class="ERRmsg"><b>✗ EXPOSED</b> - HTTP 200 - <b>' . i18n_r('CRITICAL_SECURITY_RISK') . '</b></span>';
-							$all_protected = false;
+					$status_code = 0;
+					$ssl_unverified = false;
+
+					if (!empty($base_url)) {
+						if (function_exists('curl_init')) {
+							// 1. cURL Method (Fast HEAD check, SSL enabled with local fallback)
+							$ch = curl_init();
+							curl_setopt($ch, CURLOPT_URL, $test_url);
+							curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+							curl_setopt($ch, CURLOPT_NOBODY, true); // HEAD request only
+							curl_setopt($ch, CURLOPT_TIMEOUT, 3);
+							curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 2);
+							curl_setopt($ch, CURLOPT_USERAGENT, 'GetSimple-HealthCheck');
+							curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, true);
+							curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 2);
+							curl_exec($ch);
+							$status_code = (int) curl_getinfo($ch, CURLINFO_HTTP_CODE);
+
+							// Retry without verification only for local/dev hosts or when explicitly enabled
+							if ($status_code === 0 && $allow_insecure_ssl && curl_errno($ch) === $ssl_cert_error) {
+								curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+								curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
+								curl_exec($ch);
+								$status_code = (int) curl_getinfo($ch, CURLINFO_HTTP_CODE);
+								$ssl_unverified = ($status_code > 0);
+							}
+
+							if (PHP_VERSION_ID < 80000) {
+								curl_close($ch);
+							}
 						} else {
-							// Unknown status
-							echo '<span class="WARNmsg">HTTP ' . $status_code . ' - ' . i18n_r('CANNOT_VERIFY') . '</span>';
+							// 2. Single-pass Stream fallback (Compatible with PHP 7.4 through 8.5+)
+							$ssl_opts = ['verify_peer' => true, 'verify_peer_name' => true];
+							$context = stream_context_create(array(
+								'http' => array(
+									'method'        => 'GET',
+									'timeout'       => 3,
+									'ignore_errors' => true,
+									'header'        => "User-Agent: GetSimple-HealthCheck\r\n"
+								),
+								'ssl' => $ssl_opts
+							));
+
+							$fp = @fopen($test_url, 'r', false, $context);
+							
+							// Retry without verification only for local/dev hosts or when explicitly enabled
+							if (!$fp && $protocol === 'https' && $allow_insecure_ssl) {
+								$context_insecure = stream_context_create(array(
+									'http' => array(
+										'method'        => 'GET',
+										'timeout'       => 3,
+										'ignore_errors' => true,
+										'header'        => "User-Agent: GetSimple-HealthCheck\r\n"
+									),
+									'ssl' => array(
+										'verify_peer'      => false,
+										'verify_peer_name' => false
+									)
+								));
+								$fp = @fopen($test_url, 'r', false, $context_insecure);
+								$ssl_unverified = (bool) $fp;
+							}
+
+							if ($fp) {
+								$meta = stream_get_meta_data($fp);
+								fclose($fp);
+								
+								if (!empty($meta['wrapper_data'])) {
+									foreach ($meta['wrapper_data'] as $header_line) {
+										if (preg_match('#^HTTP/\S+\s+(\d{3})#', $header_line, $matches)) {
+											$status_code = (int) $matches[1];
+										}
+									}
+								}
+							}
 						}
+					}
+					
+					// Evaluate HTTP response code
+					if ($status_code === 403 || $status_code === 404) {
+						// Protected - Good!
+						echo '<span class="OKmsg"><b>✓ Protected</b> - HTTP ' . $status_code . ' - ' . i18n_r('OK') . '</span>';
+					} elseif ($status_code === 200) {
+						// Accessible - BAD!
+						echo '<span class="ERRmsg"><b>✗ EXPOSED</b> - HTTP 200 - <b>' . i18n_r('CRITICAL_SECURITY_RISK') . '</b></span>';
+						$all_protected = false;
+					} elseif ($status_code > 0) {
+						// Unknown status
+						echo '<span class="WARNmsg">HTTP ' . $status_code . ' - ' . i18n_r('CANNOT_VERIFY') . '</span>';
 					} else {
-						// Could not test
+						// Connection timed out, failed, or base URL missing
 						echo '<span class="WARNmsg">' . i18n_r('CANNOT_TEST') . '</span>';
+					}
+					
+					if ($ssl_unverified) {
+						echo '<br><small style="color:#666;">TLS certificate was not verified (local/dev host)</small>';
 					}
 					
 					echo '</td></tr>';
