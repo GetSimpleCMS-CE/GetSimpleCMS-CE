@@ -582,7 +582,45 @@ function passhash($p) {
 	} else { 
 		$logsalt = null; 
 	}
+	# Prefer a modern, self-salting hash (bcrypt/argon2) when available.
+	if (function_exists('password_hash')) {
+		$hash = password_hash($p . $logsalt, PASSWORD_DEFAULT);
+		if ($hash !== false) {
+			return $hash;
+		}
+	}
 	return sha1($p . $logsalt);
+}
+
+/**
+ * Check whether a stored password hash uses the current algorithm.
+ *
+ * @param string $hash
+ * @return bool
+ */
+function passhash_is_current($hash) {
+	return (bool) preg_match('/^\$(2[aby]|argon2[id])\$/', (string)$hash);
+}
+
+/**
+ * Verify a password against a stored hash, supporting both legacy sha1
+ * hashes (pre-3.3.23) and password_hash() hashes.
+ *
+ * @param string $password Plain-text password
+ * @param string $stored   Stored hash from the user XML file
+ * @return bool
+ */
+function passverify($password, $stored) {
+	$stored = (string)$stored;
+	if ($stored === '') { return false; }
+
+	$logsalt = (defined('GSLOGINSALT') && GSLOGINSALT != '') ? sha1(GSLOGINSALT) : '';
+
+	if (passhash_is_current($stored) && function_exists('password_verify')) {
+		return password_verify($password . $logsalt, $stored);
+	}
+
+	return hash_equals($stored, sha1($password . $logsalt));
 }
 
 /**

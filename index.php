@@ -121,6 +121,14 @@ if (getDef('GSCANONICAL',true)) {
 	}
 }
 
+# validate the active theme directory - it comes from site settings and must
+# never be able to traverse outside the themes folder
+$TEMPLATE = basename((string)$TEMPLATE);
+if ($TEMPLATE === '' || $TEMPLATE === '.' || $TEMPLATE === '..' || !is_dir(GSTHEMESPATH . $TEMPLATE)) {
+	$themeDirs = glob(GSTHEMESPATH . '*', GLOB_ONLYDIR);
+	$TEMPLATE  = $themeDirs ? basename($themeDirs[0]) : 'ResponsiveCE';
+}
+
 # include the functions.php page if it exists within the theme
 if ( file_exists(GSTHEMESPATH .$TEMPLATE."/functions.php") ) {
 	include(GSTHEMESPATH .$TEMPLATE."/functions.php");	
@@ -129,8 +137,17 @@ if ( file_exists(GSTHEMESPATH .$TEMPLATE."/functions.php") ) {
 # call pretemplate Hook
 exec_action('index-pretemplate');
 
-# include the template and template file set within theme.php and each page
-if ( (!file_exists(GSTHEMESPATH .$TEMPLATE."/".$template_file)) || ($template_file == '') ) { $template_file = "template.php"; }
+# include the template and template file set within theme.php and each page.
+# Validate the filename so a crafted page cannot include arbitrary PHP files.
+$template_file = basename((string)$template_file);
+if (
+	$template_file === '' ||
+	!preg_match('/^[A-Za-z0-9._-]+\.php$/', $template_file) ||
+	$template_file === '.' || $template_file === '..' ||
+	!file_exists(GSTHEMESPATH . $TEMPLATE . '/' . $template_file)
+) {
+	$template_file = 'template.php';
+}
 include(GSTHEMESPATH .$TEMPLATE."/".$template_file);
 
 # call posttemplate Hook

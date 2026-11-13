@@ -31,20 +31,23 @@ if(isset($_POST['submitted'])) {
 		
 		exec_action('successful-login-start');
 		
-		# hash the given password
-		$password = passhash($password);
-
 		# does this user exist?
 		if (file_exists($user_xml)) {
 
 			# pull the data from the user's data file
 			$data = getXML($user_xml);
-			$PASSWD = $data->PWD;
+			$PASSWD = (string)$data->PWD;
 			$USR = strtolower($data->USR);
 
 			# do the username and password match?
-			if ( ($userid == $USR) && ($password == $PASSWD) ) {
+			if ( ($userid === (string)$USR) && passverify($password, $PASSWD) ) {
 				$authenticated = true;
+
+				# transparently upgrade legacy sha1 hashes to password_hash()
+				if (!passhash_is_current($PASSWD)) {
+					$data->PWD = passhash($password);
+					@XMLsave($data, $user_xml);
+				}
 			} else {
 				$authenticated = false;
 

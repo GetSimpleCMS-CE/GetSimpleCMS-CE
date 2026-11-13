@@ -34,6 +34,7 @@ echo $SITEURL; ?>plugins/massiveAdmin/css/w3-custom.css">
 	<hr>
 
 	<form action="#" method="post">
+		<input type="hidden" name="nonce" value="<?php echo htmlspecialchars(MassiveAdminClass::generate_nonce('snippet_save'), ENT_QUOTES); ?>">
 		<div class="snippet-list">
 
 			<?php
@@ -203,6 +204,7 @@ echo $SITEURL; ?>plugins/massiveAdmin/css/w3-custom.css">
 
 	<?php
 	if (isset($_POST['snippetSave'])) {
+		if (!isset($_POST['nonce']) || !MassiveAdminClass::verify_nonce($_POST['nonce'], 'snippet_save')) { die('CSRF validation failed'); }
 		global $MA;
 		$MA->snippetSave();
 

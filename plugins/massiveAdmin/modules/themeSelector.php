@@ -6,25 +6,35 @@ $fileOptionCheck = @file_get_contents( GSDATAOTHERPATH.'massiveTheme/option.txt'
 
 <div id="Tab4" class="w3-hide w3-container">
  
-<?php 
-if(isset($_POST['save'])){
-	$folder =GSDATAOTHERPATH.'massiveTheme/';
-	if(!file_exists($folder)){
-	mkdir($folder,0755);
+<?php
+if (isset($_POST['save'])) {
+	if (!isset($_POST['nonce']) || !MassiveAdminClass::verify_nonce($_POST['nonce'], 'theme_selector')) {
+		die('CSRF validation failed');
 	}
 
-	file_put_contents($folder.'option.txt',$_POST['theme']);
+	$allowedThemes = array_map(function ($f) { return pathinfo($f, PATHINFO_FILENAME); }, glob(GSPLUGINPATH . 'massiveAdmin/theme/*.css'));
+	$theme = isset($_POST['theme']) ? (string)$_POST['theme'] : '';
+	if (!in_array($theme, $allowedThemes, true)) {
+		$theme = $allowedThemes ? $allowedThemes[0] : '';
+	}
+
+	$folder = GSDATAOTHERPATH . 'massiveTheme/';
+	if (!file_exists($folder)) {
+		mkdir($folder, 0755, true);
+	}
+
+	file_put_contents($folder . 'option.txt', $theme, LOCK_EX);
 
 	echo '
 	<div class="w3-panel w3-green done-info w3-round">
 		<h4 class="w3-text-white">Success!</h4>
-		<p style="font-size:1.2em">Updating to the <b style="text-transform: uppercase;">"'.$_POST['theme'].'"</b> theme.</p>
+		<p style="font-size:1.2em">Updating to the <b style="text-transform: uppercase;">"' . htmlspecialchars($theme, ENT_QUOTES, 'UTF-8') . '"</b> theme.</p>
 	</div>
 	<meta http-equiv=\'refresh\' content=\'3; url=load.php?id=massiveAdmin&massiveoption\'>';
 
 	echo '
 	<script>
-		document.querySelector(`select[name="theme"]`).value = "'.$fileOptionCheck.'"
+		document.querySelector(`select[name="theme"]`).value = "' . addslashes($fileOptionCheck) . '"
 
 		setTimeout(function(){
 			document.querySelector(".done-info").style.display="none";
@@ -36,6 +46,7 @@ if(isset($_POST['save'])){
 	<hr>
 
 	<form method="POST">
+		<input type="hidden" name="nonce" value="<?php echo htmlspecialchars(MassiveAdminClass::generate_nonce('theme_selector'), ENT_QUOTES); ?>">
 
 		<select name="theme" class="w3-select w3-border" style="padding:10px;  width:98%">
 			<?php 

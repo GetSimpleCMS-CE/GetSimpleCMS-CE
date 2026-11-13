@@ -212,6 +212,24 @@ function gscfg_parse($content) {
 #  WRITE gsconfig.php
 # ----------------------------------------------------------
 
+/**
+ * Validate values written to gsconfig.php without quotes.
+ * Anything not matching a known pattern is rejected: these values are
+ * injected as raw PHP, so accepting arbitrary input is code execution.
+ */
+function gscfg_validate_raw($key, $value) {
+	$value = trim((string)$value);
+	$rules = array(
+		'GSCHMOD'     => '/^0?[0-7]{3,4}$/',
+		'GSDOCHMOD'   => '/^(TRUE|FALSE|1|0)$/i',
+		'GSAUTOSAVE'  => '/^(TRUE|FALSE|1|0)$/i',
+		'GSMERGELANG' => '/^(TRUE|FALSE|1|0)$/i',
+		'GSNOFRAME'   => '/^(SAMEORIGIN|DENY|ALLOW-FROM [A-Za-z0-9:\/._-]+)$/i',
+	);
+	if (!isset($rules[$key])) { return false; }
+	return preg_match($rules[$key], $value) ? $value : false;
+}
+
 function gscfg_write($content, $settings) {
 	$known = gscfg_known();
 
@@ -235,14 +253,18 @@ function gscfg_write($content, $settings) {
 				$valStr = '1';
 			}
 		} elseif ($meta['type'] === 'rawval') {
-			// Written bare — no quotes. Covers FALSE, en_US, PHP constants like GSBOTH.
-			$valStr = $val;
+			// Written bare — no quotes. Only allow known-safe bare values,
+			// otherwise user input could inject PHP into gsconfig.php.
+			$valStr = gscfg_validate_raw($key, $val);
+			if ($valStr === false) {
+				$valStr = (isset($meta['default']) ? $meta['default'] : 'FALSE');
+			}
 		} elseif ($meta['type'] === 'number') {
 			// Written as a bare integer — no quotes
 			$valStr = intval($val);
 		} elseif ($meta['type'] === 'textarea') {
 			// Use multiline format only when there is content; empty stays as ''
-			$valStr = ($val !== '') ? "'\n" . str_replace("'", "\\'", $val) . "\n'" : "''";
+			$valStr = ($val !== '') ? "'\n" . addslashes($val) . "\n'" : "''";
 		} else {
 			$valStr = "'" . addslashes($val) . "'";
 		}
@@ -252,10 +274,12 @@ function gscfg_write($content, $settings) {
 		$pat_on   = '/^[ \t]*define\s*\(\s*[\'"]' . $qkey . '[\'"]\s*,.*?\)\s*;/ms';
 		$pat_off  = '/^[ \t]*#[ \t]*define\s*\(\s*[\'"]' . $qkey . '[\'"]\s*,.*?\)\s*;/ms';
 
+		// Use a callback: user values must not be interpreted as preg
+		// backreferences ($1, \1) inside the replacement string.
 		if (preg_match($pat_on, $content)) {
-			$content = preg_replace($pat_on, $newLine, $content, 1);
+			$content = preg_replace_callback($pat_on, function () use ($newLine) { return $newLine; }, $content, 1);
 		} elseif (preg_match($pat_off, $content)) {
-			$content = preg_replace($pat_off, $newLine, $content, 1);
+			$content = preg_replace_callback($pat_off, function () use ($newLine) { return $newLine; }, $content, 1);
 		} else {
 			// Setting not found — build the insert line, using the declared default if available
 			if ($val === '' && isset($meta['default'])) {
@@ -325,6 +349,13 @@ function gscfg_write($content, $settings) {
 function gscfg_handle_save() {
 	if (!isset($_POST['gscfg_save'])) { return null; }
 
+	// CSRF protection: gsconfig.php controls PHP-level settings (including the
+	// login salt), so this action must not be forgeable.
+	$nonce = isset($_POST['gscfg_nonce']) ? (string)$_POST['gscfg_nonce'] : '';
+	if ($nonce === '' || !check_nonce($nonce, 'gsconfig_save')) {
+		return array('error', 'Invalid security token. Please reload the page and try again.');
+	}
+
 	$path    = gscfg_get_path();
 	if (!file_exists($path)) {
 		return array('error', 'gsconfig.php not found at: ' . htmlspecialchars($path));
@@ -345,6 +376,14 @@ function gscfg_handle_save() {
 			$value = stripslashes(trim($_POST['val_' . $formKey]));
 		} else {
 			$value = isset($settings[$key]['value']) ? $settings[$key]['value'] : '';
+		}
+		if ($meta['type'] === 'rawval') {
+			if ($value === '') {
+				// Not present yet - fall back to the declared default (if any).
+				$value = isset($meta['default']) ? $meta['default'] : '';
+			} elseif (gscfg_validate_raw($key, $value) === false) {
+				return array('error', 'Invalid value for <code>' . htmlspecialchars($key) . '</code>. Allowed format is restricted for security reasons.');
+			}
 		}
 		$entry = $meta;
 		$entry['enabled'] = $enabled;
@@ -373,11 +412,18 @@ function gscfg_handle_save() {
 
 	$newContent = gscfg_write($content, $toWrite);
 
-	// Create timestamped backup: gsconfig.php.2026-08-12-09-52-21.bak
-	$backup_path = $path . '.' . date('Y-m-d-H-i-s') . '.bak';
+	// Keep timestamped backups out of the web root: gsconfig.php can contain
+	// salts and secrets, so a public .bak file would leak them.
+	$backupDir = GSBACKUPSPATH . 'gsconfig/';
+	if (!file_exists($backupDir)) {
+		@mkdir($backupDir, 0755, true);
+		@file_put_contents($backupDir . '.htaccess', "Require all denied\nDeny from all\n");
+		@file_put_contents($backupDir . 'index.php', "<?php exit; ?>\n");
+	}
+	$backup_path = $backupDir . 'gsconfig.php.' . date('Y-m-d-H-i-s') . '.bak';
 	@copy($path, $backup_path);
 
-	if (file_put_contents($path, $newContent) !== false) {
+	if (file_put_contents($path, $newContent, LOCK_EX) !== false) {
 		return array('success', i18n_r('gsConfigGUI/lang_Settings_saved') . ' <span style="font-size:11px;color:#64748b;">(' . basename($backup_path) . ')</span>');
 	}
 	return array('error', i18n_r('gsConfigGUI/lang_Failed_to_write'));
@@ -799,6 +845,7 @@ pre {color: #3B82F6;}
 <div id="gscfg-wrap">
 <form method="post" action="">
 <input type="hidden" name="gscfg_save" value="1">
+<input type="hidden" name="gscfg_nonce" value="<?php echo htmlspecialchars(get_nonce('gsconfig_save'), ENT_QUOTES); ?>">
 
 <!-- Header bar -->
 <div class="gscfg-header">

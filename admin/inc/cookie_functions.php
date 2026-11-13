@@ -20,7 +20,18 @@ function gs_setcookie($id,$value){
 	
 	$expire = time() + $cookie_time;
 	// debugLog('set cookie: '.implode(',',array($id, $value, $cookie_time, $cookie_path, $cookie_domain, $cookie_secure, $cookie_httponly)));
-	return setcookie($id, $value, $expire, $cookie_path, isset($cookie_domain)?$cookie_domain:'', $cookie_secure??"", $cookie_httponly);
+
+	if (PHP_VERSION_ID >= 70300) {
+		return setcookie($id, $value, array(
+			'expires'  => $expire,
+			'path'     => $cookie_path,
+			'domain'   => isset($cookie_domain) ? (string)$cookie_domain : '',
+			'secure'   => (bool)$cookie_secure,
+			'httponly' => (bool)$cookie_httponly,
+			'samesite' => 'Lax',
+		));
+	}
+	return setcookie($id, $value, $expire, $cookie_path, isset($cookie_domain)?$cookie_domain:'', (bool)$cookie_secure, (bool)$cookie_httponly);
 }
 
 /**
@@ -32,7 +43,17 @@ function gs_setcookie($id,$value){
 function gs_unsetcookie($id){
 	GLOBAL $cookie_time, $cookie_path, $cookie_domain, $cookie_secure, $cookie_httponly;
 	// debugLog('unset cookie: '.implode(',',array($id, false, $cookie_time, $cookie_path, $cookie_domain, $cookie_secure, $cookie_httponly)));
-	return setcookie($id,false,1,$cookie_path,isset($cookie_domain)?$cookie_domain:'',$cookie_secure??"", $cookie_httponly);
+	if (PHP_VERSION_ID >= 70300) {
+		return setcookie($id, '', array(
+			'expires'  => 1,
+			'path'     => $cookie_path,
+			'domain'   => isset($cookie_domain) ? (string)$cookie_domain : '',
+			'secure'   => (bool)$cookie_secure,
+			'httponly' => (bool)$cookie_httponly,
+			'samesite' => 'Lax',
+		));
+	}
+	return setcookie($id,false,1,$cookie_path,isset($cookie_domain)?$cookie_domain:'',(bool)$cookie_secure, (bool)$cookie_httponly);
 }
 
 /**

@@ -5,32 +5,63 @@ class MassiveAdminClass{
     // ========== SECURITY METHODS ==========
     
     /**
-     * Generate CSRF token
+     * Server-side CSRF secret derived from the installation salt.
+     *
+     * GetSimple does not start a PHP session on admin pages, so $_SESSION is
+     * not reliable here. The authorization apikey / GSUSECUSTOMSALT value is
+     * random per install and never exposed to visitors, which makes tokens
+     * unforgeable while staying stable for every request.
      */
-    public static function generate_nonce($action) {
-        $salt = defined('GS_SALT') ? GS_SALT : '';
-        if (empty($salt)) {
+    private static function nonce_secret() {
+        static $secret = null;
+        if ($secret !== null) {
+            return $secret;
+        }
+
+        $salt = '';
+        if (!empty($GLOBALS['SALT'])) {
+            $salt = (string)$GLOBALS['SALT'];
+        } elseif (defined('GSUSECUSTOMSALT')) {
+            $salt = sha1(GSUSECUSTOMSALT);
+        } else {
             $auth_file = GSDATAOTHERPATH . 'authorization.xml';
             if (file_exists($auth_file)) {
-                $xml = simplexml_load_file($auth_file);
+                $xml = @simplexml_load_file($auth_file);
                 if ($xml && isset($xml->apikey)) {
                     $salt = (string)$xml->apikey;
                 }
             }
         }
-        $user = isset($_SESSION['user']) ? $_SESSION['user'] : 'guest';
-        $session_id = session_id();
-        $timestamp = floor(time() / 3600);
-        return hash_hmac('sha256', $action . $user . $session_id . $timestamp, $salt);
+
+        if ($salt === '') {
+            // Degraded fallback: still unique per installation path, but a
+            // normal install always has an apikey in authorization.xml.
+            $salt = __DIR__ . PHP_VERSION;
+        }
+
+        $secret = hash('sha256', 'massiveadmin-csrf|' . $salt);
+        return $secret;
+    }
+
+    /**
+     * Generate CSRF token
+     */
+    public static function generate_nonce($action) {
+        $user = '';
+        if (!empty($GLOBALS['USR'])) {
+            $user = (string)$GLOBALS['USR'];
+        } elseif (isset($_SESSION['user'])) {
+            $user = (string)$_SESSION['user'];
+        }
+        return hash_hmac('sha256', $action . '|' . $user, self::nonce_secret());
     }
     
     /**
      * Verify CSRF token
      */
     public static function verify_nonce($nonce, $action) {
-        if (empty($nonce)) return false;
-        $expected = self::generate_nonce($action);
-        return hash_equals($expected, $nonce);
+        if (!is_string($nonce) || $nonce === '') return false;
+        return hash_equals(self::generate_nonce($action), $nonce);
     }
     
     /**
@@ -38,18 +69,35 @@ class MassiveAdminClass{
      */
     public static function is_safe_path($path, $base_path) {
         // Remove null bytes and control characters
-        $path = preg_replace('/[\x00-\x1F]/', '', $path);
+        $path = preg_replace('/[\x00-\x1F]/', '', (string)$path);
         // Normalize path
         $path = str_replace('\\', '/', $path);
         // Get real base path
         $real_base = realpath($base_path);
         if ($real_base === false) return false;
+        $real_base = rtrim(str_replace('\\', '/', $real_base), '/');
+
         // Build full path
         $full_path = $base_path . '/' . ltrim($path, '/');
         $real_path = realpath($full_path);
-        if ($real_path === false) return false;
-        // Ensure path is within base directory
-        return strpos($real_path, $real_base) === 0;
+
+        if ($real_path === false) {
+            // Target does not exist yet (e.g. a new user file). Verify the
+            // parent directory instead and allow plain file names only.
+            $name = basename($path);
+            if ($name === '' || $name === '.' || $name === '..' || strpos($path, '/') !== false) {
+                return false;
+            }
+            $real_parent = realpath(dirname($full_path));
+            if ($real_parent === false) return false;
+            $real_parent = rtrim(str_replace('\\', '/', $real_parent), '/');
+            return ($real_parent === $real_base) || (strpos($real_parent, $real_base . '/') === 0);
+        }
+
+        // Ensure path is within base directory (separator-aware comparison,
+        // otherwise /data/uploads-evil would match /data/uploads)
+        $real_path = rtrim(str_replace('\\', '/', $real_path), '/');
+        return ($real_path === $real_base) || (strpos($real_path, $real_base . '/') === 0);
     }
     
     /**
@@ -320,28 +368,27 @@ class MassiveAdminClass{
 
 	/* HELPINFO - DESK */
 	public function saveHelpInfo(){
+		if (!isset($_POST['nonce']) || !self::verify_nonce($_POST['nonce'], 'help_desk')) {
+			die('CSRF validation failed');
+		}
+
 		$folder		= GSDATAOTHERPATH . '/massiveHelpDesk/';
 		$filename	  = $folder . 'helpdesk.json';
 		$chmod_mode	= 0755;
 
-		$checkbox = $_POST['checkbox'];
-		if ($checkbox == 'true') {
-			$checkboxer = "true";
-		} else {
-			$checkboxer = "false";
-		}
-		$helper = $_POST['helper'];
-		$helpers =  json_encode($helper,  JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_NUMERIC_CHECK);
+		$checkbox = (isset($_POST['checkbox']) && $_POST['checkbox'] === 'true') ? 'true' : 'false';
+		$helper = isset($_POST['helper']) ? $_POST['helper'] : '';
+		$helpers = json_encode($helper, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
+
 		$json = '{
 			"content": ' . $helpers . ',
-			"checkbox":  "' . $checkboxer . '" 
+			"checkbox":  "' . $checkbox . '" 
 		}';
 
 		$folder_exists = file_exists($folder) || mkdir($folder, $chmod_mode);
 
-		// Save the file (assuming that the folder indeed exists)
 		if ($folder_exists) {
-			file_put_contents($filename, $json);
+			file_put_contents($filename, $json, LOCK_EX);
 		};
 
 		echo ("<meta http-equiv='refresh' content='0'>");
@@ -349,12 +396,18 @@ class MassiveAdminClass{
 
 	/* massiveOption Save Option */
 	public function saveMassiveOption(){
+		if (!isset($_POST['nonce']) || !self::verify_nonce($_POST['nonce'], 'massive_options')) {
+			die('CSRF validation failed');
+		}
+
 		// Set up the data
-		$grid = $_POST["grid"];
-		$gridfront = $_POST["gridfront"];
-		$maintence = $_POST["maintence"];
-		$mcontent = $_POST["content"];
-		$mcontentNew =  json_encode($mcontent,  JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_NUMERIC_CHECK);
+		$yn = function ($key) {
+			return (isset($_POST[$key]) && $_POST[$key] === 'yes') ? 'yes' : 'no';
+		};
+		$grid     = $yn('grid');
+		$gridfront = $yn('gridfront');
+		$maintence = $yn('maintence');
+		$mcontent = isset($_POST['content']) ? $_POST['content'] : '';
 
 		// Set up the folder name and its permissions
 		// Note the constant GSDATAOTHERPATH, which points to /path/to/getsimple/data/other/
@@ -363,16 +416,16 @@ class MassiveAdminClass{
 		$chmod_mode	= 0755;
 		$folder_exists = file_exists($folder) || mkdir($folder, $chmod_mode);
 
-		$json = '{
-			"maintence" : "' . $maintence . '",
-			"maintencecontent" : ' . $mcontentNew . ',
-			"grid" : "' . $grid . '",
-			"gridfront" : "' . $gridfront . '"
-		}';
+		$json = json_encode(array(
+			'maintence'        => $maintence,
+			'maintencecontent' => $mcontent,
+			'grid'             => $grid,
+			'gridfront'        => $gridfront,
+		), JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
 
 		// Save the file (assuming that the folder indeed exists)
 		if ($folder_exists) {
-			file_put_contents($filename, $json);
+			file_put_contents($filename, $json, LOCK_EX);
 		};
 
 		echo "<script>const Another = '" . i18n_r('massiveAdmin/ANOTHERPAGE') . "'</script>";
@@ -384,23 +437,45 @@ class MassiveAdminClass{
 	}
 
 	public function saveCreateUser(){
-		$newposUser = $_POST['createuserhidden'];
-		$newposUserwithspace = str_replace(' ', '-', $newposUser);
-		$supportUserMailMonkey = str_replace('@', '', $newposUserwithspace);
-		$supportUserMailFinal = str_replace('.', '', $supportUserMailMonkey);
+		if (!isset($_POST['nonce']) || !self::verify_nonce($_POST['nonce'], 'manage_users')) {
+			die('CSRF validation failed');
+		}
+
+		$newposUser = strtolower(preg_replace('/[^a-z0-9._-]/i', '', (string)$_POST['createuserhidden']));
+		$disName    = htmlspecialchars(trim($_POST['createdisname']), ENT_XML1, 'UTF-8');
 		$createUserEmail = htmlspecialchars(trim($_POST['createuseremail']), ENT_XML1, 'UTF-8');
-		$disName         = htmlspecialchars(trim($_POST['createdisname']),   ENT_XML1, 'UTF-8');
-		$pass = $_POST['createpassword'];
-		$lang = $_POST['lang'];
+		$pass = (string)$_POST['createpassword'];
+		$lang = (string)$_POST['lang'];
+
+		// Validate input before touching the users folder
+		if ($newposUser === '' || $newposUser === '.' || $newposUser === '..' || !preg_match('/^[a-z0-9._-]+$/', $newposUser)) {
+			echo '<div class="error" style="padding:10px;background:#f44336;color:white;margin:10px 0;">Invalid username. Use letters, numbers, dot, dash or underscore only.</div>';
+			return;
+		}
+		if ($pass === '') {
+			echo '<div class="error" style="padding:10px;background:#f44336;color:white;margin:10px 0;">Password is required.</div>';
+			return;
+		}
+		if (!in_array($lang, array_map(function ($f) { return pathinfo($f, PATHINFO_FILENAME); }, glob(GSLANGPATH . '*.php')), true)) {
+			echo '<div class="error" style="padding:10px;background:#f44336;color:white;margin:10px 0;">Invalid language selected.</div>';
+			return;
+		}
+
+		$newUserFile = GSUSERSPATH . $newposUser . '.xml';
+		if (!self::is_safe_path($newposUser . '.xml', GSUSERSPATH)) {
+			die('Invalid user path');
+		}
+		if (file_exists($newUserFile)) {
+			echo '<div class="error" style="padding:10px;background:#f44336;color:white;margin:10px 0;">A user with this name already exists.</div>';
+			return;
+		}
+
 		$passhash = passhash($pass);
-		$folder = '../data/users';
-		$newUserFile = $folder . '/' . $supportUserMailFinal . '.xml';
-		
 		$userinfo = '<?xml version="1.0" encoding="UTF-8"?>
-	<item><USR>' . strtolower($newposUser) . '</USR><NAME>' . $disName . '</NAME><PWD>' . $passhash . '</PWD><EMAIL>' . $createUserEmail . '</EMAIL><HTMLEDITOR>1</HTMLEDITOR><TIMEZONE/><LANG>' . $lang . '</LANG></item>';
+	<item><USR>' . $newposUser . '</USR><NAME>' . $disName . '</NAME><PWD>' . $passhash . '</PWD><EMAIL>' . $createUserEmail . '</EMAIL><HTMLEDITOR>1</HTMLEDITOR><TIMEZONE/><LANG>' . $lang . '</LANG></item>';
 		
-		file_put_contents($newUserFile, $userinfo);
-		chmod($newUserFile, 0755);
+		file_put_contents($newUserFile, $userinfo, LOCK_EX);
+		@chmod($newUserFile, 0644);
 
 		global $SITEURL, $GSADMIN;
 		$redirectUrl = $SITEURL . $GSADMIN . "/load.php?id=massiveAdmin&usermanager";
@@ -409,7 +484,20 @@ class MassiveAdminClass{
 	}
 
 	public function saveChangedUser(){
-		$data = new SimpleXMLElement(file_get_contents(GSUSERSPATH . $_POST['nameuser'] . '.xml'));
+		if (!isset($_POST['nonce']) || !self::verify_nonce($_POST['nonce'], 'manage_users')) {
+			die('CSRF validation failed');
+		}
+
+		$nameUser = basename((string)$_POST['nameuser']);
+		if ($nameUser === '' || !preg_match('/^[a-z0-9._-]+$/i', $nameUser)) {
+			die('Invalid user');
+		}
+		$userFile = GSUSERSPATH . $nameUser . '.xml';
+		if (!self::is_safe_path($nameUser . '.xml', GSUSERSPATH) || !file_exists($userFile)) {
+			die('Invalid user');
+		}
+
+		$data = new SimpleXMLElement(file_get_contents($userFile));
 		$oldPWD   = (string)$data->PWD[0];
 		$oldLANG  = (string)$data->LANG[0];
 		$oldEMAIL = (string)$data->EMAIL[0];
@@ -417,10 +505,14 @@ class MassiveAdminClass{
 
 		$newNAME  = htmlspecialchars(trim($_POST['dname']),  ENT_XML1, 'UTF-8');
 		$newEMAIL = htmlspecialchars(trim($_POST['email']),  ENT_XML1, 'UTF-8');
-		$newPWD   = $_POST['password'];
-		$newLANG  = $_POST['lang'];
+		$newPWD   = (string)$_POST['password'];
+		$newLANG  = (string)$_POST['lang'];
 
-		$file = file_get_contents(GSUSERSPATH . $_POST['nameuser'] . '.xml');
+		if ($newLANG !== '' && !in_array($newLANG, array_map(function ($f) { return pathinfo($f, PATHINFO_FILENAME); }, glob(GSLANGPATH . '*.php')), true)) {
+			die('Invalid language');
+		}
+
+		$file = file_get_contents($userFile);
 
 		$file = str_replace('<NAME/>',  '<NAME></NAME>',  $file);
 		$file = str_replace('<EMAIL/>', '<EMAIL></EMAIL>', $file);
@@ -455,7 +547,7 @@ class MassiveAdminClass{
 			$file = str_replace('<PWD>' . $oldPWD . '</PWD>', '<PWD>' . $passhash . '</PWD>', $file);
 		}
 
-		file_put_contents(GSUSERSPATH . $_POST['nameuser'] . '.xml', $file);
+		file_put_contents($userFile, $file, LOCK_EX);
 
 		global $SITEURL, $GSADMIN;
 		$redirectUrl = $SITEURL . $GSADMIN . "/load.php?id=massiveAdmin&usermanager";
@@ -483,6 +575,9 @@ class MassiveAdminClass{
 			}
 
 			if (isset($_POST['deleteuser-' . $newValue])) {
+				if (!isset($_POST['nonce']) || !self::verify_nonce($_POST['nonce'], 'manage_users')) {
+					die('CSRF validation failed');
+				}
 				global $USR;
 				if ($usrfile !== $USR) {
 					unlink($value);
@@ -504,6 +599,7 @@ class MassiveAdminClass{
 					</div>
 					<div class="w3-col m1 l1">
 						<form action="" method="POST">
+							<input type="hidden" name="nonce" value="' . htmlspecialchars(self::generate_nonce('manage_users'), ENT_QUOTES) . '">
 							<button name="deleteuser-' . htmlspecialchars($newValue) . '" class="delete-this w3-bar-item w3-btn w3-red w3-round w3-right" style="margin-top:15px; padding: 2px 5px;">
 							<svg xmlns="http://www.w3.org/2000/svg" width="1.3em" height="1.3em" viewBox="0 0 24 24" id="trash"><path fill="#fff" d="M20,6H16V5a3,3,0,0,0-3-3H11A3,3,0,0,0,8,5V6H4A1,1,0,0,0,4,8H5V19a3,3,0,0,0,3,3h8a3,3,0,0,0,3-3V8h1a1,1,0,0,0,0-2ZM10,5a1,1,0,0,1,1-1h2a1,1,0,0,1,1,1V6H10Zm7,14a1,1,0,0,1-1,1H8a1,1,0,0,1-1-1V8H17Z"></path></svg>
 							</button>
@@ -513,6 +609,7 @@ class MassiveAdminClass{
 							
 				<form method="POST">
 
+					<input type="hidden" name="nonce" value="' . htmlspecialchars(self::generate_nonce('manage_users'), ENT_QUOTES) . '">
 					<input name="nameuser" type="hidden"  value="' . htmlspecialchars($usrfile) . '">
 
 					<label for="dname"> ' . i18n_r('LABEL_DISPNAME') . ' <span style="opacity:0.7">(' . i18n_r('DISPLAY_NAME'). ')</span></label>
@@ -549,40 +646,64 @@ class MassiveAdminClass{
 	}
 
 	public function submitHideAdminSection(){
-		$hidefiles = $_POST['hidefiles'];
-		$hidebackup = $_POST['hidebackup'];
-		$hidethemes = $_POST['hidethemes'];
-		$hideplugin = $_POST['hideplugin'];
-		$hidei18n = $_POST['hidei18n'];
-		$hidepages = $_POST['hidepages'];
-		$hidesupport = $_POST['hidesupport'];
-		$hidesettings = $_POST['hidesettings'];
-		$hidegssettings = $_POST['hidegssettings'];
-		$hideuser = $_POST['user'];
+		if (!isset($_POST['nonce']) || !self::verify_nonce($_POST['nonce'], 'hide_admin_section')) {
+			die('CSRF validation failed');
+		}
 
-		$json = '{
-			"hidefiles": "' . $hidefiles . '",
-			"hidebackup": "' . $hidebackup . '",
-			"hidethemes": "' . $hidethemes . '",
-			"hidei18n": "' . $hidei18n . '",
-			"hideplugin":"' . $hideplugin . '",
-			"hidepages": "' . $hidepages . '",
- 			"hidesupport": "' . $hidesupport . '",
-			"hidesettings": "' . $hidesettings . '",
-			"hidegssettings": "' . $hidegssettings . '"
-		}';
+		$onoff = function ($key) {
+			return (isset($_POST[$key]) && $_POST[$key] === 'hide') ? 'hide' : 'show';
+		};
+		$hidefiles      = $onoff('hidefiles');
+		$hidebackup     = $onoff('hidebackup');
+		$hidethemes     = $onoff('hidethemes');
+		$hideplugin     = $onoff('hideplugin');
+		$hidei18n       = $onoff('hidei18n');
+		$hidepages      = $onoff('hidepages');
+		$hidesupport    = $onoff('hidesupport');
+		$hidesettings   = $onoff('hidesettings');
+		$hidegssettings = $onoff('hidegssettings');
+		$hideuser       = basename((string)($_POST['user'] ?? ''));
+
+		if ($hideuser === '' || !preg_match('/^[a-z0-9._-]+$/i', $hideuser)) {
+			die('Invalid user');
+		}
+
+		$json = json_encode(array(
+			'hidefiles'      => $hidefiles,
+			'hidebackup'     => $hidebackup,
+			'hidethemes'     => $hidethemes,
+			'hidei18n'       => $hidei18n,
+			'hideplugin'     => $hideplugin,
+			'hidepages'      => $hidepages,
+			'hidesupport'    => $hidesupport,
+			'hidesettings'   => $hidesettings,
+			'hidegssettings' => $hidegssettings,
+		));
 
 		$massiveHiddenSection = GSDATAOTHERPATH . '/massiveHiddenSection/';
 		$filejson = $hideuser . '.json';
 		$finaljson = $massiveHiddenSection . $filejson;
 		$chmod_mode	= 0755;
 		$folder_exists = file_exists($massiveHiddenSection) || mkdir($massiveHiddenSection, $chmod_mode);
-		file_put_contents($finaljson, $json);
+		if ($folder_exists && self::is_safe_path($filejson, $massiveHiddenSection)) {
+			file_put_contents($finaljson, $json, LOCK_EX);
+		}
 		echo ("<meta http-equiv='refresh' content='0'>");
 	}
 
 	/* menu ext */
 	public function createLinkMenuExt(){
+		if (!isset($_POST['nonce']) || !self::verify_nonce($_POST['nonce'], 'menu_ext')) {
+			die('CSRF validation failed');
+		}
+
+		$linkname  = isset($_POST['linkname']) ? trim((string)$_POST['linkname']) : '';
+		$linkurl   = isset($_POST['linkurl'])  ? trim((string)$_POST['linkurl']) : '';
+		$linkblank = (isset($_POST['linkblank']) && $_POST['linkblank'] === '_blank') ? '_blank' : '_self';
+
+		if ($linkname === '' || $linkurl === '') { die('Invalid link'); }
+		if (!preg_match('#^(https?://|/|#)#i', $linkurl)) { die('Invalid URL'); }
+
 		$folder		= GSDATAOTHERPATH . 'massiveMenuExt/';
 		$filename	  = $folder . 'menuext.json';
 		$chmod_mode	= 0755;
@@ -593,37 +714,50 @@ class MassiveAdminClass{
 		if ($folder_exists) {
 			$datee = @file_get_contents($filename);
 			$data = json_decode($datee, true);
-			$data[$_POST['linkname']] = array();
-			$data[$_POST['linkname']]['name'] = $_POST['linkname'];
-			$data[$_POST['linkname']]['url'] = $_POST['linkurl'];
-			$data[$_POST['linkname']]['linkblank'] = $_POST['linkblank'];
-			$datee = json_encode($data, true);
+			if (!is_array($data)) { $data = array(); }
+			$data[$linkname] = array(
+				'name'       => $linkname,
+				'url'        => $linkurl,
+				'linkblank'  => $linkblank,
+			);
+			$datee = json_encode($data);
 
-			file_put_contents($filename, $datee);
+			file_put_contents($filename, $datee, LOCK_EX);
 			echo ("<meta http-equiv='refresh' content='0'>");
 		};
 	}
 
 	/* migrate & SSL */
 	public function migrateMassive(){
+		if (!isset($_POST['nonce']) || !self::verify_nonce($_POST['nonce'], 'migrate_domain')) {
+			die('CSRF validation failed');
+		}
+
+		$old = isset($_POST['oldMassiveUrl']) ? (string)$_POST['oldMassiveUrl'] : '';
+		$replace = isset($_POST['newMassiveUrl']) ? (string)$_POST['newMassiveUrl'] : '';
+		if ($old === '' || $old === $replace) { return; }
+
 		foreach (glob(GSDATAPATH . '{,*/,*/*/,*/*/*/}*.xml', GLOB_BRACE) as $file) {
-			$old = $_POST['oldMassiveUrl'];
-			$replace = $_POST['newMassiveUrl'];
 			$content = file_get_contents($file);
 			$new = str_replace($old, $replace, $content);
-			file_put_contents($file, $new);
+			file_put_contents($file, $new, LOCK_EX);
 		}
 	}
 
 	public function forceSSL(){
+		if (!isset($_POST['nonce']) || !self::verify_nonce($_POST['nonce'], 'force_ssl')) {
+			die('CSRF validation failed');
+		}
+
+		$turnon = (isset($_POST['turnon']) && $_POST['turnon'] === 'on') ? 'on' : 'off';
 		$file = GSDATAOTHERPATH . 'MassiveForceSSL/';
 		$status = $file . 'status.txt';
 
 		if (file_exists($file)) {
-			file_put_contents($file . 'status.txt', $_POST['turnon'] ?? '');
+			file_put_contents($file . 'status.txt', $turnon, LOCK_EX);
 		} else {
 			mkdir($file, 0755);
-			file_put_contents($file . 'status.txt', $_POST['turnon'] ?? '');
+			file_put_contents($file . 'status.txt', $turnon, LOCK_EX);
 		}
 
 		//code for htaccess //
@@ -649,29 +783,38 @@ class MassiveAdminClass{
 		}
 	}
 
-	// showPassword option 
 	public function showPassword(){
+		if (!isset($_POST['nonce']) || !self::verify_nonce($_POST['nonce'], 'show_password')) {
+			die('CSRF validation failed');
+		}
+
+		$val = (isset($_POST['showPassword']) && $_POST['showPassword'] === 'on') ? 'on' : 'off';
 		$file = GSDATAOTHERPATH . 'MassiveShowPassword/';
 		$status = $file . 'status.txt';
 
 		if (file_exists($file)) {
-			file_put_contents($file . 'status.txt', $_POST['showPassword'] ?? '');
+			file_put_contents($file . 'status.txt', $val, LOCK_EX);
 		} else {
 			mkdir($file, 0755);
-			file_put_contents($file . 'status.txt', $_POST['showPassword'] ?? '');
+			file_put_contents($file . 'status.txt', $val, LOCK_EX);
 		}
 	}
 
 	// remove forget password
 	public function removeForgetPassword(){
+		if (!isset($_POST['nonce']) || !self::verify_nonce($_POST['nonce'], 'show_password')) {
+			die('CSRF validation failed');
+		}
+
+		$val = (isset($_POST['removeForgetPassword']) && $_POST['removeForgetPassword'] === 'on') ? 'on' : 'off';
 		$file = GSDATAOTHERPATH . 'MassiveShowForgetPassword/';
 		$status = $file . 'status.txt';
 
 		if (file_exists($file)) {
-			file_put_contents($file . 'status.txt', $_POST['removeForgetPassword'] ?? '');
+			file_put_contents($file . 'status.txt', $val, LOCK_EX);
 		} else {
 			mkdir($file, 0755);
-			file_put_contents($file . 'status.txt', $_POST['removeForgetPassword'] ?? '');
+			file_put_contents($file . 'status.txt', $val, LOCK_EX);
 		}
 	}
 
@@ -870,8 +1013,12 @@ class MassiveAdminClass{
 
 	// snippet save
 	public function snippetSave() {
-		$title = $_POST['snippetTitle'] ?? null;
-		$content = $_POST['content'] ?? null;
+		if (!isset($_POST['nonce']) || !self::verify_nonce($_POST['nonce'], 'snippet_save')) {
+			die('CSRF validation failed');
+		}
+
+		$title = (isset($_POST['snippetTitle']) && is_array($_POST['snippetTitle'])) ? $_POST['snippetTitle'] : null;
+		$content = (isset($_POST['content']) && is_array($_POST['content'])) ? $_POST['content'] : null;
 		$fileFolder = GSDATAOTHERPATH . 'snippetMassive/';
 		$filePath = $fileFolder . 'snippet.json';
 	
@@ -902,7 +1049,7 @@ class MassiveAdminClass{
 				if ($jsonData === false) {
 					error_log("Failed to encode JSON: " . json_last_error_msg());
 				} else {
-					if (file_put_contents($filePath, $jsonData) === false) {
+					if (file_put_contents($filePath, $jsonData, LOCK_EX) === false) {
 						error_log("Failed to save JSON to $filePath");
 					}
 				}
@@ -960,20 +1107,15 @@ class MassiveAdminClass{
 
 	// gsconfig edit
 	public function gsConfigEdit(){
-		// Check for either our nonce OR the gsconfig module's token
+		// Check for either our nonce OR the gsconfig module's token (both are
+		// now HMACs bound to a per-session server-side secret).
 		$valid = false;
-		
-		// Check our nonce first
+
 		if (isset($_POST['nonce']) && self::verify_nonce($_POST['nonce'], 'edit_gsconfig')) {
 			$valid = true;
 		}
-		
-		// Check the gsconfig module's token
-		if (!$valid && isset($_POST['gs_csrf_token'])) {
-			$expected = hash_hmac('sha256', 'gsconfig_edit', session_id());
-			if (hash_equals($expected, $_POST['gs_csrf_token'])) {
-				$valid = true;
-			}
+		if (!$valid && isset($_POST['gs_csrf_token']) && self::verify_nonce((string)$_POST['gs_csrf_token'], 'edit_gsconfig')) {
+			$valid = true;
 		}
 		
 		if (!$valid) {
@@ -981,14 +1123,21 @@ class MassiveAdminClass{
 		}
 		
 		// Now save the file
-		$content = $_POST['content'];
-		
-		// Create backup before saving
-		$backup_path = GSROOTPATH . 'gsconfig.backup.' . date('Y-m-d-H-i-s') . '.php';
+		$content = isset($_POST['content']) ? (string)$_POST['content'] : '';
+
+		// Create backup before saving - keep it outside the web root because
+		// gsconfig.php may contain secrets (salts).
+		$backupDir = GSBACKUPSPATH . 'gsconfig/';
+		if (!file_exists($backupDir)) {
+			@mkdir($backupDir, 0755, true);
+			@file_put_contents($backupDir . '.htaccess', "Require all denied\nDeny from all\n");
+			@file_put_contents($backupDir . 'index.php', "<?php exit; ?>\n");
+		}
+		$backup_path = $backupDir . 'gsconfig.backup.' . date('Y-m-d-H-i-s') . '.php';
 		@copy(GSROOTPATH . 'gsconfig.php', $backup_path);
 		
 		// Save the file
-		if (file_put_contents(GSROOTPATH . 'gsconfig.php', $content) !== false) {
+		if (file_put_contents(GSROOTPATH . 'gsconfig.php', $content, LOCK_EX) !== false) {
 			self::log_action('edit_gsconfig', "gsconfig.php updated");
 			echo '<div class="massive-done">gsconfig.php updated successfully. Backup created: ' . basename($backup_path) . '</div>';
 		} else {
@@ -998,44 +1147,63 @@ class MassiveAdminClass{
 
 	//create option for toper
 	public function mtoperSetting(){
+		if (!isset($_POST['nonce']) || !self::verify_nonce($_POST['nonce'], 'frontend_settings')) {
+			die('CSRF validation failed');
+		}
+
 		global $mtoperSettingPath;
 		$mtoperSettingPath = GSDATAOTHERPATH . 'massiveToperSettings/';
 
+		$turnon = (isset($_POST['turnon']) && $_POST['turnon'] === 'on') ? 'on' : 'off';
+		$style  = isset($_POST['style']) ? basename((string)$_POST['style']) : '';
+		$allowedStyles = array_map(function ($f) { return pathinfo($f, PATHINFO_FILENAME); }, glob(GSPLUGINPATH . 'massiveAdmin/toper-theme/*.css'));
+		if (!in_array($style, $allowedStyles, true)) {
+			$style = $allowedStyles ? $allowedStyles[0] : '';
+		}
+
 		if (!file_exists($mtoperSettingPath)) {
 			mkdir($mtoperSettingPath, 0755);
-			file_put_contents($mtoperSettingPath . '.htaccess', 'Allow from All');
+			// No "Allow from all": the data directory must stay private.
 		};
 
-		file_put_contents($mtoperSettingPath . 'turnon.txt', $_POST['turnon']);
-		file_put_contents($mtoperSettingPath . 'style.txt', $_POST['style']);
+		file_put_contents($mtoperSettingPath . 'turnon.txt', $turnon, LOCK_EX);
+		file_put_contents($mtoperSettingPath . 'style.txt', $style, LOCK_EX);
 
 		echo ("<meta http-equiv='refresh' content='0'>");
 	}
 
 	public function createBackupZip(){
-		$folderPath = $_POST['folder'];
-		$foldername = '';
-		if ($folderPath == GSDATAUPLOADPATH) {
-			$foldername = 'upload';
-		} elseif ($folderPath == GSPLUGINPATH) {
-			$foldername = 'plugins';
-		} elseif ($folderPath == GSDATAPATH) {
-			$foldername = 'data';
-		} elseif ($folderPath == GSTHEMESPATH) {
-			$foldername = 'themes';
-		} elseif ($folderPath == GSADMINPATH) {
-			$foldername = 'admin';
-		};
+		if (!isset($_POST['nonce']) || !self::verify_nonce($_POST['nonce'], 'backup_creator')) {
+			die('CSRF validation failed');
+		}
+
+		$folderPath = isset($_POST['folder']) ? (string)$_POST['folder'] : '';
+		$allowedFolders = array(
+			GSDATAUPLOADPATH => 'upload',
+			GSPLUGINPATH     => 'plugins',
+			GSDATAPATH       => 'data',
+			GSTHEMESPATH     => 'themes',
+			GSADMINPATH      => 'admin',
+		);
+		if (!isset($allowedFolders[$folderPath])) {
+			die('Invalid backup folder');
+		}
+		$foldername = $allowedFolders[$folderPath];
 
 		// Specify the name for the zip file
 		$dateString = date('Y-m-d-Hi_s');
 
-		if (!file_exists(GSBACKUPSPATH . 'backupCreator/')) {
-			mkdir(GSBACKUPSPATH . 'backupCreator/', 0755);
-			file_put_contents(GSBACKUPSPATH . 'backupCreator/.htaccess', 'Allow from all');
+		$backupDir = GSBACKUPSPATH . 'backupCreator/';
+		if (!file_exists($backupDir)) {
+			mkdir($backupDir, 0755);
+		};
+		// Backups may contain credentials, so keep the directory private and
+		// serve downloads through admin/download.php instead of "Allow from all".
+		if (!file_exists($backupDir . '.htaccess')) {
+			file_put_contents($backupDir . '.htaccess', "Require all denied\nDeny from all\n");
 		};
 
-		$zipFileName = GSBACKUPSPATH . 'backupCreator/' . $dateString . '-' . $foldername . '.zip';
+		$zipFileName = $backupDir . $dateString . '-' . $foldername . '.zip';
 
 		// Create a ZipArchive object
 		$zip = new ZipArchive();
@@ -1070,9 +1238,27 @@ class MassiveAdminClass{
 	}
 
 	public function deleteBackupZip(){
-		global $SITEURL;
-		global $GSADMIN;
-		unlink($_POST['delbackup']);
+		if (!isset($_POST['nonce']) || !self::verify_nonce($_POST['nonce'], 'backup_creator')) {
+			die('CSRF validation failed');
+		}
+
+		$backupDir = GSBACKUPSPATH . 'backupCreator/';
+		$requested = isset($_POST['delbackup']) ? (string)$_POST['delbackup'] : '';
+
+		// Only allow deleting an existing *.zip that really lives in the
+		// backupCreator directory - never trust the submitted path.
+		$name = basename(str_replace('\\', '/', $requested));
+		$file = $backupDir . $name;
+		if (
+			$name === '' ||
+			!preg_match('/^[A-Za-z0-9._-]+\.zip$/', $name) ||
+			!file_exists($file) ||
+			!self::is_safe_path($name, $backupDir)
+		) {
+			die('Invalid backup file');
+		}
+
+		unlink($file);
 		echo ("<meta http-equiv='refresh' content='0'>");
 	}
 };

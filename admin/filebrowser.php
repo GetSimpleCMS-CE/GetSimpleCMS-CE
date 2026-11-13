@@ -219,6 +219,17 @@ if (isset($_POST['fb_action']) && $_POST['fb_action'] === 'upload') {
 
 		@chmod($path . $safeName, 0644);
 
+		// SVG is XML and can execute script when opened directly. Run the same
+		// sanitizer used by upload.php before making the file available.
+		if (strtolower(pathinfo($safeName, PATHINFO_EXTENSION)) === 'svg') {
+			$sanitized = sanitize_svg_file($path . $safeName, true, false);
+			if ($sanitized === false) {
+				@unlink($path . $safeName);
+				$results[] = ['name' => $origName, 'ok' => false, 'msg' => 'Invalid or unsafe SVG.'];
+				continue;
+			}
+		}
+
 		$relDir  = ($subPath !== '' ? rtrim($subPath, '/') . '/' : '');
 		$relFile = $relDir . $safeName;
 		fb_generate_thumbsm($relFile);
@@ -459,7 +470,7 @@ $urlPath="";
 				row.innerHTML =
 					'<span class="fb-up-name">' + file.name + '</span>' +
 					'<span class="fb-up-bar"><span class="fb-up-bar-fill"></span></span>' +
-					'<span class="fb-up-status">…</span>';
+					'<span class="fb-up-status"></span>';
 				uploadList.appendChild(row);
 
 				var fill   = row.querySelector('.fb-up-bar-fill');

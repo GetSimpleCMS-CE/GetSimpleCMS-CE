@@ -47,6 +47,7 @@ echo $SITEURL; ?>plugins/massiveAdmin/css/w3-custom.css">
 
 			// Handle POST before rendering the form
 			if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['ssettings'])) {
+				if (!isset($_POST['nonce']) || !MassiveAdminClass::verify_nonce($_POST['nonce'], 'theme_settings')) { die('CSRF validation failed'); }
 				foreach ($filx->settings as $key => $loop) {
 					if (isset($_POST[$key])) {
 						$filx->settings->$key->value = $_POST[$key];
@@ -61,6 +62,7 @@ echo $SITEURL; ?>plugins/massiveAdmin/css/w3-custom.css">
 			}
 
 			echo '<form class="settheme" method="post">';
+			echo '<input type="hidden" name="nonce" value="' . htmlspecialchars(MassiveAdminClass::generate_nonce('theme_settings'), ENT_QUOTES) . '">';
 
 			foreach ($filx->settings as $key => $loop) {
 				$keyEsc   = htmlspecialchars($key, ENT_QUOTES, 'UTF-8');
