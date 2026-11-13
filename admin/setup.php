@@ -159,7 +159,7 @@ if(isset($_POST['submitted'])) {
 				$err .= sprintf(i18n_r('MOVE_TEMPCONFIG_ERROR'), 'temp.gsconfig.php', 'gsconfig.php') . '<br />';
 			} elseif ($storage === 'sqlite') {
 				$cfg = file_get_contents($init);
-				$cfg = str_replace("define('GSDATABASE', 'xml');", "define('GSDATABASE', 'sqlite');", $cfg);
+				$cfg = preg_replace("/define\\(\\s*'GSDATABASE'\\s*,\\s*'xml'\\s*\\);/", "define('GSDATABASE', 'sqlite');", $cfg);
 				file_put_contents($init, $cfg);
 			}
 		}
@@ -196,10 +196,9 @@ if(isset($_POST['submitted'])) {
 		change_plugin('UpdateCE.php',true);
 
 		# migrate to SQLite if selected
-		if ($storage === 'sqlite' && function_exists('gs_storage_sqlite')) {
-			// ensure storage initialized
+		if ($storage === 'sqlite') {
+			require_once(GSADMININCPATH . 'storage_sqlite.php');
 			if (!isset($GLOBALS['GS_STORAGE_SQLITE'])) {
-				require_once(GSADMININCPATH . 'storage_sqlite.php');
 				$GLOBALS['GS_STORAGE_SQLITE'] = new GS_Storage_SQLite(GSDATAOTHERPATH . 'database.sqlite');
 			}
 			$GLOBALS['GS_STORAGE_SQLITE']->migrateFromDisk(GSDATAPATH);
