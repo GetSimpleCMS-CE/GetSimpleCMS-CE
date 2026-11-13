@@ -584,7 +584,7 @@ function get_component($id, $ret=false) {
 	$id = clean_url($id);
 
 	if (!$components) {
-		 if (file_exists(GSDATAOTHERPATH.'components.xml')) {
+		 if (gs_storage_file_exists(GSDATAOTHERPATH.'components.xml')) {
 			$data = getXML(GSDATAOTHERPATH.'components.xml');
 			$components = $data->item;
 		} else {

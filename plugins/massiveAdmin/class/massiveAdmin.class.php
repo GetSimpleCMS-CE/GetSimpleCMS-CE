@@ -493,7 +493,7 @@ class MassiveAdminClass{
 			die('Invalid user');
 		}
 		$userFile = GSUSERSPATH . $nameUser . '.xml';
-		if (!self::is_safe_path($nameUser . '.xml', GSUSERSPATH) || !file_exists($userFile)) {
+		if (!self::is_safe_path($nameUser . '.xml', GSUSERSPATH) || !gs_storage_file_exists($userFile)) {
 			die('Invalid user');
 		}
 

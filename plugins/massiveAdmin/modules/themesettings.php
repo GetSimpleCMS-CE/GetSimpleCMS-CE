@@ -328,7 +328,7 @@ echo $SITEURL; ?>plugins/massiveAdmin/css/w3-custom.css">
 
 	<?php
 	// Add JSON support to the theme editor only once
-	if (!file_exists(GSDATAOTHERPATH . 'jsonsupportadded.txt')) {
+	if (!gs_storage_file_exists(GSDATAOTHERPATH . 'jsonsupportadded.txt')) {
 		$themeEditFile = GSADMINPATH . 'theme-edit.php';
 		if (file_exists($themeEditFile)) {
 			$f = file_get_contents($themeEditFile);

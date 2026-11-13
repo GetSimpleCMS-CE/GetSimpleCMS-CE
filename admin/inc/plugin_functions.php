@@ -92,7 +92,7 @@ $pluginsLoaded=false;
 
 
 // Check if data\other\plugins.xml exists 
-if (!file_exists(GSDATAOTHERPATH."plugins.xml")){
+if (!gs_storage_file_exists(GSDATAOTHERPATH."plugins.xml")){
    create_pluginsxml();
 } 
 

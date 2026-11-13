@@ -147,7 +147,7 @@ if(isset($_POST['submitted'])) {
 
 		# create user xml file
 		createBak($file, GSUSERSPATH, GSBACKUSERSPATH);
-		if (file_exists(GSUSERSPATH . _id($USR).'.xml.reset')) { unlink(GSUSERSPATH . _id($USR).'.xml.reset'); }	
+		if (gs_storage_file_exists(GSUSERSPATH . _id($USR).'.xml.reset')) { @unlink(GSUSERSPATH . _id($USR).'.xml.reset'); }	
 		$xml = new SimpleXMLExtended('<?xml version="1.0" encoding="UTF-8"?><item></item>');		
 		$xml->addChild('USR', $USR);
 		$xml->addChild('NAME', var_out($NAME));

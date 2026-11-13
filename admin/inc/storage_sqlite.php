@@ -86,7 +86,12 @@ if (!class_exists('GS_Storage_SQLite')) {
                 $rel = substr($full, strlen($root) + 1);
                 $content = @file_get_contents($full);
                 if ($content === false) continue;
-                if ($this->put($rel, $content)) { $count++; }
+                if ($this->put($rel, $content)) { 
+                $count++; 
+                if (strtolower(pathinfo($full, PATHINFO_EXTENSION)) === 'xml') {
+                    @unlink($full);
+                }
+            }
             }
             return $count;
         }

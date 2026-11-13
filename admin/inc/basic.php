@@ -453,16 +453,25 @@ function XMLsave($xml, $file) {
 	$data = @$xml->asXML();
 	if(getDef('GSFORMATXML',true)) $data = formatXmlString($data); // format xml if config setting says so
 	$data = exec_filter('xmlsave',$data); // @filter xmlsave executed before writing string to file
-	$success = file_put_contents($file, $data); // LOCK_EX ?
+	$success = true;
 	
-	// Mirror to SQLite when in sqlite mode
+	// SQLite mode: store in database, do not retain an XML file on disk.
 	if (gs_storage_mode() === 'sqlite') {
 		$rel = gs_storage_relative_path($file);
 		$store = gs_storage_sqlite();
-		if ($store) { $store->put($rel, $data); }
+		if ($store) {
+			$success = $store->put($rel, $data);
+		} else {
+			$success = false;
+		}
+	} else {
+		$success = file_put_contents($file, $data); // LOCK_EX ?
 	}
 	
 	// debugLog('XMLsave: ' . $file . ' ' . get_execution_time());	
+	if (gs_storage_mode() === 'sqlite') {
+		return (bool)$success;
+	}
 	if(getDef('GSDOCHMOD') === false) return $success;
 	if (defined('GSCHMOD')) {
 		return $success && chmod($file, GSCHMOD);

@@ -2,7 +2,7 @@
 /** grab user data */
 if (isset($_COOKIE['GS_ADMIN_USERNAME'])) {
     $cookie_user_id = _id($_COOKIE['GS_ADMIN_USERNAME']);
-    if (file_exists(GSUSERSPATH . $cookie_user_id . '.xml')) {
+    if (gs_storage_file_exists(GSUSERSPATH . $cookie_user_id . '.xml')) {
         $datau = getXML(GSUSERSPATH . $cookie_user_id . '.xml');
         $USR = stripslashes($datau->USR);
         $HTMLEDITOR = $datau->HTMLEDITOR;

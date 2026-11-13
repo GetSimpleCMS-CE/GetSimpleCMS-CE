@@ -684,6 +684,19 @@ $i18n = [
 	"SMTP_TEST_SUCCESS"			=> "Test email sent to %s",
 	"SMTP_TEST_FAILED"			=> "Send failed. Check the debug output below for details.",
 	
+	
+	// Storage backend
+	"STORAGE_BACKEND"			=>	"Storage Backend",
+	"STORAGE_MODE"				=>	"Current storage mode",
+	"STORAGE_XML"				=>	"XML files (default, full plugin compatibility)",
+	"STORAGE_SQLITE"			=>	"SQLite3 database",
+	"STORAGE_APPLY"				=>	"Apply",
+	"STORAGE_HINT"				=>	"Switching to SQLite3 keeps an XML mirror on disk for plugin compatibility. Default XML mode preserves full compatibility with all plugins.",
+	"STORAGE_SWITCHED_SQLITE"	=>	"Switched to SQLite3. Migrated %s files into the database.",
+	"STORAGE_SWITCHED_XML"		=>	"Switched to XML file storage.",
+	"STORAGE_ERR_TOKEN"			=>	"Invalid security token.",
+	"STORAGE_ERR_SQLITE"			=>	"SQLite3 extension is not available.",
+	"STORAGE_ERR_WRITE"			=>	"Failed to update gsconfig.php.",
 ];
 
 ?>
