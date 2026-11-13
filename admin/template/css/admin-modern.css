@@ -209,7 +209,7 @@ html.dark .gs-icon-moon { display: block; }
 	background: transparent !important;
 	text-shadow: none !important;
 	font-size: .85rem;
-	font-weight: 600;
+	font-weight: 600 !important;
 	text-decoration: none;
 	border: 1px solid transparent;
 	transition: all .15s ease;
