@@ -319,6 +319,7 @@ get_template('header', $site_full_name.' &raquo; '. i18n_r('INSTALLATION'));
 }());
 </script>
 
+				<p><input type="hidden" name="storage" value="<?php echo htmlspecialchars($storage, ENT_QUOTES, 'UTF-8'); ?>" /></p>
 				<p><input class="submit" type="submit" name="submitted" value="<?php i18n('LABEL_INSTALL'); ?>" /></p>
 			</form>
 		</div>

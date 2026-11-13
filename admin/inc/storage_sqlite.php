@@ -100,6 +100,8 @@ function gs_storage_sqlite() {
     return null;
 }
 
-function gs_storage_mode() {
-    return defined('GSDATABASE') ? GSDATABASE : 'xml';
+if (!function_exists('gs_storage_mode')) {
+    function gs_storage_mode() {
+        return defined('GSDATABASE') ? GSDATABASE : 'xml';
+    }
 }

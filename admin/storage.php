@@ -23,7 +23,6 @@ if (isset($_POST['storage_submit'])) {
         if ($newMode === 'sqlite' && (!extension_loaded('sqlite3') || !class_exists('SQLite3'))) {
             $err = 'SQLite3 extension is not available.';
         } else {
-            // Update gsconfig.php
             $cfgPath = GSROOTPATH . 'gsconfig.php';
             $cfg = file_exists($cfgPath) ? file_get_contents($cfgPath) : '';
             if (strpos($cfg, "define('GSDATABASE'") !== false) {
@@ -32,7 +31,6 @@ if (isset($_POST['storage_submit'])) {
                 $cfg = str_replace('?>', "define('GSDATABASE', '" . $newMode . "');\n?>", $cfg);
             }
             if (file_put_contents($cfgPath, $cfg, LOCK_EX) !== false) {
-                // If switching to sqlite, migrate existing XML data into the DB.
                 if ($newMode === 'sqlite') {
                     if (!isset($GLOBALS['GS_STORAGE_SQLITE'])) {
                         require_once(GSADMININCPATH . 'storage_sqlite.php');
@@ -56,19 +54,26 @@ if (isset($_POST['storage_submit'])) {
     <div id="maincontent">
         <div class="main">
             <h3>Storage Backend</h3>
-            <p>Current storage mode: <strong><?php echo htmlspecialchars($mode, ENT_QUOTES, 'UTF-8'); ?></strong></p>
-            <?php if ($msg) { echo '<p style="color:green;">' . htmlspecialchars($msg, ENT_QUOTES, 'UTF-8') . '</p>'; } ?>
-            <?php if ($err) { echo '<p style="color:red;">' . htmlspecialchars($err, ENT_QUOTES, 'UTF-8') . '</p>'; } ?>
-            <form method="post" action="">
+            <?php if ($msg) { ?>
+                <div class="updated"><?php echo htmlspecialchars($msg, ENT_QUOTES, 'UTF-8'); ?></div>
+            <?php } ?>
+            <?php if ($err) { ?>
+                <div class="error"><?php echo htmlspecialchars($err, ENT_QUOTES, 'UTF-8'); ?></div>
+            <?php } ?>
+            <p>Current storage mode: <strong><?php echo htmlspecialchars(ucfirst($mode), ENT_QUOTES, 'UTF-8'); ?></strong></p>
+            <form method="post" action="" class="largeform">
                 <input type="hidden" name="storage_nonce" value="<?php echo get_nonce('storage_switch'); ?>">
                 <p>
-                    <label><input type="radio" name="storage_mode" value="xml" <?php echo ($mode === 'xml' ? 'checked' : ''); ?>> XML files (default, full plugin compatibility)</label><br>
-                    <label><input type="radio" name="storage_mode" value="sqlite" <?php echo ($mode === 'sqlite' ? 'checked' : ''); ?>> SQLite3 database</label>
+                    <label><input type="radio" name="storage_mode" value="xml" <?php echo ($mode === 'xml' ? 'checked' : ''); ?> /> XML files (default, full plugin compatibility)</label><br />
+                    <label><input type="radio" name="storage_mode" value="sqlite" <?php echo ($mode === 'sqlite' ? 'checked' : ''); ?> /> SQLite3 database</label>
                 </p>
-                <p><button type="submit" name="storage_submit" class="submit">Apply</button></p>
+                <p><input class="submit" type="submit" name="storage_submit" value="Apply" /></p>
             </form>
-            <p><small>Switching to SQLite3 keeps an XML mirror on disk for plugin compatibility. Default XML mode preserves full compatibility with all plugins.</small></p>
+            <p class="hint">Switching to SQLite3 keeps an XML mirror on disk for plugin compatibility. Default XML mode preserves full compatibility with all plugins.</p>
         </div>
+    </div>
+    <div id="sidebar">
+        <?php include('template/sidebar-settings.php'); ?>
     </div>
 </div>
 <?php get_template('footer'); ?>
