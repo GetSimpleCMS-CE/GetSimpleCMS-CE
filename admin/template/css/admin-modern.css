@@ -206,7 +206,7 @@ body.gs-admin {
 	width: auto;
 	max-width: none;
 	margin: 0;
-	padding: 18px 18px 14px;
+	padding: 14px 16px 12px;
 	border: 0;
 	background: transparent;
 }
@@ -309,7 +309,7 @@ html.dark .gs-icon-moon { display: block; }
 	flex: 1 1 auto;
 	overflow-y: auto;
 	overflow-x: hidden;
-	padding: 4px 12px 12px;
+	padding: 4px 12px 8px;
 	width: auto;
 	max-width: none;
 	margin: 0;
@@ -348,7 +348,7 @@ html.dark .gs-icon-moon { display: block; }
 	gap: 10px;
 	width: 100%;
 	box-sizing: border-box;
-	padding: 9px 11px;
+	padding: 7px 9px;
 	margin: 0;
 	border: 1px solid transparent;
 	border-radius: var(--gs-radius-sm);
@@ -574,7 +574,7 @@ body.gs-nav-open .gs-nav-overlay {
 	width: auto;
 	max-width: 1440px;
 	margin: 0 0 0 var(--gs-rail);
-	padding: 26px 32px 32px;
+	padding: 18px 24px 24px;
 	text-align: left;
 }
 
@@ -582,7 +582,7 @@ body.gs-nav-open .gs-nav-overlay {
 	display: flex;
 	flex-wrap: wrap;
 	align-items: flex-start;
-	gap: 24px;
+	gap: 18px;
 }
 
 #maincontent {
@@ -608,8 +608,8 @@ body.gs-nav-open .gs-nav-overlay {
 	background: var(--gs-surface);
 	border: 1px solid var(--gs-border);
 	border-radius: var(--gs-radius-lg);
-	padding: 24px;
-	margin: 0 0 24px;
+	padding: 14px;
+	margin: 0 0 16px;
 	color: var(--gs-text);
 	box-shadow: none;
 }
@@ -637,7 +637,7 @@ body.gs-nav-open .gs-nav-overlay {
    -------------------------------------------------------------------------- */
 
 #sidebar .section {
-	padding: 18px;
+	padding: 14px;
 	border-radius: var(--gs-radius);
 }
 
@@ -658,8 +658,11 @@ body.gs-nav-open .gs-nav-overlay {
 
 #sidebar .snav {
 	list-style: none;
-	margin: 0 0 20px;
-	padding: 0;
+	margin: 0 0 14px;
+	padding: 8px;
+	background: var(--gs-surface);
+	border: 1px solid var(--gs-border);
+	border-radius: var(--gs-radius);
 }
 
 #sidebar .snav ul {
@@ -679,7 +682,7 @@ body.gs-nav-open .gs-nav-overlay {
 	align-items: center;
 	gap: 8px;
 	margin-left: 0;
-	padding: 9px 11px;
+	padding: 7px 9px;
 	border: 1px solid transparent;
 	border-radius: var(--gs-radius-sm);
 	background: transparent;
@@ -893,7 +896,7 @@ body.gs-nav-open .gs-nav-overlay {
 	border: 1px solid color-mix(in srgb, var(--gs-success) 35%, transparent);
 	border-radius: var(--gs-radius-sm);
 	color: var(--gs-success);
-	padding: 11px 14px;
+	padding: 9px 12px;
 	margin: 0 0 16px;
 	font-weight: 600;
 	font-size: .84rem;
@@ -909,7 +912,7 @@ body.gs-nav-open .gs-nav-overlay {
 	background: var(--gs-danger-soft);
 	border: 1px solid color-mix(in srgb, var(--gs-danger) 32%, transparent);
 	border-radius: var(--gs-radius-sm);
-	padding: 11px 14px;
+	padding: 9px 12px;
 	margin: 0 0 16px;
 	font-weight: 600;
 	font-size: .84rem;
@@ -1151,7 +1154,10 @@ body.gs-auth .reqs {
    -------------------------------------------------------------------------- */
 
 .gs-rail-tools {
-	display: none;
+	display: flex;
+	align-items: center;
+	gap: 4px;
+	flex-wrap: wrap;
 }
 
 @media (min-width: 1024px) {
@@ -1354,7 +1360,7 @@ body.gs-auth .reqs {
 	#maincontent .main,
 	#themecontent,
 	body.gs-auth #maincontent .main {
-		padding: 18px;
+		padding: 14px;
 		border-radius: var(--gs-radius);
 	}
 

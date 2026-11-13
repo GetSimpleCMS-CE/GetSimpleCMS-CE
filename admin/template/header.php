@@ -123,14 +123,16 @@ if(get_filename_id()!='index') exec_action('admin-pre-header');
 				</a>
 			</h1>
 			<div class="gs-topbar-actions">
-				<button type="button" class="gs-iconbtn gs-layout-toggle" aria-label="Toggle layout" title="Sidebar / top bar">
-					<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M9 9v11"/></svg>
-				</button>
-				<button type="button" class="gs-iconbtn gs-theme-toggle" id="gs-theme-toggle" aria-label="Toggle dark mode" title="<?php i18n('DARK_MODE'); ?>">
+				<?php if (isAuthPage()) { ?>
+				<button type="button" class="gs-iconbtn gs-theme-toggle" aria-label="Toggle dark mode" title="<?php i18n('DARK_MODE'); ?>">
 					<svg class="gs-icon-sun" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
 					<svg class="gs-icon-moon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
 				</button>
-				<?php if(!isAuthPage()) { ?>
+				<button type="button" class="gs-iconbtn gs-layout-toggle" aria-label="Toggle layout" title="Sidebar / top bar">
+					<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M9 9v11"/></svg>
+				</button>
+				<?php } ?>
+				<?php if (!isAuthPage()) { ?>
 				<button type="button" class="gs-iconbtn gs-rail-close" id="gs-nav-close" aria-label="Close menu">
 					<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
 				</button>
