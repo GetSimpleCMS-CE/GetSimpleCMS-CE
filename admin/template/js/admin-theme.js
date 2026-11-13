@@ -2,38 +2,74 @@
 	'use strict';
 
 	var root = document.documentElement;
+	var body = document.body;
 
 	function storeTheme(value) {
 		try { localStorage.setItem('gs-admin-theme', value); } catch (e) {}
 	}
 
-	var themeBtn = document.getElementById('gs-theme-toggle');
-	if (themeBtn) {
-		themeBtn.addEventListener('click', function () {
+	var themeBtns = Array.prototype.slice.call(document.querySelectorAll('.gs-theme-toggle'));
+	themeBtns.forEach(function (btn) {
+		btn.addEventListener('click', function () {
 			var dark = !root.classList.contains('dark');
 			root.classList.toggle('dark', dark);
 			storeTheme(dark ? 'dark' : 'light');
-			themeBtn.setAttribute('aria-pressed', dark ? 'true' : 'false');
+			themeBtns.forEach(function (b) { b.setAttribute('aria-pressed', dark ? 'true' : 'false'); });
 		});
-		themeBtn.setAttribute('aria-pressed', root.classList.contains('dark') ? 'true' : 'false');
+		btn.setAttribute('aria-pressed', root.classList.contains('dark') ? 'true' : 'false');
+	});
+
+	function closeNav() {
+		body.classList.remove('gs-nav-open');
+		var t = document.getElementById('gs-nav-toggle');
+		if (t) { t.setAttribute('aria-expanded', 'false'); }
+	}
+
+	function openNav() {
+		body.classList.add('gs-nav-open');
+		var t = document.getElementById('gs-nav-toggle');
+		if (t) { t.setAttribute('aria-expanded', 'true'); }
 	}
 
 	var navBtn = document.getElementById('gs-nav-toggle');
-	var nav = document.getElementById('gs-mainnav');
-	if (navBtn && nav) {
+	if (navBtn) {
 		navBtn.addEventListener('click', function () {
-			var open = nav.classList.toggle('is-open');
-			navBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+			if (body.classList.contains('gs-nav-open')) { closeNav(); } else { openNav(); }
 		});
+	}
+
+	var closeBtn = document.getElementById('gs-nav-close');
+	if (closeBtn) { closeBtn.addEventListener('click', closeNav); }
+
+	var overlay = document.getElementById('gs-nav-overlay');
+	if (overlay) { overlay.addEventListener('click', closeNav); }
+
+	document.addEventListener('keydown', function (event) {
+		if (event.key === 'Escape') { closeNav(); }
+	});
+
+	// Close the rail after tapping a link on mobile.
+	var nav = document.getElementById('gs-mainnav');
+	if (nav) {
 		nav.addEventListener('click', function (event) {
-			if (event.target && event.target.tagName === 'A' && window.innerWidth < 1024) {
-				nav.classList.remove('is-open');
-				navBtn.setAttribute('aria-expanded', 'false');
+			if (event.target && event.target.closest && event.target.closest('a') && window.innerWidth < 1024) {
+				closeNav();
+			}
+		});
+
+		// Fallback active state for plugin pages and query-string links.
+		var current = window.location.pathname.split('/').pop() + window.location.search;
+		Array.prototype.forEach.call(nav.querySelectorAll('a'), function (a) {
+			var href = a.getAttribute('href');
+			if (!href) { return; }
+			var url = href.split('#')[0];
+			if (url === current || url === current.split('?')[0]) {
+				a.classList.add('is-active');
 			}
 		});
 	}
 
-	// Sync across tabs when the preference changes elsewhere.
+	// Keep theme changes in sync across tabs.
 	window.addEventListener('storage', function (event) {
 		if (event.key === 'gs-admin-theme') {
 			root.classList.toggle('dark', event.newValue === 'dark');

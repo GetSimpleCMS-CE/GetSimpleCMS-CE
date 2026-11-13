@@ -6,8 +6,8 @@
  */
 
 ?>
-			<footer id="footer" class="gs-footer tw-mt-8">
-				<div class="gs-footer-inner tw-flex tw-flex-wrap tw-items-center tw-justify-between tw-gap-4">
+			<footer id="footer" class="gs-footer">
+				<div class="gs-footer-inner">
 					<div class="gs-footer-left">
 					<?php 
 					include(GSADMININCPATH ."configuration.php");
