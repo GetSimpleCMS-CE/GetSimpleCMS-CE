@@ -118,7 +118,6 @@ if(get_filename_id()!='index') exec_action('admin-pre-header');
 		<div class="wrapper gs-topbar">
 			<h1 id="sitename" class="gs-brand">
 				<a href="<?php echo $SITEURL; ?>" target="_blank" rel="noopener">
-					<span class="gs-logo-mark" aria-hidden="true">GS</span>
 					<span class="gs-brand-text"><?php echo cl($SITENAME); ?></span>
 				</a>
 			</h1>

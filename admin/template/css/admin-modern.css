@@ -1388,6 +1388,21 @@ body.gs-auth .reqs {
 	}
 }
 
+/* Install page */
+body.gs-plain .wrapper.gs-content { max-width: 960px; }
+body.gs-plain #maincontent .main h1,
+body.gs-plain h1 { font-size: 1.6rem; margin: 0 0 4px; }
+.gs-install-lead { color: var(--gs-muted); font-size: .9rem; margin: 0 0 22px; }
+.gs-admin table.highlight.healthcheck tr td { padding: 10px 12px; font-size: .84rem; border-bottom: 1px solid var(--gs-border); }
+.gs-admin table.highlight.healthcheck tr td:first-child { font-weight: 600; color: var(--gs-text-soft); width: 42%; }
+.gs-admin table.highlight.healthcheck tr td span { font-weight: 600; }
+.gs-admin table.highlight.healthcheck tr td span.OKmsg,
+.gs-admin table.highlight.healthcheck tr td span.OKmsg b { color: var(--gs-success); }
+.gs-admin table.highlight.healthcheck tr td span.WARNmsg,
+.gs-admin table.highlight.healthcheck tr td span.WARNmsg b { color: var(--gs-warning); }
+.gs-admin table.highlight.healthcheck tr td span.ERRmsg,
+.gs-admin table.highlight.healthcheck tr td span.ERRmsg b { color: var(--gs-danger); }
+
 @media (prefers-reduced-motion: reduce) {
 	.gs-admin *,
 	.gs-admin *::before,

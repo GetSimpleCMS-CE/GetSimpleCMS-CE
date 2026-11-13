@@ -131,10 +131,7 @@ get_template('header', $site_full_name.' CE &raquo; '. i18n_r('INSTALLATION') );
 ?>
 	
 	<h1><?php echo $site_full_name; ?></h1>
-</div>
-</div>
-<div class="wrapper">
-	
+	<p class="gs-install-lead"><?php i18n('INSTALLATION'); ?></p>
 <?php
 	if ($kill != '') {
 		echo '<div class="error">'. $kill .'</div>';
@@ -304,8 +301,6 @@ get_template('header', $site_full_name.' CE &raquo; '. i18n_r('INSTALLATION') );
 			
 			<small class="hint"></small>
 			<?php } ?>
-	</div>
-</div>
 
 <div class="clear"></div>
 <?php get_template('footer'); ?>
