@@ -89,9 +89,10 @@ if(!is_frontend()){
 	}
 }
 
-// definition defaults
+// Storage backend (xml default; sqlite optional)
+if (!defined('GSDATABASE')) define('GSDATABASE', 'xml');
 
-if(!defined('GSUPLOADSLC'))	define('GSUPLOADSLC',true);
+if (!defined('GSUPLOADSLC'))	define('GSUPLOADSLC',true);
 
 if(!defined('GSNOFRAME')) define('GSNOFRAME',true);
 if(!defined('GSNOFRAMEDEFAULT')) define('GSNOFRAMEDEFAULT','SAMEORIGIN');
@@ -114,6 +115,16 @@ define('GSDATAPATH', GSROOTPATH. 'data/');
 define('GSDATAOTHERPATH', GSROOTPATH. 'data/other/');
 define('GSDATAPAGESPATH', GSROOTPATH. 'data/pages/');
 define('GSDATAUPLOADPATH', GSROOTPATH. 'data/uploads/');
+
+// Initialize optional SQLite storage backend
+if (defined('GSDATABASE') && GSDATABASE === 'sqlite') {
+    if (file_exists(GSADMININCPATH . 'storage_sqlite.php')) {
+        require_once(GSADMININCPATH . 'storage_sqlite.php');
+        if (!isset($GLOBALS['GS_STORAGE_SQLITE'])) {
+            $GLOBALS['GS_STORAGE_SQLITE'] = new GS_Storage_SQLite(GSDATAOTHERPATH . 'database.sqlite');
+        }
+    }
+}
 define('GSTHUMBNAILPATH', GSROOTPATH. 'data/thumbs/');
 define('GSBACKUPSPATH', GSROOTPATH. 'backups/');
 define('GSTHEMESPATH', GSROOTPATH. 'theme/');

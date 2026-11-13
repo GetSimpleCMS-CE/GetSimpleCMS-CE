@@ -393,6 +393,17 @@ function get_execution_time($reset=false)
  * @return object
  */
 function getXML($file) {
+	if (gs_storage_mode() === 'sqlite') {
+		$rel = gs_storage_relative_path($file);
+		$store = gs_storage_sqlite();
+		if ($store) {
+			$content = $store->get($rel);
+			if ($content !== false) {
+				$data = @simplexml_load_string($content, 'SimpleXMLExtended', LIBXML_NOCDATA);
+				if ($data) return $data;
+			}
+		}
+	}
 	$xml = @file_get_contents($file);
 	if($xml){
 		$data = simplexml_load_string($xml, 'SimpleXMLExtended', LIBXML_NOCDATA); 
@@ -401,8 +412,31 @@ function getXML($file) {
 }
 
 /**
- * XML Save
- *
+ * Storage backend helpers (always available).
+ */
+if (!function_exists('gs_storage_mode')) {
+    function gs_storage_mode() {
+        return defined('GSDATABASE') ? GSDATABASE : 'xml';
+    }
+}
+function gs_storage_relative_path($file) {
+    $file = str_replace('\\', '/', (string)$file);
+    $root = str_replace('\\', '/', GSROOTPATH);
+    if (strpos($file, $root) === 0) {
+        return ltrim(substr($file, strlen($root)), '/');
+    }
+    return ltrim($file, '/');
+}
+function gs_storage_file_exists($file) {
+    if (gs_storage_mode() === 'sqlite') {
+        $store = function_exists('gs_storage_sqlite') ? gs_storage_sqlite() : null;
+        if ($store) {
+            if ($store->exists(gs_storage_relative_path($file))) return true;
+        }
+    }
+    return file_exists($file);
+}
+/**
  * @since 2.0
  * @todo create and chmod file before ->asXML call (if it doesnt exist already, if so, then just chmod it.)
  *
@@ -420,6 +454,13 @@ function XMLsave($xml, $file) {
 	if(getDef('GSFORMATXML',true)) $data = formatXmlString($data); // format xml if config setting says so
 	$data = exec_filter('xmlsave',$data); // @filter xmlsave executed before writing string to file
 	$success = file_put_contents($file, $data); // LOCK_EX ?
+	
+	// Mirror to SQLite when in sqlite mode
+	if (gs_storage_mode() === 'sqlite') {
+		$rel = gs_storage_relative_path($file);
+		$store = gs_storage_sqlite();
+		if ($store) { $store->put($rel, $data); }
+	}
 	
 	// debugLog('XMLsave: ' . $file . ' ' . get_execution_time());	
 	if(getDef('GSDOCHMOD') === false) return $success;

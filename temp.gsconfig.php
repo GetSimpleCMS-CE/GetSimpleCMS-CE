@@ -15,8 +15,8 @@ if (basename($_SERVER['PHP_SELF']) == 'gsconfig.php') {
 /*****************************************************************************/
 /** Below are constants that you can use to customize how GetSimple operates */ 
 
-# Extra salt to secure your password with. Default is empty for backwards compatibility.
-# define('GSLOGINSALT', 'your_unique_phrase');
+# Storage backend: 'xml' (default, full plugin compatibility) or 'sqlite' (SQLite3 database)
+define('GSDATABASE','xml');
 
 # Turn off auto-generation of SALT and use a custom value. Used for cookies & upload security.
 # define('GSUSECUSTOMSALT', 'your_new_salt_value_here');

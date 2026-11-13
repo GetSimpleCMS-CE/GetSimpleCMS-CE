@@ -28,8 +28,9 @@ $err = null; // used for errors, show form alow resubmision
 $message = null; // message to show user
 $random = null;
 $success = false; // success true show message if message
-$fullpath = suggest_site_path();	
-$path_parts = suggest_site_path(true);   
+$fullpath = suggest_site_path();
+$path_parts = suggest_site_path(true);
+$storage = (isset($_POST['storage']) && $_POST['storage'] === 'sqlite') ? 'sqlite' : 'xml';
 
 # if the form was submitted, continue
 if(isset($_POST['submitted'])) {
@@ -156,6 +157,10 @@ if(isset($_POST['submitted'])) {
 			rename($temp, $init);
 			if (!file_exists($init)) {
 				$err .= sprintf(i18n_r('MOVE_TEMPCONFIG_ERROR'), 'temp.gsconfig.php', 'gsconfig.php') . '<br />';
+			} elseif ($storage === 'sqlite') {
+				$cfg = file_get_contents($init);
+				$cfg = str_replace("define('GSDATABASE', 'xml');", "define('GSDATABASE', 'sqlite');", $cfg);
+				file_put_contents($init, $cfg);
 			}
 		}
 		
@@ -190,6 +195,16 @@ if(isset($_POST['submitted'])) {
 		change_plugin('massiveAdmin.php',true);
 		change_plugin('UpdateCE.php',true);
 
+		# migrate to SQLite if selected
+		if ($storage === 'sqlite' && function_exists('gs_storage_sqlite')) {
+			// ensure storage initialized
+			if (!isset($GLOBALS['GS_STORAGE_SQLITE'])) {
+				require_once(GSADMININCPATH . 'storage_sqlite.php');
+				$GLOBALS['GS_STORAGE_SQLITE'] = new GS_Storage_SQLite(GSDATAOTHERPATH . 'database.sqlite');
+			}
+			$GLOBALS['GS_STORAGE_SQLITE']->migrateFromDisk(GSDATAPATH);
+		}
+		
 		# set the login cookie, then redirect user to secure panel
 		create_cookie();
 		$success = true;

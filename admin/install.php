@@ -306,7 +306,14 @@ get_template('header', $site_full_name.' CE &raquo; '. i18n_r('INSTALLATION') );
 					?>
 
 				</select>
- 
+  
+				<label for="storage">Storage Backend</label>
+				<select name="storage" style="width:100%;padding:10px;border:solid 1px #ddd; background:#fff;margin-bottom:5px;">
+					<option value="xml" selected>XML files (default, full plugin compatibility)</option>
+					<option value="sqlite">SQLite3 database (faster, requires SQLite3 extension)</option>
+				</select>
+				<small class="hint">Default XML keeps compatibility with plugins that read XML files directly. SQLite3 stores data in data/other/database.sqlite.</small>
+
 				<p><input class="submit" type="submit" name="continue" value="<?php i18n('CONTINUE_SETUP');?> &raquo;" /></p>
 			</form>
 			
