@@ -20,7 +20,7 @@ if (isset($_POST['menuOrder'])) {
 
 	foreach ($menuOrder as $slug) {
 		$file = GSDATAPAGESPATH . $slug . '.xml';
-		if (file_exists($file)) {
+		if (gs_storage_file_exists($file)) {
 			$data = getXML($file);
 
 			// Update menuOrder

@@ -63,9 +63,9 @@ function gs_phpmailer_load(): bool {
  */
 function gs_load_smtp_config(): ?array {
 	$file = GSDATAOTHERPATH . 'smtp.xml';
-	if (!file_exists($file)) return null;
+	if (!gs_storage_file_exists($file)) return null;
 
-	$xml = @simplexml_load_file($file);
+	$xml = getXML($file);
 	if (!$xml) return null;
 
 	// Not enabled — return null so sendmail() uses mail()
@@ -92,9 +92,9 @@ function gs_load_smtp_config(): ?array {
  */
 function gs_load_smtp_config_raw(): array {
 	$file = GSDATAOTHERPATH . 'smtp.xml';
-	if (!file_exists($file)) return [];
+	if (!gs_storage_file_exists($file)) return [];
 
-	$xml = @simplexml_load_file($file);
+	$xml = getXML($file);
 	if (!$xml) return [];
 
 	return [

@@ -76,6 +76,21 @@ if (!class_exists('GS_Storage_SQLite')) {
             return $out;
         }
 
+        public function exportToDisk($root) {
+            $root = rtrim(str_replace('\\', '/', $root), '/');
+            $count = 0;
+            $res = $this->db->query('SELECT path, content FROM gs_storage');
+            while ($row = $res->fetchArray(SQLITE3_ASSOC)) {
+                $rel = str_replace('\\', '/', $row['path']);
+                if (strpos($rel, '..') !== false) continue;
+                $full = $root . '/' . ltrim($rel, '/');
+                $dir = dirname($full);
+                if (!is_dir($dir)) { @mkdir($dir, 0755, true); }
+                if (@file_put_contents($full, $row['content']) !== false) { $count++; }
+            }
+            return $count;
+        }
+
         public function migrateFromDisk($root) {
             $root = rtrim(str_replace('\\', '/', $root), '/');
             $it = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($root, RecursiveDirectoryIterator::SKIP_DOTS));
@@ -83,15 +98,23 @@ if (!class_exists('GS_Storage_SQLite')) {
             foreach ($it as $file) {
                 if (!$file->isFile()) continue;
                 $full = str_replace('\\', '/', $file->getRealPath());
-                $rel = substr($full, strlen($root) + 1);
+                // never import the database file itself
+                if (preg_match('/database\.sqlite(-wal|-shm)?$/', $full)) continue;
+                if (defined('GSROOTPATH') && function_exists('gs_storage_relative_path')) {
+                    $rel = gs_storage_relative_path($full);
+                } else {
+                    $rel = 'data/' . substr($full, strlen($root) + 1);
+                }
                 $content = @file_get_contents($full);
                 if ($content === false) continue;
-                if ($this->put($rel, $content)) { 
-                $count++; 
-                if (strtolower(pathinfo($full, PATHINFO_EXTENSION)) === 'xml') {
-                    @unlink($full);
+                if ($this->put($rel, $content)) {
+                    $count++;
+                    // Remove the XML source file once imported so sqlite mode
+                    // does not keep a full XML copy on disk.
+                    if (strtolower(pathinfo($full, PATHINFO_EXTENSION)) === 'xml') {
+                        @unlink($full);
+                    }
                 }
-            }
             }
             return $count;
         }

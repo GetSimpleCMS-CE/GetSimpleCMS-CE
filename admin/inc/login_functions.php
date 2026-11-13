@@ -32,7 +32,7 @@ if(isset($_POST['submitted'])) {
 		exec_action('successful-login-start');
 		
 		# does this user exist?
-		if (file_exists($user_xml)) {
+		if (gs_storage_file_exists($user_xml)) {
 
 			# pull the data from the user's data file
 			$data = getXML($user_xml);

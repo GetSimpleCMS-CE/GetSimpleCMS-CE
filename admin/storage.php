@@ -39,7 +39,13 @@ if (isset($_POST['storage_submit'])) {
                     $n = $GLOBALS['GS_STORAGE_SQLITE']->migrateFromDisk(GSDATAPATH);
                     $msg = sprintf(i18n_r('STORAGE_SWITCHED_SQLITE'), $n);
                 } else {
-                    $msg = i18n_r('STORAGE_SWITCHED_XML');
+                    $store = gs_storage_sqlite();
+                    if (!$store) {
+                        require_once(GSADMININCPATH . 'storage_sqlite.php');
+                        $store = new GS_Storage_SQLite(GSDATAOTHERPATH . 'database.sqlite');
+                    }
+                    $n = $store->exportToDisk(GSROOTPATH);
+                    $msg = i18n_r('STORAGE_SWITCHED_XML') . ' (' . $n . ')';
                 }
                 $mode = $newMode;
             } else {

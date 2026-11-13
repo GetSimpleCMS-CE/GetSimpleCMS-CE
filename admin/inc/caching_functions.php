@@ -27,7 +27,7 @@ add_action('changedata-aftersave', 'create_pagesxml',[true]);     // Create page
  *
  */
 function getPageContent($page,$field='content'){   
-	$thisfile = file_get_contents(GSDATAPAGESPATH.$page.'.xml');
+	$thisfile = gs_storage_get_contents(GSDATAPAGESPATH.$page.'.xml');
 	$data = simplexml_load_string($thisfile);
 	$content = stripslashes(htmlspecialchars_decode($data->$field, ENT_QUOTES));
 	if ($field=='content'){
@@ -89,7 +89,7 @@ function echoPageField($page,$field){
  *
  */
 function returnPageContent($page, $field='content', $raw = false, $nofilter = false){   
-	$thisfile = file_get_contents(GSDATAPAGESPATH.$page.'.xml');
+	$thisfile = gs_storage_get_contents(GSDATAPAGESPATH.$page.'.xml');
 	$data = simplexml_load_string($thisfile);
 	if(!$data) return;
 	$content = $data->$field;
@@ -200,10 +200,10 @@ function getPagesXmlValues($chkcount=false){
    if(!$pagesArray){
 		$pagesArray=[];
 		$file=GSDATAOTHERPATH."pages.xml";
-		if (file_exists($file)){
+		if (gs_storage_file_exists($file)){
 			// load the xml file and setup the array. 
 			// debugLog(__FUNCTION__.": load pages.xml");
-			$thisfile = file_get_contents($file);
+			$thisfile = gs_storage_get_contents($file);
 			$data = simplexml_load_string($thisfile);
 			$pages = $data->item;
 			  foreach ($pages as $page) {
@@ -225,13 +225,9 @@ function getPagesXmlValues($chkcount=false){
   	// if checking cache sync, regen cache if pages differ.
 	if ($chkcount==true){
 		$path = GSDATAPAGESPATH;
-		$dir_handle = @opendir($path) or die("getPageXmlValues: Unable to open $path");
 		$filenames = [];
-		while ($filename = readdir($dir_handle)) {
-			$ext = substr($filename, strrpos($filename, '.') + 1);
-			if ($ext=="xml"){
-		  		$filenames[] = $filename;
-			}
+		foreach (gs_storage_list_files($path) as $filename) {
+			if (substr($filename, -4) === '.xml') { $filenames[] = $filename; }
 		}
 		if (count($pagesArray)!=count($filenames)) {
 			// debugLog(__FUNCTION__.": count differs regen pages.xml");
@@ -263,13 +259,9 @@ if ((isset($_GET['upd']) && $_GET['upd']=="edit-success") || $flag===true || $fl
   $filem=GSDATAOTHERPATH."pages.xml";
 
   $path = GSDATAPAGESPATH;
-  $dir_handle = @opendir($path) or die("create_pagesxml: Unable to open $path");
   $filenames = [];
-  while ($filename = readdir($dir_handle)) {
-    $ext = substr($filename, strrpos($filename, '.') + 1);
-    if ($ext=="xml"){
-      $filenames[] = $filename;
-    }
+  foreach (gs_storage_list_files($path) as $filename) {
+    if (substr($filename, -4) === '.xml') { $filenames[] = $filename; }
   }
   
   $count=0;

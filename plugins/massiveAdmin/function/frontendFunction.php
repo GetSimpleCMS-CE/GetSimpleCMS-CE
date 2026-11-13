@@ -20,7 +20,7 @@ function get_snippet($item)
 function mats($field)
 {
 
-    $xml = simplexml_load_file(GSDATAOTHERPATH . 'website.xml');
+    $xml = getXML(GSDATAOTHERPATH . 'website.xml');
 
     $activeTemplate = $xml->TEMPLATE;
 
@@ -40,7 +40,7 @@ function mats($field)
 
 function r_mats($field)
 {
-    $xml = simplexml_load_file(GSDATAOTHERPATH . 'website.xml');
+    $xml = getXML(GSDATAOTHERPATH . 'website.xml');
     $activeTemplate = $xml->TEMPLATE;
     if (file_exists(GSTHEMESPATH . $activeTemplate . '/settings.json')) {
         $data = file_get_contents(GSTHEMESPATH . $activeTemplate . '/settings.json');

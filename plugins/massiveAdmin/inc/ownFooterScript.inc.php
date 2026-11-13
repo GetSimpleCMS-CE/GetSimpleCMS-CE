@@ -5,7 +5,7 @@ $datee = @file_get_contents($filename);
 $data = json_decode($datee);
 
 $thisfilew = GSDATAOTHERPATH . 'website.xml';
-if (file_exists($thisfilew)) {
+if (gs_storage_file_exists($thisfilew)) {
 	$dataw = getXML($thisfilew);
 	$SITENAME = html_entity_decode(stripslashes($dataw->SITENAME), ENT_QUOTES | ENT_HTML5, 'UTF-8');
 	$SITEURL = $dataw->SITEURL;

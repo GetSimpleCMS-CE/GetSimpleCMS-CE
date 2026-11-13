@@ -112,7 +112,7 @@
 
 			<div class="w3-panel w3-leftbar w3-pale-blue w3-border-blue w3-padding"><h4 class="w3-margin-top">
 			User: <?php echo 
-			$usxml = simplexml_load_file($us);
+			$usxml = getXML($us);
 			echo $usxml->USR;
 			?></h4></div>
 

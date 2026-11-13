@@ -87,8 +87,8 @@ if (isset($_POST['submitted'])) {
 					$file = GSDATAPAGESPATH . $url .".xml";
 					$existing = GSDATAPAGESPATH . $existingurl .".xml";
 					$bakfile = GSBACKUPSPATH."pages/". $existingurl .".bak.xml";
-					copy($existing, $bakfile);
-					unlink($existing);
+					gs_storage_copy($existing, $bakfile);
+					gs_storage_delete($existing);
 				} 
 			} 
 		}
@@ -135,10 +135,10 @@ if (isset($_POST['submitted'])) {
 		}		
 		// If saving a new file do not overwrite existing, get next incremental filename, file-count.xml
 		// @todo this is a mess, new file existing file should all be determined at beginning of block and defined
-		if ( (file_exists($file) && $url != $existingurl) ||  in_array($url,$reservedSlugs) ) {
+		if ( (gs_storage_file_exists($file) && $url != $existingurl) ||  in_array($url,$reservedSlugs) ) {
 			$count = "1";
 			$file = GSDATAPAGESPATH . $url ."-".$count.".xml";
-			while ( file_exists($file) ) {
+			while ( gs_storage_file_exists($file) ) {
 				$count++;
 				$file = GSDATAPAGESPATH . $url ."-".$count.".xml";
 			}
@@ -147,10 +147,10 @@ if (isset($_POST['submitted'])) {
 
 		
 		// if we are editing an existing page, create a backup
-		if ( file_exists($file) ) 
+		if ( gs_storage_file_exists($file) ) 
 		{
 			$bakfile = GSBACKUPSPATH."pages/". $url .".bak.xml";
-			copy($file, $bakfile);
+			gs_storage_copy($file, $bakfile);
 		}
 		
 		

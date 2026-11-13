@@ -436,6 +436,51 @@ function gs_storage_file_exists($file) {
     }
     return file_exists($file);
 }
+function gs_storage_get_contents($file) {
+    if (gs_storage_mode() === 'sqlite') {
+        $store = function_exists('gs_storage_sqlite') ? gs_storage_sqlite() : null;
+        if ($store) {
+            $content = $store->get(gs_storage_relative_path($file));
+            if ($content !== false) return $content;
+        }
+    }
+    return @file_get_contents($file);
+}
+function gs_storage_list_files($dir) {    $dir = rtrim(str_replace('\\', '/', $dir), '/') . '/';
+    $out = array();
+    if (gs_storage_mode() === 'sqlite') {
+        $store = function_exists('gs_storage_sqlite') ? gs_storage_sqlite() : null;
+        if ($store) {
+            $prefix = gs_storage_relative_path($dir);
+            foreach ($store->listPrefix($prefix) as $p) {
+                if (strpos(substr($p, strlen($prefix)), '/') === false) {
+                    $out[basename($p)] = true;
+                }
+            }
+        }
+    }
+    foreach ((array)@glob($dir . '*') as $f) {
+        if (is_file($f)) { $out[basename($f)] = true; }
+    }
+    return array_keys($out);
+}
+function gs_storage_copy($src, $dst) {
+    $content = gs_storage_get_contents($src);
+    if ($content === false) return false;
+    if (gs_storage_mode() === 'sqlite') {
+        $store = function_exists('gs_storage_sqlite') ? gs_storage_sqlite() : null;
+        if (!$store) return false;
+        return $store->put(gs_storage_relative_path($dst), $content);
+    }
+    return @file_put_contents($dst, $content) !== false;
+}
+function gs_storage_delete($file) {
+    if (gs_storage_mode() === 'sqlite') {
+        $store = function_exists('gs_storage_sqlite') ? gs_storage_sqlite() : null;
+        if ($store) { $store->delete(gs_storage_relative_path($file)); }
+    }
+    if (file_exists($file)) { @unlink($file); }
+}
 /**
  * @since 2.0
  * @todo create and chmod file before ->asXML call (if it doesnt exist already, if so, then just chmod it.)

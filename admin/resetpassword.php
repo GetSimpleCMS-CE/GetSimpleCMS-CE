@@ -29,8 +29,8 @@ if (isset($_POST['submitted'])) {
 
 		$file = _id($_POST['username']) . '.xml';
 
-		if (filepath_is_safe(GSUSERSPATH . $file, GSUSERSPATH)) {
-			$data = simplexml_load_file(GSUSERSPATH . $file);
+		if (gs_storage_file_exists(GSUSERSPATH . $file)) {
+			$data = getXML(GSUSERSPATH . $file);
 			$USR   = strtolower((string)$data->USR);
 			$EMAIL = (string)$data->EMAIL;
 
@@ -61,7 +61,7 @@ if (isset($_POST['submitted'])) {
 				exec_action('resetpw-success');
 				sendmail($EMAIL, $subject, $message);
 			}
-			// Fall through — always show success (no user enumeration)
+			// Fall through ï¿½ always show success (no user enumeration)
 		}
 
 		usleep($randSleep);

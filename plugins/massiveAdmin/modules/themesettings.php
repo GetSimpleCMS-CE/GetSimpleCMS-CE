@@ -16,11 +16,11 @@ echo $SITEURL; ?>plugins/massiveAdmin/css/w3-custom.css">
 	<p class="w3-margin-bottom">
 		<?php
 		$websiteXml = GSDATAOTHERPATH . 'website.xml';
-		if (!file_exists($websiteXml)) {
+		if (!gs_storage_file_exists($websiteXml)) {
 			echo '<b style="color:red">Error: website.xml not found.</b>';
 			return;
 		}
-		$xml = simplexml_load_file($websiteXml);
+		$xml = getXML($websiteXml);
 		if ($xml === false) {
 			echo '<b style="color:red">Error: could not parse website.xml.</b>';
 			return;

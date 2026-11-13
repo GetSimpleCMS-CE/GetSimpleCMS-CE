@@ -181,7 +181,7 @@ function delete_cache() {
  * @return string
  */
 function delete_bak($id) {
-	unlink(GSBACKUPSPATH."pages/". $id .".bak.xml");
+	gs_storage_delete(GSBACKUPSPATH."pages/". $id .".bak.xml");
 	return 'success';
 } 
 
@@ -198,14 +198,14 @@ function restore_bak($id) {
 	$file = GSBACKUPSPATH."pages/". $id .".bak.xml";
 	$newfile = GSDATAPAGESPATH . $id .".xml";
 	$tmpfile = GSBACKUPSPATH."pages/". $id .".tmp.xml";
-	if ( !file_exists($newfile) ) { 
-		copy($file, $newfile);
-		unlink($file);
+	if ( !gs_storage_file_exists($newfile) ) { 
+		gs_storage_copy($file, $newfile);
+		gs_storage_delete($file);
 	} else {
-		copy($file, $tmpfile);
-		copy($newfile, $file);
-		copy($tmpfile, $newfile);
-		unlink($tmpfile);
+		gs_storage_copy($file, $tmpfile);
+		gs_storage_copy($newfile, $file);
+		gs_storage_copy($tmpfile, $newfile);
+		gs_storage_delete($tmpfile);
 	}
 	exec_action('page-restored');
 	generate_sitemap();
@@ -690,7 +690,7 @@ function updateSlugs($existingUrl, $newurl=null){
 
 	foreach ($pagesArray as $page){
 		if ( $page['parent'] == $existingUrl ){
-			$thisfile = @file_get_contents(GSDATAPAGESPATH.$page['filename']);
+			$thisfile = gs_storage_get_contents(GSDATAPAGESPATH.$page['filename']);
 			$data = simplexml_load_string($thisfile);
 			$data->parent=$url;
 			XMLsave($data, GSDATAPAGESPATH.$page['filename']);

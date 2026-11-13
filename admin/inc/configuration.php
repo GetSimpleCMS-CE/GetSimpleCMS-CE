@@ -29,8 +29,8 @@ $cookie_redirect = 'pages.php';
 
 // If the Dashboard plugin is installed and enabled, redirect there instead
 $plugins_xml_path = dirname(__FILE__) . '/../../data/other/plugins.xml';
-if (file_exists($plugins_xml_path)) {
-    $plugins_data = simplexml_load_file($plugins_xml_path);
+if (function_exists('gs_storage_file_exists') ? gs_storage_file_exists($plugins_xml_path) : file_exists($plugins_xml_path)) {
+    $plugins_data = function_exists('getXML') ? getXML($plugins_xml_path) : @simplexml_load_file($plugins_xml_path);
     if ($plugins_data) {
         foreach ($plugins_data->item as $item) {
             if ((string)$item->plugin === 'Dashboard.php' && (string)$item->enabled === 'true') {

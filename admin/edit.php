@@ -45,7 +45,7 @@ if ($id) {
 	$id = preg_replace('/[^a-zA-Z0-9\-_]/', '', $id);
 	$file = $id . '.xml';
 
-	if (!file_exists($path . $file)) { 
+	if (!gs_storage_file_exists($path . $file)) { 
 		redirect('pages.php?error=' . urlencode(i18n_r('PAGE_NOTEXIST')));
 	}
 

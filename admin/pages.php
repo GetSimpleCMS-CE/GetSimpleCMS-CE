@@ -40,8 +40,8 @@ if ( isset($_GET['action']) && isset($_GET['id']) && $_GET['action'] == 'clone')
 	# check to not overwrite
 	$count = 1;
 	$newfile = GSDATAPAGESPATH . $_GET['id'] ."-".$count.".xml";
-	if (file_exists($newfile)) {
-		while ( file_exists($newfile) ) {
+	if (gs_storage_file_exists($newfile)) {
+		while ( gs_storage_file_exists($newfile) ) {
 			$count++;
 			$newfile = GSDATAPAGESPATH . $_GET['id'] ."-".$count.".xml";
 		}
@@ -49,7 +49,7 @@ if ( isset($_GET['action']) && isset($_GET['id']) && $_GET['action'] == 'clone')
 	$newurl = $_GET['id'] .'-'. $count;
 	
 	# do the copy
-	$status = copy($path.$_GET['id'].'.xml', $path.$newurl.'.xml');
+	$status = gs_storage_copy($path.$_GET['id'].'.xml', $path.$newurl.'.xml');
 	if ($status) {
 		$newxml = getXML($path.$newurl.'.xml');
 		$newxml->url = $newurl;

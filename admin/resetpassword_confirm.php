@@ -22,7 +22,7 @@ $tokenError = '';
 if ($user && $token) {
 	$resetFile = GSUSERSPATH . $user . '.xml.resettoken';
 
-	if (gs_storage_file_exists($resetFile) && filepath_is_safe($resetFile, GSUSERSPATH)) {
+	if (gs_storage_file_exists($resetFile)) {
 		$contents = file_get_contents($resetFile);
 		list($storedHash, $expiry) = explode('|', $contents, 2);
 
@@ -78,8 +78,8 @@ if (isset($_POST['submitted'])) {
 	if (!$pwdError) {
 		$file = GSUSERSPATH . $user . '.xml';
 
-		if (filepath_is_safe($file, GSUSERSPATH) && gs_storage_file_exists($file)) {
-			$data = simplexml_load_file($file);
+		if (gs_storage_file_exists($file)) {
+			$data = getXML($file);
 
 			createBak($user . '.xml', GSUSERSPATH, GSBACKUSERSPATH);
 

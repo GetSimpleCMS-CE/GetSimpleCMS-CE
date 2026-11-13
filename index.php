@@ -77,7 +77,7 @@ if(!$data_index) {
 	if (isset($pagesArray['404'])) {
 		// use user created 404 page
 		$data_index = getXml($user_created_404);		
-	} elseif (file_exists($file_404))	{
+	} elseif (gs_storage_file_exists($file_404))	{
 		// default 404
 		$data_index = getXml($file_404);
 	} else {

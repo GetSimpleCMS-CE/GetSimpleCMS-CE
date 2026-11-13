@@ -101,7 +101,10 @@ class API_Request {
 	 */
 	private function load_pages_index() {
 		$index = [];
-		$files = glob(GSDATAPAGESPATH.'*.xml');
+		$files = array();
+		foreach (gs_storage_list_files(GSDATAPAGESPATH) as $f) {
+			if (substr($f, -4) === '.xml') { $files[] = GSDATAPAGESPATH . $f; }
+		}
 		if ($files === false) return $index;
 		foreach ($files as $file) {
 			$data = getXML($file);
