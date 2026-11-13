@@ -19,6 +19,17 @@
 		btn.setAttribute('aria-pressed', root.classList.contains('dark') ? 'true' : 'false');
 	});
 
+	var layoutBtns = Array.prototype.slice.call(document.querySelectorAll('.gs-layout-toggle'));
+	layoutBtns.forEach(function (btn) {
+		btn.addEventListener('click', function () {
+			var top = !root.classList.contains('gs-layout-top');
+			root.classList.toggle('gs-layout-top', top);
+			try { localStorage.setItem('gs-admin-layout', top ? 'top' : 'rail'); } catch (e) {}
+			layoutBtns.forEach(function (b) { b.setAttribute('aria-pressed', top ? 'true' : 'false'); });
+		});
+		btn.setAttribute('aria-pressed', root.classList.contains('gs-layout-top') ? 'true' : 'false');
+	});
+
 	function closeNav() {
 		body.classList.remove('gs-nav-open');
 		var t = document.getElementById('gs-nav-toggle');

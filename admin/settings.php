@@ -103,6 +103,16 @@ if(isset($_POST['submitted'])) {
 	if(isset($_POST['template'])) { 
 		$TEMPLATE = $_POST['template']; 
 	}
+	if (isset($_POST['adminfont']) && in_array($_POST['adminfont'], array('inter', 'manrope', 'system'), true)) {
+		$ADMINFONT = $_POST['adminfont'];
+	} else {
+		$ADMINFONT = isset($ADMINFONT) ? $ADMINFONT : 'inter';
+	}
+	if (isset($_POST['adminlayout']) && in_array($_POST['adminlayout'], array('rail', 'top'), true)) {
+		$ADMINLAYOUT = $_POST['adminlayout'];
+	} else {
+		$ADMINLAYOUT = isset($ADMINLAYOUT) ? $ADMINLAYOUT : 'rail';
+	}
 	if(isset($_POST['prettyurls'])) {
 	  $PRETTYURLS = $_POST['prettyurls'];
 	} else {
@@ -156,6 +166,7 @@ if(isset($_POST['submitted'])) {
 		$xml->addChild('HTMLEDITOR', $HTMLEDITOR);
 		$xml->addChild('TIMEZONE', $TIMEZONE);
 		$xml->addChild('LANG', $LANG);
+		$xml->addChild('LAYOUT', $ADMINLAYOUT);
 		
 		exec_action('settings-user');
 		
@@ -174,6 +185,7 @@ if(isset($_POST['submitted'])) {
 		$note->addCData($TEMPLATE);
 		$xmls->addChild('PRETTYURLS', $PRETTYURLS);
 		$xmls->addChild('PERMALINK', var_out($PERMALINK));
+		$xmls->addChild('ADMINFONT', $ADMINFONT);
 		
 		exec_action('settings-website');
 		
@@ -316,6 +328,26 @@ get_template('header', cl($SITENAME).' &raquo; '.i18n_r('GENERAL_SETTINGS'));
 		</div>
 		<div class="clear"></div>
 
+		</div><!-- /section -->
+
+		<div id="admin-appearance" class="section" >
+		<h3><?php i18n('ADMIN_APPEARANCE'); ?></h3>
+		<div class="leftsec">
+			<p><label for="adminfont" ><?php i18n('ADMIN_FONT'); ?>:</label>
+			<select class="text" id="adminfont" name="adminfont">
+				<option value="inter" <?php echo ($ADMINFONT === 'inter' ? 'selected' : ''); ?>>Inter</option>
+				<option value="manrope" <?php echo ($ADMINFONT === 'manrope' ? 'selected' : ''); ?>>Manrope</option>
+				<option value="system" <?php echo ($ADMINFONT === 'system' ? 'selected' : ''); ?>><?php i18n('ADMIN_FONT_SYSTEM'); ?></option>
+			</select></p>
+		</div>
+		<div class="rightsec">
+			<p><label for="adminlayout" ><?php i18n('ADMIN_LAYOUT'); ?>:</label>
+			<select class="text" id="adminlayout" name="adminlayout">
+				<option value="rail" <?php echo ($ADMINLAYOUT === 'rail' ? 'selected' : ''); ?>><?php i18n('ADMIN_LAYOUT_RAIL'); ?></option>
+				<option value="top" <?php echo ($ADMINLAYOUT === 'top' ? 'selected' : ''); ?>><?php i18n('ADMIN_LAYOUT_TOP'); ?></option>
+			</select></p>
+		</div>
+		<div class="clear"></div>
 		</div><!-- /section -->
 
 		<div id="smtp-settings" class="section" >

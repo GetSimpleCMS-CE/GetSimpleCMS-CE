@@ -698,6 +698,12 @@ $i18n = [
 	"STORAGE_ERR_SQLITE"			=>	"SQLite3 extension is not available.",
 	"STORAGE_ERR_WRITE"			=>	"Failed to update gsconfig.php.",
 	"DARK_MODE"				=>	"Dark / light mode",
+	"ADMIN_APPEARANCE"			=>	"Admin Appearance",
+	"ADMIN_FONT"				=>	"Admin Font",
+	"ADMIN_FONT_SYSTEM"			=>	"System default",
+	"ADMIN_LAYOUT"				=>	"Admin Layout",
+	"ADMIN_LAYOUT_RAIL"			=>	"Left sidebar (rail)",
+	"ADMIN_LAYOUT_TOP"			=>	"Top bar (horizontal)",
 ];
 
 ?>

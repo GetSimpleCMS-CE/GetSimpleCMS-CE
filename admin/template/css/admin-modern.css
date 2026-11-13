@@ -3,6 +3,22 @@
    No shadows. Light/dark via .dark on <html>. Driven by admin-theme.js.
    ========================================================================== */
 
+@font-face {
+	font-family: 'Inter';
+	src: url('../fonts/inter-latin-wght-normal.woff2') format('woff2');
+	font-weight: 100 900;
+	font-style: normal;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: 'Manrope';
+	src: url('../fonts/manrope-latin-wght-normal.woff2') format('woff2');
+	font-weight: 200 800;
+	font-style: normal;
+	font-display: swap;
+}
+
 :root {
 	--gs-bg: #f3f5f8;
 	--gs-surface: #ffffff;
@@ -55,6 +71,18 @@ html.dark {
 	--gs-success-soft: #0f2419;
 	--gs-warning: #f0b45c;
 	--gs-warning-soft: #2a2010;
+}
+
+html.gs-font-inter {
+	--gs-font: 'Inter', ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+html.gs-font-manrope {
+	--gs-font: 'Manrope', ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+html.gs-font-system {
+	--gs-font: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
 }
 
 /* --------------------------------------------------------------------------
@@ -1116,6 +1144,144 @@ body.gs-auth .reqs {
 
 .gs-navwrap::-webkit-scrollbar-track {
 	background: transparent;
+}
+
+/* --------------------------------------------------------------------------
+   Horizontal layout (user selectable, desktop)
+   -------------------------------------------------------------------------- */
+
+.gs-rail-tools {
+	display: none;
+}
+
+@media (min-width: 1024px) {
+	html.gs-layout-top #header {
+		position: sticky;
+		top: 0;
+		left: auto;
+		right: auto;
+		bottom: auto;
+		width: auto;
+		height: auto;
+		min-height: 0;
+		flex-direction: row;
+		align-items: center;
+		gap: 10px;
+		padding: 0 18px;
+		border-right: 0;
+		border-bottom: 1px solid var(--gs-border);
+		overflow: visible;
+		transform: none;
+	}
+
+	html.gs-layout-top #header .wrapper.gs-topbar {
+		flex: 0 0 auto;
+		padding: 10px 0;
+		gap: 8px;
+	}
+
+	html.gs-layout-top .gs-topbar-actions {
+		display: none;
+	}
+
+	html.gs-layout-top .gs-navwrap {
+		flex: 1 1 auto;
+		display: flex;
+		align-items: center;
+		overflow-x: auto;
+		overflow-y: hidden;
+		padding: 8px 4px;
+		scrollbar-width: none;
+	}
+
+	html.gs-layout-top .gs-navwrap::-webkit-scrollbar {
+		display: none;
+	}
+
+	html.gs-layout-top #header .nav {
+		flex-direction: row;
+		flex-wrap: nowrap;
+		align-items: center;
+		gap: 2px;
+		width: auto;
+	}
+
+	html.gs-layout-top #header .nav li {
+		display: block;
+		flex: 0 0 auto;
+	}
+
+	html.gs-layout-top #header .nav li a {
+		width: auto;
+		white-space: nowrap;
+		padding: 8px 10px;
+	}
+
+	html.gs-layout-top #header .nav li.gs-nav-sep {
+		margin: 0 0 0 8px;
+		padding: 0 0 0 8px;
+		border-top: 0;
+		border-left: 1px solid var(--gs-border);
+	}
+
+	html.gs-layout-top .gs-rail-foot {
+		display: flex;
+		align-items: center;
+		gap: 4px;
+		flex: 0 0 auto;
+		border-top: 0;
+		padding: 0;
+		background: transparent;
+	}
+
+	html.gs-layout-top .gs-user {
+		padding: 4px;
+		border: 0;
+		background: transparent;
+	}
+
+	html.gs-layout-top .gs-user-meta {
+		display: none;
+	}
+
+	html.gs-layout-top .gs-rail-actions {
+		flex-direction: row;
+		gap: 2px;
+		margin: 0;
+	}
+
+	html.gs-layout-top .gs-rail-link {
+		padding: 7px;
+	}
+
+	html.gs-layout-top .gs-rail-link span {
+		display: none;
+	}
+
+	html.gs-layout-top .gs-rail-link svg {
+		width: 17px;
+		height: 17px;
+	}
+
+	html.gs-layout-top .gs-rail-close {
+		display: none;
+	}
+
+	html.gs-layout-top .gs-rail-tools {
+		display: flex;
+		align-items: center;
+		gap: 4px;
+		margin-left: 4px;
+		padding-left: 8px;
+		border-left: 1px solid var(--gs-border);
+	}
+
+	html.gs-layout-top .wrapper.gs-content {
+		margin-left: 0;
+		max-width: 1320px;
+		margin-right: auto;
+		padding-top: 26px;
+	}
 }
 
 /* --------------------------------------------------------------------------

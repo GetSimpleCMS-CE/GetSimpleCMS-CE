@@ -183,7 +183,12 @@ if (gs_storage_file_exists($thisfilew)) {
 	$SITEURL = '';
 } 
 
+/** admin appearance (font) */
+$ADMINFONT = isset($dataw->ADMINFONT) ? (string)$dataw->ADMINFONT : 'inter';
+if (!in_array($ADMINFONT, array('inter', 'manrope', 'system'), true)) $ADMINFONT = 'inter';
+
 /** grab user data */
+$ADMINLAYOUT = 'rail';
 if (isset($_COOKIE['GS_ADMIN_USERNAME'])) {
 	$cookie_user_id = _id($_COOKIE['GS_ADMIN_USERNAME']);
 	if (gs_storage_file_exists(GSUSERSPATH . $cookie_user_id.'.xml')) {
@@ -192,6 +197,7 @@ if (isset($_COOKIE['GS_ADMIN_USERNAME'])) {
 		$HTMLEDITOR = $datau->HTMLEDITOR;
 		$TIMEZONE = $datau->TIMEZONE;
 		$LANG = $datau->LANG;
+		if (isset($datau->LAYOUT) && (string)$datau->LAYOUT === 'top') $ADMINLAYOUT = 'top';
 	} else {
 		$USR = null;
 	}

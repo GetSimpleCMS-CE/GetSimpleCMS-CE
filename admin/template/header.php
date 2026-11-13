@@ -5,7 +5,7 @@
  * @package GetSimple
  */
  
-global $SITENAME, $SITEURL, $USR;
+global $SITENAME, $SITEURL, $USR, $ADMINFONT, $ADMINLAYOUT;
 
 $GSSTYLE         = getDef('GSSTYLE') ? GSSTYLE : '';
 $GSSTYLE_sbfixed = in_array('sbfixed',explode(',',$GSSTYLE));
@@ -13,6 +13,8 @@ $GSSTYLE_wide    = in_array('wide',explode(',',$GSSTYLE));
 
 $gsPageId = get_filename_id();
 $gsPlain  = !isAuthPage() && in_array($gsPageId, array('install', 'setup', 'update'), true);
+$gsFont   = in_array(isset($ADMINFONT) ? $ADMINFONT : 'inter', array('inter', 'manrope', 'system'), true) ? (isset($ADMINFONT) ? $ADMINFONT : 'inter') : 'inter';
+$gsLayout = (isset($ADMINLAYOUT) && $ADMINLAYOUT === 'top') ? 'top' : 'rail';
 
 $bodyclass="class=\"gs-admin";
 if( $GSSTYLE_sbfixed ) $bodyclass .= " sbfixed";
@@ -25,13 +27,13 @@ if(get_filename_id()!='index') exec_action('admin-pre-header');
 
 ?>
 <!DOCTYPE html>
-<html lang="<?php echo get_site_lang(true); ?>" class="gs-admin-root">
+<html lang="<?php echo get_site_lang(true); ?>" class="gs-admin-root gs-font-<?php echo $gsFont; ?><?php if($gsLayout === 'top') echo ' gs-layout-top'; ?>">
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"  />
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
 	<title><?php echo $title ?></title>
 	<script>
-	(function(){try{var t=localStorage.getItem('gs-admin-theme');var d=t?t==='dark':window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches;document.documentElement.classList.toggle('dark',!!d);}catch(e){}})();
+	(function(){try{var t=localStorage.getItem('gs-admin-theme');var d=t?t==='dark':window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches;document.documentElement.classList.toggle('dark',!!d);var l=localStorage.getItem('gs-admin-layout');if(l==='top'||l==='rail'){document.documentElement.classList.toggle('gs-layout-top',l==='top');}}catch(e){}})();
 	</script>
 	<?php if(!isAuthPage()) { ?><meta name="generator" content="GetSimple - <?php echo GSVERSION; ?>" /> 
 	<link rel="shortcut icon" href="favicon.png" type="image/x-icon" />
@@ -101,7 +103,10 @@ if(get_filename_id()!='index') exec_action('admin-pre-header');
 			<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
 		</button>
 		<span class="gs-mobilebar-title"><?php echo cl($SITENAME); ?></span>
-		<button type="button" class="gs-iconbtn gs-theme-toggle" aria-label="Toggle dark mode" title="<?php i18n('DARK_MODE'); ?>" style="margin-left:auto">
+		<button type="button" class="gs-iconbtn gs-layout-toggle" aria-label="Toggle layout" title="Sidebar / top bar" style="margin-left:auto">
+			<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M9 9v11"/></svg>
+		</button>
+		<button type="button" class="gs-iconbtn gs-theme-toggle" aria-label="Toggle dark mode" title="<?php i18n('DARK_MODE'); ?>">
 			<svg class="gs-icon-sun" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
 			<svg class="gs-icon-moon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
 		</button>
@@ -118,6 +123,9 @@ if(get_filename_id()!='index') exec_action('admin-pre-header');
 				</a>
 			</h1>
 			<div class="gs-topbar-actions">
+				<button type="button" class="gs-iconbtn gs-layout-toggle" aria-label="Toggle layout" title="Sidebar / top bar">
+					<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M9 9v11"/></svg>
+				</button>
 				<button type="button" class="gs-iconbtn gs-theme-toggle" id="gs-theme-toggle" aria-label="Toggle dark mode" title="<?php i18n('DARK_MODE'); ?>">
 					<svg class="gs-icon-sun" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
 					<svg class="gs-icon-moon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>

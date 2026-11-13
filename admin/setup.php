@@ -192,7 +192,7 @@ if(isset($_POST['submitted'])) {
 		# activate default plugins
 		change_plugin('Dashboard.php',true);
 		change_plugin('gsConfigGUI.php',true);
-		change_plugin('massiveAdmin.php',true);
+		change_plugin('massiveAdmin.php',false);
 		change_plugin('UpdateCE.php',true);
 
 		# migrate to SQLite if selected
