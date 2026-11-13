@@ -271,7 +271,7 @@ if ((isset($_GET['upd']) && $_GET['upd']=="edit-success") || $flag===true || $fl
       if ($file == "." || $file == ".." || is_dir(GSDATAPAGESPATH.$file) || $file == ".htaccess"  ) {
         // not a page data file
       } else {
-        $thisfile = file_get_contents($path.$file);
+        $thisfile = gs_storage_get_contents($path.$file);
         $data = simplexml_load_string($thisfile);
 
         if(!$data){
