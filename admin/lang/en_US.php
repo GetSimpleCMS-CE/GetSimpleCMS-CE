@@ -697,6 +697,7 @@ $i18n = [
 	"STORAGE_ERR_TOKEN"			=>	"Invalid security token.",
 	"STORAGE_ERR_SQLITE"			=>	"SQLite3 extension is not available.",
 	"STORAGE_ERR_WRITE"			=>	"Failed to update gsconfig.php.",
+	"DARK_MODE"				=>	"Dark / light mode",
 ];
 
 ?>
