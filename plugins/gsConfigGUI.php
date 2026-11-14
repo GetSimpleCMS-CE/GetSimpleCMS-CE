@@ -2,7 +2,7 @@
 /*
 Plugin Name: GS Config GUI
 Description: Visual editor for gsconfig.php configuration settings.
-Version: 1.2
+Version: 1.3
 Author: risingisland
 Author URI: https://www.getsimple-ce.ovh
 */
@@ -17,7 +17,7 @@ i18n_merge($gsConfigGUI) || i18n_merge($gsConfigGUI, 'en_US');
 register_plugin(
 	$gsConfigGUI,
 	'GS Config GUI',
-	'1.2',
+	'1.3',
 	'risingisland',
 	'https://www.getsimple-ce.ovh/',
 	'Visual editor for gsconfig.php configuration settings.',
@@ -160,7 +160,7 @@ function gscfg_parse($content) {
 			$raw = trim($m[1]);
 			// Strip surrounding quotes if present, otherwise keep bare value (TRUE, FALSE, 1, 0, GSBOTH, etc.)
 			if (preg_match('/^([\'"])(.*)\1$/s', $raw, $qm)) {
-				$value = $qm[2];
+				$value = gscfg_unesc($qm[2]);
 			} else {
 				$value = $raw;
 			}
@@ -170,7 +170,7 @@ function gscfg_parse($content) {
 			$enabled = false;
 			$raw = trim($m[1]);
 			if (preg_match('/^([\'"])(.*)\1$/s', $raw, $qm)) {
-				$value = $qm[2];
+				$value = gscfg_unesc($qm[2]);
 			} else {
 				$value = $raw;
 			}
@@ -212,6 +212,36 @@ function gscfg_parse($content) {
 #  WRITE gsconfig.php
 # ----------------------------------------------------------
 
+function gscfg_esc($v) {
+	return str_replace(array('\\', "'"), array('\\\\', "\\'"), (string)$v);
+}
+
+function gscfg_unesc($v) {
+	return preg_replace('/\\\\([\\\\\'"])/', '$1', (string)$v);
+}
+
+function gscfg_validate_raw($key, $value) {
+	$value = trim((string)$value);
+	$bool  = '(TRUE|FALSE|1|0)';
+	$rules = array(
+		'GSCHMOD'     => '/^0?[0-7]{3,4}$/',
+		'GSDOCHMOD'   => '/^' . $bool . '$/i',
+		// seconds between autosaves (0 / FALSE = off), also TRUE/FALSE
+		'GSAUTOSAVE'  => '/^(TRUE|FALSE|[0-9]{1,5})$/i',
+		// FALSE/TRUE or a locale such as en_US
+		'GSMERGELANG' => '/^(TRUE|FALSE|[a-z]{2,3}_[A-Za-z]{2,4})$/i',
+		// TRUE/FALSE as in core, plus header-style values
+		'GSNOFRAME'   => '/^(TRUE|FALSE|1|0|SAMEORIGIN|DENY|ALLOW-FROM [A-Za-z0-9:\/._-]+)$/i',
+	);
+	if (!isset($rules[$key])) { return false; }
+	return preg_match($rules[$key], $value) ? $value : false;
+}
+
+function gscfg_format_raw($value) {
+	if (preg_match('/^(TRUE|FALSE|[0-9]+)$/i', $value)) { return $value; }
+	return "'" . gscfg_esc($value) . "'";
+}
+
 function gscfg_write($content, $settings) {
 	$known = gscfg_known();
 
@@ -235,16 +265,17 @@ function gscfg_write($content, $settings) {
 				$valStr = '1';
 			}
 		} elseif ($meta['type'] === 'rawval') {
-			// Written bare — no quotes. Covers FALSE, en_US, PHP constants like GSBOTH.
-			$valStr = $val;
+			$clean = gscfg_validate_raw($key, $val);
+			if ($clean === false) { continue; }
+			$valStr = gscfg_format_raw($clean);
 		} elseif ($meta['type'] === 'number') {
 			// Written as a bare integer — no quotes
 			$valStr = intval($val);
 		} elseif ($meta['type'] === 'textarea') {
 			// Use multiline format only when there is content; empty stays as ''
-			$valStr = ($val !== '') ? "'\n" . str_replace("'", "\\'", $val) . "\n'" : "''";
+			$valStr = ($val !== '') ? "'\n" . gscfg_esc($val) . "\n'" : "''";
 		} else {
-			$valStr = "'" . addslashes($val) . "'";
+			$valStr = "'" . gscfg_esc($val) . "'";
 		}
 
 		$newLine  = ($enabled ? '' : '# ') . "define('" . $key . "', " . $valStr . ");";
@@ -253,9 +284,9 @@ function gscfg_write($content, $settings) {
 		$pat_off  = '/^[ \t]*#[ \t]*define\s*\(\s*[\'"]' . $qkey . '[\'"]\s*,.*?\)\s*;/ms';
 
 		if (preg_match($pat_on, $content)) {
-			$content = preg_replace($pat_on, $newLine, $content, 1);
+			$content = preg_replace_callback($pat_on, function () use ($newLine) { return $newLine; }, $content, 1);
 		} elseif (preg_match($pat_off, $content)) {
-			$content = preg_replace($pat_off, $newLine, $content, 1);
+			$content = preg_replace_callback($pat_off, function () use ($newLine) { return $newLine; }, $content, 1);
 		} else {
 			// Setting not found — build the insert line, using the declared default if available
 			if ($val === '' && isset($meta['default'])) {
@@ -263,11 +294,11 @@ function gscfg_write($content, $settings) {
 				if ($meta['type'] === 'bool') {
 					$defaultStr = $defaultVal;
 				} elseif ($meta['type'] === 'rawval') {
-					$defaultStr = $defaultVal;
+					$defaultStr = gscfg_format_raw($defaultVal);
 				} elseif ($meta['type'] === 'number') {
 					$defaultStr = intval($defaultVal);
 				} else {
-					$defaultStr = "'" . addslashes($defaultVal) . "'";
+					$defaultStr = "'" . gscfg_esc($defaultVal) . "'";
 				}
 				// Honour default_enabled — if false, write commented out
 				$defaultActive = isset($meta['default_enabled']) ? $meta['default_enabled'] : true;
@@ -325,6 +356,11 @@ function gscfg_write($content, $settings) {
 function gscfg_handle_save() {
 	if (!isset($_POST['gscfg_save'])) { return null; }
 
+	$nonce = isset($_POST['gscfg_nonce']) ? (string)$_POST['gscfg_nonce'] : '';
+	if ($nonce === '' || !check_nonce($nonce, 'gsconfig_save')) {
+		return array('error', 'Invalid security token. Please reload the page and try again.');
+	}
+
 	$path    = gscfg_get_path();
 	if (!file_exists($path)) {
 		return array('error', 'gsconfig.php not found at: ' . htmlspecialchars($path));
@@ -342,9 +378,17 @@ function gscfg_handle_save() {
 		$formKey = str_replace(array('$', '(', ')'), array('_d_', '', ''), $key);
 		$enabled = (isset($_POST['en_' . $formKey]) && $_POST['en_' . $formKey] === '1');
 		if (isset($_POST['val_' . $formKey])) {
-			$value = stripslashes(trim($_POST['val_' . $formKey]));
+			$value = trim($_POST['val_' . $formKey]);
 		} else {
 			$value = isset($settings[$key]['value']) ? $settings[$key]['value'] : '';
+		}
+		if ($meta['type'] === 'rawval') {
+			if ($value === '' && isset($meta['default'])) {
+				$value = $meta['default'];
+			}
+			if ($enabled && gscfg_validate_raw($key, $value) === false) {
+				return array('error', 'Invalid value for <code>' . htmlspecialchars($key) . '</code>. Allowed format is restricted for security reasons.');
+			}
 		}
 		$entry = $meta;
 		$entry['enabled'] = $enabled;
@@ -353,7 +397,7 @@ function gscfg_handle_save() {
 	}
 
 	// $LANG — validate against available langs before saving
-	$langVal = isset($_POST['val__d_LANG']) ? stripslashes(trim($_POST['val__d_LANG'])) : $settings['$LANG']['value'];
+	$langVal = isset($_POST['val__d_LANG']) ? trim($_POST['val__d_LANG']) : $settings['$LANG']['value'];
 	$validLangs = gscfg_get_langs();
 	if (!in_array($langVal, $validLangs)) {
 		return array('error', 'Invalid language "' . htmlspecialchars($langVal, ENT_QUOTES, 'UTF-8') . '" — this language file does not exist in the lang folder. Please select a valid language before saving.');
@@ -365,7 +409,7 @@ function gscfg_handle_save() {
 
 	// setlocale
 	$slEnabled = (isset($_POST['en_setlocale']) && $_POST['en_setlocale'] === '1');
-	$slVal     = isset($_POST['val_setlocale']) ? stripslashes(trim($_POST['val_setlocale'])) : $settings['setlocale']['value'];
+	$slVal     = isset($_POST['val_setlocale']) ? trim($_POST['val_setlocale']) : $settings['setlocale']['value'];
 	$slEntry   = $settings['setlocale'];
 	$slEntry['enabled'] = $slEnabled;
 	$slEntry['value']   = $slVal;
@@ -373,11 +417,17 @@ function gscfg_handle_save() {
 
 	$newContent = gscfg_write($content, $toWrite);
 
-	// Create timestamped backup: gsconfig.php.2026-08-12-09-52-21.bak
-	$backup_path = $path . '.' . date('Y-m-d-H-i-s') . '.bak';
+	// Create timestamped backup
+	$backupDir = GSBACKUPSPATH . 'gsconfig/';
+	if (!file_exists($backupDir)) {
+		@mkdir($backupDir, 0755, true);
+		@file_put_contents($backupDir . '.htaccess', "<IfModule mod_authz_core.c>\nRequire all denied\n</IfModule>\n<IfModule !mod_authz_core.c>\nDeny from all\n</IfModule>\n");
+		@file_put_contents($backupDir . 'index.php', "<?php exit; ?>\n");
+	}
+	$backup_path = $backupDir . 'gsconfig.php.' . date('Y-m-d-H-i-s') . '.bak';
 	@copy($path, $backup_path);
 
-	if (file_put_contents($path, $newContent) !== false) {
+	if (file_put_contents($path, $newContent, LOCK_EX) !== false) {
 		return array('success', i18n_r('gsConfigGUI/lang_Settings_saved') . ' <span style="font-size:11px;color:#64748b;">(' . basename($backup_path) . ')</span>');
 	}
 	return array('error', i18n_r('gsConfigGUI/lang_Failed_to_write'));
@@ -799,6 +849,7 @@ pre {color: #3B82F6;}
 <div id="gscfg-wrap">
 <form method="post" action="">
 <input type="hidden" name="gscfg_save" value="1">
+<input type="hidden" name="gscfg_nonce" value="<?php echo htmlspecialchars(get_nonce('gsconfig_save'), ENT_QUOTES); ?>">
 
 <!-- Header bar -->
 <div class="gscfg-header">

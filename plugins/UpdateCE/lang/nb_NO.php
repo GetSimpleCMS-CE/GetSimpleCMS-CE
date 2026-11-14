@@ -10,7 +10,7 @@ $i18n = [
 	
 # General
 	'lang_Installed_Version'	=>	'Installert Versjon',
-	'lang_Note'				'Merk',
+	'lang_Note'					=>	'Merk',
 	'lang_Requirement'			=>	'Minimumskrav er v3.3.16.',
 	'lang_Create_Backup'		=>	'Lag alltid en <b><a class="w3-text-light w3-orange w3-round w3-padding" href="archive.php">Sikkerhetskopi</a></b> for å beskytte deg mot det uventede!',
 	'lang_Themes_Overwritten'	=>	'Temaene <u>ResponsiveCE</u> & <u>W3-Startup</u> vil bli overskrevet.',
