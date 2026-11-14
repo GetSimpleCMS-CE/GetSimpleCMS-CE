@@ -582,7 +582,30 @@ function passhash($p) {
 	} else { 
 		$logsalt = null; 
 	}
+	if (function_exists('password_hash')) {
+		$hash = password_hash($p . $logsalt, PASSWORD_DEFAULT);
+		if ($hash !== false) {
+			return $hash;
+		}
+	}
 	return sha1($p . $logsalt);
+}
+
+function passhash_is_current($hash) {
+	return (bool) preg_match('/^\$(2[aby]|argon2[id])\$/', (string)$hash);
+}
+
+function passverify($password, $stored) {
+	$stored = (string)$stored;
+	if ($stored === '') { return false; }
+
+	$logsalt = (defined('GSLOGINSALT') && GSLOGINSALT != '') ? sha1(GSLOGINSALT) : '';
+
+	if (passhash_is_current($stored) && function_exists('password_verify')) {
+		return password_verify($password . $logsalt, $stored);
+	}
+
+	return hash_equals($stored, sha1($password . $logsalt));
 }
 
 /**

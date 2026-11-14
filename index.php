@@ -121,6 +121,12 @@ if (getDef('GSCANONICAL',true)) {
 	}
 }
 
+$TEMPLATE = basename((string)$TEMPLATE);
+if ($TEMPLATE === '' || $TEMPLATE === '.' || $TEMPLATE === '..' || !is_dir(GSTHEMESPATH . $TEMPLATE)) {
+	header($_SERVER["SERVER_PROTOCOL"]." 500 Internal Server Error");
+	die('The active theme was not found. Please select a valid theme in the admin settings.');
+}
+
 # include the functions.php page if it exists within the theme
 if ( file_exists(GSTHEMESPATH .$TEMPLATE."/functions.php") ) {
 	include(GSTHEMESPATH .$TEMPLATE."/functions.php");	
@@ -130,7 +136,15 @@ if ( file_exists(GSTHEMESPATH .$TEMPLATE."/functions.php") ) {
 exec_action('index-pretemplate');
 
 # include the template and template file set within theme.php and each page
-if ( (!file_exists(GSTHEMESPATH .$TEMPLATE."/".$template_file)) || ($template_file == '') ) { $template_file = "template.php"; }
+$template_file = basename((string)$template_file);
+if (
+	$template_file === '' ||
+	!preg_match('/^[A-Za-z0-9._-]+\.php$/', $template_file) ||
+	$template_file === '.' || $template_file === '..' ||
+	!file_exists(GSTHEMESPATH . $TEMPLATE . '/' . $template_file)
+) {
+	$template_file = 'template.php';
+}
 include(GSTHEMESPATH .$TEMPLATE."/".$template_file);
 
 # call posttemplate Hook

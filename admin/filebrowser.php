@@ -219,6 +219,15 @@ if (isset($_POST['fb_action']) && $_POST['fb_action'] === 'upload') {
 
 		@chmod($path . $safeName, 0644);
 
+		if (strtolower(pathinfo($safeName, PATHINFO_EXTENSION)) === 'svg') {
+			$sanitized = sanitize_svg_file($path . $safeName, true, false);
+			if ($sanitized === false) {
+				@unlink($path . $safeName);
+				$results[] = ['name' => $origName, 'ok' => false, 'msg' => 'Invalid or unsafe SVG.'];
+				continue;
+			}
+		}
+
 		$relDir  = ($subPath !== '' ? rtrim($subPath, '/') . '/' : '');
 		$relFile = $relDir . $safeName;
 		fb_generate_thumbsm($relFile);

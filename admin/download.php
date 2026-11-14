@@ -20,10 +20,13 @@ if(isset($_GET['file'])) {
 	
 	$file = removerelativepath($_GET['file']);
 
-	if(!filepath_is_safe($file,GSDATAUPLOADPATH) && !filepath_is_safe($file,GSBACKUPSPATH.DIRECTORY_SEPARATOR.'zip')) die();
+	if(!filepath_is_safe($file,GSDATAUPLOADPATH) && !filepath_is_safe($file,GSBACKUPSPATH.DIRECTORY_SEPARATOR.'zip') && !filepath_is_safe($file,GSBACKUPSPATH.'backupCreator')) die();
+
+	$nonce = isset($_GET['nonce']) ? (string)$_GET['nonce'] : '';
+	if($nonce === '' || (!check_nonce($nonce,'archive','download.php') && !check_nonce($nonce,'backup_download','download.php'))) die();
 
 	$extention = pathinfo($file,PATHINFO_EXTENSION);
-	header("Content-disposition: attachment; filename=".$file);
+	header("Content-disposition: attachment; filename=\"".basename($file)."\"");
 	
 	# set content headers
 	if ($extention == 'zip') {

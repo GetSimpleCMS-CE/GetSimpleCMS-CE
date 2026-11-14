@@ -128,7 +128,7 @@ function get_nonce($action, $file = "", $last = false) {
 		$file = $_SERVER['PHP_SELF'];
 	
 	// using user agent since ip can change on proxys
-	$uid = $_SERVER['HTTP_USER_AGENT'];
+	$uid = isset($_SERVER['HTTP_USER_AGENT']) ? $_SERVER['HTTP_USER_AGENT'] : '';
 	
 	// Limits Nonce to one hour
 	$time = $last ? time() - 3600: time(); 
@@ -153,7 +153,9 @@ function get_nonce($action, $file = "", $last = false) {
  * @return bool
  */	
 function check_nonce($nonce, $action, $file = ""){
-	return ( $nonce === get_nonce($action, $file) || $nonce === get_nonce($action, $file, true) );
+	$nonce = is_string($nonce) ? $nonce : '';
+	if($nonce === '') return false;
+	return ( hash_equals(get_nonce($action, $file), $nonce) || hash_equals(get_nonce($action, $file, true), $nonce) );
 }
 
 /**
@@ -209,8 +211,16 @@ function validate_safe_file($file, $name, $mime = null){
 function filepath_is_safe($path,$pathmatch,$subdir = true){
 	$realpath = realpath($path);
 	$realpathmatch = realpath($pathmatch);
-	if($subdir) return strpos(dirname($realpath),$realpathmatch) === 0;
-	return dirname($realpath) == $realpathmatch;
+	if($realpath === false || $realpathmatch === false) return false;
+
+	$realpath      = rtrim(str_replace('\\', '/', $realpath), '/');
+	$realpathmatch = rtrim(str_replace('\\', '/', $realpathmatch), '/');
+	$dir           = rtrim(str_replace('\\', '/', dirname($realpath)), '/');
+
+	if($subdir) {
+		return ($dir === $realpathmatch) || (strpos($dir, $realpathmatch . '/') === 0);
+	}
+	return $dir === $realpathmatch;
 }
 
 /**
@@ -227,8 +237,15 @@ function filepath_is_safe($path,$pathmatch,$subdir = true){
 function path_is_safe($path,$pathmatch,$subdir = true){
 	$realpath = realpath($path);
 	$realpathmatch = realpath($pathmatch);
-	if($subdir) return strpos($realpath,$realpathmatch) === 0;
-	return $realpath == $realpathmatch;
+	if($realpath === false || $realpathmatch === false) return false;
+
+	$realpath      = rtrim(str_replace('\\', '/', $realpath), '/');
+	$realpathmatch = rtrim(str_replace('\\', '/', $realpathmatch), '/');
+
+	if($subdir) {
+		return ($realpath === $realpathmatch) || (strpos($realpath, $realpathmatch . '/') === 0);
+	}
+	return $realpath === $realpathmatch;
 }
 
 /**
@@ -397,9 +414,13 @@ function sanitize_svg($svg_content, $strip_styles = false) {
 	
 	// Trim leading/trailing whitespace from SVG content
 	$svg_content = trim($svg_content);
+
+	if (preg_match('/<!DOCTYPE|<!ENTITY/i', $svg_content)) {
+		return false;
+	}
 	
 	// Load SVG content - preserve CDATA sections for CSS in <style> tags
-	if (!$dom->loadXML($svg_content, LIBXML_NONET | LIBXML_NOENT)) {
+	if (!$dom->loadXML($svg_content, LIBXML_NONET)) {
 		// If loading fails, return false
 		return false;
 	}
@@ -449,7 +470,7 @@ function sanitize_svg($svg_content, $strip_styles = false) {
 			$attributes_to_remove = [];
 			
 			foreach ($node->attributes as $attr) {
-				$attr_name = strtolower($attr->name);
+				$attr_name = strtolower($attr->nodeName);
 				$attr_value = $attr->value;
 				$keep_attribute = false;
 				
@@ -463,7 +484,7 @@ function sanitize_svg($svg_content, $strip_styles = false) {
 				}
 				
 				if ($is_forbidden) {
-					$attributes_to_remove[] = $attr->name;
+					$attributes_to_remove[] = $attr;
 					continue;
 				}
 				
@@ -476,31 +497,43 @@ function sanitize_svg($svg_content, $strip_styles = false) {
 				}
 				
 				if (!$keep_attribute) {
-					$attributes_to_remove[] = $attr->name;
+					$attributes_to_remove[] = $attr;
 					continue;
 				}
 				
+				if ($attr_name === 'attributename' && preg_match('/^(href|xlink:href|on[a-z]+)$/i', trim($attr_value))) {
+					$attributes_to_remove[] = $attr;
+					continue;
+				}
+
 				// Check attribute value for dangerous protocols (only for href/xlink:href attributes)
 				if (in_array($attr_name, ['href', 'xlink:href'])) {
-					$is_dangerous = false;
 					
 					// Check for forbidden protocols at the start of the value
-					foreach ($forbidden_protocols as $protocol) {
-						if (stripos($attr_value, $protocol) === 0) {
+					$normalised_value = strtolower(preg_replace('/[\x00-\x20]+/', '', $attr_value));
+
+					$is_dangerous = (bool) preg_match('/^(javascript|vbscript|data|file|about):/i', $normalised_value);
+
+					// Only allow explicitly safe schemes. Relative URLs and fragments are allowed.
+					if (!$is_dangerous && preg_match('/^[a-z][a-z0-9+.-]*:/i', $normalised_value)) {
+						if (!preg_match('/^(https?|mailto|tel|sms|ftp):/i', $normalised_value)) {
 							$is_dangerous = true;
-							break;
 						}
 					}
-					
+
 					if ($is_dangerous) {
-						$attributes_to_remove[] = $attr->name;
+						$attributes_to_remove[] = $attr;
 					}
 				}
 			}
 			
 			// Remove forbidden attributes
-			foreach ($attributes_to_remove as $attr_name) {
-				$node->removeAttribute($attr_name);
+			foreach ($attributes_to_remove as $attr) {
+				if ($attr->namespaceURI) {
+					$node->removeAttributeNS($attr->namespaceURI, $attr->localName);
+				} else {
+					$node->removeAttribute($attr->nodeName);
+				}
 			}
 		}
 		

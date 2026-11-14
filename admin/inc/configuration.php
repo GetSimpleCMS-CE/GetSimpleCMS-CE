@@ -7,7 +7,7 @@
  */
 
 $site_full_name     = 'GetSimple CE';
-$site_version_no    = '3.3.23 2026.11.06 Beta';
+$site_version_no    = '3.3.23 2026.11.14 Beta';
 $name_url_clean     = lowercase(str_replace(' ','-',$site_full_name));
 $ver_no_clean       = str_replace('.','',$site_version_no);
 $site_link_back_url = 'https://getsimple-ce.ovh/';
@@ -18,7 +18,7 @@ $cookie_login       = 'index.php'; // login redirect
 $cookie_time        = '10800';     // in seconds, 3 hours
 $cookie_path        = '/';         // cookie path
 $cookie_domain      = null;        // cookie domain
-$cookie_secure      = null;        // cookie secure only
+$cookie_secure      = ((!empty($_SERVER['HTTPS']) && strtolower($_SERVER['HTTPS']) !== 'off') || (isset($_SERVER['SERVER_PORT']) && (int)$_SERVER['SERVER_PORT'] === 443)); // cookie secure only (auto-detected)
 $cookie_httponly    = true;        // cookie http only
 
 $api_url            = 'https://getsimple-ce.ovh/api/#';
