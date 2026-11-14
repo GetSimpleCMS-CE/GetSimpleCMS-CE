@@ -11,7 +11,10 @@
  * gs_load_smtp_config()      — decrypt + return config array, or null
  * gs_load_smtp_config_raw()  — return config array without password (for UI display)
  * gs_save_smtp_config()      — encrypt + write smtp.xml, chmod 0600
- * gs_sendmail_smtp()         — send via PHPMailer; returns 'success' or 'error'
+ * gs_sendmail_smtp()         — send via PHPMailer (original signature, unchanged); returns 'success' or 'error: <message>'
+ * gs_sendmail_smtp_opts()    — same, plus an $options array (cc, bcc, reply_to, html, timeout)
+ * gs_mailer_last_error()     — reason for the last sendmail() / SMTP failure
+ * gs_mailer_addresses()      — normalise an address spec into an array
  * gs_smtp_encrypt()          — AES-256-CBC encrypt a string
  * gs_smtp_decrypt()          — AES-256-CBC decrypt a string
  *
@@ -163,6 +166,43 @@ function gs_save_smtp_config(array $cfg, string $newpass = ''): bool {
 	return (bool)$ok;
 }
 
+// ── Shared helpers ────────────────────────────────────────────────────────────
+
+/**
+ * Normalise a recipient specification into a flat array of addresses.
+ * Accepts a single address, a comma-separated list, or an array of either.
+ *
+ * @param  string|array $spec
+ * @return array
+ */
+function gs_mailer_addresses($spec): array {
+	$items = is_array($spec) ? $spec : [(string)$spec];
+	$out = [];
+	foreach ($items as $item) {
+		foreach (explode(',', (string)$item) as $addr) {
+			$addr = trim($addr);
+			if ($addr !== '') $out[] = $addr;
+		}
+	}
+	return $out;
+}
+
+/**
+ * Remember / retrieve the reason for the last send failure.
+ *
+ * sendmail() keeps returning only 'success'/'error' for backwards
+ * compatibility; a caller that wants the reason calls this after a failure.
+ * sendmail() clears the stored message at the start of every send.
+ *
+ * @param  string|null $set  Pass a string to store it ('' clears it).
+ * @return string            The stored message, '' when the last send succeeded.
+ */
+function gs_mailer_last_error(?string $set = null): string {
+	static $error = '';
+	if ($set !== null) $error = $set;
+	return $error;
+}
+
 // ── SMTP send ─────────────────────────────────────────────────────────────────
 
 /**
@@ -170,20 +210,31 @@ function gs_save_smtp_config(array $cfg, string $newpass = ''): bool {
  *
  * The $subject string must already be base64/UTF-8 encoded by the caller
  * (sendmail() in basic.php handles this to stay consistent with the mail()
- * path). The $message body should be the HTML output of email_template().
+ * path). With the default options the $message body should be the HTML
+ * output of email_template(); pass 'html' => false to send plain text.
  *
  * Mirrors the GSFROMEMAIL override behaviour of the legacy mail() path.
  *
- * @param  string $to
+ * @param  string|array $to One address, an array of addresses, or a
+ *                          comma-separated list.
  * @param  string $subject  UTF-8 encoded subject (=?UTF-8?B?...?= format)
- * @param  string $message  HTML message body
+ * @param  string $message  Message body (HTML unless 'html' => false)
  * @param  array  $cfg      Config array from gs_load_smtp_config()
- * @param  string &$debug   Optional. Pass a variable by reference to capture the
- *                          full SMTP connection transcript (for the test endpoint).
+ * @param  array  $options  Optional keys:
+ *                          'reply_to'      Reply-To address
+ *                          'reply_to_name' Reply-To display name
+ *                          'cc'            address, array or comma-separated list
+ *                          'bcc'           address, array or comma-separated list
+ *                          'html'          false sends text/plain (default: HTML)
+ *                          'timeout'       SMTP timeout in seconds (default: PHPMailer's 300)
+ * @param  string|null &$debug Optional. Pass a string variable (e.g. '') by reference
+ *                          to capture the full SMTP connection transcript (for the
+ *                          test endpoint). Omit it, or pass null, to disable.
  * @return string           'success', or 'error: <message>' on failure
  */
-function gs_sendmail_smtp(string $to, string $subject, string $message, array $cfg, string &$debug = ''): string {
+function gs_sendmail_smtp_opts($to, string $subject, string $message, array $cfg, array $options = [], ?string &$debug = null): string {
 	if (!gs_phpmailer_load()) {
+		gs_mailer_last_error('PHPMailer files not found in ' . GSADMININCPATH . 'phpmailer/src/');
 		return 'error: PHPMailer files not found in ' . GSADMININCPATH . 'phpmailer/src/';
 	}
 
@@ -201,7 +252,7 @@ function gs_sendmail_smtp(string $to, string $subject, string $message, array $c
 	$mail = new PHPMailer\PHPMailer\PHPMailer(true); // true = throw exceptions
 
 	// Capture debug transcript if caller passed a $debug reference
-	if (func_num_args() >= 5) {
+	if ($debug !== null) {
 		$mail->SMTPDebug   = 3; // 3 = connection + commands + data
 		$mail->Debugoutput = function(string $str, int $level) use (&$debug) {
 			$debug .= $str . "\n";
@@ -243,13 +294,28 @@ function gs_sendmail_smtp(string $to, string $subject, string $message, array $c
 			$mail->Password = $cfg['pass'];
 		}
 
+		if (!empty($options['timeout'])) {
+			$mail->Timeout = max(1, (int)$options['timeout']);
+		}
+
 		$mail->CharSet = PHPMailer\PHPMailer\PHPMailer::CHARSET_UTF8;
 		$mail->setFrom($from_email, $from_name);
-		$mail->addAddress($to);
+		foreach (gs_mailer_addresses($to) as $addr) {
+			$mail->addAddress($addr);
+		}
+		foreach (gs_mailer_addresses($options['cc'] ?? '') as $addr) {
+			$mail->addCC($addr);
+		}
+		foreach (gs_mailer_addresses($options['bcc'] ?? '') as $addr) {
+			$mail->addBCC($addr);
+		}
+		if (!empty($options['reply_to'])) {
+			$mail->addReplyTo((string)$options['reply_to'], (string)($options['reply_to_name'] ?? ''));
+		}
 
 		// Subject is already encoded by sendmail() — pass as-is
 		$mail->Subject = $subject;
-		$mail->isHTML(true);
+		$mail->isHTML(!isset($options['html']) || $options['html'] !== false);
 		$mail->Body    = $message;
 
 		$mail->send();
@@ -257,8 +323,30 @@ function gs_sendmail_smtp(string $to, string $subject, string $message, array $c
 
 	} catch (PHPMailer\PHPMailer\Exception $e) {
 		error_log('GS Mailer SMTP error: ' . $e->getMessage());
+		gs_mailer_last_error($e->getMessage());
 		return 'error: ' . $e->getMessage();
 	}
+}
+
+/**
+ * Original SMTP send function, kept with its original signature so that
+ * existing callers (the test endpoint, third-party plugins) keep working.
+ * New code that needs cc / bcc / reply-to / plain text / timeout should call
+ * gs_sendmail_smtp_opts() directly, or go through sendmail() in basic.php.
+ *
+ * @param  string $to
+ * @param  string $subject  UTF-8 encoded subject (=?UTF-8?B?...?= format)
+ * @param  string $message  HTML message body
+ * @param  array  $cfg      Config array from gs_load_smtp_config()
+ * @param  string &$debug   Optional. Pass a variable by reference to capture the
+ *                          full SMTP connection transcript.
+ * @return string           'success', or 'error: <message>' on failure
+ */
+function gs_sendmail_smtp(string $to, string $subject, string $message, array $cfg, string &$debug = ''): string {
+	if (func_num_args() >= 5) {
+		return gs_sendmail_smtp_opts($to, $subject, $message, $cfg, [], $debug);
+	}
+	return gs_sendmail_smtp_opts($to, $subject, $message, $cfg);
 }
 
 // ── Encryption helpers ────────────────────────────────────────────────────────

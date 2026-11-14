@@ -221,29 +221,38 @@ function email_template($message) {
  *
  * @since 1.0
  * @uses GSFROMEMAIL
- * @uses $EMAIL
  *
- * @param string $to
+ * @param string|array $to One address, an array of addresses, or a comma-separated list
  * @param string $subject
  * @param string $message
+ * @param array $options Optional keys: 'reply_to', 'reply_to_name',
+ *                       'cc', 'bcc' (address, array or comma-separated list),
+ *                       'html' (false = text/plain, no email template),
+ *                       'timeout' (SMTP timeout in seconds).
+ *                       After an 'error' return, gs_mailer_last_error()
+ *                       gives the reason.
  * @return string 'success' or 'error'
  */
-function sendmail($to,$subject,$message) {
+function sendmail($to,$subject,$message,$options = array()) {
 
-	$message = email_template($message);
+	if (!is_array($options)) $options = array();
+	$html = !isset($options['html']) || $options['html'] !== false;
+	if ($html) $message = email_template($message);
+	if (function_exists('gs_mailer_last_error')) gs_mailer_last_error('');
 
 	// --- SMTP path ---.
 	if (function_exists('gs_load_smtp_config')) {
 		$smtp_cfg = gs_load_smtp_config();
 		if ($smtp_cfg !== null) {
 			$encoded_subject = '=?UTF-8?B?' . base64_encode($subject) . '?=';
-			return gs_sendmail_smtp($to, $encoded_subject, $message, $smtp_cfg);
+			$result = gs_sendmail_smtp_opts($to, $encoded_subject, $message, $smtp_cfg, $options);
+			return $result === 'success' ? 'success' : 'error';
 		}
 	}
 
 	// --- PHP mail() path  ---
 	if (defined('GSFROMEMAIL')){
-		$fromemail = GSFROMEMAIL; 
+		$fromemail = GSFROMEMAIL;
 	} else {
 		if(!empty($_SERVER['SERVER_ADMIN']) && check_email_address($_SERVER['SERVER_ADMIN'])) $fromemail = $_SERVER['SERVER_ADMIN'];
 		else $fromemail =  'noreply@'.$_SERVER['SERVER_NAME'];
@@ -255,16 +264,38 @@ function sendmail($to,$subject,$message) {
 		$eol = PHP_EOL;
 	}
 
-	global $EMAIL;
+	// Option values go into raw headers — strip CR/LF to block header injection
+	$hdrval = function($v) {
+		if (is_array($v)) $v = implode(', ', $v);
+		return str_replace(array("\r", "\n"), '', (string)$v);
+	};
+
+	$to = $hdrval($to);
+
+	// Reply-To: the option if given (optionally with a display name), else the From address
+	$replyto = $fromemail;
+	if (!empty($options['reply_to'])) {
+		$replyto = $hdrval($options['reply_to']);
+		if (!empty($options['reply_to_name']) && strpos($replyto, '<') === false) {
+			$replyto = '=?UTF-8?B?' . base64_encode($hdrval($options['reply_to_name'])) . '?= <' . $replyto . '>';
+		}
+	}
+
 	$headers  = 'MIME-Version: 1.0' . $eol;
-	$headers .= 'Content-Type: text/html; charset=UTF-8' . $eol;
+	$headers .= 'Content-Type: ' . ($html ? 'text/html' : 'text/plain') . '; charset=UTF-8' . $eol;
 	$headers .= 'From: '.$fromemail . $eol;
-  	$headers .= 'Reply-To: '.$fromemail . $eol;
+  	$headers .= 'Reply-To: '.$replyto . $eol;
   	$headers .= 'Return-Path: '.$fromemail . $eol;
-	
+	if (!empty($options['cc']))  $headers .= 'Cc: '  . $hdrval($options['cc'])  . $eol;
+	if (!empty($options['bcc'])) $headers .= 'Bcc: ' . $hdrval($options['bcc']) . $eol;
+
 	if( @mail($to,'=?UTF-8?B?'.base64_encode($subject).'?=',"$message",$headers) ) {
 		return 'success';
 	} else {
+		if (function_exists('gs_mailer_last_error')) {
+			$lasterr = error_get_last();
+			gs_mailer_last_error(!empty($lasterr['message']) ? $lasterr['message'] : 'mail() returned false');
+		}
 		return 'error';
 	}
 }

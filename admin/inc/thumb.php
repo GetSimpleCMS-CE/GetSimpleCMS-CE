@@ -104,7 +104,17 @@ $path_parts = pathinfo($from_name);
 if (!filepath_is_safe(GSDATAUPLOADPATH . $from_name, GSDATAUPLOADPATH, true)) {
   die('Invalid source image path');
 }
-if (!path_is_safe(GSTHUMBNAILPATH . dirname($to_name), GSTHUMBNAILPATH, true)) {
+
+if (preg_match('#(^|[\\\\/])\.\.([\\\\/]|$)#', $to_name)) {
+  die('Invalid destination image path');
+}
+$dest_dir = rtrim(GSTHUMBNAILPATH . dirname($to_name), '/\\');
+$thumbs_root = rtrim(GSTHUMBNAILPATH, '/\\');
+while (!file_exists($dest_dir) && strlen($dest_dir) > strlen($thumbs_root)) {
+  $dest_dir = dirname($dest_dir);
+}
+
+if (!path_is_safe($dest_dir, GSTHUMBNAILPATH, true)) {
   die('Invalid destination image path');
 }
 
@@ -160,4 +170,13 @@ try {
   $img->GenerateThumbFile($images_folder . $from_name, $thumbs_folder . $to_name);
 } catch (Exception $e) {
   die('Thumbnail generation failed: ' . htmlspecialchars($e->getMessage()));
+}
+
+if ($save_to_file && is_file($thumbs_folder . $to_name)) {
+  $thumb_info = @getimagesize($thumbs_folder . $to_name);
+  if ($thumb_info !== false && !empty($thumb_info['mime']) && !headers_sent()) {
+    header('Content-Type: ' . $thumb_info['mime']);
+    header('Content-Length: ' . filesize($thumbs_folder . $to_name));
+  }
+  readfile($thumbs_folder . $to_name);
 }

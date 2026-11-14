@@ -332,7 +332,12 @@ get_template('header', cl($SITENAME).' &raquo; '.i18n_r('FILE_MANAGEMENT'));
 							// Regular image handling
 							$thumbLink = $urlPath.'thumbsm.'.$upload['name'];
 							$thumbLinkEncoded = $urlPath.'thumbsm.'.rawurlencode($upload['name']);
-							
+
+							if (!file_exists(GSTHUMBNAILPATH.$urlPath.'thumbnail.'.$upload['name'])) {
+								require_once('inc/imagemanipulation.php');
+								genStdThumb((string)$urlPath, $upload['name']);
+							}
+
 							if (file_exists(GSTHUMBNAILPATH.$thumbLink)) {
 								$imgSrc='<img src="../data/thumbs/'. $thumbLinkEncoded .'" title="'. rawurlencode($upload['name']) .'"/>';
 							} else {
