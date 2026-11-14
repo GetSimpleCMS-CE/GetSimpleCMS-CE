@@ -54,8 +54,8 @@ echo $SITEURL; ?>plugins/massiveAdmin/css/w3-custom.css">
 				$newnamenew = strtolower($newname);
 				echo '
 			<li class="w3-bar">
-				<a href="' . $query["url"] . '" class="w3-bar-item">' . $query["name"] . '</a>
-				<form action="#" method="POST" >
+				<a href="' . htmlspecialchars($query["url"], ENT_QUOTES, 'UTF-8') . '" class="w3-bar-item">' . htmlspecialchars($query["name"], ENT_QUOTES, 'UTF-8') . '</a>
+				<form action="#" method="POST" ><input type="hidden" name="nonce" value="'.MassiveAdminClass::generate_nonce('menu_ext').'">
 					<button name="' . $newnamenew . '" class="w3-bar-item w3-btn w3-red w3-round w3-right" style="margin-top:5px; padding: 2px 5px;">
 						<svg xmlns="http://www.w3.org/2000/svg" width="1.3em" height="1.3em" viewBox="0 0 24 24" id="trash"><path fill="#fff" d="M20,6H16V5a3,3,0,0,0-3-3H11A3,3,0,0,0,8,5V6H4A1,1,0,0,0,4,8H5V19a3,3,0,0,0,3,3h8a3,3,0,0,0,3-3V8h1a1,1,0,0,0,0-2ZM10,5a1,1,0,0,1,1-1h2a1,1,0,0,1,1,1V6H10Zm7,14a1,1,0,0,1-1,1H8a1,1,0,0,1-1-1V8H17Z"></path></svg>
 					</button>
@@ -63,6 +63,7 @@ echo $SITEURL; ?>plugins/massiveAdmin/css/w3-custom.css">
 			</li>
 			';
 				if (isset($_POST[$newnamenew])) {
+					if (!isset($_POST['nonce']) || !MassiveAdminClass::verify_nonce($_POST['nonce'], 'menu_ext')) { die('CSRF validation failed'); }
 					$datee = file_get_contents($filename);
 					$data = json_decode($datee, true);
 					unset($data[$oldname]);
@@ -76,6 +77,7 @@ echo $SITEURL; ?>plugins/massiveAdmin/css/w3-custom.css">
 	</ul>
 
 	<form action="#" method="POST" class="w3-container" style="margin-bottom:20px;display:block;">
+	<input type="hidden" name="nonce" value="<?php echo htmlspecialchars(MassiveAdminClass::generate_nonce('menu_ext'), ENT_QUOTES); ?>">
 		<div class="w3-margin-bottom">
 			<label for=""><?php echo i18n_r('massiveAdmin/LINKNAME'); ?></label>
 			<input class="w3-input w3-border w3-round w3-margin-bottom" type="text" name="linkname" required>
@@ -103,6 +105,7 @@ echo $SITEURL; ?>plugins/massiveAdmin/css/w3-custom.css">
  
 <?php
 if (isset($_POST['addnew'])) {
+	if (!isset($_POST['nonce']) || !MassiveAdminClass::verify_nonce($_POST['nonce'], 'menu_ext')) { die('CSRF validation failed'); }
 	global $MA;
 	global $folder_exists;
 	$MA->createLinkMenuExt();

@@ -9,6 +9,7 @@ $styleFile = @file_get_contents(GSDATAOTHERPATH . 'massiveToperSettings/style.tx
 <hr>
 
 <form action="#" method="POST" style="margin-bottom:20px;display:block;">
+	<input type="hidden" name="nonce" value="<?php echo htmlspecialchars(MassiveAdminClass::generate_nonce('frontend_settings'), ENT_QUOTES); ?>">
 
 	<div class="w3-margin-bottom w3-padding-large w3-center w3-panel w3-gs-main w3-round">
 		<label class="w3-text-white" style="font-weight:600; padding-right:20px"><?php echo i18n_r("massiveAdmin/TURNONMTOPER"); ?></label>
@@ -37,7 +38,7 @@ $styleFile = @file_get_contents(GSDATAOTHERPATH . 'massiveToperSettings/style.tx
 <?php if (file_exists(GSDATAOTHERPATH . 'massiveToperSettings/style.txt')) : ?>
 
 <script>
-	document.querySelector('.style').value = '<?php echo $styleFile; ?>';
+	document.querySelector('.style').value = <?php echo json_encode((string)$styleFile, JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT); ?>;
 </script>
 
 <?php endif; ?>

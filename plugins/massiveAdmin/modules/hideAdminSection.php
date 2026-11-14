@@ -18,6 +18,7 @@
 	<div id="Tab1" class="w3-hide w3-container">
 		
 		<form action="" method="post" class="w3-margin-bottom" style="width:96%">
+			<input type="hidden" name="nonce" value="<?php echo htmlspecialchars(MassiveAdminClass::generate_nonce('manage_users'), ENT_QUOTES); ?>">
 			<label><?php echo i18n_r("massiveAdmin/USERNAMECREATE"); ?></label>
 			<input class="w3-input w3-padding w3-border w3-round w3-margin-bottom" type="text" name="createuserhidden" oninput="toLowercase(this)">
 			
@@ -106,6 +107,8 @@
 		?>
 
 		<form class="w3-margin-bottom" style="width:96%" method="POST" data-user="<?php echo pathinfo($us)['filename']; ?>">
+
+			<input type="hidden" name="nonce" value="<?php echo htmlspecialchars(MassiveAdminClass::generate_nonce('hide_admin_section'), ENT_QUOTES); ?>">
 
 			<div class="w3-panel w3-leftbar w3-pale-blue w3-border-blue w3-padding"><h4 class="w3-margin-top">
 			User: <?php echo 

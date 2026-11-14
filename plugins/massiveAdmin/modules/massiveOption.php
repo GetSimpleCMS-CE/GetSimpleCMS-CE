@@ -33,6 +33,7 @@ echo $SITEURL; ?>plugins/massiveAdmin/css/w3-custom.css">
 			</svg></span> <?php echo i18n_r('massiveAdmin/MASSIVEADMINSETTINGSTITLE'); ?></button>
 	<div id="Tab1" class="w3-hide w3-container w3-margin-bottom" style="box-sizing: border-box !important;">
 		<form action="#" method="post">
+			<input type="hidden" name="nonce" value="<?php echo htmlspecialchars(MassiveAdminClass::generate_nonce('massive_options'), ENT_QUOTES); ?>">
 			<h3><?php echo i18n_r('massiveAdmin/MAITENANCETITLE'); ?></h3>
 			<label for="maintence"><?php echo i18n_r("massiveAdmin/MAINTENANCE_ON"); ?></label>
 			<select class="maintenceselect w3-select w3-padding w3-border w3-round w3-margin-bottom" name="maintence"

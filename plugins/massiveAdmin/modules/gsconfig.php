@@ -1,14 +1,14 @@
 <?php
-// CSRF protection using HMAC of the session ID.
-$gsconfig_token = hash_hmac('sha256', 'gsconfig_edit', session_id());
+// CSRF protection: per-session HMAC token (secret stored server-side).
+$gsconfig_token = MassiveAdminClass::generate_nonce('edit_gsconfig');
 
 // Handle POST before any HTML output.
 $gsconfig_error   = null;
 $gsconfig_success = false;
 
 if (isset($_POST['editGSConfig'])) {
-    $submitted = $_POST['gs_csrf_token'] ?? '';
-    if (!hash_equals($gsconfig_token, $submitted)) {
+    $submitted = isset($_POST['gs_csrf_token']) ? (string)$_POST['gs_csrf_token'] : '';
+    if (!MassiveAdminClass::verify_nonce($submitted, 'edit_gsconfig')) {
         $gsconfig_error = 'Invalid security token. Please reload the page and try again.';
     } else {
         global $MA;

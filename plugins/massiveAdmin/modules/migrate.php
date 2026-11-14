@@ -5,6 +5,9 @@
 
 <?php 
 if (isset($_POST['replaceMassiveUrl'])) {
+	if (!isset($_POST['nonce']) || !MassiveAdminClass::verify_nonce($_POST['nonce'], 'migrate_domain')) {
+		die('CSRF validation failed');
+	}
 	global $MA;
 	$MA->migrateMassive();
 
@@ -18,6 +21,9 @@ if (isset($_POST['replaceMassiveUrl'])) {
 ?>
 
 <?php if (isset($_POST['forceSSLturnon'])) {
+	if (!isset($_POST['nonce']) || !MassiveAdminClass::verify_nonce($_POST['nonce'], 'force_ssl')) {
+		die('CSRF validation failed');
+	}
 	global $MA;
 	$MA->forceSSL();
 
@@ -34,6 +40,7 @@ if (isset($_POST['replaceMassiveUrl'])) {
 		<div class="w3-half">
 			<hr>
 			<form action="#" method="POST" style="width:85%">
+				<input type="hidden" name="nonce" value="<?php echo htmlspecialchars(MassiveAdminClass::generate_nonce('migrate_domain'), ENT_QUOTES); ?>">
 				<label for="newurl"><?php echo i18n_r('massiveAdmin/OLDDOMAIN'); ?>:</label>
 				<input class="w3-input w3-padding w3-border w3-round w3-margin-bottom" type="text" value="<?php echo $SITEURL; ?>" placeholder="<?php echo i18n_r('massiveAdmin/OLDDOMAIN'); ?>" name="oldMassiveUrl">
 
@@ -48,6 +55,7 @@ if (isset($_POST['replaceMassiveUrl'])) {
 			<h3><?php echo i18n_r('massiveAdmin/FORCESSL'); ?></h3>
 			<hr>
 			<form action="#" method="POST" style="width:85%">
+				<input type="hidden" name="nonce" value="<?php echo htmlspecialchars(MassiveAdminClass::generate_nonce('force_ssl'), ENT_QUOTES); ?>">
 				
 				<label for=""><?php echo i18n_r('massiveAdmin/TURNONSSL'); ?></label>
 				<input class="w3-check" type="checkbox" name="turnon" value="on" <?php echo (@file_get_contents(GSDATAOTHERPATH . 'MassiveForceSSL/status.txt') == 'on' ? 'checked' : ''); ?>>

@@ -11,6 +11,7 @@ echo $SITEURL; ?>plugins/massiveAdmin/css/w3-custom.css">
 <div id="Tab6" class="w3-hide w3-container">
 	<div class="w3-container">
 		<form action="#" method="post">
+			<input type="hidden" name="nonce" value="<?php echo htmlspecialchars(MassiveAdminClass::generate_nonce('show_password'), ENT_QUOTES); ?>">
 			<div class="w3-border-bottom w3-padding-32">
 				<label style="padding-right:20px"
 					for=""><?php echo i18n_r('massiveAdmin/SHOWPASSWORDQUESTION'); ?></label>
@@ -31,6 +32,7 @@ echo $SITEURL; ?>plugins/massiveAdmin/css/w3-custom.css">
 
 <?php
 if (isset($_POST['removeForgetPasswordSave'])) {
+	if (!isset($_POST['nonce']) || !MassiveAdminClass::verify_nonce($_POST['nonce'], 'show_password')) { die('CSRF validation failed'); }
 	global $MA;
 	$MA->showPassword();
 

@@ -38,6 +38,7 @@ echo $SITEURL; ?>plugins/massiveAdmin/css/w3-custom.css">
 <div id="Tab2" class="w3-hide w3-container">
 
 	<form id="ownfooterform" action="#" method="POST" enctype="multipart/form-data">
+	<input type="hidden" name="nonce" value="<?php echo htmlspecialchars(MassiveAdminClass::generate_nonce('own_footer'), ENT_QUOTES); ?>">
 		<div class="w3-margin-bottom w3-padding-large w3-center w3-panel w3-gs-main w3-round">
 			<label class="w3-text-white"
 				style="font-weight:600; padding-right:20px"><?php echo i18n_r('massiveAdmin/TURNON'); ?></label>
@@ -221,6 +222,7 @@ echo $SITEURL; ?>plugins/massiveAdmin/css/w3-custom.css">
 
 <?php
 if (isset($_POST['submit'])) {
+	if (!isset($_POST['nonce']) || !MassiveAdminClass::verify_nonce($_POST['nonce'], 'own_footer')) { die('CSRF validation failed'); }
 	$turnon = isset($_POST['turnon']) && $_POST['turnon'] == 'true' ? 'true' : 'false';
 	$ownfootername = $_POST['ownfootername'] ?? '';
 	$ownlogo = $_POST['ownlogo'] ?? '';
@@ -296,7 +298,7 @@ if (isset($_POST['submit'])) {
 	}
 	
 	$finaljson = $massiveOwnFooterFolder . 'OwnFooter.json';
-	file_put_contents($finaljson, $json);
+	file_put_contents($finaljson, $json, LOCK_EX);
 
 	echo ("<meta http-equiv='refresh' content='0'>");
 }
